@@ -9,4 +9,5 @@ public class Farm {
 	private int farmer;
 	private String farmName;
 	private String localCode;
+	private int age;
 }
