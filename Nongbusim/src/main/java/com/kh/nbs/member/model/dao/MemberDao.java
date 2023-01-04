@@ -1,4 +1,4 @@
-package com.kh.nbs.member.model.service;
+package com.kh.nbs.member.model.dao;
 
 public class MemberDao {
 
