@@ -4,4 +4,6 @@ public class AccountController {
   private int name;
   private String age;
   private char what;
+  private String userId;
+
 }
