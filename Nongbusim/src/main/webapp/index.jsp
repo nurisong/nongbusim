@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	git 연동 성공
+
 </body>
 </html>
