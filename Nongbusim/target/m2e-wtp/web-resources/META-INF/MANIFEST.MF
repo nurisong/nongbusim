@@ -1,6 +1,10 @@
 Manifest-Version: 1.0
 <<<<<<< HEAD
+<<<<<<< HEAD
 Built-By: ￪ﾹﾀ￬ﾊﾹ￭ﾘﾜ
+=======
+Built-By: leeyeongjun
+>>>>>>> 1e2307d8f8cd9d137c04d0c5c073c2cb84147601
 =======
 Built-By: SangminLee
 >>>>>>> 7f36f0425b3296b2a8e98d171734e63f7770dc4f
