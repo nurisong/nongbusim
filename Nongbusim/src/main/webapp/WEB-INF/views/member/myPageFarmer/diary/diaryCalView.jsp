@@ -49,8 +49,9 @@
                return year + "년 " + month + "월";
              },
              select: function(arg){
-            	  location.href="${pageContext.request.contextPath}/enrollForm.di"
-            	  console.log(arg);
+            	  var createDate= arg.startStr;
+            	  location.href="${pageContext.request.contextPath}/enrollForm.di?createDate="+createDate;
+            	 
              }
            });
            calendar.render();

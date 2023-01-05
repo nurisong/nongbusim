@@ -94,20 +94,8 @@
 					<table id="diaryEnrollForm">
 						<tr>
 							<td colpan="3">
-								<div>✔시작일</div>
-								<input type="date" required>
-							</td>	
-						</tr>	
-						<tr>
-							<td colpan="3">
-								<div>✔종료일</div>
-								<input type="date" required>
-							</td>	
-						</tr>	
-						<tr>
-							<td colpan="3">
-								<div>✔작성일</div>
-								<input type="date" required>
+								<div>✔날짜</div>
+								<input type="date" required value="${param.createDate }">
 							</td>	
 						</tr>	
 						<tr>
