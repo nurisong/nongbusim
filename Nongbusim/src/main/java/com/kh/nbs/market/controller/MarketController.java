@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MarketController {
 
 	
-	//게시판으로 이동
+	//寃뚯떆�뙋�쑝濡� �씠�룞
 	@RequestMapping("list.mk")
 	public String marketSelectList() {
 		
@@ -17,7 +17,7 @@ public class MarketController {
 	}
 	
 	
-	//게시물상세화면으로 이동
+	//寃뚯떆臾쇱긽�꽭�솕硫댁쑝濡� �씠�룞
 	@RequestMapping("detail.mk")
 	public String marketDetailView() {
 		
