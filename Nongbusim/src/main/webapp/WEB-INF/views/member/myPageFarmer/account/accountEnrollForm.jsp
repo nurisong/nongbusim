@@ -32,7 +32,7 @@
 	   padding: 0 10px;
 	   vertical-align: middle;
 	   border: 1px solid #dddddd;
-	   width: 78%;
+	   width: 50%;
 	   color: #999999;
 	}
 	
@@ -115,9 +115,36 @@
 						<tr>
 							<td colpan="3">
 								<div>✔분류</div>
-								<input type="category" required>
+								<input type="text" name="category" required>
 							</td>	
 						</tr>	
+						<tr>
+							<td colpan="3">
+								<div>✔품목</div>
+								<input type="text" name="goods" required>
+							</td>	
+						</tr>	
+						<tr>
+							<td colpan="3">
+								<div>✔금액</div>
+								<input type="text" id="number" name="amount" required>
+							</td>	
+						</tr>	
+						
+						<tr>
+							<td>					
+								<div class="accountDetail">글 작성하기<br>		
+							</td>			
+						</tr>		
+						<tr>
+							<td>
+								<div class="selectText"> 		
+									<textarea id="textContent" name="textContent" type="text"></textarea>
+								</div>					
+							</td>			
+						</tr>	
+					</table>		
+					<table>
 						<tr>
 							<td>
 								<div class="accountDetail">🎞사진 등록하기<br>
@@ -166,37 +193,37 @@
 								</td>	
 							</td>			
 						</tr>
-					</table>
-					<table>
-							<tr>
-								<td>					
-									<div class="accountDetail">글 작성하기<br>		
-								</td>			
-							</tr>		
-							<tr>
-								<td>
-									<div class="selectText"> 		
-										<textarea id="textContent" name="textContent" type="text"></textarea>
-									</div>					
-								</td>			
-							</tr>			
-							<tr>
-								<td>
-									<div align="center">
+					</table>	
+					<div align="center">
 									<button class="myButton" type="submit">등록하기</button>	
 									<a class="myButton" href="javascript:history.back();">돌아가기</a>	
-									</div>
-								</td>			
-							</tr>
-							<tr>
-								<td>
-									<input type="hidden" name="userNo" value="" >
-								</td>			
-							</tr>
-						</table>
-					</div>			
+					</div>
+					<input type="hidden" name="userNo" value="" >
+							
 			</form>
 	</div>
+	
+	<script>
+	
+	 // input id=number일 경우 숫자 세자리마다 콤마 넣어주기
+		const input = document.querySelector('#number');     
+		input.addEventListener('keyup', function(e) { 
+		    let value = e.target.value;                 
+			value = Number(value.replaceAll(',', ''));
+			if(isNaN(value)) {         //NaN인지 판별
+			    input.value = 0;   
+			 } else {                   //NaN이 아닌 경우
+			    const formatValue = value.toLocaleString('ko-KR');
+			    input.value = formatValue;
+			 }
+		}); 
+	
+	
+	
+	</script>
+	
+	
+	
 </body>
 </body>
 </html>

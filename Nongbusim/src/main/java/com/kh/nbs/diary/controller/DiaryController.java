@@ -24,5 +24,11 @@ public class DiaryController {
 		
 	}
 	
+	@RequestMapping("calView.di")
+	public String diaryCalView() {
+		return "member/myPageFarmer/diary/diaryCalView" ;
+		
+	}
+	
 
 }
