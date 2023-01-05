@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +9,17 @@
 </head>
 <body>
 
-    파일
+    <div id="market_sideA">
+        <select>
+            <option value="농산물"></option>
+            <option value="수산물"></option>
+            <option value="축산물"></option>
+        </select> 
+    </div>
+
+    <div id="">
+    <button>글쓰기</button>
+    </div>
+    
 </body>
 </html>
