@@ -7,7 +7,6 @@
 <html>
   <head>
     <meta charset='utf-8' />
-    <script src='/resources/fullcalendar/dist/index.global.js'></script>
    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.2/index.global.min.js"></script>
     <script>
 
@@ -22,7 +21,9 @@
     </script>
   </head>
   <body>
-    <div id='calendar'></div>
+  <div>
+      <div id='calendar'></div>
+  </div>
   </body>
 
 </html>
