@@ -11,8 +11,8 @@
 	 	<!-- 어떤 DB에 접속할건지 정보 작성 -->
 	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 	 	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-	 	<property name="username" value="SPRING" />
-	 	<property name="password" value="spring" />
+	 	<property name="username" value="NBS" />
+	 	<property name="password" value="NBS" />
 	 </bean>
 	 
 	 <!-- 2단계. MyBatis Spring에서 제공하는 SQL명령어 실행을 위한 도구 등록 -->
@@ -24,7 +24,7 @@
 	 </bean>
 	 
 	 <!-- 3단계. SQL구문 실행을 위한 템플릿을 제공하는 도구 등록 -->
-	 <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+	 <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession" >
 	 	<!-- SQL명령어 실행을 위한 도구에 대한 참조를 설정 -->
 	 	<constructor-arg ref="sqlSessionFactory" />
 	 </bean>

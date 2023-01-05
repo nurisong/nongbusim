@@ -7,8 +7,11 @@ public interface MemberService {
 	// 로그인 (select)
 	Member loginMember(Member m);
 	
-	// 회원가입 (insert)
-	int insertMember(Member m);
+	// 일반 사용자 회원가입 (insert)
+	int userInsertMember(Member m);
+	
+	// 농부 회원가입(insert)
+	int farmerInsertMember(Member m);
 	
 	// 회원 정보 수정 (update)
 	int updateMember(Member m);
