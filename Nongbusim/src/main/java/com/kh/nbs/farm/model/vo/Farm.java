@@ -7,5 +7,6 @@ public class Farm {
 	private String farmName;
 	private String localCode;
 	private String address;
+	private String name;
 }
 
