@@ -8,11 +8,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MarketController {
 
 	
-	//상세화면으로 이동
+	//게시판으로 이동
 	@RequestMapping("list.mk")
-	public String MarketselectList() {
+	public String marketSelectList() {
 		
 		return "market/marketListView";
+		
+	}
+	
+	
+	//게시물상세화면으로 이동
+	@RequestMapping("detail.mk")
+	public String marketDetailView() {
+		
+		return "market/marketDetailView";
+		
+		
 		
 	}
 	
