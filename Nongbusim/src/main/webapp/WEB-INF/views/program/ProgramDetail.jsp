@@ -42,7 +42,7 @@ table th {
             <th>교육 일정</th>
             <td>2023.01.01</td>
             <th>장소</th>
-            <td>제주도 농장</td>
+            <td>제주도 농ssssss장</td>
         </tr>
 
         <tr>
