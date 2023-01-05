@@ -102,3 +102,15 @@ Nongbusim/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 Nongbusim/target/m2e-wtp/web-resources/META-INF/maven/com.kh/nbs/pom.properties
 Nongbusim/target/m2e-wtp/web-resources/META-INF/maven/com.kh/nbs/pom.properties
 Nongbusim/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+<<<<<<< HEAD
+=======
+Nongbusim/src/main/java/com/kh/nbs/farm/model/vo/Farm.java
+Nongbusim/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+Nongbusim/target/m2e-wtp/web-resources/META-INF/maven/com.kh/nbs/pom.properties
+Nongbusim/src/main/java/com/kh/nbs/farm/model/vo/Farm.java
+Nongbusim/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+Nongbusim/target/m2e-wtp/web-resources/META-INF/maven/com.kh/nbs/pom.properties
+Nongbusim/target/m2e-wtp/web-resources/META-INF/maven/com.kh/nbs/pom.properties
+Nongbusim/target/m2e-wtp/web-resources/META-INF/maven/com.kh/nbs/pom.properties
+*.properties
+>>>>>>> 9460e19d760d0ecd1a1b40556e1b505a0923e63f
