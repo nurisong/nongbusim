@@ -34,11 +34,14 @@
             <!-- Heading Row-->
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
                 <div class="col-lg-5">
-                    <!-- Add images to <div class="fotorama"></div> -->
+                    
                     <div class="fotorama">
-                        <img src="https://s.fotorama.io/1.jpg">
-                        <img src="https://s.fotorama.io/2.jpg">
-                    </div>
+                        <div data-img="1.jpg"><img src="https://sitem.ssgcdn.com/06/82/93/item/0000008938206_i1_1100.jpg" style="width: 100%; height: 300px;"></div>
+                        <div data-img="2.jpg"><strong>Two</strong></div>
+                        <div data-img="3.jpg"><em>Three</em></div>
+                      </div>
+
+
                 </div>
                 <div class="col-lg-7">
                     <h1 class="font-weight-bold">금실 딸기 1kg 
@@ -60,36 +63,41 @@
           
             <hr>
 
-            <!-- Content Row-->
-            <div class="row gx-4 gx-lg-5">
-                <div class="col-md-4 mb-5">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title">Card One</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
-                        </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-5">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title">Card Two</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p>
-                        </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-5">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title">Card Three</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
-                        </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
-                    </div>
-                </div>
-            </div>
+           
+            <table id="replyArea" class="table" align="center">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
+                        </th>
+                        <th style="vertical-align:middle"><button class="btn btn-secondary">등록하기</button></th>
+                    </tr>
+                    <tr>
+                        <td colspan="3">댓글(<span id="rcount">3</span>)</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>user02</th>
+                        <td>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ꿀잼</td>
+                        <td>2020-03-12</td>
+                    </tr>
+                    <tr>
+                        <th>user01</th>
+                        <td>재밌어요</td>
+                        <td>2020-03-11</td>
+                    </tr>
+                    <tr>
+                        <th>admin</th>
+                        <td>댓글입니다!!</td>
+                        <td>2020-03-10</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            
+
+
         </div>
 
 </body>
