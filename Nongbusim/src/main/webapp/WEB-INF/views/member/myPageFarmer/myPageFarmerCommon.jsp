@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ include file="../../../common/menubar.jsp" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,8 +30,28 @@
 	  box-sizing: border-box;
 	}
 	
-
+	.menuButton{ 
+	    background-color: #bed655;
+   		color: maroon;
+   		width: 200px;
+   		padding: 5px 10px;
+   		text-align: center;
+   		text-decoration: none;
+   		display: inline-block;
+   		cursor: pointer;
+   		border: none;
+   		
+    }
     
+    .menubutton:hover {background-color: lightgreen}
+
+
+	.menubutton:active {
+	
+	  background-color: #3e8e41;	
+	  box-shadow: 0 5px #666;	
+	  transform: translateY(4px);	
+	}
     
 </style>
 </head>
@@ -48,12 +66,7 @@
 		<button class="menuButton">농장정보등록</button>
 
 	</div>
-	<div class="boardArea" style="width:1000px; height:1000px; border:1px solid green; float:left"  >
-		<h3>가계부 등록</h3>
-		
 
-
-	</div>
     <br>
  	<div class="list-area" align="right">
 
