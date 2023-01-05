@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>농부심</title>
 </head>
 <body>
+	<jsp:include page="WEB-INF/views/common/menubar.jsp" />
 	깃 연동 성공?
 </body>
 </html>
