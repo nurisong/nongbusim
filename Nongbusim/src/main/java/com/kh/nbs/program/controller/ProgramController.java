@@ -14,7 +14,7 @@ public class ProgramController {
 		}
 			
 
-		@RequestMapping("detail.pr")
+		@RequestMapping("detail.pr")//dd
 		public String programDetailView() {
 				
 			return "program/ProgramDetail";
