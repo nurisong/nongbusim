@@ -161,7 +161,7 @@
                 <div class="logo">
                     <div>
                         <!-- 로고 이미지-->
-                        <img src="/resources/images/mainlogo.jpg" width="100" height="40" onclick="mainPage();">
+                        <img src="resources/images/mainLogo.jpg" width="130" height="80" onclick="mainPage();">
                     </div>
 
                     <script>
