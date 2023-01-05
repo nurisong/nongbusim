@@ -10,139 +10,52 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
-    .content {
-        background-color:rgb(247, 245, 245);
-        width:80%;
-        margin:auto;
-    }
-    .innerOuter {
-        border:1px solid lightgray;
-        width:80%;
-        margin:auto;
-        padding:5% 10%;
-        background-color:white;
-    }
-
-    #boardList {text-align:center;}
-    #boardList>tbody>tr:hover {cursor:pointer;}
-
-    #pagingArea {width:fit-content; margin:auto;}
-    
-    #searchForm {
-        width:80%;
-        margin:auto;
-    }
-    #searchForm>* {
-        float:left;
-        margin:5px;
-    }
-    .select {width:20%;}
-    .text {width:53%;}
-    .searchBtn {width:20%;}
+.outer{
+    font-family: 'Pretendard-Regular';
+}
+.main-area{
+    width: 1200px;
+    padding: 50px;
+}
+#insert-btn{
+    float: right;
+}
 </style>
 </head>
 <body>
 
     <jsp:include page="../common/menubar.jsp" />
 
-    <div class="content">
-        <br><br>
-        <div class="innerOuter" style="padding:5% 10%;">
-            <h2>게시판</h2>
-            <br>
-            
-            <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
-            <c:if test="${ not empty sessionScope.loginUser }">
-            	<a class="btn btn-secondary" style="float:right;" href="enrollForm.bo">글쓰기</a>
-            </c:if>
-            
-            <br>
-            <br>
-            <table id="boardList" class="table table-hover" align="center">
-                <thead>
-                    <tr>
-                        <th>글번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>조회수</th>
-                        <th>작성일</th>
-                        <th>첨부파일</th>
-                    </tr>
+    <div class="outer" align="center">
+        <div class="main-area">
+
+            <h1>정보 게시판</h1>
+            <br><br>
+            <button class="btn btn-secondary" id="insert-btn">글작성</button>
+            <br><br><br>
+            <table class="table">
+                <thead class="thead-light" align="center">
+                    <th>no</th>
+                    <th>카테고리</th>
+                    <th>제목</th>
+                    <th>첨부파일</th>
+                    <th>등록일</th>
+                    <th>조회수</th>
                 </thead>
-                <tbody>
-                	<c:forEach var="b" items="${ list }">
-                		<tr>
-                			<td class="bno">${ b.boardNo }</td>
-                			<td>${ b.boardTitle }</td>
-                			<td>${ b.boardWriter }</td>
-                			<td>${ b.count }</td>
-                			<td>${ b.createDate }</td>
-                			<td>
-                				<c:if test="${ not empty b.originName }">★</c:if>
-                			</td>
-                		</tr>
-                	</c:forEach>
+                <tbody align="center">
+                    <tr>
+                        <td>1</td>
+                        <td>보도기사</td>
+                        <td>그런일이 있었답니다</td>
+                        <td>0</td>
+                        <td>2023-01-05</td>
+                        <td>102</td>
+                    </tr>
                 </tbody>
             </table>
-            <br>
-            
-            <script>
-            	$(function(){
-            		$('#boardList>tbody>tr').click(function(){
-            			// location.href = "detail.bo?bno=" + $(this).children().eq(0)
-            			location.href = "detail.bo?bno=" + $(this).children('.bno').text();
-            		})
-            	})
-            </script>
-
-            <div id="pagingArea">
-                <ul class="pagination">
-                	<c:choose>
-                		<c:when test="${ pi.currentPage eq 1 }">
-		                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                		</c:when>
-                		<c:otherwise>
-		                    <li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }">Previous</a></li>
-                		</c:otherwise>
-                	</c:choose>
-					
-					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-	                    <li class="page-item"><a class="page-link" href="list.bo?cpage=${p}">${ p }</a></li>
-					</c:forEach>
-					
-					<c:choose>
-						<c:when test="${ pi.currentPage eq pi.maxPage }">
-		                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-						</c:when>
-						<c:otherwise>
-		                    <li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }">Next</a></li>
-						</c:otherwise>					
-					</c:choose>
-                </ul>
-            </div>
-
-            <br clear="both"><br>
-
-            <form id="searchForm" action="" method="get" align="center">
-                <div class="select">
-                    <select class="custom-select" name="condition">
-                        <option value="writer">작성자</option>
-                        <option value="title">제목</option>
-                        <option value="content">내용</option>
-                    </select>
-                </div>
-                <div class="text">
-                    <input type="text" class="form-control" name="keyword">
-                </div>
-                <button type="submit" class="searchBtn btn btn-secondary">검색</button>
-            </form>
-            <br><br>
         </div>
-        <br><br>
-
     </div>
 
-    <jsp:include page="../common/footer.jsp" />
 
 </body>
 </html>
