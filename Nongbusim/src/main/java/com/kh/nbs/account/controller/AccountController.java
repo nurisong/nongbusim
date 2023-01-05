@@ -19,6 +19,12 @@ public class AccountController {
 	}
 	
 	
+	@RequestMapping("enrollForm.ac")
+	public String diaryEnrollForm() {
+		return "member/myPageFarmer/account/accountEnrollForm" ;
+		
+	}
+	
 	
 		
 	
