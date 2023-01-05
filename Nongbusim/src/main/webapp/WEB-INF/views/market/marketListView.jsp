@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>농부심</title>
+<title>농 작 물 거 래 게 시 판</title>
 </head>
 <body>
-	<jsp:include page="WEB-INF/views/common/menubar.jsp" />
-	깃 연동 성공?
+
+    파일
 </body>
 </html>
