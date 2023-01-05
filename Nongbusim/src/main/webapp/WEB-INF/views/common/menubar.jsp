@@ -189,7 +189,7 @@
                 <ul class="user-list">
                     <c:choose>
                     	<c:when test="${ empty loginUser }">
-                    		<li class="logout"><a href="">로그인</a></li>
+                    		<li class="logout"><a href="login.me">로그인</a></li>
                     	</c:when>
                     	<c:otherwise>
                     		<c:choose>
