@@ -8,6 +8,6 @@
 </head>
 <body>
 	<jsp:include page="WEB-INF/views/common/menubar.jsp" />
-	깃 연동 성공?
+	깃 연동 성공?!
 </body>
 </html>
