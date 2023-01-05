@@ -59,28 +59,13 @@
 <div id="myPage">
 	<h3>마이페이지</h3>
 	<div class="menuArea"  style="width:200px; height:150px; border:1px solid red; float:left;">
-		<button class="menuButton">내가 작성한 게시글</button><br>
-		<button class="menuButton">회원정보 수정</button><br>
-		<button class="menuButton">영농일지</button><br>
-		<button class="menuButton">농작물 입출금</button><br>
-		<button class="menuButton">농장정보등록</button>
+		<a class="menuButton">내가 작성한 게시글</a><br>
+		<a class="menuButton">회원정보 수정</a><br>
+		<a class="menuButton" href="<%=contextPath%>/calender.di">영농일지</a><br>
+		<a class="menuButton">농작물 입출금</a><br>
+		<a class="menuButton">농장정보등록</a>
 
 	</div>
-
-    <br>
- 	<div class="list-area" align="right">
-
-    </div>
-    <br><br>
-    <div class="products" align="center" id="list">
-    	
-       <div class="clearfix"></div>
-    </div>
-    
-
-       
-    </script>
-
     
     
 </div>

@@ -17,4 +17,12 @@ public class DiaryController {
 		return "member/myPageFarmer/diary/diaryListView" ;
 		
 	}
+	
+	@RequestMapping("enrollForm.di")
+	public String diaryEnrollForm() {
+		return "member/myPageFarmer/diary/diaryEnrollForm" ;
+		
+	}
+	
+
 }
