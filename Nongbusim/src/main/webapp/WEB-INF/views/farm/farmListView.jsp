@@ -18,11 +18,15 @@
     .outer{
         padding: 50px;
         width: 100%;
+        font-family: 'Pretendard-Regular';
+    }
+    .farm-list-area{
+        width: 900px;
     }
     #farm-list-title{
         /* float: left; */
         margin-right: 500px;
-        font-family: 'Pretendard-Regular';
+        margin-bottom: 50px;
     }
     .local-area{
         background-color: rgb(235, 235, 235);
@@ -44,7 +48,7 @@
         width: 23%;
     }
     #all-select-btn{
-        margin-right: 500px;
+        margin-right: 600px;
         margin-bottom: 20px;
     }
     .farm-main-title>h3{
@@ -53,8 +57,7 @@
         margin-top: 20px;
     }
     .farm-main-title{
-        margin-top: 20px;
-        margin-right: 450px;
+        margin: 20px 490px 20px 0px;
     }
     .farm-info-table{
         width: 800px;
@@ -78,7 +81,6 @@
         display: inline;
     }
     .farm-info-table h3{
-        font-family: 'Pretendard-Regular';
         font-weight: bold;
     }
     .farm-info-icon{
@@ -177,9 +179,9 @@
                                     </dd>
                                     <dt>판매중인 작물<br></dt>
                                     <dd>
-                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
-                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
-                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
+                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60">
+                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60">
+                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60">
                                     </dd>
                                 </dl>
                             </td>
