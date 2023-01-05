@@ -17,15 +17,9 @@
         </select> 
     </div>
 
-    <div id="market_content">
+    <div id="">
     <button>글쓰기</button>
     </div>
     
-
-    <div id="market_sideB">
-        
-
-    </div>
-
 </body>
 </html>
