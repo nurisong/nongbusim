@@ -66,6 +66,7 @@
   <body>
   <div class="calArea">
       <div id='calendar'></div>
+      <a href="list.di">모아보기</a>
   </div>
   </body>
 
