@@ -53,6 +53,24 @@
             	  location.href="${pageContext.request.contextPath}/enrollForm.di?createDate="+createDate;
             	 
              }
+             
+             eventSources: [{
+         		events: function(info, successCallback, failureCallback) {
+         			$.ajax({
+         				url: 'calList.di',
+         				type: 'POST',
+         				dataType: 'json',
+         				data: {
+         					start : moment(info.startStr).format('YYYY-MM-DD')
+         				},
+         				success: function(data) {
+         					successCallback(data);
+         				}
+         			});
+         		}
+         	}]
+             
+             
            });
            calendar.render();
       });
