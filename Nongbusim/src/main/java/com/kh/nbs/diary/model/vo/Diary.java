@@ -1,5 +1,8 @@
 package com.kh.nbs.diary.model.vo;
 
+import lombok.Data;
+
+@Data
 public class Diary {
 
 	private int memNo;

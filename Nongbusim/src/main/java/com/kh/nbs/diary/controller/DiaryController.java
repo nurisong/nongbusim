@@ -14,7 +14,7 @@ public class DiaryController {
 
 	@RequestMapping("list.di")
 	public String diaryList() {
-		return "member/myPageFarmer/diaryListView" ;
+		return "member/myPageFarmer/diary/diaryListView" ;
 		
 	}
 }
