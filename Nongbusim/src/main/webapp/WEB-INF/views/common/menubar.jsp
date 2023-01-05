@@ -159,7 +159,7 @@
                 <div class="logo">
                     <div>
                         <!-- 로고 이미지-->
-                        <img src="resources/images/mainLogo.jpg" width="130" height="80" onclick="mainPage();">
+                        <img src="resources/images/mainLogo.jpg" width="120" height="70" onclick="mainPage();">
                     </div>
 
                     <script>
@@ -175,13 +175,12 @@
                     <li><a href="">공지/정보</a></li>
                     
                     <!-- 가짜 검색창 -->
-                    <li class="search-form" style="margin-left: 400px;">
+                    <!-- <li class="search-form" style="margin-left: 400px;">
                         <div class="inner">
-                            	<!-- 돋보기 이미지 -->	
                             <img src="https://w7.pngwing.com/pngs/870/689/png-transparent-computer-icons-desktop-illustrations-miscellaneous-glass-desktop-wallpaper.png" alt="" width="16" height="16">
                             <span class="search-text">여기에 검색해보세요.</span>
                         </div>
-                    </li>
+                    </li> -->
                     
                 </ul>
             </section>
