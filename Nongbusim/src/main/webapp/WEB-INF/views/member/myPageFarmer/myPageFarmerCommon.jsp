@@ -61,8 +61,8 @@
 	<div class="menuArea"  style="width:200px; height:150px; border:1px solid red; float:left;">
 		<a class="menuButton">내가 작성한 게시글</a><br>
 		<a class="menuButton">회원정보 수정</a><br>
-		<a class="menuButton" href="<%=contextPath%>/calender.di">영농일지</a><br>
-		<a class="menuButton">농작물 입출금</a><br>
+		<a class="menuButton" href="calender.di">영농일지</a><br>
+		<a class="menuButton" href="calender.ac">농작물 입출금</a><br>
 		<a class="menuButton">농장정보등록</a>
 
 	</div>
