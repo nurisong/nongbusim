@@ -7,6 +7,6 @@
 <title>농장 목록</title>
 </head>
 <body>
-	작업을ㄹ 해요 작업을
+	
 </body>
 </html>
