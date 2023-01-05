@@ -12,5 +12,10 @@ public class FarmController {
 		return "farm/farmListView";
 		
 	}
+	
+	@RequestMapping("detail.fm")
+	public String farmDetailView() {
+		return "farm/farmDetailView";
+	}
 
 }

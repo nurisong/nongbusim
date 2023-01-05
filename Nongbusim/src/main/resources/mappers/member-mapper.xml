@@ -4,4 +4,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 
+	<!-- 일반 사용자 회원가입 -->
+	<insert id="userInsertMember" parameterType="member">
+		INSERT INTO MEMBER(MEM_ID, MEM_PWD, NAME, NICKNAME, PHONE, GENDER, EMAIL)
+		VALUES(#{memId}, #{memPwd}, #{name}, #{nickName}, #{phone}, #{gender}, #{email})
+	</insert>
 </mapper>
