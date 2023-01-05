@@ -5,8 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>농장 목록</title>
+<style></style>
 </head>
 <body>
-	
+
+    <jsp:include page="../common/menubar.jsp" />
+
+	<div class="outer" align="center">
+
+        
+
+
+
+    </div>
 </body>
 </html>

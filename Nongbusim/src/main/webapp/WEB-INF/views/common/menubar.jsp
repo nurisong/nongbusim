@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<% 
-	String contextPath = request.getContextPath();
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -171,7 +169,7 @@
                     </script>
                 </div>
                 <ul class="landing-list">
-                    <li><a href="" id="sub-menu-click">농장/체험</a></li>
+                    <li><a href="farm.list" id="sub-menu-click">농장/체험</a></li>
                     <li><a href="" id="store-menu-click" class="goStore">농작물거래</a></li>
                     <li><a href="" id="community-menu-click">농부게시판</a></li>
                     <li><a href="">공지/정보</a></li>
