@@ -1,9 +1,13 @@
 Manifest-Version: 1.0
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 Built-By: ￪ﾹﾀ￬ﾊﾹ￭ﾘﾜ
 =======
 Built-By: user1
 >>>>>>> 9460e19d760d0ecd1a1b40556e1b505a0923e63f
+=======
+Built-By: ￪ﾹﾀ￬ﾊﾹ￭ﾘﾜ
+>>>>>>> Stashed changes
 Build-Jdk: 1.8.0_342
 Created-By: Maven Integration for Eclipse
 
