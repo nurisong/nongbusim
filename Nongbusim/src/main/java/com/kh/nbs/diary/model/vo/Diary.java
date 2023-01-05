@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class Diary {
 
-	private int memNo;
 	private int diaryNo;
 	private String startDate;
 	private String endDate;
@@ -13,6 +12,7 @@ public class Diary {
 	private String goods;
 	private String content;
 	private String status;
+	private int memNo;
 	
 	
 }
