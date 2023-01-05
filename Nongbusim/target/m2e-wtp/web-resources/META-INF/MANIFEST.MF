@@ -1,5 +1,20 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: user1
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+Built-By: dldud
+=======
+Built-By: SangminLee
+>>>>>>> a5401b600a84d3c3ff2c3e370e85b5aba86d3c89
+=======
+Built-By: noooo
+=======
+Built-By: SangminLee
+>>>>>>> c6e857ce18b70fa61b8079ffe665c39de5612c6e
+>>>>>>> f5698fc1bc08ae95c8e1582980defc88847abc48
+>>>>>>> 9382e02b5c7dd73c2a2ec2cc62d02e974de2babe
 Build-Jdk: 1.8.0_342
 Created-By: Maven Integration for Eclipse
 
