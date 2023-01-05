@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MarketController {
 
 	
-	
+	//상세화면으로 이동
 	@RequestMapping("list.mk")
 	public String MarketselectList() {
 		
