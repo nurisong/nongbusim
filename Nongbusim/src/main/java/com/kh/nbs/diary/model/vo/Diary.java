@@ -12,6 +12,4 @@ public class Diary {
 	private String status;
 	
 	
-	private int dummy;
-	
 }
