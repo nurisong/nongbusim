@@ -8,7 +8,9 @@ public class FarmController {
 	
 	@RequestMapping("list.fm")
 	public String farmListView() {
+		
 		return "farm/farmListView";
+		
 	}
 
 }
