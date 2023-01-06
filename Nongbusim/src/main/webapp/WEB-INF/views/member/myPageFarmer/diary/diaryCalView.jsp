@@ -32,7 +32,7 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
         	 headerToolbar: {
-        	        left: 'prev,next today',
+        	        left: 'prev,next endDate',
         	        center: 'title',
         	        right: 'dayGridMonth,timeGridWeek,timeGridDay'
         	      },
@@ -40,7 +40,6 @@
         	 initialView: "dayGridMonth",
         	 slotMinTime: '09:00',
              slotMaxTime: '19:00',
-             
              selectable: true,
              firstDay: 1,
              titleFormat: function (date) {
@@ -50,34 +49,37 @@
              },
              select: function(arg){
             	  var createDate= arg.startStr;
-            	  location.href="${pageContext.request.contextPath}/enrollForm.di?createDate="+createDate;
-            	 
+            	  // fullCalender에서 날짜를 드래그하여 선택시
+            	  // arg.endStr값은 마지막 드래그날짜 +1
+            	  // 실제 드래그 마지막날을 선택하려면 arg.endStr 보다 하루 빠른 날짜로 설정해야함
+            	  
+            	 // 실제 드래그 마지막날 변수(endDate)에 담기         	 
+
+ 
+				 var endStr = arg.endStr;
+				 var split = endStr.split('-');
+				
+				 var endDate = new Date(split[0], split[1], split[2]-1);
+				 
+				 
+				 var endDate2 = endDate.getFullYear() +
+			  		'-' + ( (endDate.getMonth()+1) < 9 ? "0" + (endDate.getMonth()+1) : (endDate.getMonth()) )+
+			  		'-' + ( (endDate.getDate()) < 9 ? "0" + (endDate.getDate()) : (endDate.getDate()) );
+				 
+				 
+				 location.href="${pageContext.request.contextPath}/enrollForm.di?createDate="+createDate+"&endDate="+endDate2;
+ 
+ 				
              }
              
-             eventSources: [{
-         		events: function(info, successCallback, failureCallback) {
-         			$.ajax({
-         				url: 'calList.di',
-         				type: 'POST',
-         				dataType: 'json',
-         				data: {
-         					start : moment(info.startStr).format('YYYY-MM-DD')
-         				},
-         				success: function(data) {
-         					successCallback(data);
-         				}
-         			});
-         		}
-         	}]
-             
+
              
            });
            calendar.render();
       });
       
       
-   
-      
+      	
 
     </script>
   </head>

@@ -35,7 +35,7 @@ public class DiaryController {
 		
 	}
 	
-	 @GetMapping("/calList.di") //ajax 데이터 전송 URL
+	 @GetMapping("calList.di") //ajax 데이터 전송 URL
 	    public @ResponseBody List<Map<String, Object>> getEvent(){
 			  return diaryService.selectCalList();
 	    }

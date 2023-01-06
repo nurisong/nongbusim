@@ -94,10 +94,34 @@
 					<table id="diaryEnrollForm">
 						<tr>
 							<td colpan="3">
-								<div>✔날짜</div>
+								<div>✔시작일</div>
 								<input type="date" required value="${param.createDate }">
 							</td>	
-						</tr>	
+						</tr>
+						<tr>
+							<td colpan="3">
+								<div>✔종료일</div>
+								<input type="date" required value="${param.endDate }">								
+								
+<!-- 								
+						<c:choose>							
+							<c:when test="${not empty param.endDate}">		
+								<input type="date" required value="${param.endDate }">
+							</c:when>
+							<c:otherwise>
+								<input type="date" required value="${param.createDate }">
+							</c:otherwise>
+						</c:choose>
+ -->						
+							</td>	
+						</tr>
+						<tr>
+							<td colpan="3">
+								<div>✔등록일</div>
+								<input id="enrollDate" type="date" disabled>
+							</td>	
+						</tr>
+						
 						<tr>
 							<td>
 								<div class="diaryDetail">🎞사진 등록하기<br>
@@ -177,6 +201,11 @@
 					</div>			
 			</form>
 	</div>
+	
+	<script>
+		// "등록일(id=enrollDate)" 날짜를 현재날짜로 설정
+			document.getElementById('enrollDate').valueAsDate = new Date();
+	</script>
 </body>
 </body>
 </html>
