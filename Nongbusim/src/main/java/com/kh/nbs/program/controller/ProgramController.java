@@ -34,9 +34,8 @@ public class ProgramController {
 		@RequestMapping("register.pr")//dd
 		public String programRegister(Program p, HttpSession session, Model model) {
 				
-			int memNo = 1;
 			
-			programService.programRegister(p,memNo);
+			programService.programRegister(p);
 			return "program/ProgramRegister";
 			
 			

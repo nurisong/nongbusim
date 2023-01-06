@@ -11,6 +11,6 @@ public interface ProgramService {
 
 	ArrayList<Program> selectList(PageInfo pi);
 
-	int programRegister(Program p, int memNo);
+	int programRegister(Program p);
 
 }
