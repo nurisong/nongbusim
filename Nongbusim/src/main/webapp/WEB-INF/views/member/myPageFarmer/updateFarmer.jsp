@@ -4,26 +4,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Insert title here</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<title>일반사용자 회원가입</title>
-    <style>
-      .form-group{
-        width: 30%;
-      }
-    </style>
 </head>
+<style>
+	.form-group{
+		width: 30%;
+	}
+</style>
 <body>
-
 <!-- 메뉴바 -->
-<jsp:include page="../common/menubar.jsp"/>
 
 <br>
-<h3>회원가입</h3>
+<h3>회원정보 수정</h3>
   <hr>
-    <form action="userInsert.me" id="form-div" method="post">
+    <form action="" id="form-div" method="post">
       <h4>기본정보</h4>
         <div class="form-group">
           <label for="name">* 성명 :</label>
@@ -39,11 +37,11 @@
             <input type="password" class="form-control" placeholder="비밀번호는 8~18자리의 영문, 숫자, 특수문자 3종류 이상 혼합해야 합니다." name="memPwd">
         </div>
           <div class="form-group">
-            <label for="password">* 비밀번호 확인 :</label>
+            <label for="pwdChk">* 비밀번호 확인 :</label>
             <input type="password" class="form-control" placeholder="비밀번호는 8~18자리의 영문, 숫자, 특수문자 3종류 이상 혼합해야 합니다." name="memPwdChk">
         </div>
         <div class="form-group">
-          <label for="pwd"> 성별 :</label>
+          <label for="gender">* 성별 :</label>
           <input type="radio" id="Female" value="F" name="gender">여자
           <input type="radio" id="Male" value="M" name="gender">남자
         </div>
@@ -56,38 +54,22 @@
             <input type="text" class="form-control" name="nickName">
         </div>
         <div class="form-group">
-          <label for="phone">전화번호  :</label>
+          <label for="phone">* 전화번호  :</label>
           <input type="text" class="form-control" placeholder="-도 입력하세요" name="phone">
+      </div>
+
+      <h4>영농정보</h4>
+      <hr>
+      <div class="form-group">
+        <label for="farmerCode">* 농부코드 :</label>
+        <input type="text" class="form-control" name="farmerCode">
+      </div>
+      <div class="form-group">
+        <label for="career">* 영농경력  :</label>
+        <input type="text" class="form-control" placeholder="년월일을 적어주세요" name="career">
       </div>
         <button type="submit" class="btn btn-success">확인</button>
         <button type="button" class="btn btn-secondary">취소</button>
       </form>
-      
-      
-      <script>
-	      function idCheck(){
-	      	$memId = $('#form-div input[name=memId]');
-	      			
-					$.ajax({
-			            url : 'idCheck.me',
-			            data : {checkId : $('#memId').val()},
-			            success : function(result){
-				           if(result == 'NNNNN'){
-				            	alert('이미 존재하거나 탈퇴한 회원의 아이디입니다.');
-				            	$memId.focus();
-				           } else {
-				            	alert('사용가능한 아이디입니다.');
-				           }
-			            },
-			            error : function(){
-			            	console.log("비동기식 요청 실패");
-			            },
-			            	complete : function(){
-			            	console.log('아이디 중복체크');
-			            }
-			         })
-			         
-	    	}
-      </script>
 </body>
 </html>

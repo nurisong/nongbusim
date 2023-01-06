@@ -4,26 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<title>일반사용자 회원가입</title>
-    <style>
-      .form-group{
-        width: 30%;
-      }
-    </style>
+<title>Insert title here</title>
 </head>
 <body>
-
 <!-- 메뉴바 -->
-<jsp:include page="../common/menubar.jsp"/>
+
 
 <br>
-<h3>회원가입</h3>
+<h3>회원정보 수정</h3>
   <hr>
-    <form action="userInsert.me" id="form-div" method="post">
+    <form action="" id="form-div" method="post">
       <h4>기본정보</h4>
         <div class="form-group">
           <label for="name">* 성명 :</label>
@@ -62,32 +52,5 @@
         <button type="submit" class="btn btn-success">확인</button>
         <button type="button" class="btn btn-secondary">취소</button>
       </form>
-      
-      
-      <script>
-	      function idCheck(){
-	      	$memId = $('#form-div input[name=memId]');
-	      			
-					$.ajax({
-			            url : 'idCheck.me',
-			            data : {checkId : $('#memId').val()},
-			            success : function(result){
-				           if(result == 'NNNNN'){
-				            	alert('이미 존재하거나 탈퇴한 회원의 아이디입니다.');
-				            	$memId.focus();
-				           } else {
-				            	alert('사용가능한 아이디입니다.');
-				           }
-			            },
-			            error : function(){
-			            	console.log("비동기식 요청 실패");
-			            },
-			            	complete : function(){
-			            	console.log('아이디 중복체크');
-			            }
-			         })
-			         
-	    	}
-      </script>
 </body>
 </html>

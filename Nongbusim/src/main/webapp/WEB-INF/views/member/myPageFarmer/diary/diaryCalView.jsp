@@ -71,15 +71,48 @@
 				 location.href="${pageContext.request.contextPath}/enrollForm.di?startDate="+startDate+"&endDate="+endDate2;
  
  				
-             }
+             },
              
+             events: function(start, end,callback){
+				var mydata = {
+                    action: "fw_ajax_callback",
+                    subaction: "get_myappointments",
 
+                };
+
+         		$.ajax({
+         			type: "POST",
+         			dataType: "json",
+         			url: "selectEventList.di",
+         			cache: false,
+         			async: false,
+         			success: function(appointments) {
+         			   var events = [];
+                       if(appointments!=null){
+                           $.map( appointments, function( r ) {
+                               events.push({
+                                   title: r.title,
+                                   start: r.start,
+                                   end: r.start
+                               });
+                           });
+                       }
+         				callback(events);
+         			}
+         		});
+         	},
+         	
+         	eventRender: function (event, element, icon) {
+         		if(event.Score != '' && typeof event.Score  !== "undefined"){
+         			element.find(".fc-title").append("<br/><b>"+event.Score+"</b>");
+         		}
+         	},
              
            });
            calendar.render();
       });
       
-      
+     
       	
 
     </script>
