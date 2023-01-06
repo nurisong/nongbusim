@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.nbs.common.model.vo.PageInfo;
+import com.kh.nbs.farm.model.vo.Farm;
 import com.kh.nbs.program.model.dao.ProgramDao;
 import com.kh.nbs.program.model.vo.Program;
 
@@ -34,6 +35,11 @@ public class ProgramServiceImpl implements ProgramService {
 	public int programRegister(Program p) {
 		
 		return programDao.programRegister(sqlSession,p);
+	}
+
+	@Override
+	public ArrayList<Farm> selectFarmList(int memNo) {
+		return programDao.selectFarmList(sqlSession,memNo);
 	}
 	
 }

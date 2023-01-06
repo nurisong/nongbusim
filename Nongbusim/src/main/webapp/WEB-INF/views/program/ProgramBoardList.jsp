@@ -131,21 +131,10 @@
                            <td><button>자세히보기</button></td>
                            <td>*</td>
                     	</tr>	
-                    
-                    	
-                    	
-                    	
-                    	
-                    	
-                    	
-                    	
                     </c:forEach>
                     
                 </tbody>
             </table>
-
-
-
             </div>
         </div>
         
@@ -178,11 +167,6 @@
                 		</c:otherwise>
                 		
                 	</c:choose>
-                	
-          
-                   
-                   
-         
                 </ul>
             </div>
 
