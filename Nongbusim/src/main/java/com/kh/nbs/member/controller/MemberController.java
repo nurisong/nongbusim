@@ -29,7 +29,7 @@ public class MemberController {
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {
 			
 			session.setAttribute("loginUser", loginUser);
-			mv.setViewName("redirect:/");
+			mv.setViewName("member/login");
 			
 		} else {
 			mv.addObject("errorMsg", "로그인 실패").setViewName("common/errorPage");

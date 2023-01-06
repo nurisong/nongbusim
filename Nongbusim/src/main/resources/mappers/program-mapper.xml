@@ -20,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</resultMap>
 
+<<<<<<< HEAD
 </mapper>
 
 
@@ -56,3 +57,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 </insert>
  
+=======
+</mapper>
+>>>>>>> 43e80691e50c9e01b657bdb17e9b4122309598dd
