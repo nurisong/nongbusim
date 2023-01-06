@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.nbs.common.model.vo.Recomment" alias="recomment" />
 		<typeAlias type="com.kh.nbs.diary.model.vo.Diary" alias="diary" />
 		<typeAlias type="com.kh.nbs.farm.model.vo.Farm" alias="farm" />
-		<typeAlias type="com.kh.nbs.farm.model.vo.Info" alias="info" />
+		<typeAlias type="com.kh.nbs.infoBoard.model.vo.Info" alias="info" />
 		<typeAlias type="com.kh.nbs.market.model.vo.Market" alias="market" />
 		<typeAlias type="com.kh.nbs.member.model.vo.Member" alias="member" />
 		<typeAlias type="com.kh.nbs.program.model.vo.Program" alias="program" />
