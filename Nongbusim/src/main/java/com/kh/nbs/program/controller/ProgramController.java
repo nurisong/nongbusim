@@ -1,10 +1,20 @@
 package com.kh.nbs.program.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kh.nbs.program.model.service.ProgramService;
+import com.kh.nbs.program.model.vo.Program;
 
 @Controller
 public class ProgramController {
+	
+	@Autowired
+	private ProgramService programService;
 
 		@RequestMapping("list.pr")
 		public String programListView() {
@@ -22,8 +32,10 @@ public class ProgramController {
 		}
 		
 		@RequestMapping("register.pr")//dd
-		public String programRegisterView() {
+		public String programRegister(Program p, HttpSession session, Model model) {
 				
+			programService.programRegister(p);
+			
 			return "program/ProgramRegister";
 			
 		}
