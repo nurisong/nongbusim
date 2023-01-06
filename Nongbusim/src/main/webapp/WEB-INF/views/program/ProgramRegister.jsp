@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>프로그램 등록</title>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
 table td{
 
@@ -37,8 +38,10 @@ text-align: center;
 </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp" />
 <div align="center">
 
+	<br><br>
    <h1>교육 프로그램 등록</h1>
       <form action="">
          <table border="1">

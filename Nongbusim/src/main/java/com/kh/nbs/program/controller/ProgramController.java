@@ -20,6 +20,14 @@ public class ProgramController {
 			return "program/ProgramDetail";
 			
 		}
+		
+		@RequestMapping("register.pr")//dd
+		public String programRegisterView() {
+				
+			return "program/ProgramRegister";
+			
+		}
+			
 			
 			
 		
