@@ -27,4 +27,10 @@ public class MarketController {
 		
 	}
 	
+	//게시물 작성화면으로 이동
+	@RequestMapping("insertForm.mk")
+	public String marketInsertForm() {
+		return "market/marketInsertForm";
+	}
+	
 }
