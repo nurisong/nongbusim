@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 일반 사용자 회원가입 -->
 	<insert id="userInsertMember" parameterType="member">
-		INSERT INTO MEMBER(MEM_ID, MEM_PWD, NAME, NICKNAME, PHONE, GENDER, EMAIL)
-		VALUES(#{memId}, #{memPwd}, #{name}, #{nickName}, #{phone}, #{gender}, #{email})
+		INSERT INTO MEMBER(MEM_NO, MEM_ID, MEM_PWD, NAME, NICKNAME, PHONE, GENDER, EMAIL, ENROLL_DATE, MEM_STATUS)
+		VALUES(SEQ_MNO.NEXTVAL, #{memId}, #{memPwd}, #{name}, #{nickName}, #{phone}, #{gender}, #{email}, SYSDATE, 'Y')
 	</insert>
 </mapper>
