@@ -11,6 +11,6 @@ public interface ProgramService {
 
 	ArrayList<Program> selectList(PageInfo pi);
 
-	int insertBoard(Program p);
+	int programRegister(Program p);
 
 }

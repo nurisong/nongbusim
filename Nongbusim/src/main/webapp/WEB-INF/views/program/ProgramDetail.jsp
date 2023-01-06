@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>프로그램 상세정보</title>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
 
 table{
