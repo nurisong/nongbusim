@@ -16,4 +16,5 @@ public class Member {
 	private String enrollDate;
 	private char memStatus;
 	private int farmerCode;
+	private String career;
 }
