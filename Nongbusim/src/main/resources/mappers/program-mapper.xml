@@ -19,12 +19,3 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 </mapper>
-
-
-<!-- <insert id="registerProgram" parameterType="program">
-
-
-
-
-</insert>
- -->
