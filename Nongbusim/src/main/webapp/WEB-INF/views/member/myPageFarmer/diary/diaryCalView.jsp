@@ -64,7 +64,7 @@
 				 
 				// 생성된 date객체를 YYYY/mm/dd 형식으로 변환
 				 var endDate2 = endDate.getFullYear() +
-			  		'-' + ( (endDate.getMonth()+1) < 9 ? "0" + (endDate.getMonth()+1) : (endDate.getMonth()) )+
+			  		'-' + ( (endDate.getMonth()) < 9 ? "0" + (endDate.getMonth()) : (endDate.getMonth()) )+
 			  		'-' + ( (endDate.getDate()) < 9 ? "0" + (endDate.getDate()) : (endDate.getDate()) );
 				 
 				 // startDate와 endDate 넘기기
