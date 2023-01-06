@@ -11,6 +11,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
+<!-- 메뉴바 -->
+<jsp:include page="../common/menubar.jsp"/>
+
+<br>
 <h3>회원 로그인</h3>
 <hr>
 <form action="login.me" method="post">

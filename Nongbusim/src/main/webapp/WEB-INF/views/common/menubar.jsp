@@ -190,15 +190,15 @@
                 <ul class="user-list">
                     <c:choose>
                     	<c:when test="${ empty loginUser }">
-                    		<li class="logout"><a href="login.me">로그인</a></li>
+                    		<li class="logout"><a href="loginForm.me">로그인</a></li>
                     	</c:when>
                     	<c:otherwise>
                     		<c:choose>
-                    			<c:when test="${ loginUser.userStatus eq 'A' }">
+                    			<c:when test="${ loginUser.memStatus eq 'A' }">
                     				 <li class="username"><a href="">관리자페이지 ></a></li>
                     			</c:when>
                     			<c:otherwise>
-                    				<li class="username"><a href="">${ loginUser.userName } 님</a> ></li>
+                    				<li class="username"><a href="">${ loginUser.memName } 님</a> ></li>
                     			</c:otherwise>
                     		</c:choose>
                     		<li class="logout"><a href="logout.me">로그아웃</a></li>
@@ -207,9 +207,6 @@
                     </c:choose>
                         
                     <script>
-                        function loginPage() {
-                            location.href = "loginPage.me";
-                        };
 
                         function adminPage() {
                             location.href = "views/admin/aSidebar.jsp";

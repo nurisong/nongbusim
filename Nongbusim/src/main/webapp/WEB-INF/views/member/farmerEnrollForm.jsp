@@ -16,6 +16,10 @@
 	}
 </style>
 <body>
+<!-- 메뉴바 -->
+<jsp:include page="../common/menubar.jsp"/>
+
+<br>
 <h3>회원가입</h3>
   <hr>
     <form action="farmerInsert.me" id="form-div" method="post">

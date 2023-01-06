@@ -21,6 +21,11 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
+	@RequestMapping("loginForm.me")
+	public String loginForm() {
+		return "member/loginForm";
+	}
+	
 	@RequestMapping("login.me")
 	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session) {
 		
@@ -29,13 +34,27 @@ public class MemberController {
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {
 			
 			session.setAttribute("loginUser", loginUser);
-			mv.setViewName("member/login");
+			mv.setViewName("redirect:/");
 			
 		} else {
 			mv.addObject("errorMsg", "로그인 실패").setViewName("common/errorPage");
 		}
 		return mv;
 	}
+	
+//	@RequestMapping("login.me")
+//	public String loginMember(Member m, Model model, HttpSession session) {
+//		Member loginUser = memberService.loginMember(m);
+//		
+//		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {
+//			session.setAttribute("loginUser", loginUser);
+//			return "redirect:/";
+//		} else {
+//			model.addAttribute("errorMsg", "에러발생");
+//			return "common/errorPage";
+//		}
+//	}
+	
 	
 	@RequestMapping("logout.me")
 	public String logoutMember(HttpSession session) {
@@ -94,7 +113,10 @@ public class MemberController {
 		}
 	}
 	
-	
+//	@RequestMapping("myPageFarmer.me")
+//	public String myPage() {
+//		return "member/myPageFarmerCommon";
+//	}
 	
 	
 	
