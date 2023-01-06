@@ -19,6 +19,11 @@
 #insert-btn{
     float: right;
 }
+
+#searchForm>div{
+    float:left;
+}
+
 </style>
 </head>
 <body>
@@ -30,8 +35,30 @@
 
             <h1>게시판</h1>
             <br><br>
+            
             <button class="btn btn-secondary" id="insert-btn">글작성</button>
+            <br><br>
+            
+            <!-- 검색 바 -->
+            <form id="searchForm" action="" method="get" align="center">
+                <div class="select">
+                    <select class="custom-select" name="condition">
+                        <option value="all">전체</option>
+                        <option value="writer">작성자</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                    </select>
+                </div>
+                <div class="text">
+                    <input type="text" class="form-control" name="keyword">
+                </div>
+                <div class="searchbutton">
+                    <button type="submit" class="searchBtn btn btn-secondary">검색</button>
+                </div>
+            </form>
             <br><br><br>
+            
+            <!-- 검색된 테이블 -->
             <table class="table">
                 <thead class="thead-light" align="center">
                     <th>번호</th>
@@ -52,6 +79,9 @@
                     </tr>
                 </tbody>
             </table>
+            
+            
+            
         </div>
     </div>
 
