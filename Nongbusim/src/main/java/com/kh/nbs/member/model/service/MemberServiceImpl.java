@@ -18,7 +18,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member loginMember(Member m) {
-		return null;
+		return memberDao.loginMember(sqlSession, m);
 	}
 
 	@Override
