@@ -48,7 +48,7 @@
                return year + "년 " + month + "월";
              },
              select: function(arg){
-            	  var createDate= arg.startStr;
+            	  var startDate= arg.startStr;
             	  // fullCalender에서 날짜를 드래그하여 선택시
             	  // arg.endStr값은 마지막 드래그날짜 +1
             	  // 실제 드래그 마지막날을 선택하려면 arg.endStr 보다 하루 빠른 날짜로 설정해야함
@@ -58,16 +58,17 @@
  
 				 var endStr = arg.endStr;
 				 var split = endStr.split('-');
-				
-				 var endDate = new Date(split[0], split[1], split[2]-1);
+				// date 문자열 분리 후, day 해당하는 부분 -1
+				// 분리된 문자열로 다시 Date 객체 생성
+				var endDate = new Date(split[0], split[1], split[2]-1);
 				 
-				 
+				// 생성된 date객체를 YYYY/mm/dd 형식으로 변환
 				 var endDate2 = endDate.getFullYear() +
 			  		'-' + ( (endDate.getMonth()+1) < 9 ? "0" + (endDate.getMonth()+1) : (endDate.getMonth()) )+
 			  		'-' + ( (endDate.getDate()) < 9 ? "0" + (endDate.getDate()) : (endDate.getDate()) );
 				 
-				 
-				 location.href="${pageContext.request.contextPath}/enrollForm.di?createDate="+createDate+"&endDate="+endDate2;
+				 // startDate와 endDate 넘기기
+				 location.href="${pageContext.request.contextPath}/enrollForm.di?startDate="+startDate+"&endDate="+endDate2;
  
  				
              }
