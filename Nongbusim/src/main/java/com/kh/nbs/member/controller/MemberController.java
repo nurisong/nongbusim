@@ -64,6 +64,7 @@ public class MemberController {
 		m.setMemPwd(encPwd);
 		
 		int result = memberService.userInsertMember(m);
+		
 		if(result > 0) {
 			session.setAttribute("alertMsg", "회원가입에 성공하셨습니다. 로그인 해주세요.");
 			return "redirect:/";
@@ -72,4 +73,30 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	}
+	
+	@RequestMapping("farmerInsert.me")
+	public String farmerInsertMember(Member m, Model model, HttpSession session) {
+		
+//		System.out.println("평문 : " + m.getMemPwd());
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemPwd());
+//		System.out.println("암호문 : " + encPwd);
+		
+		m.setMemPwd(encPwd);
+		
+		int result = memberService.farmerInsertMember(m);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "회원가입에 성공하셨습니다. 로그인 해주세요.");
+			return "redirect:/";
+		} else {
+			model.addAttribute("errorMsg", "회원가입 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	
+	
+	
+	
+	
 }

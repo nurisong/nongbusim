@@ -16,5 +16,10 @@ public class MemberDao {
 	public int userInsertMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.insert("memberMapper.userInsertMember", m);
 	}
+	
+	// 농부 회원가입
+	public int farmerInsertMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("memberMapper.farmerInsertMember", m);
+	}
 
 }

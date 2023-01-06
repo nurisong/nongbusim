@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public int farmerInsertMember(Member m) {
-		return 0;
+		return memberDao.farmerInsertMember(sqlSession, m);
 	}
 
 
