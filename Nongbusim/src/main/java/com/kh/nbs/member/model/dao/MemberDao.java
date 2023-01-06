@@ -9,7 +9,10 @@ import com.kh.nbs.member.model.vo.Member;
 public class MemberDao {
 	
 	
-	
+	// 로그인
+	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.loginMember", m);
+	}
 	
 	
 	// 일반 사용자 회원가입

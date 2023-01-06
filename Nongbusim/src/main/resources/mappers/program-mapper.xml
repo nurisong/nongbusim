@@ -20,14 +20,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 </mapper>
 
+<<<<<<< HEAD
 <insert id="registerProgram" parameterType="program">
 
 
  
 
 
+=======
+<!-- <insert id="registerProgram" parameterType="program">
+>>>>>>> fc2303deeb4819439fb28234236071e2c4e64be0
 
 
 
 
 </insert>
+ -->

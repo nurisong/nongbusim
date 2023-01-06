@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.nbs.member.model.service.MemberService;
 import com.kh.nbs.member.model.vo.Member;
@@ -21,38 +22,33 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@RequestMapping("login.me")
-	public String loginMember() {
+	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session) {
 		
 		
+		Member loginUser = memberService.loginMember(m);
 		
-		return "member/login";
+		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {
+			
+			session.setAttribute("loginUser", loginUser);
+			mv.setViewName("redirect:/");
+			
+		} else {
+			mv.addObject("errorMsg", "로그인 실패").setViewName("common/errorPage");
+		}
+		return mv;
 	}
-	/*
-	 * @RequestMapping("login.me") public ModelAndView loginMember(Member m,
-	 * ModelAndView mv, HttpSession session) {
-	 * 
-	 * Member loginUser = memberService.loginMember(m);
-	 * 
-	 * if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(),
-	 * loginUser.getPwd())) {
-	 * 
-	 * session.setAttribute("loginUser", loginUser); mv.setViewName("redirect:/");
-	 * 
-	 * } else { // mv.addObject("errorMsg",
-	 * "로그인 실패").setViewName("common/errorPage"); }
-	 * 
-	 * return mv; }
-	 */
+	
+	@RequestMapping("logout.me")
+	public String logoutMember(HttpSession session) {
+		session.removeAttribute("loginUser");
+		return "redirect:/";
+	}
 	
 	@RequestMapping("userEnrollForm.me")
 	public String userEnrollForm() {	
 		return "member/userEnrollForm";
 	}
 	
-	@RequestMapping("farmerEnrollForm.me")
-	public String farmerEnrollForm() {	
-		return "member/farmerEnrollForm";
-	}
 	
 	@RequestMapping("userInsert.me")
 	public String userInsertMember(Member m, Model model, HttpSession session) {
@@ -72,6 +68,11 @@ public class MemberController {
 			model.addAttribute("errorMsg", "회원가입 실패");
 			return "common/errorPage";
 		}
+	}
+	
+	@RequestMapping("farmerEnrollForm.me")
+	public String farmerEnrollForm() {	
+		return "member/farmerEnrollForm";
 	}
 	
 	@RequestMapping("farmerInsert.me")
