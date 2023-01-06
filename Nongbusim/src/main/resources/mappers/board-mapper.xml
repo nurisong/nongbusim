@@ -4,4 +4,50 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
 
+	<resultMap id="boardResultSet" type="board">
+		<result column="board_no"      property="boardNo" />
+		<result column="board_type"   property="boardType" />
+		<result column="board_title"  property="boardTitle" />
+		<result column="board_content"  property="boardContent" />
+		<result column="create_date"   property="createDate" />
+		<result column="modify_date"   property="modifyDate" />
+		<result column="thumbnail"   property="thumbnail" />
+		<result column="recruit_yn"   property="recruitYN" />
+		<result column="count"         property="count" />
+		<result column="status"   property="status" />
+		<result column="mem_no" property="memNo" />
+	</resultMap>
+
+	<!--테스트x-->
+	<select id="selectListCount" resultType="_int">
+		select
+		       count(*)
+		  from
+		       board
+		 where
+		 	   board_type= #{boardType}
+		   and
+		       status = 'Y'
+	</select>
+
+	<!--테스트x, 미완성(like 이중쿼리)-->
+	<select id="selectList" resultMap="boardResultSet">
+		select 
+               board_no,
+               board_title,
+               to_char(create_date, 'YYYY-MM-DD') as "CREATE_DATE",
+               count,
+               nickname as board_writer
+               
+		  from
+		       board b,  member m
+        WHERE
+               b.mem_no=m.mem_no
+		 order
+		    by
+		       board_no desc;
+	</select>
+
+
+
 </mapper>

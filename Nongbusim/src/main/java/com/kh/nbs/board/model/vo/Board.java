@@ -14,7 +14,7 @@ public class Board {
 	private String thumbnail;
 	private String recruitYN;
 	private int count;
-	private String status;
+	private String status;	
 	private int memNo;
 
 }
