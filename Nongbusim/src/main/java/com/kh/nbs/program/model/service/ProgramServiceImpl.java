@@ -12,41 +12,59 @@ import com.kh.nbs.program.model.vo.Program;
 
 @Service
 public class ProgramServiceImpl implements ProgramService {
-	
-	@Autowired
-	private ProgramDao programDao;
-	
-	@Autowired
-	private SqlSessionTemplate sqlSession;
 
 	@Override
 	public int selectListCount() {
-		return programDao.selectListCount(sqlSession);
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public ArrayList<Program> selectList(PageInfo pi) {
-		return programDao.selectListCount(sqlSession,pi);
-	}
-
-	@Override
-	public int insertBoard(Program p) {
-		return 0;
-	}
-
-	@Override
-	public Program selectProgram(int programNo) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int deleteProgram(int programNo) {
+	public int insertBoard(Program p) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public int updateProgram(Program p) {
-		return 0;
-	}
+	
+//	@Autowired
+//	private ProgramDao programDao;
+//	
+//	@Autowired
+//	private SqlSessionTemplate sqlSession;
+//
+//	@Override
+//	public int selectListCount() {
+//		return programDao.selectListCount(sqlSession);
+//	}
+////
+//	@Override
+//	public ArrayList<Program> selectList(PageInfo pi) {
+//		return programDao.selectListCount(sqlSession,pi);
+//	}
+//
+//	@Override
+//	public int insertBoard(Program p) {
+//		return 0;
+//	}
+//
+//	@Override
+//	public Program selectProgram(int programNo) {
+//		return null;
+//	}
+//
+//	@Override
+//	public int deleteProgram(int programNo) {
+//		return 0;
+//	}
+//
+//	@Override
+//	public int updateProgram(Program p) {
+//		return 0;
+//	}
 
 }
