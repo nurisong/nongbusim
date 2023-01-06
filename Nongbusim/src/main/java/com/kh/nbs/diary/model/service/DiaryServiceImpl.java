@@ -6,11 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.kh.nbs.diary.model.dao.DiaryDao;
+import com.kh.nbs.diary.model.vo.Diary;
 
 @Service
 public class DiaryServiceImpl implements DiaryService {
-
+	
+	@Autowired
+	private DiaryDao diaryDao;
+	
 	@Override
 	public List<Map<String, Object>> selectCalList() {
         Map<String, Object> event = new HashMap<String, Object>();
@@ -25,6 +32,11 @@ public class DiaryServiceImpl implements DiaryService {
         event.put("end",LocalDate.now().plusDays(4));
         eventList.add(event);
         return eventList;
+	}
+
+	@Override
+	public Diary selectCalEventList(int memNo) {
+		return diaryDao.selectCalEventList(memNo);
 	}
 
 }
