@@ -26,7 +26,7 @@ public class ProgramController {
 
 		@RequestMapping("detail.pr")//dd
 		public String programDetailView() {
-				
+			
 			return "program/ProgramDetail";
 			
 		}
@@ -34,9 +34,11 @@ public class ProgramController {
 		@RequestMapping("register.pr")//dd
 		public String programRegister(Program p, HttpSession session, Model model) {
 				
-			programService.programRegister(p);
+			int memNo = 1;
 			
+			programService.programRegister(p,memNo);
 			return "program/ProgramRegister";
+			
 			
 		}
 			

@@ -9,9 +9,9 @@ import com.kh.nbs.program.model.vo.Program;
 public class ProgramDao {
 
 
-	public int programRegister(SqlSessionTemplate sqlSession,Program p) {
+	public int programRegister(SqlSessionTemplate sqlSession,Program p,int memNo) {
 		
-		return sqlSession.insert("programMapper.registerProgram",p);
+		return sqlSession.insert("programMapper.registerProgram",p,memNo);
 		
 		
 	}
