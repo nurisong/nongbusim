@@ -4,4 +4,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="farmMapper">
 
+
+	<resultMap id="farmResultSet" type="farm">
+		<result column="FARM_NO" property="farmNo"/>
+		<result column="FARMER" property="farmer"/>
+		<result column="FARM_NAME" property="farmName"/>
+		<result column="LOCAL_CODE" property="localCode"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="PHONE" property="phone"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="CROP" property="crop"/>
+	</resultMap>
+
+
+	<select id="selectFarmList" resultMap="farmResultSet">
+	
+		SELECT 
+		    FARM_NO,
+		    FARMER,
+		    FARM_NAME,
+		    LOCAL_CODE,
+		    ADDRESS,
+		    PHONE,
+		    ENROLL_DATE,
+		    STATUS,
+		    CROP
+		FROM
+		    FARM
+		WHERE 
+		    FARMER = #{memNo}
+	
+	</select>
+
 </mapper>
