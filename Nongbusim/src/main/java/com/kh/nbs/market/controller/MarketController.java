@@ -23,8 +23,6 @@ public class MarketController {
 		
 		return "market/marketDetailView";
 		
-		
-		
 	}
 	
 	//게시물 작성화면으로 이동
@@ -32,5 +30,14 @@ public class MarketController {
 	public String marketInsertForm() {
 		return "market/marketInsertForm";
 	}
+	
+	
+	//게시물 수정화면으로 이동
+	@RequestMapping("updateForm.mk")
+	public String marketUpdateForm() {
+		return "market/marketUpdateForm";
+	}
+	
+	
 	
 }
