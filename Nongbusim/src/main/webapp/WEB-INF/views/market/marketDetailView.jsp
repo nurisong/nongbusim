@@ -14,8 +14,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="js/scripts.js"></script>
-<!-- jQuery 1.8 or later, 33 KB -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!-- Fotorama from CDNJS, 19 KB -->
 <link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
@@ -33,17 +31,15 @@
             
             <!-- Heading Row-->
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
-                <div class="col-lg-5">
-                    
+                <div class="col-lg-6">
                     <div class="fotorama">
-                        <div data-img="1.jpg"><img src="https://sitem.ssgcdn.com/06/82/93/item/0000008938206_i1_1100.jpg" style="width: 100%; height: 300px;"></div>
-                        <div data-img="2.jpg"><strong>Two</strong></div>
-                        <div data-img="3.jpg"><em>Three</em></div>
-                      </div>
-
-
+                        <div><img src="https://sitem.ssgcdn.com/06/82/93/item/0000008938206_i1_1100.jpg" style="width: 100%; height: 300px;"></div>
+                        <div></div>
+                        <div></div>
+                    </div>
                 </div>
-                <div class="col-lg-7">
+
+                <div class="col-lg-6">
                     <h1 class="font-weight-bold">금실 딸기 1kg 
                         <a>♡</a>
                     <h3>
@@ -95,6 +91,18 @@
                 </tbody>
             </table>
 
+            <!-- 페이지처리하는 영역-->
+            <div id="market_page">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </div>
             
 
 

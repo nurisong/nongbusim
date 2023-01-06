@@ -15,6 +15,8 @@ public class Program {
 	private String signUp;
 	private String status;
 	private String programLocation;
+	private int memNo;
+	private int farmNo;
 	
 	
 	

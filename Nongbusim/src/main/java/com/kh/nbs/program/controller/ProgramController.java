@@ -34,7 +34,7 @@ public class ProgramController {
 		@RequestMapping("register.pr")//dd
 		public String programRegister(Program p, HttpSession session, Model model) {
 				
-			programService.programRegister(p);
+			
 			
 			return "program/ProgramRegister";
 			
