@@ -24,7 +24,6 @@ public class MemberController {
 	@RequestMapping("login.me")
 	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session) {
 		
-		
 		Member loginUser = memberService.loginMember(m);
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {

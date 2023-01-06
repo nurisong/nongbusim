@@ -13,7 +13,7 @@
 <body>
 <h3>회원 로그인</h3>
 <hr>
-<form method="" action="">
+<form action="login.me" method="post">
 	아이디 : <input type="text" name="memId" placeholder="아이디를 입력하세요."><br>
        비밀번호 : <input type="password" name="memPwd" placeholder="비밀번호를 입력하세요."><br>
     <button type="submit" class="btn btn-success">로그인</button>

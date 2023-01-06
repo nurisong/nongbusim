@@ -3,6 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
+
 	<resultMap id="memberResultSet" type="member">
 		<result column="MEM_NO" property="memNo"/>
 		<result column="MEM_ID" property="memId"/>
@@ -19,8 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<!-- 로그인 -->
-	<select id="loginMember" resultMap="member">
-		
+	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
+		SELECT MEM_NO, MEM_ID, MEM_PWD, NAME, NICKNAME, PHONE, GENDER, EMAIL, ENROLL_DATE, MEM_STATUS, FARMER_CODE, CAREER
+		FROM MEMBER
+		WHERE MEM_ID = #{memId}
+		AND MEM_STATUS = 'Y'
 	</select>
 
 	<!-- 일반 사용자 회원가입 -->
