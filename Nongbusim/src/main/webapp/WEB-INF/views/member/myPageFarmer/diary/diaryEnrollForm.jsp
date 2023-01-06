@@ -95,7 +95,7 @@
 						<tr>
 							<td colpan="3">
 								<div>✔시작일</div>
-								<input type="date" required value="${param.createDate }">
+								<input type="date" required value="${param.startDate }">
 							</td>	
 						</tr>
 						<tr>
@@ -109,7 +109,7 @@
 								<input type="date" required value="${param.endDate }">
 							</c:when>
 							<c:otherwise>
-								<input type="date" required value="${param.createDate }">
+								<input type="date" required value="${param.startDate }">
 							</c:otherwise>
 						</c:choose>
  -->						
