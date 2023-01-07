@@ -16,6 +16,50 @@
 <link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
 
+<style>
+
+    #modal {
+     
+      display: none;
+      position:relative;
+      width:100%;
+      height:100%;
+      z-index:1;
+
+    }
+    
+    #modal h2 {
+      margin:0;   
+    }
+    
+    #modal button {
+      display:inline-block;
+      width:100px;
+      margin-left:calc(100% - 100px - 10px);
+    }
+    
+    #modal .modal_content {
+      transform: translate(0%, -400%);
+      width: 500px;
+      margin-top: 100px;
+      margin:100px auto;
+      padding:20px 10px;
+      background:#fff;
+      box-shadow : 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+    }
+    
+    #modal .modal_layer {
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0, 0, 0, 0.5);
+      z-index:-1;
+    }   
+    </style>
+
+
 
 </head>
 <body>
@@ -32,7 +76,7 @@
                 <div class="col-lg-6">
                     <div class="fotorama">
                         <div><img src="https://sitem.ssgcdn.com/06/82/93/item/0000008938206_i1_1100.jpg" style="width: 100%; height: 300px;"></div>
-                        <div></div>
+                        <div><img src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;"></div>
                         <div></div>
                     </div>
                 </div>
@@ -72,7 +116,7 @@
                             <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
                         </th>
                         <th style="vertical-align:middle">
-                            <button class="btn btn-secondary">등록하기</button>
+                            <button class="btn btn-success" >등록하기</button>
                         </th>
                     </tr>
                     <tr>
@@ -115,7 +159,58 @@
             
 
 
+
+            <!-- 댓글용 모달창 -->
+            <div id="modal">
+   
+                <div class="modal_content">
+                    <h2>모달 창</h2>
+                   
+                    <p>모달 창 입니다.</p>
+                   
+                    <button type="button" id="modal_close_btn">X</button>
+                   
+                </div>
+               
+                <div class="modal_layer"></div>
+            
+            </div>
+
+
+
         </div>
+
+    <script>
+
+        $(function(){
+
+            secretComment();
+
+        });
+
+        function secretComment(){
+                
+
+                $('#replyArea>tbody>tr').click(function(){
+
+                    $('#modal').css('display', 'block').fadeIn();
+
+                });
+
+                $('#modal_close_btn').click(function(){
+
+                    $('#modal').css('display', 'none');
+
+                });
+
+
+
+            }
+
+
+
+
+    </script>
 
 </body>
 </html>

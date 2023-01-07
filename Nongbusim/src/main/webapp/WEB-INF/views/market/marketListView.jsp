@@ -27,6 +27,10 @@
 
     }
 
+    #market_wrap button{
+        border: none;
+    }
+
     #market_wrap a:hover{
 
         color: black;
@@ -49,69 +53,6 @@
 <body>
 
     <jsp:include page="../common/menubar.jsp" />
-<!--
-
-        <!-- 사이드에 카테고리 영역
-        <div id="market_sideA">
-            <select>
-                <option value="모두" selected>모두</option>
-                <option value="농산물">농산물</option>
-                <option value="수산물">수산물</option>
-                <option value="축산물">축산물</option>
-            </select> 
-        </div>
-
-
-        <!-- 중앙 게시물 컨텐트 영역
-        <div id="market_content">
-
-
-            <!-- 게시물 리스트 상단 글쓰기버튼과 카테고리 영역
-            <div id="market_content_head">
-                <div id="market_content_left">
-                    <a href="">
-                        <button>글쓰기</button>
-                    </a>
-                </div>
-                <div id="market_content_right">
-                    <select>
-                        <option value="최신순" selected>최신순</option>
-                        <option value="인기순">인기순</option>
-                        <option value="가격낮은순">가격낮은순</option>
-                        <option value="가격높은순">가격높은순</option>
-                    </select>
-                </div>
-            </div>
-
-
-            <!-- 게시물 컨텐트 영역 
-            <div id="market_content">
-                
-            </div>
-
-
-
-
-        </div>
-
-
-        <!-- 오른쪽 사이드 영역
-        <div id="market_sideB">
-        </div>
-
-        <div id="market_page">
-            <ul class="pagination">
-                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </div>
-
--->
 
 
 
@@ -135,114 +76,110 @@
 
             <div class="col-lg-9">
                 
-                <button>글쓰기</button>
-
-                <select name="" id="">
-                    <option value="">최신순</option>
-                    <option value="">인기순</option>
-                    <option value="">높은가격순</option>
-                    <option value="">낮은가격순</option>
-                </select>
-
+                <button class="btn btn-success btn-sm">글쓰기</button>
+                
+                <span style="float: right;">
+                    <select name="" id="">
+                        <option value="최신순">최신순</option>
+                        <option value="인기순">인기순</option>
+                        <option value="높은가격순">높은가격순</option>
+                        <option value="낮은가격순">낮은가격순</option>
+                    </select>
+                </span>
+                
+                <br>
+                <br>
+                
                 <div class="row">
 
                     <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href=""><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#"><img src=""></a>
-                        </h4>
-                        <h5>$24.99</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                        <div class="card h-100">
+                            <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
+                            <div class="card-body">
+                            <h6 class="card-title">
+                                <a href="#">금산 딸기 1Kg</a>
+                                <a href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                </a>
+                            </h6>
+                            <h6>29,900원</h6>
+                            <h6>등록일</h6>
+                            <h6>조회수</h6>
+                            </div>
                         </div>
-                        <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Item Two</a>
-                        </h4>
-                        <h5>$24.99</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                        </div>
-                        <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Item Three</a>
-                        </h4>
-                        <h5>$24.99</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                        </div>
-                        <div class="card-footer">
-                        <small class="text-muted"></small>
-                        </div>
-                    </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Item Four</a>
-                        </h4>
-                        <h5>$24.99</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                        </div>
-                        <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">Item Five</a>
-                        </h4>
-                        <h5>$24.99</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                        </div>
-                        <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                        <h6 class="card-title">
-                            <a href="#">금산 딸기 1Kg</a><img src="">
-                        </h6>
-                        <h6>29,900원</h6>
-                        <h6>등록일</h6>
-                        <h6>조회수</h6>
-                        </div>
-                    </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100">
-                            <a href="detail.mk"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                            <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
+                            <div class="card-body">
+                            <h6 class="card-title">
+                                <a href="#">금산 딸기 1Kg</a>
+                                <a href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                </a>
+                            </h6>
+                            <h6>29,900원</h6>
+                            <h6>등록일</h6>
+                            <h6>조회수</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
+                            <div class="card-body">
+                            <h6 class="card-title">
+                                <a href="#">금산 딸기 1Kg</a>
+                                <a href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                </a>
+                            </h6>
+                            <h6>29,900원</h6>
+                            <h6>등록일</h6>
+                            <h6>조회수</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
+                            <div class="card-body">
+                            <h6 class="card-title">
+                                <a href="#">금산 딸기 1Kg</a>
+                                <a href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                </a>
+                            </h6>
+                            <h6>29,900원</h6>
+                            <h6>등록일</h6>
+                            <h6>조회수</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
+                            <div class="card-body">
+                            <h6 class="card-title">
+                                <a href="#">금산 딸기 1Kg</a>
+                                <a href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                </a>
+                            </h6>
+                            <h6>29,900원</h6>
+                            <h6>등록일</h6>
+                            <h6>조회수</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
                             <div class="card-body">
                             <h6 class="card-title">
                                 <a href="#">금산 딸기 1Kg</a>
