@@ -111,9 +111,6 @@
            });
            calendar.render();
       });
-      
-     
-      	
 
     </script>
   </head>
