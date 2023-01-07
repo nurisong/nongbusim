@@ -92,9 +92,9 @@
                     
                     <c:forEach items="${ list }" var="b">
                     	<tr>
-                    	   <td class ="bno">강원도</td>
-                    	   <td>귀농</td>
-                    	   <td>2022.08.12~2022.08.13</td>
+                    	   <td class ="bno">서울시</td>
+                    	   <td>졸리다</td>
+                    	   <td>2023.01.12~2023.01.13</td>
                     	   <td>50 명</td>
                     	   <td>진행중</td>
                            <td><button>자세히보기</button></td>
@@ -103,8 +103,8 @@
                     	
                     	<tr>
                     	   <td class ="bno">강원도</td>
-                    	   <td>귀농</td>
-                    	   <td>2022.08.12~2022.08.13</td>
+                    	   <td>그냥 잘까</td>
+                    	   <td>22023.01.12~2023.01.13</td>
                     	   <td>50 명</td>
                     	   <td>진행중</td>
                            <td><button>자세히보기</button></td>
@@ -113,8 +113,8 @@
                     	
                     	<tr>
                     	   <td class ="bno">강원도</td>
-                    	   <td>귀농</td>
-                    	   <td>2022.08.12~2022.08.13</td>
+                    	   <td>아니야..</td>
+                    	   <td>2023.01.12~2023.01.13</td>
                     	   <td>50 명</td>
                     	   <td>진행중</td>
                            <td><button>자세히보기</button></td>
@@ -123,8 +123,8 @@
                     	
                     	<tr>
                     	   <td class ="bno">강원도</td>
-                    	   <td>귀농</td>
-                    	   <td>2022.08.12~2022.08.13</td>
+                    	   <td>그래도</td>
+                    	   <td>2023.01.12~2023.01.13</td>
                     	   <td>50 명</td>
                     	   <td>진행중</td>
                            <td><button>자세히보기</button></td>
@@ -133,8 +133,8 @@
                     	
                     	<tr>
                     	   <td class ="bno">강원도</td>
-                    	   <td>귀농</td>
-                    	   <td>2022.08.12~2022.08.13</td>
+                    	   <td>해야지..</td>
+                    	   <td>2023.01.12~2023.01.13</td>
                     	   <td>50 명</td>
                     	   <td>진행중</td>
                            <td><button>자세히보기</button></td>
@@ -182,34 +182,18 @@
             <script>
 
                 $(function() {
-       
-                //  $('.heart').click(function() {
-                      
-                //        $(this).attr("src", "resources/images/heart2.png");
-                   
-                   
-                //  });
-
-                // $("img[src$='heart2.png']").click(function() {
-                      
-                //     $(this).attr("src", "resources/images/deleteheart.png");
-                   
-                   
-                // });
-
-
+    
                 $('.heart').click(function() {
                     console.log($(this).attr("src"));
 
-                if($(this).attr("src") == 'resources/images/deleteheart.png') 
-                {
+                    if($(this).attr("src") == 'resources/images/deleteheart.png'){
+       
+                       $(this).attr("src", "resources/images/heart2.png");
+                     } else {
 
-                     $(this).attr("src", "resources/images/heart2.png");
-                } else {
-
-                     $(this).attr("src", "resources/images/deleteheart.png");
-                }
-                     });
+                        $(this).attr("src", "resources/images/deleteheart.png");
+                     }
+                });
        
                 });
        

@@ -44,7 +44,11 @@ text-align: center;
 
 	<br><br>
    <h1>교육 프로그램 등록</h1>
-   
+     <select  name="farmName">
+                    <option value="first">농장1</option>
+                    <option value="second">농장2</option>
+                
+                </select>
    
       <form action="">
          <table border="1">

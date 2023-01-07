@@ -42,7 +42,9 @@ public class ProgramController {
 			ArrayList<Farm> list = programService.selectFarmList(memNo);
 			
 			System.out.println(list);
+			//System.out.println();
 			
+			model.addAttribute("list", list);
 			return "program/ProgramRegister";
 			
 			
