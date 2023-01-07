@@ -35,6 +35,15 @@
                 float:left;
                 margin:5px;
             }
+            
+            .heart{
+            
+            width: 30px;
+            height: 30px;
+         
+            top:20px;
+            right : 5px;
+            }
             .select {width:20%;}
             .text {width:53%;}
             .searchBtn {width:20%;}
@@ -89,7 +98,7 @@
                     	   <td>50 명</td>
                     	   <td>진행중</td>
                            <td><button>자세히보기</button></td>
-                           <td>*</td>
+                           <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
                     	</tr>
                     	
                     	<tr>
@@ -99,7 +108,7 @@
                     	   <td>50 명</td>
                     	   <td>진행중</td>
                            <td><button>자세히보기</button></td>
-                           <td>*</td>
+                           <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
                     	</tr>
                     	
                     	<tr>
@@ -109,7 +118,7 @@
                     	   <td>50 명</td>
                     	   <td>진행중</td>
                            <td><button>자세히보기</button></td>
-                           <td>*</td>
+                           <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
                     	</tr>
                     	
                     	<tr>
@@ -119,7 +128,7 @@
                     	   <td>50 명</td>
                     	   <td>진행중</td>
                            <td><button>자세히보기</button></td>
-                           <td>*</td>
+                           <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
                     	</tr>
                     	
                     	<tr>
@@ -129,7 +138,7 @@
                     	   <td>50 명</td>
                     	   <td>진행중</td>
                            <td><button>자세히보기</button></td>
-                           <td>*</td>
+                           <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
                     	</tr>	
                     </c:forEach>
                     
@@ -169,6 +178,52 @@
                 	</c:choose>
                 </ul>
             </div>
+
+            <script>
+
+                $(function() {
+       
+                //  $('.heart').click(function() {
+                      
+                //        $(this).attr("src", "resources/images/heart2.png");
+                   
+                   
+                //  });
+
+                // $("img[src$='heart2.png']").click(function() {
+                      
+                //     $(this).attr("src", "resources/images/deleteheart.png");
+                   
+                   
+                // });
+
+
+                $('.heart').click(function() {
+                    console.log($(this).attr("src"));
+
+                if($(this).attr("src") == 'resources/images/deleteheart.png') 
+                {
+
+                     $(this).attr("src", "resources/images/heart2.png");
+                } else {
+
+                     $(this).attr("src", "resources/images/deleteheart.png");
+                }
+                     });
+       
+                });
+       
+       
+                // $('.z_area').hover(function() {
+                //        $(this).find('.placeDiv').css({'display':'block', 'cursor':'pointer'});
+                //    }, function() {
+                //        $(this).find('.placeDiv').css('display', 'none');
+                //    });
+       
+       
+       
+          </script>
+       
 
 </body>
 </html>

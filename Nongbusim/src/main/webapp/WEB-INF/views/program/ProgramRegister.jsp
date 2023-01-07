@@ -44,6 +44,8 @@ text-align: center;
 
 	<br><br>
    <h1>교육 프로그램 등록</h1>
+   
+   
       <form action="">
          <table border="1">
             <tr>
