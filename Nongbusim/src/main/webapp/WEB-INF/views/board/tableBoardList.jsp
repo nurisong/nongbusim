@@ -24,11 +24,23 @@
     float:left;
 }
 
+/*검색바 가운데 정렬*/
+#sform {
+display: inline-block;
+text-align: center;
+}
+
+.img-select{
+  float: right;
+}
+
 </style>
 </head>
 <body>
 
     <jsp:include page="../common/menubar.jsp" />
+    <jsp:include page="Boardbar.jsp" />
+    
 
     <div class="outer" align="center">
         <div class="main-area">
@@ -39,24 +51,40 @@
             <button class="btn btn-secondary" id="insert-btn">글작성</button>
             <br><br>
             
-            <!-- 검색 바 -->
-            <form id="searchForm" action="" method="get" align="center">
-                <div class="select">
+
+            <!--검색바-->
+            <div style="background-color:rgb(223, 223, 223); height: 60px; width:70%; text-align: center;">
+
+                <div id=sform>
+                <form id="searchForm" action="" method="get" style="padding-top:10px;">
+                    <div class="select">
                     <select class="custom-select" name="condition">
                         <option value="all">전체</option>
                         <option value="writer">작성자</option>
                         <option value="title">제목</option>
                         <option value="content">내용</option>
                     </select>
-                </div>
-                <div class="text">
+                    </div>
+                    <div class="text">
                     <input type="text" class="form-control" name="keyword">
-                </div>
-                <div class="searchbutton">
+                    </div>
+                    <div class="searchbutton">
                     <button type="submit" class="searchBtn btn btn-secondary">검색</button>
+                    </div>
+                </form>              
                 </div>
-            </form>
-            <br><br><br>
+            </div>
+            <br><br>
+            
+			<!--해당순으로 정렬-->
+			<div class="img-select">
+			  <select name="img-condition">
+			    <option value="recent">최신순</option>
+			    <option value="popular">좋아요순</option>
+			    <option value="create">조회수순</option>
+			  </select>
+			</div>
+			<br><br>            
             
             <!-- 검색된 테이블 -->
             <table class="table">
@@ -80,7 +108,7 @@
                 </tbody>
             </table>
             
-            
+            <!-- 
             <div id="pagingArea">
                 <ul class="pagination">
                 
@@ -108,6 +136,7 @@
                     
                 </ul>
             </div>
+             -->
             
             
             

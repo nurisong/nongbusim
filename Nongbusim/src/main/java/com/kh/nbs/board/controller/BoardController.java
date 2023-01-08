@@ -16,7 +16,9 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
+	
 	//게시판리스트로 이동(페이징+리스트 조회)
+	/*
 	@RequestMapping("list.bo")
 	public ModelAndView selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String boardType, ModelAndView mv) {
 		
@@ -25,23 +27,29 @@ public class BoardController {
 		
 		return mv;
 	}
+	*/
+	@RequestMapping("list.bo")
+	public String tableBoardView() {
+		return "board/tableBoardList";
+	}	
+	
 	
 	//자랑게시판으로 이동
 	@RequestMapping("picture.bo")
-	public String PictureBoardView() {
-		return "board/PictureBoardList";
+	public String pictureBoardView() {
+		return "board/pictureBoardList";
 	}
 	
 	//게시판 글쓰기로 이동
 	@RequestMapping("write.bo")
-	public String BoardWrite() {
-		return "board/BoardWrite";
+	public String boardWrite() {
+		return "board/boardWrite";
 	}
 	
 	//게시판 게시물로 이동
 	@RequestMapping("detail.bo") 
-	public String BoardDetailView() {
-		return "board/BoardDetailView";
+	public String boardDetailView() {
+		return "board/boardDetailView";
 	}
 	
 	//페이징 처리
