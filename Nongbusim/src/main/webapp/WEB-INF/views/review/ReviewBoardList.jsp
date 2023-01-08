@@ -69,7 +69,6 @@
     <jsp:include page="../common/menubar.jsp" />
  
 
-    <!-- 모달 영역 -->
 
     <div class="content" align="center">
      
@@ -134,6 +133,19 @@
                 
             </tbody>
         </table>
+
+        <!-- 페이지처리하는 영역-->
+        <div id="market_page">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </div>
         </div>
     </div>
 
@@ -143,6 +155,9 @@
                <td>작성자 : user01</td>
                <td>2023-01-10</td>
             </tr>
+            <tr>
+                <td>프로그램명 : 딸기 쵝오</td>
+            </tr><br>
             <tr>
                 <td>딸기 시러</td>
             </tr><br>
@@ -156,7 +171,7 @@
 
         </div>
 
-        <a class="modal_close_btn">X</a>
+        <a class="modal_close_btn">  <img  src="resources/images/close.png" style="width: 30px; height: 30px;"></a>
         <br>
         <div align="center">
             <button style="background-color: rgb(103, 141, 208);">수정</button>
@@ -165,6 +180,8 @@
         </div>
         
     </div>
+
+    
 
  
 
