@@ -28,48 +28,32 @@
     <div class="outer" align="center">
         <div class="main-area">
 
-            <h1>보도자료</h1>
+            <h1>정보게시판 글 작성</h1>
             <br><br>
 
-            <a class="btn btn-secondary" id="list-btn" href="list.if">목록으로</a>
-            
             <br><br><br>
             <div class="board-area">
                 <table class="table info-table">
                     <tr>
                         <th width="100">제목</th>
-                        <td colspan="3">${ b.boardTitle }</td>
-                    </tr>
-                    <tr>
-                        <th>작성일</th>
-                        <td>${ b.createDate }</td>
+                        <td colspan="3"><input type="text" class="form-control" required name=""></td>
                     </tr>
                     <tr>
                         <th>첨부파일</th>
                         <td colspan="3">
-                            <!-- 첨부파일이 있을 경우/없을 경우 -->
-                            <c:choose>
-                                <c:when test="${ not empty b.originName }">
-                                <!-- download속성: 다운로드 시 파일명 -->
-                                    <a href="${ b.changeName }" download="${ b.originName }">${ b.originName }</a>
-                                </c:when>
-                                <c:otherwise>
-                                    첨부파일이 없습니다.
-                                </c:otherwise>
-                            </c:choose>
+                           <input type="file" class="form-control-file border" name="">
                         </td>
                     </tr>
                     <tr>
                         <th>내용</th>
-                        <td colspan="3"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="4"><p style="height:150px;">${ b.boardContent }</p></td>
+                        <td colspan="3">
+                            <textarea name="" id="" class="form-control" style="resize: none;" rows="10"></textarea>
+                        </td>
                     </tr>
                 </table>
 
-                <a class="btn btn-secondary" href="">수정하기</a>
-                <a class="btn btn-secondary" href="">삭제하기</a>
+                <a class="btn btn-secondary" href="">등록하기</a>
+                <a class="btn btn-secondary" href="">취소하기</a>
             </div>
 
            
