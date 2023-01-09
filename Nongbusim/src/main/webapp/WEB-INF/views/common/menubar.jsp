@@ -197,66 +197,77 @@
                     				 <li class="username"><a href="">관리자페이지 ></a></li>
                     			</c:when>
                     			<c:otherwise>
-                    				<li class="username"><a href="">${ loginUser.name } 님</a> ></li>
+                    				<c:choose>
+	                    				<c:when test="${ loginUser.farmerCode ne null }">
+		                    				<li class="username"><a href="myPageFarmer.me">${ loginUser.name } 님</a> ></li>
+	                    				</c:when>
+	                    				<c:otherwise>
+		                    				<li class="username"><a href="myPageUser.me">${ loginUser.name } 님</a> ></li>
+	                    				</c:otherwise>
+	                    			</c:choose>
+	                    			<li class="logout"><a href="logout.me">로그아웃</a></li>
+                        	</div>
                     			</c:otherwise>
                     		</c:choose>
-                    		<li class="logout"><a href="logout.me">로그아웃</a></li>
-                        	</div>
+                    		
                     	</c:otherwise>
                     </c:choose>
+                
                         
-                    <script>
-
-                        function adminPage() {
-                            location.href = "views/admin/aSidebar.jsp";
-                        }
-						
-                        function myPage() {
-                            location.href = "subLookup.me";
-                        };
-                        
-
-                        function cartList() {
-                                location.href = "cartList.or";
-                        };
-
-                        function logout() {
-                            location.href = "logout.me";
-                        };
-                        
-                        function goStore(){
-                        	location.href = "userProductMarket.pro"
-                        }
-                        
-                        function gosubscribe(){
-                        	location.href = "userSubscribe"
-                        }
-                    </script>
-                    
-                    <!-- 로그아웃 -->
-                    <c:if test="${ alertMsg ne null}">
-                    	<script>
-                    		alert('${alertMsg}');
-                    	</script>
-                    	<c:remove var="alertMsg" scope="session" />
-                    </c:if>
-                    
-                    
-                    <script type="text/javascript">
-                    	$(function(){
-                    		
-                    		$('.search-text').click(function(){
-                        		
-                        		location.href = '';
-                        		
-                        	})
-                    		
-                    	})
-                    </script>
                 </ul>
                 </div>
             </section>
         </div>
     </div>
+    
+    
+	<script>
+
+		function adminPage() {
+			location.href = "views/admin/aSidebar.jsp";
+ 		}
+						
+		function myPage() {
+			location.href = "subLookup.me";
+        };
+                        
+
+		function cartList() {
+			location.href = "cartList.or";
+		};
+
+		function logout() {
+			location.href = "logout.me";
+		};
+                        
+		function goStore(){
+			location.href = "userProductMarket.pro"
+		}
+                        
+		function gosubscribe(){
+			location.href = "userSubscribe"
+		}
+	</script>
+                    
+	<!-- 로그아웃 -->
+	<c:if test="${ alertMsg ne null}">
+	<script>
+		alert('${alertMsg}');
+     	</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
+                    
+                    
+	<script type="text/javascript">
+        	$(function(){
+                    		
+                  	$('.search-text').click(function(){
+                        		
+                     	location.href = '';
+                        		
+             	})
+                    		
+        	})
+  	</script>
 </body>
 </html> 
