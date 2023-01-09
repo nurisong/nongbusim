@@ -50,8 +50,8 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 	
 	@Override
-	public int joinProgram(int memNo,int programNo) {
-		return programDao.joinProgram(sqlSession,memNo,programNo);
+	public int joinProgram(Program p) {
+		return programDao.joinProgram(sqlSession,p);
 	}
 	
 }

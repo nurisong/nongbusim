@@ -160,7 +160,10 @@ public class ProgramController {
 			
 			if( programService.selectProgram(bno) != null ) { //키값과 똑같은 이름의 매개변수, int형으로 쓰면 알아서 파싱
 				
-				mv.addObject("p", programService.selectProgram(bno)).setViewName("program/ProgramDetail");
+				mv.addObject("p", programService.selectProgram(bno)).addObject("bno",bno).setViewName("program/ProgramDetail");
+				
+				
+				
 			} else {
 				
 				mv.addObject("errorMsg","게시글 조회 실패").setViewName("common/errorPage");
@@ -169,10 +172,17 @@ public class ProgramController {
 		}
 			
 		@RequestMapping("join.pr")
-		public ModelAndView joinProgram(int memNo, int bno, ModelAndView mv) {
+		public ModelAndView joinProgram(Program p, ModelAndView mv, HttpSession session) {
 			
-			programService.joinProgram(memNo,bno);
-			
+			if(programService.joinProgram(p) > 0) {
+				
+				session.setAttribute("alertMsg", "프로그램 신청이 되었습니다.");
+				
+				mv.setViewName("redirect:list.pr");
+				
+			}else {
+				mv.addObject("errorMsg","신청 실패").setViewName("common/errorPage");
+			}
 			
 			return mv;
 		}

@@ -18,7 +18,7 @@ public interface ProgramService {
 	
 	Program selectProgram(int bno);
 	
-	int joinProgram(int memNo, int programNo);
+	int joinProgram(Program p);
 	
 	
 

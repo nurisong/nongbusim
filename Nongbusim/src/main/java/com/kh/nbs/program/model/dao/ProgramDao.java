@@ -50,10 +50,10 @@ public class ProgramDao {
 	}
 	
 	
-	public int joinProgram(SqlSessionTemplate sqlSession, int memNo, int programNo) {
+	public int joinProgram(SqlSessionTemplate sqlSession, Program p) {
 		
 		
-		return sqlSession.insert("programMapper.joinProgram",memNo,programNo);
+		return sqlSession.insert("programMapper.joinProgram",p);
 		
 	}
 	

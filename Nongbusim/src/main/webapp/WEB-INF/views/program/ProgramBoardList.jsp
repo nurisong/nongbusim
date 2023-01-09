@@ -95,12 +95,12 @@
                     	
                     	<tr>
                     	   <td class="bno" hidden>${ p.programNo }</td>
-                    	   <td>${ p.programLocation }</td>
-                    	   <td>${ p.programName }</td>
-                    	   <td>${ p.programPlan }</td>
-                    	   <td>${ p.headcount }</td>
-                    	   <td>${ p.signUp }</td>
-                    	   <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
+                    	   <td class="test">${ p.programLocation }</td>
+                    	   <td class="test">${ p.programName }</td>
+                    	   <td class="test">${ p.programPlan }</td>
+                    	   <td class="test">${ p.headcount }</td>
+                    	   <td class="test">${ p.signUp }</td>
+                           <td class="sorry"><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
                     	</tr>
                     	
                     </c:forEach>
@@ -147,12 +147,13 @@
              
               
 	            $(function(){
-	            	$('#boardList>tbody>tr').click(function(){
+	            	$('#boardList>tbody>tr>td').not('.sorry').click(function(){
+	            		
+	            		//console.log($(this).parent().children());
 	            		
 	            		
-	            		$(this).append
-	            		
-	            		location.href = 'detail.pro?bno=' + $(this).children('.bno').text();
+	            		location.href = 'detail.pro?bno=' + $(this).parent().children().eq(0).text();
+                        
 	            		
 	            	})
 	            	
