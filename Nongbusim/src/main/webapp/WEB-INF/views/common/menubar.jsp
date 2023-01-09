@@ -192,6 +192,7 @@
                     <c:choose>
                     	<c:when test="${ empty loginUser }">
                     		<li class="logout"><a href="loginForm.me">로그인</a></li>
+                    		<li class="logout"><a href="userType.me">회원가입</a></li>                   		
                     	</c:when>
                     	<c:otherwise>
                     		<c:choose>
