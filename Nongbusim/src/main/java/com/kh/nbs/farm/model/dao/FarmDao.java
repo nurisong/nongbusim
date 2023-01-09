@@ -10,7 +10,10 @@ import com.kh.nbs.farm.model.vo.Farm;
 public class FarmDao {
 
 	public int insertAttachment(Attachment a, SqlSessionTemplate sqlSession) {
-		return sqlSession.insert("attachmentMapper.insertAttachment", a);
+		System.out.println(a.getOriginName());
+		System.out.println(a.getChangeName());
+		System.out.println(a.getBoardType().equals("F"));
+		return sqlSession.insert("attachmentMapper.insertAttachmentFarm", a);
 	}
 
 	public int insertFarm(Farm f, SqlSessionTemplate sqlSession) {

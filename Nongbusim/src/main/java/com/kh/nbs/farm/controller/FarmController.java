@@ -24,9 +24,6 @@ public class FarmController {
 	@Autowired
 	private FarmService farmService;
 	
-//	@Autowired
-//	private Attachment a;
-	
 	@RequestMapping("list.fm")
 	public String selectFarmList(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv) {
 		// 전체 농장 리스트 뽑아오기
@@ -77,8 +74,6 @@ public class FarmController {
 		
 		// **farmer에 로그인유저 memNo 넣기**
 		
-		System.out.println(f);
-		
 		if(farmService.insertFarm(f)>0) {
 			
 			// **selectFarm하고 getFarmNo해서 가져오기
@@ -88,19 +83,17 @@ public class FarmController {
 				
 				if(!upfile.getOriginalFilename().equals("")) {
 					a.setBoardNo(farmNo);
-					a.setBoardType("F");
+					a.setBoardType("Farm");
 					a.setOriginName(upfile.getOriginalFilename()); // 원본명
 					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
 					
 					if(farmService.insertAttachment(a) > 0) {
-						mv.setViewName("redirect:/");
+						mv.addObject("alertMsg", "농장이 등록되었습니다.").setViewName("redirect:/");
 					} else {
 						mv.setViewName("common/errorPage");
 					}
-						
 				}
 			}
-			
 		} else {
 			// 첨부파일 삭제
 		}
