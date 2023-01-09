@@ -1,5 +1,6 @@
 package com.kh.nbs.diary.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,22 +20,30 @@ public class DiaryController {
 	
 	@Autowired
 	private DiaryService diaryService;
+	// dummy memNo값
+	int memNo = 1; 
 
 	@ResponseBody	
 	@RequestMapping(value="calEventList.di", produces="application/json; charset=UTF-8")
 	public ModelAndView selectCalEventList (HttpSession session) {
 		// session.getAttribute("loginUser")
-		int memNo = 1; 
+
 		diaryService.selectCalEventList(memNo);
 		return null;
 		
 	}
 	
+
+	// diaryListView
+	// 페이지 진입시 DB에 등록된 categoryList를 받아와서 select태그로 선택가능하도록
 	
 	@RequestMapping("list.di")
-	public String diaryList() {
-		return "member/myPageFarmer/diary/diaryListView" ;
+	public ModelAndView selectCategoryList(ModelAndView mv) {
+		ArrayList<String> categoryList= diaryService.selectCategoryList(memNo);
 		
+		mv.addObject("categoryList", categoryList).setViewName("member/myPageFarmer/diary/diaryListView");
+		
+		return mv;
 	}
 	
 	@RequestMapping("enrollForm.di")
@@ -51,7 +60,7 @@ public class DiaryController {
 	
 	 @GetMapping("calList.di") //ajax 데이터 전송 URL
 	    public @ResponseBody List<Map<String, Object>> getEvent(){
-			  return diaryService.selectCalList();
+			  return diaryService.selectCategoryList();
 	    }
 	
 

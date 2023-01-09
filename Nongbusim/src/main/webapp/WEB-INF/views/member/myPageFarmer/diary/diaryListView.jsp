@@ -18,7 +18,6 @@
 <div class="selectArea">
 	<div class="selectDate">
 		조회기간 &nbsp; &nbsp;
-		<button>당월</button>
 		<button>1개월</button>
 		<button>3개월</button>
 		<button>6개월</button>

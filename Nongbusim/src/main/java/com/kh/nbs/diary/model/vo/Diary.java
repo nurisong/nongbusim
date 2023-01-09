@@ -9,10 +9,11 @@ public class Diary {
 	private String startDate;
 	private String endDate;
 	private String createDate;
-	private String goods;
-	private String content;
+	private String diaryCategory;
+	private String diaryContent;
 	private String status;
 	private int memNo;
+	private String diaryThumbnail;
 	
 	
 }
