@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원 정보 수정 -->
 	<insert id="updateMember" parameterType="member">
 		UPDATE MEMBER
-		SET NAME = #{name}, EMAIL = #{email}, NICKNAME = #{nickName}, PHONE = #{phone}, FARMER_CODE = #{farmerCode}, CAREER = #{career}, MODIFY_DATE = #{modifyDate}
+		SET NAME = #{name}, EMAIL = #{email}, NICKNAME = #{nickName}, PHONE = #{phone}, FARMER_CODE = #{farmerCode}, CAREER = #{career}, MODIFY_DATE = SYSDATE
 		WHERE MEM_ID = #{memId}
 	</insert>
 	
