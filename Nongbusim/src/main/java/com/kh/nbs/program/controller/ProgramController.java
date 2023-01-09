@@ -147,16 +147,6 @@ public class ProgramController {
 		@RequestMapping("detail.pro")
 		public ModelAndView selectBoard(int bno, ModelAndView mv) {
 			
-			//식별하는데 필요한 값을 가지고 DB에 가서 조건문의 어떤 조건으로 쓰여야함
-			
-			//해당 게시글 조회수 증가용 서비스 호출 결과 받기
-			
-			// >>성공적으로 조회수 증가
-			// >> boardDetailView.jsp상에 필요한 데이터를 조회(게시글 상세정보 조회용 서비스 호출)
-			// >> 조회된 데이터를 담아서 board/boardDetailView로 포워딩
-			
-			// >> 조회수 증가 실패
-			// >> 에러문구 담아서 에러페이지로 포워딩
 			
 			if( programService.selectProgram(bno) != null ) { //키값과 똑같은 이름의 매개변수, int형으로 쓰면 알아서 파싱
 				
