@@ -152,7 +152,7 @@
 	            		
 	            		$(this).append
 	            		
-	            		location.href = 'detail.pr?bno=' + $(this).children('.bno').text();
+	            		location.href = 'detail.pro?bno=' + $(this).children('.bno').text();
 	            		
 	            	})
 	            	

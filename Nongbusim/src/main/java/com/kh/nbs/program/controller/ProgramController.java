@@ -144,7 +144,7 @@ public class ProgramController {
 			
 		}
 		
-		@RequestMapping("detail.pr")
+		@RequestMapping("detail.pro")
 		public ModelAndView selectBoard(int bno, ModelAndView mv) {
 			
 			//식별하는데 필요한 값을 가지고 DB에 가서 조건문의 어떤 조건으로 쓰여야함
