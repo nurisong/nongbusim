@@ -16,6 +16,8 @@ public interface ProgramService {
 
 	int programRegister(Program p);
 	
+	Program selectProgram(int bno);
+	
 	
 
 }

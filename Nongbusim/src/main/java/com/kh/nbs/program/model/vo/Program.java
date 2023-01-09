@@ -17,6 +17,8 @@ public class Program {
 	private String programLocation;
 	private int memNo;
 	private int farmNo;
+	private String originName;
+	private String changeName;
 	
 	
 	

@@ -11,7 +11,7 @@ import com.kh.nbs.diary.model.vo.Diary;
 public class DiaryDao {
 
 	public ArrayList selectCategoryList(SqlSessionTemplate sqlSession, int memNo) {
-		return (ArrayList)sqlSession.selectList("diaryMapper.selectCategroyList", memNo);
+		return (ArrayList)sqlSession.selectList("diaryMapper.selectCategoryList", memNo);
 	}
 
 	

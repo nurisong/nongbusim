@@ -8,6 +8,7 @@ public class Attachment {
 	private String originName;
 	private String changeName;
 	private String filePath;
+	private String fileLevel;
 	private String uploadDate;
 	private int boardNo;
 	private String boardType;
