@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                b.mem_no=m.mem_no
 		 order
 		    by
-		       board_no desc;
+		       board_no desc
 	</select>
 
 
