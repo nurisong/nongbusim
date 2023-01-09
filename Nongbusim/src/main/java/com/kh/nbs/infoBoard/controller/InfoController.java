@@ -17,5 +17,10 @@ public class InfoController {
 		// 글번호 뽑아서 조회
 		return "infoBoard/infoBoardDetailView";
 	}
-
+	
+	@RequestMapping("enrollForm.if")
+	public String infoEnrollForm() {
+		return "infoBoard/infoBoardEnrollForm";
+	}
+	
 }

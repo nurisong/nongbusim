@@ -17,4 +17,5 @@ public class Member {
 	private String memStatus;
 	private String farmerCode;
 	private String career;
+	private String modifyDate;
 }

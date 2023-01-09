@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -171,8 +170,13 @@
                 <ul class="landing-list">
                     <li><a href="list.pr" id="sub-menu-click">농장/체험</a></li>
                     <li><a href="" id="store-menu-click" class="goStore">농작물거래</a></li>
+<<<<<<< HEAD
                     <li><a href="" id="community-menu-click">농부게시판</a></li>
                     <li><a href="enrollForm.pr" id="community-menu-click">프로그램 등록</a></li>
+=======
+                    <li><a href="picture.bo?type=S" id="community-menu-click">농부게시판</a></li>
+                    <li><a href="register.pr" id="community-menu-click">프로그램 등록</a></li>
+>>>>>>> f728687cd56dac075847405285375c0027285550
                     <li><a href="">공지/정보</a></li>
                     
                     <!-- 가짜 검색창 -->
@@ -198,66 +202,78 @@
                     				 <li class="username"><a href="">관리자페이지 ></a></li>
                     			</c:when>
                     			<c:otherwise>
-                    				<li class="username"><a href="">${ loginUser.memName } 님</a> ></li>
+                    				<c:choose>
+	                    				<c:when test="${ loginUser.farmerCode ne null }">
+		                    				<li class="username"><a href="myPageFarmer.me">${ loginUser.name } 님</a> ></li>
+	                    					<li class="logout"><a href="logout.me">로그아웃</a></li>
+	                    				</c:when>
+	                    				<c:otherwise>
+		                    				<li class="username"><a href="myPageUser.me">${ loginUser.name } 님</a> ></li>
+	                    					<li class="logout"><a href="logout.me">로그아웃</a></li>
+	                    				</c:otherwise>
+	                    			</c:choose>
+                        	</div>
                     			</c:otherwise>
                     		</c:choose>
-                    		<li class="logout"><a href="logout.me">로그아웃</a></li>
-                        	</div>
+                    		
                     	</c:otherwise>
                     </c:choose>
+                
                         
-                    <script>
-
-                        function adminPage() {
-                            location.href = "views/admin/aSidebar.jsp";
-                        }
-						
-                        function myPage() {
-                            location.href = "subLookup.me";
-                        };
-                        
-
-                        function cartList() {
-                                location.href = "cartList.or";
-                        };
-
-                        function logout() {
-                            location.href = "logout.me";
-                        };
-                        
-                        function goStore(){
-                        	location.href = "userProductMarket.pro"
-                        }
-                        
-                        function gosubscribe(){
-                        	location.href = "userSubscribe"
-                        }
-                    </script>
-                    
-                    <!-- 로그아웃 -->
-                    <c:if test="${ alertMsg ne null}">
-                    	<script>
-                    		alert('${alertMsg}');
-                    	</script>
-                    	<c:remove var="alertMsg" scope="session" />
-                    </c:if>
-                    
-                    
-                    <script type="text/javascript">
-                    	$(function(){
-                    		
-                    		$('.search-text').click(function(){
-                        		
-                        		location.href = '';
-                        		
-                        	})
-                    		
-                    	})
-                    </script>
                 </ul>
                 </div>
             </section>
         </div>
     </div>
+    
+    
+	<script>
+
+		function adminPage() {
+			location.href = "views/admin/aSidebar.jsp";
+ 		}
+						
+		function myPage() {
+			location.href = "subLookup.me";
+        };
+                        
+
+		function cartList() {
+			location.href = "cartList.or";
+		};
+
+		function logout() {
+			location.href = "logout.me";
+		};
+                        
+		function goStore(){
+			location.href = "userProductMarket.pro"
+		}
+                        
+		function gosubscribe(){
+			location.href = "userSubscribe"
+		}
+	</script>
+                    
+	<!-- 로그아웃 -->
+	<c:if test="${ alertMsg ne null}">
+	<script>
+		alert('${alertMsg}');
+     	</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
+                    
+                    
+	<script type="text/javascript">
+        	$(function(){
+                    		
+                  	$('.search-text').click(function(){
+                        		
+                     	location.href = '';
+                        		
+             	})
+                    		
+        	})
+  	</script>
 </body>
 </html> 

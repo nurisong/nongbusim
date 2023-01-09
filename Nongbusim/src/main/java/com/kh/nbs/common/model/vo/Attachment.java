@@ -1,5 +1,15 @@
  package com.kh.nbs.common.model.vo;
 
-public class Attachment {
+import lombok.Data;
 
+@Data
+public class Attachment {
+	private int fileNo;
+	private String originName;
+	private String changeName;
+	private String filePath;
+	private String fileLevel;
+	private String uploadDate;
+	private int boardNo;
+	private String boardType;
 }

@@ -33,8 +33,8 @@ public class MemberServiceImpl implements MemberService {
 
 
 	@Override
-	public int updateMember(Member m) {
-		return 0;
+	public int updateUser(Member m) {
+		return memberDao.updateUser(sqlSession, m);
 	}
 
 	@Override
@@ -46,6 +46,11 @@ public class MemberServiceImpl implements MemberService {
 	public int idCheck(String checkId) {
 		return 0;
 	}
+
+//	@Override
+//	public Member findId(String memPwd) {
+//		return memberDao.findId(sqlSession, memPwd);
+//	}
 
 
 }

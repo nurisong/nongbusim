@@ -28,46 +28,46 @@
     <div class="outer" align="center">
         <div class="main-area">
 
-            <h1>정보게시판 글 작성</h1>
+            <h1>농장 등록</h1>
             <br><br>
 
             <br><br><br>
             <div class="board-area">
                 <table class="table info-table">
                     <tr>
-                        <th width="100">카테고리</th>
-                        <td colspan="3">
-                            <select name="" id="" class="form-control" style="width: 120px;">
-                                <option value="">보도자료</option>
-                                <option value="">농촌소식</option>
-                                <option value="">농업정보</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>제목</th>
+                        <th>농장이름</th>
                         <td colspan="3"><input type="text" class="form-control" required name=""></td>
                     </tr>
                     <tr>
-                        <th>사진파일</th>
+                        <th>주소</th>
+                        <td colspan="3"><input type="text" class="form-control" required name=""></td>
+                    </tr>
+                    <tr>
+                        <th>연락처</th>
+                        <td colspan="3"><input type="text" class="form-control" required name=""></td>
+                    </tr>
+                    <tr>
+                        <th>대표사진</th>
                         <td colspan="3">
                            <input type="file" class="form-control-file border" name="">
                         </td>
                     </tr>
                     <tr>
-                        <th>첨부파일</th>
+                        <th>상세사진</th>
                         <td colspan="3">
+                           <input type="file" class="form-control-file border" name="">
+                           <input type="file" class="form-control-file border" name="">
                            <input type="file" class="form-control-file border" name="">
                         </td>
                     </tr>
                     <tr>
-                        <th>내용</th>
+                        <th>소개글</th>
                         <td colspan="3">
                             <textarea name="" id="" class="form-control" style="resize: none;" rows="10"></textarea>
                         </td>
                     </tr>
                     <tr>
-                        <th width="100">출처</th>
+                        <th width="100">대표작물</th>
                         <td colspan="3"><input type="text" class="form-control" required name=""></td>
                     </tr>
                 </table>
