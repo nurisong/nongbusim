@@ -17,15 +17,17 @@
 </style>
 <body>
 <!-- 메뉴바 -->
+<jsp:include page="../../common/menubar.jsp"/>
 
+<!-- 사이드바 -->
 <br>
 <h3>회원정보 수정</h3>
   <hr>
     <form action="" id="form-div" method="post">
       <h4>기본정보</h4>
-        <div class="form-group">
-            <label for="id">* 아이디 :</label>
-            <input type="text" class="form-control" value="${ sessionScope.loginUser.memId }" name="memId" readonly>
+		<div class="form-group">
+          <label for="name">* 성명 :</label>
+          <input type="text" class="form-control" name="name" value="${ sessionScope.loginUser.name }">
         </div>
         <div class="form-group">
             <label for="pwd">* 비밀번호 :</label>
@@ -33,13 +35,17 @@
         </div>
         <div class="form-group">
             <label for="email">이메일 :</label>
-            <input type="email" class="form-control" name="email" readonly>
+            <input type="email" class="form-control" name="email" value="${ sessionScope.loginUser.email }" readonly>
         </div>
         <div class="form-group">
             <label for="nickName">닉네임 :</label>
             <input type="text" class="form-control" name="nickName" value="${ sessionScope.loginUser.nickName }">
         </div>
-
+       <div class="form-group">
+          <label for="phone">전화번호  :</label>
+          <input type="text" class="form-control" value="${ sessionScope.loginUser.phone }" name="phone">
+       </div>
+	
       <h4>영농정보</h4>
       <hr>
       <div class="form-group">

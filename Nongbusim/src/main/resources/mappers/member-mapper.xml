@@ -39,6 +39,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES(SEQ_MNO.NEXTVAL, #{memId}, #{memPwd}, #{name}, #{nickName}, #{phone}, #{gender}, #{email}, SYSDATE, 'Y', #{farmerCode}, #{career})
 	</insert>
 	
+	<!-- 회원 정보 수정 -->
+	<insert id="updateMember" parameterType="member">
+		UPDATE MEMBER
+		SET NAME = #{name}, EMAIL = #{email}, NICKNAME = #{nickName}, PHONE = #{phone}, FARMER_CODE = #{farmerCode}, CAREER = #{career}, MODIFY_DATE = #{modifyDate}
+		WHERE MEM_ID = #{memId}
+	</insert>
+	
 	<!-- 아이디 찾기 -->
 	 
 	<!--<select id="findId" parameterType="member" resultType="memberResultSet">
