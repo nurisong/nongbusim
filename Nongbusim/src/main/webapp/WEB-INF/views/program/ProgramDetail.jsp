@@ -39,7 +39,9 @@ table th {
 <body>
  <jsp:include page="../common/menubar.jsp" />
 
-<div align="center">
+
+<form action="">
+	<div align="center">
     <h1>프로그램 상세 정보</h1>
     <table border="1">
         <tr>
@@ -74,13 +76,14 @@ table th {
 
 	 <img src="${p.changeName}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236"> 
    
-    
-    
-    
-
     <br><br>
     <button>신청</button>
 </div>
+
+
+
+</form>
+
 
 
 </body>
