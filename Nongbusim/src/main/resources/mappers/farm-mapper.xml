@@ -36,5 +36,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    FARMER = #{memNo}
 	
 	</select>
+	
+	<insert id="insertFarm" parameterType="farm">
+		INSERT
+		  INTO
+				FARM
+				(
+				FARM_NO
+			   ,FARMER
+			   ,FARM_NAME
+			   ,FARM_INTRO
+			   ,ADDRESS
+			   ,PHONE
+			   ,CROP
+				)
+		VALUES
+				(
+				SEQ_FNO.NEXTVAL
+			   ,2
+			   ,#{farmName}
+			   ,#{farmIntro}
+			   ,#{address}
+			   ,#{phone}
+			   ,#{crop}
+				)
+	</insert>
 
 </mapper>
