@@ -103,7 +103,7 @@ text-align: center;
 						<tr>
 							<td class="bno">${ b.boardNo }</td>
 							<td>${ b.boardTitle }</td>
-							<td>${ b.boardWriter }</td>
+							<td></td>
 							<td>${ b.createDate }</td>
 							<td>${ b.count }</td>
 							<td>${ b.boardType }</td>							

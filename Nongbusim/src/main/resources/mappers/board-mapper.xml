@@ -38,14 +38,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                to_char(create_date, 'YYYY-MM-DD') as "CREATE_DATE",
                count,
                nickname as board_writer
-               
 		  from
 		       board b,  member m
-        WHERE
+         where
                b.mem_no=m.mem_no
-		 order
-		    by
-		       board_no desc
+           and
+           	   board_type=#{boardType}
+         order
+            by
+               board_no desc
 	</select>
 
 

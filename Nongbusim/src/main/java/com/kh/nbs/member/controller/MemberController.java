@@ -196,6 +196,11 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("userType.me")
+	public String userType() {
+		return "member/userType";
+	}
+	
 //	@RequestMapping("findId.me")
 //	public String findId(String memPwd, HttpSession session, Model model) {
 //		
