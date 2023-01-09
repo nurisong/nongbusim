@@ -23,12 +23,13 @@ public class ProgramServiceImpl implements ProgramService {
 	
 	@Override
 	public int selectListCount() {
-		return 0;
+		return programDao.selectListCount(sqlSession);
 	}
 
+	
 	@Override
 	public ArrayList<Program> selectList(PageInfo pi) {
-		return null;
+		return programDao.selectList(sqlSession,pi);
 	}
 
 	@Override
@@ -40,6 +41,12 @@ public class ProgramServiceImpl implements ProgramService {
 	@Override
 	public ArrayList<Farm> selectFarmList(int memNo) {
 		return programDao.selectFarmList(sqlSession,memNo);
+	}
+
+
+	@Override
+	public Program selectProgram(int programNo) {
+		return programDao.selectProgram(sqlSession,programNo);
 	}
 	
 }

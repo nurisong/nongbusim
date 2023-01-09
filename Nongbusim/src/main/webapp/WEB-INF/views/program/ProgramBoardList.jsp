@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,62 +84,25 @@
                         <th>일정</th>
                         <th>모집인원</th>
                         <th>신청</th>
-                        <th>자세히보기</th>
                         <th>찜</th>
                     </tr>
                 </thead>
                 <tbody>
                     
-                    <c:forEach items="${ list }" var="b">
-                    	<tr>
-                    	   <td class ="bno">서울시</td>
-                    	   <td>졸리다</td>
-                    	   <td>2023.01.12~2023.01.13</td>
-                    	   <td>50 명</td>
-                    	   <td>진행중</td>
-                           <td><button>자세히보기</button></td>
-                           <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
-                    	</tr>
+                    <c:forEach items="${ programlist }" var="p">
+                    	
+                    	
                     	
                     	<tr>
-                    	   <td class ="bno">강원도</td>
-                    	   <td>그냥 잘까</td>
-                    	   <td>22023.01.12~2023.01.13</td>
-                    	   <td>50 명</td>
-                    	   <td>진행중</td>
-                           <td><button>자세히보기</button></td>
-                           <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
+                    	   <td class="bno" hidden>${ p.programNo }</td>
+                    	   <td>${ p.programLocation }</td>
+                    	   <td>${ p.programName }</td>
+                    	   <td>${ p.programPlan }</td>
+                    	   <td>${ p.headcount }</td>
+                    	   <td>${ p.signUp }</td>
+                    	    <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
                     	</tr>
                     	
-                    	<tr>
-                    	   <td class ="bno">강원도</td>
-                    	   <td>아니야..</td>
-                    	   <td>2023.01.12~2023.01.13</td>
-                    	   <td>50 명</td>
-                    	   <td>진행중</td>
-                           <td><button>자세히보기</button></td>
-                           <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
-                    	</tr>
-                    	
-                    	<tr>
-                    	   <td class ="bno">강원도</td>
-                    	   <td>그래도</td>
-                    	   <td>2023.01.12~2023.01.13</td>
-                    	   <td>50 명</td>
-                    	   <td>진행중</td>
-                           <td><button>자세히보기</button></td>
-                           <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
-                    	</tr>
-                    	
-                    	<tr>
-                    	   <td class ="bno">강원도</td>
-                    	   <td>해야지..</td>
-                    	   <td>2023.01.12~2023.01.13</td>
-                    	   <td>50 명</td>
-                    	   <td>진행중</td>
-                           <td><button>자세히보기</button></td>
-                           <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
-                    	</tr>	
                     </c:forEach>
                     
                 </tbody>
@@ -179,7 +143,27 @@
             </div>
 
             <script>
-
+            
+             
+              
+	            $(function(){
+	            	$('#boardList>tbody>tr').click(function(){
+	            		
+	            		
+	            		$(this).append
+	            		
+	            		location.href = 'detail.pr?bno=' + $(this).children('.bno').text();
+	            		
+	            	})
+	            	
+	            })
+	            
+            
+            
+            
+            
+            
+				// 찜하기 버튼 해제
                 $(function() {
     
                 $('.heart').click(function() {

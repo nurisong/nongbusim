@@ -172,7 +172,7 @@
                     <li><a href="list.pr" id="sub-menu-click">농장/체험</a></li>
                     <li><a href="" id="store-menu-click" class="goStore">농작물거래</a></li>
                     <li><a href="" id="community-menu-click">농부게시판</a></li>
-                    <li><a href="register.pr" id="community-menu-click">프로그램 등록</a></li>
+                    <li><a href="enrollForm.pr" id="community-menu-click">프로그램 등록</a></li>
                     <li><a href="">공지/정보</a></li>
                     
                     <!-- 가짜 검색창 -->
