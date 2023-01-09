@@ -140,6 +140,23 @@ public class MemberController {
 		return "member/myPageFarmer/updateFarmer";
 	}
 	
+	
+	
+	
+	
+	
+	
+	@RequestMapping("myPageUser.me")
+	public String myPageUser() {
+		return "member/myPageUser/myPageUserCommon";
+	}
+	
+	@RequestMapping("myPageFarmer.me")
+	public String myPageFarmer() {
+		return "member/myPageFarmer/myPageFarmerCommon";
+	}
+	
+	
 //	@RequestMapping("updateFarmer.me")
 //	public String updateFarmer(Member m, Model model, HttpSession session) {
 //		System.out.println(m);
