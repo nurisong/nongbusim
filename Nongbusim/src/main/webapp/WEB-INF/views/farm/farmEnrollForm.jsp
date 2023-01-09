@@ -19,6 +19,16 @@
 #list-btn{float: right;}
 #list-btn:hover{cursor: pointer;}
 .board-area{height: 350px;}
+.info-table button{
+    border: 1px solid rgb(100, 100, 100);
+    border-radius: 2px;
+}
+.info-table input[type=file]{
+    width: 400px;
+}
+.sub-img-area input{
+    display: inline-block;
+}
 </style>
 </head>
 <body>
@@ -33,52 +43,105 @@
 
             <br><br><br>
             <div class="board-area">
-                <table class="table info-table">
-                    <tr>
-                        <th>농장이름</th>
-                        <td colspan="3"><input type="text" class="form-control" required name=""></td>
-                    </tr>
-                    <tr>
-                        <th>주소</th>
-                        <td colspan="3"><input type="text" class="form-control" required name=""></td>
-                    </tr>
-                    <tr>
-                        <th>연락처</th>
-                        <td colspan="3"><input type="text" class="form-control" required name=""></td>
-                    </tr>
-                    <tr>
-                        <th>대표사진</th>
-                        <td colspan="3">
-                           <input type="file" class="form-control-file border" name="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>상세사진</th>
-                        <td colspan="3">
-                           <input type="file" class="form-control-file border" name="">
-                           <input type="file" class="form-control-file border" name="">
-                           <input type="file" class="form-control-file border" name="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>소개글</th>
-                        <td colspan="3">
-                            <textarea name="" id="" class="form-control" style="resize: none;" rows="10"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th width="100">대표작물</th>
-                        <td colspan="3"><input type="text" class="form-control" required name=""></td>
-                    </tr>
-                </table>
-
-                <a class="btn btn-secondary" href="">등록하기</a>
-                <a class="btn btn-secondary" href="">취소하기</a>
-            </div>
+            	<form action="insert.fm" method="post" enctype="multipart/form-data">	
+	                <table class="table info-table">
+	                    <tr>
+	                        <th>농장이름</th>
+	                        <td colspan="3"><input type="text" class="form-control" required name="farmName"></td>
+	                    </tr>
+	                    <tr>
+	                        <th>주소</th>
+	                        <td colspan="3"><input type="text" class="form-control" required name="address"></td>
+	                    </tr>
+	                    <tr>
+	                        <th>연락처</th>
+	                        <td colspan="3"><input type="text" class="form-control" required name="phone"></td>
+	                    </tr>
+	                    <tr>
+	                        <th>대표사진</th>
+	                        <td colspan="3">
+	                           <input type="file" class="form-control-file border" name="upfiles" accept="image/*">
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <th>상세사진</th>
+	                        <td colspan="3" class="sub-img-area">
+                                <button type="button" class="add-btn">추가</button><label style="display: none;" id="max-label">상세사진은 최대 3장까지 첨부 가능합니다.</label><br> 
+                                <input type="file" class="form-control-file border" name="upfiles" accept="image/*">
+                            </td>
+	                    </tr>
+	                    <tr>
+	                        <th>소개글</th>
+	                        <td colspan="3">
+	                            <textarea class="form-control" style="resize: none;" rows="10" name="farmIntro" ></textarea>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <th width="100">대표작물</th>
+	                        <td colspan="3"><input type="text" class="form-control" required name="crop"></td>
+	                    </tr>
+	                </table>
+	
+	                <button type="submit" class="btn btn-secondary">등록하기</button>
+	                <a class="btn btn-secondary" href="">취소하기</a>
+	            </div>
+            </form>
 
            
         </div>
     </div>
+
+    <script> 
+        // 버튼 클릭시 input 추가
+        var maxAppend = 1;
+
+        $('.add-btn').on('click', function(){
+            if(maxAppend >= 3){
+                $('#max-label').css('display', '');
+                return;
+            }else{
+                $('.sub-img-area').append('<div><input type="file" name="upfiles" class="form-control-file border" accept="image/*"> <button type="button" onclick="delInput(this);">삭제</button></div>'); 
+                maxAppend ++;
+            }
+
+
+            // switch(maxAppend){
+            //     case 1: $('#subImg2').css('display', '');
+            //             maxAppend++;
+            //             break;
+            //     case 2: $('#subImg3').css('display', '');
+            //             maxAppend++;
+            //             $('#max-label').css('display', '');
+            //             $(this).css('display', 'none');
+            //             break;
+            // }
+        });
+
+        function delInput(e){
+            $(e).closest('div').remove();
+            $('#max-label').css('display', 'none');
+            maxAppend --;
+        }
+
+        // input 삭제
+        $('#del-btn2').on('click', function(){
+            $('#subImg2').css('display', 'none');
+            $('#max-label').css('display', 'none');
+            $('#subImgInput2').val('');
+            $('.add-btn').css('display', '');
+            maxAppend--;
+        });
+
+        $('#del-btn3').on('click', function(){
+            $('#subImg3').css('display', 'none');
+            $('#max-label').css('display', 'none');
+            $('#subImgInput3').val('');
+            $('.add-btn').css('display', '');
+            maxAppend--;
+        })
+
+
+    </script>
 
 
 </body>

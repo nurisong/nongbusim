@@ -16,6 +16,9 @@ public interface MemberService {
 	// 일반 사용자 정보 수정 (update)
 	int updateUser(Member m);
 	
+	// 농부 정보 수정(update)
+	int updateFarmer(Member m);
+	
 	// 회원 탈퇴 (update)
 	int deleteMember(String memId);
 	
