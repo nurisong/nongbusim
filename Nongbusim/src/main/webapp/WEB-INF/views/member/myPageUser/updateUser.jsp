@@ -19,7 +19,10 @@
 <br>
 <h3>회원정보 수정</h3>
   <hr>
-    <form action="update.me" id="form-div" method="post">
+    <form action="updateUser.me" id="form-div" method="post">
+    
+     <input type="hidden" name="memId" value="${ loginUser.memId }">
+     
       <h4>기본정보</h4>
         <div class="form-group">
           <label for="name">* 성명 :</label>
@@ -27,6 +30,7 @@
         </div>
         <div class="form-group">
             <label for="pwd">* 비밀번호 :</label>
+            
             <input type="password" class="form-control" placeholder="비밀번호는 8~18자리의 영문, 숫자, 특수문자 3종류 이상 혼합해야 합니다." name="memPwd">
         </div>
         <div class="form-group">
@@ -43,6 +47,7 @@
       </div>
         <button type="submit" class="btn btn-success">수정하기</button>
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm">회원탈퇴</button>
+     
       </form>
 </body>
 </html>

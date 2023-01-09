@@ -25,8 +25,10 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.farmerInsertMember", m);
 	}
 	
-	// 회원 수정
+	// 일반 사용자 수정
 	public int updateUser(SqlSessionTemplate sqlSession, Member m) {
+//		System.out.println("Dao : " + m);
+
 		return sqlSession.update("memberMapper.updateUser", m);
 	}
 
