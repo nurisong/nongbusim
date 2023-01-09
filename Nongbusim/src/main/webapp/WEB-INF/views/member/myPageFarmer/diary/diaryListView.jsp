@@ -57,7 +57,7 @@
 		console.log(now);
 		
 		console.log("now"+dateFormat(now));
-		$('#endDate').val= dateFormat(now);
+		$('#endDate').val(dateFormat(now));
 		
 		
 		switch(period){
@@ -72,7 +72,7 @@
 			startDate = new Date(now.setMonth(now.getMonth() - 6));
 			break;		
 		case 'oneYear':
-			startDate = new Date(now.setMonth(now.getYear() - 1));
+			startDate = new Date(now.setYear(now.getYear() - 1));
 			break;		
 	
 			
@@ -81,7 +81,7 @@
 	
 		
 		console.log("startDate"+dateFormat(startDate));
-		$('#startDate').val = dateFormat(startDate);
+		$('#startDate').val(dateFormat(startDate));
 		
 	} 
 	
@@ -94,6 +94,10 @@
 		'-' + ( (date.getDate()) < 10 ? "0" + (date.getDate()) : (date.getDate()) );
 	return dateFormat2;
 	}
+	
+	
+	
+	
 	
 	
 </script>
