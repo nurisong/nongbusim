@@ -44,51 +44,63 @@ text-align: center;
 
 	<br><br>
    <h1>교육 프로그램 등록</h1>
-     <select  name="farmName">
-                    <option value="first">농장1</option>
-                    <option value="second">농장2</option>
-                
-                </select>
    
-      <form action="">
+    		
+      <form action="insert.pr" method="post" enctype="multipart/form-data">
+
+         <select  name="farmNo">
+    			
+            <c:forEach items="${ list }" var="p" >
+            
+                <option value="${p.farmNo}"> ${ p.farmName }</option>
+            </c:forEach>
+       
+               
+            
+            </select>
+
+
          <table border="1">
             <tr>
                <th>프로그램명</th>
-               <td><input type="text"></td>
+               <td><input type="text" name="programName"></td>
             </tr>
             <tr>
                <th>교육일정</th>
-               <td><input type="date"></td>
+               <td><input type="date" name="programPlan"></td>
             </tr>
             <tr>
                <th>교육시간</th>
-               <td><input type="time"></td>
+               <td><input type="time" name="programHour"></td>
             </tr>
             <tr>
                <th>강사</th>
-               <td><input type="text"></td>
+               <td><input type="text" name="programLecture"></td>
             </tr>
             <tr>
                <th>장소</th>
-               <td><input type="text"></td>
+               <td><input type="text" name="programLocation"></td>
             </tr>
             <tr>
                <th>모집인원</th>
-               <td><input type="text"></td>
+               <td><input type="text" name="headcount"></td>
             </tr>
             <tr>
                <th>상세설명</th>
-               <td><input type="text"></td>
+               <td><input type="text" name="programDetail"></td>
             </tr>
             <tr>
                <th>홍보이미지</th>
-               <td><input type="file"></td>
+               <td><input type="file" name="upfile"></td>
             </tr>
          </table>
-      </form>
-      <br>
+         
+         
+          <br>
 
-      <button>등록</button>
+      		<button type="submit">등록</button>
+      </form>
+     
 
   </div>
 

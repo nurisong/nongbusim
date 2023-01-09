@@ -21,41 +21,109 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 
-
-
-
-
-<insert id="registerProgram" parameterType="program">
-
-	insert
-			into
+	
+	<insert id="registerProgram" parameterType="program">
+	
+		insert
+				into
+					program
+					(
+					PROGRAM_NO,
+					FARM_NO,
+					PROGRAM_NAME,
+					PROGRAM_PLAN,
+					PROGRAM_HOUR,
+					PROGRAM_LECTURE,
+					HEADCOUNT,
+					PROGRAM_DETAIL,
+					SIGN_UP,
+					STATUS,
+					PROGRAM_LOCATION,
+					MEM_NO,
+					ORIGIN_NAME,
+					CHANGE_NAME
+					
+					
+					 
+					)
+			values
+					(
+					seq_pno.nextval,
+					#{farmNo},
+					#{programName},
+					#{programPlan},
+					#{programHour},
+					#{programLecture},
+					#{headcount},
+					#{programDetail},
+					'진행',
+					'Y',
+					#{programLocation},
+					1,
+					#{originName},
+					#{changeName}
+					
+					) 
+	
+	</insert>
+	
+	<select id="selectListCount" resultType="_int">
+		select
+				count(*)
+	      from
+	      		program
+	      where
+	      		status= 'Y'
+	</select>
+	
+	
+	<select id="selectList" resultMap="programResultSet">
+	
+		select 
+				program_no,
+				program_location,
+				program_name,
+				program_plan,
+				headcount,
+				sign_up
+			from
 				program
-				(
-				PROGRAM_NO,
-				FARM_NO,
-				PROGRAM_NAME,
-				PROGRAM_PLAN,
-				PROGRAM_HOUR,
-				PROGRAM_LECTURE,
-				HEADCOUNT,
-				PROGRAM_DETAIL,
-				MEM_NO,
-				SIGN_UP,
-				STATUS,
-				PROGRAM_LOCATION
-				
-				 
-				)
-		values
-				(
-				seq_pno.nextval,
-				#{replyContent},
-				#{replyWriter},
-				#{refBoardNo}
-				) 
-
-
-
-</insert>
+			where
+				status = 'Y'
+			order
+				by
+					program_no desc
+					
+	</select>
+	
+	
+	
+	<select id="selectProgram" parameterType="program" resultMap="programResultSet">
+	
+		select
+			program_no,
+			farm_no,
+			program_name,
+			program_plan,
+			program_hour,
+			program_lecture,
+			headcount,
+			program_detail,
+			sign_up,
+			mem_no,
+			status,
+			program_location,
+			origin_name,
+			change_name
+		from
+			program
+		where
+			status = 'Y'
+		and
+			program_no = #{programNo}
+			
+	
+	
+	</select>
  
 </mapper>

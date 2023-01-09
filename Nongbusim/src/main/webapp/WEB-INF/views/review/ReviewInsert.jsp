@@ -134,13 +134,15 @@
             .star-rating label:hover ~ label {
             -webkit-text-fill-color: #fff58c;
             }
-
-                
+       
     </style>
+    
 </head>
 <body>
     <jsp:include page="../common/menubar.jsp" />
     <div id="myPage">
+    
+    
         <h3>마이페이지</h3>
         <hr>
         <div class="menuArea"  style="width:200px; height:120px; border:1px solid red; float:left;">
@@ -156,9 +158,6 @@
           
             <br>
             <div class="innerOuter" style="padding:5% 10%;">
-
-                
-
           
             <table id="boardList"  class="table table-hover" align="center">
                 <thead>
