@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from
 			diary
 	where
-			memNo = #{memNo}
+			mem_no = #{memNo}
 	</select>
 
 

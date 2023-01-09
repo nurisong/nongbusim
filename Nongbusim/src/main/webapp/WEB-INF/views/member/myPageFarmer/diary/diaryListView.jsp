@@ -16,13 +16,14 @@
 <h1>영농일지 모아보기</h1>
 <form action="" method="post">
 <div class="selectArea">
-	<div class="selectDate">
+	<div class="selectPeriod">
 		조회기간 &nbsp; &nbsp;
-		<button>1개월</button>
-		<button>3개월</button>
-		<button>6개월</button>
-		<button>1년</button>
-		<input type="date"> ~ <input type="date">
+		<button type="button" onclick="selectPeriod('oneMonth');">1개월</button>
+		<button type="button" onclick="selectPeriod('threeMonths');">3개월</button>
+		<button type="button" onclick="selectPeriod('sixMonths');">6개월</button>
+		<button type="button" onclick="selectPeriod('oneYear');">1년</button>
+
+		<input type="date" id="startDate" name="startDate"> ~ <input type="date" id="endDate" name="endDate">
 	</div>
 	<div class="selectCategory">
 		품목 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -46,15 +47,44 @@
 		<button type="reset" style="align:right">초기화</button>	
 	</div>
 </div>
-
+</form>
 <script>
-	function selectCondition(){
-		var selectDuaration 
+
+	function selectPeriod(period){
 		
-	}
+		var now = new Date();	
+		console.log(now);
+		
+		switch(period){
+		
+		case 'oneMonth':
+			var startDate = new Date(now.setMonth(now.getMonth() - 1));
+			console.log(startDate);
+			
+			
+			
+			break;
+		case 'threeMonths':
+			$('#startDate').val = new Date(now.setMonth(now.getMonth() - 3));
+			break;		
+		case 'sixMonths':
+			$('#startDate').val = new Date(now.setMonth(now.getMonth() - 6));
+			break;		
+		case 'oneYear':
+			$('#startDate').val = new Date(now.setMonth(now.getYear - 1));
+			break;		
+		case threeMonths:
+			$('#startDate').val = new Date(now.setMonth(now.getMonth() - 3));
+			break;		
+			
+		
+		}
+		
+		console.log($('#startDate').val );
+	} 
 </script>
 
-</form>
+
 
 
 
