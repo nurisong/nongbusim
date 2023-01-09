@@ -193,7 +193,7 @@
 
                 $('#replyArea>tbody>tr').click(function(){
 
-                    $('#modal').css('display', 'block').fadeIn();
+                    $('#modal').css('display', 'block');
 
                 });
 
