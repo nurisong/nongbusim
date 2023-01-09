@@ -25,13 +25,26 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.farmerInsertMember", m);
 	}
 	
-	// 일반 사용자 수정
+	// 일반 사용자 정보 수정
 	public int updateUser(SqlSessionTemplate sqlSession, Member m) {
-//		System.out.println("Dao : " + m);
-
 		return sqlSession.update("memberMapper.updateUser", m);
 	}
+	
+	// 농부 정보 수정
+	public int updateFarmer(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateFarmer", m);
+	}
+	
+	// 일반 사용자 탈퇴
+	public int deleteUser(SqlSessionTemplate sqlSession, String memId) {
+		return sqlSession.update("memberMapper.deleteUser", memId);
+	}
 
+	// 일반 사용자 탈퇴
+	public int deleteFarmer(SqlSessionTemplate sqlSession, String memId) {
+		return sqlSession.update("memberMapper.deleteFarmer", memId);
+	}
+	
 	// 아이디 찾기
 //	public Member findId(SqlSessionTemplate sqlSession, String memPwd) {
 //		return sqlSession.selectOne("memberMapper.findId", memPwd);

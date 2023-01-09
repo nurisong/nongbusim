@@ -23,7 +23,10 @@
 <br>
 <h3>회원정보 수정</h3>
   <hr>
-    <form action="" id="form-div" method="post">
+    <form action="updateFarmer.me" id="form-div" method="post">
+    
+    <input type="hidden" name="memId" value="${ loginUser.memId }">
+    
       <h4>기본정보</h4>
 		<div class="form-group">
           <label for="name">* 성명 :</label>
@@ -56,8 +59,40 @@
         <label for="career">* 영농경력  :</label>
         <input type="text" class="form-control" value="${ sessionScope.loginUser.career }" name="career">
       </div>
-        <button type="submit" class="btn btn-success">확인</button>
-        <button type="button" class="btn btn-secondary">취소</button>
+        <button type="submit" class="btn btn-success">수정하기</button>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm">회원탈퇴</button>
       </form>
+      
+      <!-- 회원탈퇴 버튼 클릭 시 보여질 Modal -->
+    <div class="modal fade" id="deleteForm">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">회원탈퇴</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <form action="deleteFarmer.me" method="post">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div align="center">
+			                            탈퇴 후 복구가 불가능합니다. <br>
+			                            정말로 탈퇴 하시겠습니까? <br>
+                        </div>
+                        <br>
+                            <label for="userPwd" class="mr-sm-2">Password : </label>
+                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="memPwd" name="memPwd"> <br>
+                            <input type="hidden" name="memId" value="${ loginUser.memId }"> <br>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer" align="center">
+                        <button type="submit" class="btn btn-danger">탈퇴하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

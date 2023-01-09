@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>프로그램 리스트</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+                                                                                       
     <style>
 
             .content {
@@ -92,7 +93,6 @@
                     <c:forEach items="${ programlist }" var="p">
                     	
                     	
-                    	
                     	<tr>
                     	   <td class="bno" hidden>${ p.programNo }</td>
                     	   <td>${ p.programLocation }</td>
@@ -100,7 +100,7 @@
                     	   <td>${ p.programPlan }</td>
                     	   <td>${ p.headcount }</td>
                     	   <td>${ p.signUp }</td>
-                    	    <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
+                    	   <td><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
                     	</tr>
                     	
                     </c:forEach>
@@ -119,12 +119,12 @@
                    	 		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                 		</c:when>
                 		<c:otherwise>
-                		 <li class="page-item "><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+                		 <li class="page-item "><a class="page-link" href="list.pr?cpage=${ pi.currentPage - 1 }">Previous</a></li>
                 		</c:otherwise>	
                 	 </c:choose>
                 	 
                 	<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-                		 <li class="page-item "><a class="page-link" href="list.bo?cpage=${p}">${ p }</a></li>
+                		 <li class="page-item "><a class="page-link" href="list.pr?cpage=${p}">${ p }</a></li>
                 	
                 	</c:forEach>
                 	
@@ -135,7 +135,7 @@
                 		</c:when>
                 		<c:otherwise>
                 		
-                			<li class ="page-item"><a class="page-link" href="list.bo?cpage=${pi.currentPage + 1 }">NEXT</a>
+                			<li class ="page-item"><a class="page-link" href="list.pr?cpage=${pi.currentPage + 1 }">NEXT</a>
                 		</c:otherwise>
                 		
                 	</c:choose>

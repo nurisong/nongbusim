@@ -160,7 +160,7 @@ public class ProgramController {
 			
 			if( programService.selectProgram(bno) != null ) { //키값과 똑같은 이름의 매개변수, int형으로 쓰면 알아서 파싱
 				
-				mv.addObject("b", programService.selectProgram(bno)).setViewName("program/ProgramDetail");
+				mv.addObject("p", programService.selectProgram(bno)).setViewName("program/ProgramDetail");
 			} else {
 				
 				mv.addObject("errorMsg","게시글 조회 실패").setViewName("common/errorPage");
