@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,9 +66,11 @@
 <body>
 
     <jsp:include page="../common/menubar.jsp" />
-    <jsp:include page="Boardbar.jsp" />
+    <jsp:include page="boardbar.jsp" />
 
     <div class="outer" align="center">
+        
+        <!-- main-area과paging-area로 나뉨 -->
         <div class="main-area">
 
           <h1>농작물 자랑</h1>
@@ -75,7 +78,7 @@
           
           <!--글 작성-->
           <div>
-            <button class="btn btn-secondary" id="insert-btn">글작성</button>
+              <button type="button" onclick="location.href='write.bo?wtype=${btype}';" class="btn btn-secondary" id="insert-btn" >글작성</button>
           </div>
           <br>
           <br>
@@ -101,6 +104,7 @@
                 </div>
               </form>              
             </div>
+            
           </div>
             
           <br><br>
@@ -118,68 +122,98 @@
           <!--썸네일 리스트-->
           <div class="list-area">
           
-            <div class="thumbnail" align="center">
-              <input type="hidden" value="boardNo">
-              <img src="https://cdn.britannica.com/90/94190-050-C0BA6A58/Cereal-crops-wheat-reproduction.jpg?w=400&h=300&c=crop">
-              <p>
-                boardTitle <br>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                </svg> like수 &nbsp;
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                </svg> count수
-              </p>
-            </div>
-
-            <div class="thumbnail" align="center">
-              <input type="hidden" value="boardNo">
-              <img src="https://cdn.britannica.com/90/94190-050-C0BA6A58/Cereal-crops-wheat-reproduction.jpg?w=400&h=300&c=crop">
-              <p>
-                boardTitle <br>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                </svg> like수 &nbsp;
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                </svg> count수
-              </p>
-            </div>
-
-            <div class="thumbnail" align="center">
-              <input type="hidden" value="boardNo">
-              <img src="https://cdn.britannica.com/90/94190-050-C0BA6A58/Cereal-crops-wheat-reproduction.jpg?w=400&h=300&c=crop">
-              <p>
-                boardTitle <br>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                </svg> like수 &nbsp;
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                </svg> count수
-              </p>
-            </div>
-
-            <div class="thumbnail" align="center">
-              <input type="hidden" value="boardNo">
-              <img src="https://cdn.britannica.com/90/94190-050-C0BA6A58/Cereal-crops-wheat-reproduction.jpg?w=400&h=300&c=crop">
-              <p>
-                boardTitle <br>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                </svg> like수 &nbsp;
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                </svg> count수
-              </p>
-            </div>
-        </div>
+	            <div class="thumbnail" align="center">
+	              <input type="hidden" value="boardNo">
+	              <img src="https://cdn.britannica.com/90/94190-050-C0BA6A58/Cereal-crops-wheat-reproduction.jpg?w=400&h=300&c=crop">
+	              <p>
+	                boardTitle <br>
+	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+	                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+	                </svg> like수 &nbsp;
+	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-eye-fill" viewBox="0 0 16 16">
+	                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+	                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+	                </svg> count수
+	              </p>
+	            </div>
+	
+	            <div class="thumbnail" align="center">
+	              <input type="hidden" value="boardNo">
+	              <img src="https://cdn.britannica.com/90/94190-050-C0BA6A58/Cereal-crops-wheat-reproduction.jpg?w=400&h=300&c=crop">
+	              <p>
+	                boardTitle <br>
+	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+	                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+	                </svg> like수 &nbsp;
+	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-eye-fill" viewBox="0 0 16 16">
+	                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+	                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+	                </svg> count수
+	              </p>
+	            </div>
+	
+	            <div class="thumbnail" align="center">
+	              <input type="hidden" value="boardNo">
+	              <img src="https://cdn.britannica.com/90/94190-050-C0BA6A58/Cereal-crops-wheat-reproduction.jpg?w=400&h=300&c=crop">
+	              <p>
+	                boardTitle <br>
+	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+	                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+	                </svg> like수 &nbsp;
+	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-eye-fill" viewBox="0 0 16 16">
+	                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+	                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+	                </svg> count수
+	              </p>
+	            </div>
+	
+	            <div class="thumbnail" align="center">
+	              <input type="hidden" value="boardNo">
+	              <img src="https://cdn.britannica.com/90/94190-050-C0BA6A58/Cereal-crops-wheat-reproduction.jpg?w=400&h=300&c=crop">
+	              <p>
+	                boardTitle <br>
+	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+	                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+	                </svg> like수 &nbsp;
+	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-eye-fill" viewBox="0 0 16 16">
+	                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+	                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+	                </svg> count수
+	              </p>
+	            </div>
+        	</div>
+    	</div>
+    	
+    	<!-- 페이징 처리 -->
+		<div id="pagingArea">
+		    <ul class="pagination">
+		    
+		    	<c:choose>
+		    		<c:when test="${ pi.currentPage eq 1 }">
+		        		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+		        	</c:when>
+		        	<c:otherwise>
+		        		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }&type=${btype}">Previous</a></li>
+		        	</c:otherwise>
+		        </c:choose>
+		        
+				<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+		        	<li class="page-item"><a class="page-link" href="list.bo?cpage=${p}">${ p }</a></li>
+		        </c:forEach>
+		
+				<c:choose>
+					<c:when test="${ pi.currentPage eq pi.maxPage }">
+		        		<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+		        	</c:when>
+		        	<c:otherwise>
+		        		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }&type=${btype}">Next</a></li>
+		        	</c:otherwise>
+		        </c:choose>
+		          
+		    </ul>
+		</div>
+		
     </div>
-  </div>
 
   <script>
     $(function(){
@@ -192,6 +226,7 @@
     })
   
   </script>
+  
 
 
 </body>

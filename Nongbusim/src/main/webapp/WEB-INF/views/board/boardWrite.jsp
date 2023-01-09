@@ -34,12 +34,10 @@
                 
                 <div>
                     <select class="board-select" name="boardType" id="boardType" onchange="ChangedValue();" style="width: 1050px; height: 30px;">
-                        <option value="">게시판 선택하기</option>
                         <option value="S">자랑게시판</option>
                         <option value="Q">질문게시판</option>
                         <option value="K">노하우게시판</option>
-                        <option value="M">멘티멘토게시판</option>
-                        
+                        <option value="M">멘티멘토게시판</option>                      
                     </select>
                 </div>
                 
@@ -115,7 +113,13 @@
     </div>
 
     <script>
-
+    
+    	<!--글 작성 이전의 게시판 종류로 초기 선택하는 기능-->
+    	$(document).ready(function(){
+    		$('#boardType').val('${btype}').prop("selected",true);
+    	});
+    	
+    	<!--선택된 게시판 종류에 따라 게시판의 양식이 바뀌는 기능-->
         function ChangedValue() {
             
             var value_str=document.getElementById('boardType');
@@ -127,8 +131,6 @@
                 $("#picture-area").hide();
                 $("#table-area").show();
             }
-
-
 
         }
 

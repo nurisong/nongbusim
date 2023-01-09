@@ -80,10 +80,10 @@
             <section class="navigation-menu2">
                 <ul class="landing-list2">
                     <li><a href="" id="sub-menu-click">게시판 카테고리</a></li>
-                    <li><a href="" id="store-menu-click" class="goStore">자랑 게시판</a></li>
-                    <li><a href="" id="community-menu-click">노하우 게시판</a></li>
-                    <li><a href="" id="community-menu-click">질문 게시판</a></li>
-                    <li><a href="">멘티멘토 게시판</a></li>            
+                    <li><a href="picture.bo?type=S" id="store-menu-click" class="goStore">자랑 게시판</a></li>
+                    <li><a href="list.bo?cpage=1&type=K" id="community-menu-click">노하우 게시판</a></li>
+                    <li><a href="list.bo?type=Q" id="community-menu-click">질문 게시판</a></li>
+                    <li><a href="list.bo?type=M">멘티멘토 게시판</a></li>            
                 </ul>
             </section>
 
