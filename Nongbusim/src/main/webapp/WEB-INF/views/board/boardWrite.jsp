@@ -101,8 +101,8 @@
                     
                         </table>
                         <br>
-                        <input type="text" name="boardType" value="${btype}">
-                        <input type="number" name="memNo" value="300">
+                        <input type="hidden" name="boardType" value="${btype}">
+                        <input type="hidden" name="memNo" value="300">
                         
                         
                         <div align="center">
