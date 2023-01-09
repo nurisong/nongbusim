@@ -7,7 +7,7 @@ public class Market {
 	
 	private int marketNo;
 	private String marketCategory;
-	private String marketTilte;
+	private String marketTitle;
 	private int marketPrice;
 	private String marketIntro;
 	private String marketContent;

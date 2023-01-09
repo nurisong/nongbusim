@@ -4,4 +4,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="marketMapper">
 
+	<insert id="insertMarket">
+		
+		INSERT
+		  INTO
+				MARKET
+				(
+				MARKET_NO
+			   ,MK_CATEGORY
+			   ,MK_TITLE
+			   ,MK_PRICE
+			   ,MK_INTRO
+			   ,MK_CONTENT
+			   ,MEM_NO
+				)
+		VALUES
+				(
+				SEQ_MKNO.NEXTVAL
+			   ,#{marketCategory}
+			   ,#{marketTitle}
+			   ,#{marketPrice}
+			   ,#{marketIntro}
+			   ,#{marketContent}
+			   ,#{memNo}
+				)
+	
+	</insert>
+
 </mapper>

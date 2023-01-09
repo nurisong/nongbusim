@@ -24,4 +24,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		)
 		  		
 	</insert>
+	
+	
+	<insert id="insertAttachmentMarket" parameterType="attachment">
+		INSERT
+		  INTO
+		  		ATTACHMENT
+		  		(
+		  		file_no,
+		  		origin_name,
+		  		change_name,
+		  		board_type,
+		  		board_no
+		  		)
+		VALUES
+		  		(
+		  		SEQ_MKNO.NEXTVAL
+		  	   ,#{originName}
+		  	   ,#{changeName}
+		  	   ,#{boardType}
+		  	   ,#{boardNo}
+		  		)
+		  		
+	</insert>
 </mapper>
