@@ -72,7 +72,7 @@
 			startDate = new Date(now.setMonth(now.getMonth() - 6));
 			break;		
 		case 'oneYear':
-			startDate = new Date(now.setYear(now.getYear() - 1));
+			startDate = new Date(now.setFullYear(now.getYear() - 1));
 			break;		
 	
 			
