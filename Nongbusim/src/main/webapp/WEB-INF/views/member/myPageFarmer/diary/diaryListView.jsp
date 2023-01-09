@@ -14,7 +14,7 @@
 <body>
 
 <h1>영농일지 모아보기</h1>
-<form action="ajaxSelectDiaryList" method="post">
+<form action="selectDiaryList" method="post">
 <div class="selectArea">
 	<div class="selectPeriod">
 		조회기간 &nbsp; &nbsp;
@@ -43,9 +43,12 @@
 		</select>
 	</div>	
 	<div style="align:right">
-		<button type="submit">검색</button>
+		<button type="button" onclick="selectDiaryList">검색</button>
 		<button type="reset" style="align:right">초기화</button>	
 	</div>
+	<div id="listArea">
+	</div>
+	
 </div>
 </form>
 <script>
@@ -72,7 +75,7 @@
 			startDate = new Date(now.setMonth(now.getMonth() - 6));
 			break;		
 		case 'oneYear':
-			startDate = new Date(now.setFullYear(now.getYear() - 1));
+			startDate = new Date(now.setFullYear(now.getFullYear() - 1));
 			break;		
 	
 			
@@ -92,12 +95,60 @@
 		let dateFormat2 = date.getFullYear() +
 		'-' + ( (date.getMonth()+1) < 9 ? "0" + (date.getMonth()+1) : (date.getMonth()+1) )+
 		'-' + ( (date.getDate()) < 10 ? "0" + (date.getDate()) : (date.getDate()) );
-	return dateFormat2;
+		return dateFormat2;
 	}
 	
 	
 	
-	
+		//기간, 카테고리 지정 후 "검색" 버튼 누를 시 시행되는 함수 (ajax)
+	function selectDiaryList(){
+		
+		// yyyy-mm-dd형식
+		var startDate = $('#startDate').val();
+		var endDate = $('#endDate').val();
+		
+		
+		// category.val 에는 카테고리명 or noCategory
+		var category = $('#enrolledCategory').val();
+		
+		$.ajax({
+			url: 'selectDiaryList.di';
+			data : {
+				startDate : startDate,
+				endDate : endDate,
+		 		category : category,						
+			},
+			success: function(list){
+				console.log(list);
+
+                var result = '';
+				
+                for(var i=0; i<list.length ; i++) {
+                
+                result 
+					+='<div class="item-area">'
+                    + '<a href="<%= contextPath %>/detail.di?dno=' + list[i].diaryNo>'
+                    + '<div class="img-area">'
+                    + '<p>' + list[i].createDate + '</p>'
+                    + '<p>' + list[i].diaryCategory + '</p>'
+                    + '<p>' + list[i].diaryContent + '</p>'                    
+                    + '<img src="' + list[i].diaryThumbnail + '">'
+ 	                + '</div>' + '</a>'
+               		+ '<input type="hidden" id="reviewNo" name="reviewNo" value="'+list[i].reviewNo+'">'
+                    +'</div>'
+                    
+                    }
+                    $('#listArea').html(result);
+				
+			},
+			error: function(){
+				console.log('실패');
+			}
+		
+			
+		});
+		
+	}
 	
 	
 </script>
