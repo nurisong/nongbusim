@@ -28,17 +28,17 @@
 		품목 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select id="enrolledCategory">		
 			<c:choose>
+			<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
 				<c:when test="${ not empty categoryList }">
-					<c:forEach var="item"
+					<c:forEach var="category" items="${categoryList }">
+						<option>${ category }</option>
+					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					
+					<option value="noCategory">등록된 카테고리가 없습니다.</option>
 				</c:otherwise>
 			</c:choose>
-			<option>가나다라마바사아</option>
-			<option>가</option>
-			<option>가</option>
-			<option>가</option>
+			
 		</select>
 	</div>	
 	<div style="align:right">
@@ -46,13 +46,13 @@
 		<button type="reset" style="align:right">초기화</button>	
 	</div>
 </div>
+
+
 </form>
-<!-- categoryList -->
 
 
 
 
-</script>
 	
 
 </body>
