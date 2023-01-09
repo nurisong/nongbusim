@@ -12,11 +12,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="diary_content" property="diaryContent"></result>
 		<result column="status" property="status"></result>
 		<result column="mem_no" property="memNo"></result>
-		<result column="diary_thumbnail" property="diaryThumbnail"></result>
-		
+		<result column="diary_thumbnail" property="diaryThumbnail"></result>		
 	</resultMap>
 	
-
 
 	<select id="selectCategoryList" parameterType="_int" resultType="ArrayList">	
 	select 
