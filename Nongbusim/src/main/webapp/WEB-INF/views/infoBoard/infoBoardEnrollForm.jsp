@@ -35,8 +35,24 @@
             <div class="board-area">
                 <table class="table info-table">
                     <tr>
-                        <th width="100">제목</th>
+                        <th width="100">카테고리</th>
+                        <td colspan="3">
+                            <select name="" id="" class="form-control" style="width: 120px;">
+                                <option value="">보도자료</option>
+                                <option value="">농촌소식</option>
+                                <option value="">농업정보</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>제목</th>
                         <td colspan="3"><input type="text" class="form-control" required name=""></td>
+                    </tr>
+                    <tr>
+                        <th>사진파일</th>
+                        <td colspan="3">
+                           <input type="file" class="form-control-file border" name="">
+                        </td>
                     </tr>
                     <tr>
                         <th>첨부파일</th>
@@ -49,6 +65,10 @@
                         <td colspan="3">
                             <textarea name="" id="" class="form-control" style="resize: none;" rows="10"></textarea>
                         </td>
+                    </tr>
+                    <tr>
+                        <th width="100">출처</th>
+                        <td colspan="3"><input type="text" class="form-control" required name=""></td>
                     </tr>
                 </table>
 
