@@ -42,11 +42,17 @@
 		</select>
 	</div>	
 	<div style="align:right">
-		<button>검색</button>	
+		<button onclick="selectCondition();">검색</button>	
 		<button type="reset" style="align:right">초기화</button>	
 	</div>
 </div>
 
+<script>
+	function selectCondition(){
+		var selectDuaration 
+		
+	}
+</script>
 
 </form>
 

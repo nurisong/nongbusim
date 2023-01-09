@@ -20,7 +20,7 @@ public class DiaryController {
 	
 	@Autowired
 	private DiaryService diaryService;
-	// dummy memNo값
+	// dummy memNo
 	int memNo = 1; 
 
 	@ResponseBody	
@@ -35,7 +35,6 @@ public class DiaryController {
 	
 
 	// diaryListView
-	// 페이지 진입시 DB에 등록된 categoryList를 받아와서 select태그로 선택가능하도록
 	
 	@RequestMapping("list.di")
 	public ModelAndView selectCategoryList(ModelAndView mv) {
@@ -45,6 +44,8 @@ public class DiaryController {
 		
 		return mv;
 	}
+	
+	
 	
 	@RequestMapping("enrollForm.di")
 	public String diaryEnrollForm() {
