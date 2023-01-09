@@ -49,14 +49,15 @@
             <h2>글쓰기</h2>
             <br>
 
-            <form id="insertForm" method="post" action="" enctype="">
+            <form id="insertForm" method="post" action="insert.mk" enctype="multipart/form-data">
+                <input type="hidden" value="${ loginUser.memNo }" name="memNo">
                 <table algin="center">
                     <thead>
                         <tr>
-                            <select name="" id="" style="width: 100px;">
-                                <option value="">농산물</option>
-                                <option value="">수산물</option>
-                                <option value="">축산물</option>
+                            <select name="marketCategory" style="width: 100px;">
+                                <option value="농산물">농산물</option>
+                                <option value="수산물">수산물</option>
+                                <option value="축산물">축산물</option>
                             </select>
                         </tr>
                         <tr>
@@ -64,49 +65,49 @@
                                 <img src="" alt="" id="titleImg" width="250px" height="250px">
                             </td>
                             <td>
-                                <input type="text" class="form-control" name="title" placeholder="상품의 이름을 적어주세요" style="width: 515px;" required>
+                                <input type="text" class="form-control" name="marketTitle" placeholder="상품의 이름을 적어주세요" style="width: 515px;" required>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="number" class="form-control" name="price" style="width: 515px;" min="1">
+                                <input type="number" class="form-control" name="marketPrice" style="width: 515px;" min="1">
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <textarea cols="60" rows="8" name="intro" style="resize:none;" placeholder="상품을 간단히 소개해주세요"></textarea>
+                                <textarea cols="60" rows="8" name="marketIntro" style="resize:none;" placeholder="상품을 간단히 소개해주세요"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="file" name="file1" id="upfile1" class="form-control-file border" required onchange="loadImg(this, 1);">
+                                <input type="file" name="file1" id="upfile1" class="form-control-file border" required onchange="loadImg(this, 1);" accept="image/*">
                             </td>
                         </tr>
                         <tr style="display:none;">
                             <td colspan="2">
-                                <input type="file" name="file2" id="upfile2" class="form-control-file border" required onchange="loadImg(this, 2);">
+                                <input type="file" name="file2" id="upfile2" class="form-control-file border" required onchange="loadImg(this, 2);" accept="image/*">
                             </td>
                         </tr>
                         <tr style="display:none;">
                             <td colspan="2">
-                                <input type="file" name="file3" id="upfile3" class="form-control-file border" required onchange="loadImg(this, 3);">
+                                <input type="file" name="file3" id="upfile3" class="form-control-file border" required onchange="loadImg(this, 3);" accept="image/*">
                             </td>
                         </tr>
                         <tr style="display:none;">
                             <td colspan="2">
-                                <input type="file" name="file4" id="upfile4" class="form-control-file border" required onchange="loadImg(this, 4);">
+                                <input type="file" name="file4" id="upfile4" class="form-control-file border" required onchange="loadImg(this, 4);" accept="image/*">
                             </td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td colspan="2">
-                                <textarea cols="100" rows="10" name="content" style="resize:none;" placeholder="상품을 자세히 소개해주세요!"></textarea>
+                                <textarea cols="100" rows="10" name="marketContent" style="resize:none;" placeholder="상품을 자세히 소개해주세요!"></textarea>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="file" name="file5" id="upfile5" class="form-control-file border" required onchange="loadImg(this, 5);">
+                                <input type="file" name="file5" id="upfile5" class="form-control-file border" required onchange="loadImg(this, 5);" accept="image/*">
                             </td>
                         </tr>
                     </tbody>
@@ -166,7 +167,7 @@
                 if(num == 4){
 
                     $('#upfile4').after('<tr><td colspan="2">파일첨부는 최대 4개까지만 가능합니다.</td></tr>');
-                    
+
                 }
 
 
