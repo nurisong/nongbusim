@@ -50,7 +50,7 @@
             <br>
 
             <form id="insertForm" method="post" action="insert.mk" enctype="multipart/form-data">
-                <input type="hidden" value="${ loginUser.memNo }" name="memNo">
+                <input type="hidden" value="1" name="memNo">
                 <table algin="center">
                     <thead>
                         <tr>
@@ -80,22 +80,22 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="file" name="file1" id="upfile1" class="form-control-file border" required onchange="loadImg(this, 1);" accept="image/*">
+                                <input type="file" name="upfiles" id="upfile1" class="form-control-file border" onchange="loadImg(this, 1);" accept="image/*">
                             </td>
                         </tr>
                         <tr style="display:none;">
                             <td colspan="2">
-                                <input type="file" name="file2" id="upfile2" class="form-control-file border" required onchange="loadImg(this, 2);" accept="image/*">
+                                <input type="file" name="upfiles" id="upfile2" class="form-control-file border" onchange="loadImg(this, 2);" accept="image/*">
                             </td>
                         </tr>
                         <tr style="display:none;">
                             <td colspan="2">
-                                <input type="file" name="file3" id="upfile3" class="form-control-file border" required onchange="loadImg(this, 3);" accept="image/*">
+                                <input type="file" name="upfiles" id="upfile3" class="form-control-file border" onchange="loadImg(this, 3);" accept="image/*">
                             </td>
                         </tr>
                         <tr style="display:none;">
                             <td colspan="2">
-                                <input type="file" name="file4" id="upfile4" class="form-control-file border" required onchange="loadImg(this, 4);" accept="image/*">
+                                <input type="file" name="upfiles" id="upfile4" class="form-control-file border" onchange="loadImg(this, 4);" accept="image/*">
                             </td>
                         </tr>
                     </thead>
@@ -107,7 +107,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="file" name="file5" id="upfile5" class="form-control-file border" required onchange="loadImg(this, 5);" accept="image/*">
+                                <input type="file" name="file5" id="upfile5" class="form-control-file border" onchange="loadImg(this, 5);" accept="image/*">
                             </td>
                         </tr>
                     </tbody>

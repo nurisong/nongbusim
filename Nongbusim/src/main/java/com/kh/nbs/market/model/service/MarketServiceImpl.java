@@ -2,9 +2,11 @@ package com.kh.nbs.market.model.service;
 
 import java.util.ArrayList;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.Comment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.model.vo.Recomment;
@@ -17,6 +19,9 @@ public class MarketServiceImpl implements MarketService{
 	
 	@Autowired
 	private MarketDao marketdao;
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
 	
 	@Override
 	public int selectListCount() {
@@ -41,12 +46,22 @@ public class MarketServiceImpl implements MarketService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	
 
 	@Override
-	public int marketInsertForm(Market market) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertMarket(Market market) {
+		return marketdao.insertMarket(market, sqlSession);
 	}
+
+
+	@Override
+	public int insertAttachment(Attachment a) {
+		return marketdao.insertAttachmentMarket(a, sqlSession);
+	}
+
+	
+	
 
 	@Override
 	public int marketUpdate(Market market) {
@@ -107,5 +122,4 @@ public class MarketServiceImpl implements MarketService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }

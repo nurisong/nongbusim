@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.market.model.service.MarketService;
@@ -48,22 +49,6 @@ public class MarketController {
 		return "market/marketInsertForm";
 	}
 	
-	
-	@RequestMapping("insert.mk")
-	public String marketInsert(Market market, MultipartFile upfile, HttpSession session, Attachment a) {
-		
-		if(!upfile.getOriginalFilename().equals("")) {//첨부파일칸에 파일이 비어있지 않으면
-			
-			a.setOriginName(upfile.getOriginalFilename()); //원본명
-			a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session));
-			a.setBoardNo(market.getMarketNo());
-			
-			
-		}
-		
-		return "index";
-	}
-	
 	public String saveFile(MultipartFile upfile, HttpSession session) {
 		
 		// 파일 명 수정 작업 후 서버에 업로드 시키기("image.png" => 2022.12.38123.123.png)
@@ -89,6 +74,42 @@ public class MarketController {
 		
 		return changeName;
 	}
+	
+	@RequestMapping("insert.mk")
+	public ModelAndView marketInsert(Market market, ModelAndView mv, MultipartFile[] upfiles, HttpSession session, Attachment a) {
+		
+		if(marketService.insertMarket(market) > 0) {
+			
+			// **selectFarm하고 getFarmNo해서 가져오기
+			int marketNo = market.getMarketNo();
+			
+			for(MultipartFile upfile : upfiles) {
+				
+				if(!upfile.getOriginalFilename().equals("")) {
+					a.setBoardNo(marketNo);
+					a.setBoardType("mk");
+					a.setOriginName(upfile.getOriginalFilename()); // 원본명
+					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
+					
+					if(marketService.insertAttachment(a) > 0) {
+						mv.setViewName("redirect:/");
+					} else {
+						mv.setViewName("common/errorPage");
+					}
+						
+				}
+			}
+		
+			mv.setViewName("redirect:/");
+			
+		} else {
+			// 첨부파일 삭제
+		}
+		
+		return mv;
+		
+	}
+	
 	
 	
 	

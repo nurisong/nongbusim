@@ -2,6 +2,7 @@ package com.kh.nbs.market.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.Comment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.model.vo.Recomment;
@@ -14,13 +15,16 @@ public interface MarketService {
 	//게시판 조회용 메소드
 	int selectListCount();
 	ArrayList<Market> marketSelectList(PageInfo pi);
+	int increaseCount(int boardNo);
 	
 	//게시물 상세조회 메소드
 	Market marketDetailView(int marketNo);
 
 	//게시물 작성 메소드
-	int increaseCount(int boardNo);
-	int marketInsertForm(Market market);
+	//첨부파일 업로드 메소드
+	int insertMarket(Market market);
+	int insertAttachment(Attachment a);
+	
 	
 	//게시물 수정 메소드
 	int marketUpdate(Market market);
