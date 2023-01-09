@@ -42,9 +42,8 @@ public class DiaryController {
 		return mv;
 	}
 	
-	
-	@RequestMapping("selectDiaryList")
-	public ModelAndView selectDiar
+	//@RequestMapping("selectDiaryList")
+	//public ModelAndView selectDiar
 	
 	
 	@RequestMapping("enrollForm.di")
