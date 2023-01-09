@@ -200,12 +200,13 @@
                     				<c:choose>
 	                    				<c:when test="${ loginUser.farmerCode ne null }">
 		                    				<li class="username"><a href="myPageFarmer.me">${ loginUser.name } 님</a> ></li>
+	                    					<li class="logout"><a href="logout.me">로그아웃</a></li>
 	                    				</c:when>
 	                    				<c:otherwise>
 		                    				<li class="username"><a href="myPageUser.me">${ loginUser.name } 님</a> ></li>
+	                    					<li class="logout"><a href="logout.me">로그아웃</a></li>
 	                    				</c:otherwise>
 	                    			</c:choose>
-	                    			<li class="logout"><a href="logout.me">로그아웃</a></li>
                         	</div>
                     			</c:otherwise>
                     		</c:choose>

@@ -140,12 +140,7 @@ public class MemberController {
 		return "member/myPageFarmer/updateFarmer";
 	}
 	
-	
-	
-	
-	
-	
-	
+
 	@RequestMapping("myPageUser.me")
 	public String myPageUser() {
 		return "member/myPageUser/myPageUserCommon";
