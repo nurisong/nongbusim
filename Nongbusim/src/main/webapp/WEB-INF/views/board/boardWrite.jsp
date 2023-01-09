@@ -41,7 +41,9 @@
                     </select>
                 </div>
                 
-                <div class="picture-area" id="picture-area">
+
+                	
+                <div class="picture-area" id="picture-area" style="display: none;">
                     
                     <form id="enrollForm" method="post" action="insert.bo" enctype="multipart/form-data">
                         <table align="center">
@@ -78,6 +80,8 @@
                     
                 </div>
                 
+
+                	
                 <div class="table-area" id="table-area" style="display: none;">
                     
                     <form id="enrollForm" method="post" action="insert.bo" enctype="multipart/form-data">
@@ -97,6 +101,9 @@
                     
                         </table>
                         <br>
+                        <input type="text" name="boardType" value="${btype}">
+                        <input type="number" name="memNo" value="300">
+                        
                         
                         <div align="center">
                             <button type="submit" class="btn btn-primary">등록하기</button>
@@ -105,6 +112,9 @@
                         <br>
                     </form>
                 </div>
+
+
+                
             </div>
                 
         </div>
@@ -117,6 +127,14 @@
     	<!--글 작성 이전의 게시판 종류로 초기 선택하는 기능-->
     	$(document).ready(function(){
     		$('#boardType').val('${btype}').prop("selected",true);
+            if($("#boardType option:selected").val()=='S') {
+                $("#picture-area").show();
+                $("#table-area").hide();
+            }  else {
+                $("#picture-area").hide();
+                $("#table-area").show();
+            }    		
+
     	});
     	
     	<!--선택된 게시판 종류에 따라 게시판의 양식이 바뀌는 기능-->
