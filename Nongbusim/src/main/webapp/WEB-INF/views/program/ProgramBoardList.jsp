@@ -163,7 +163,7 @@
             
             
             
-				// 찜하기 버튼 해제
+				// 찜하기 클릭/해제
                 $(function() {
     
                 $('.heart').click(function() {
@@ -179,14 +179,6 @@
                 });
        
                 });
-       
-       
-                // $('.z_area').hover(function() {
-                //        $(this).find('.placeDiv').css({'display':'block', 'cursor':'pointer'});
-                //    }, function() {
-                //        $(this).find('.placeDiv').css('display', 'none');
-                //    });
-       
        
        
           </script>

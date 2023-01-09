@@ -29,9 +29,6 @@ table th {
     height: 50px;
 }
 
-.prImg {
-	background-img : url(${'resources/uploadFiles/2023010916202151331.png'});
-}
 
 
 </style>
@@ -40,10 +37,12 @@ table th {
  <jsp:include page="../common/menubar.jsp" />
 
 
-<form action="">
+<form action="join.pr">
 	<div align="center">
     <h1>프로그램 상세 정보</h1>
     <table border="1">
+        <input type="text" name="memNo" value="1">
+        <input type="text" name="programNo" value="${p.programNo}">
         <tr>
             <th>프로그램 명</th>
             <td>${ p.programName }</td>
@@ -77,7 +76,7 @@ table th {
 	 <img src="${p.changeName}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236"> 
    
     <br><br>
-    <button>신청</button>
+    <button type="submit">신청</button>
 </div>
 
 

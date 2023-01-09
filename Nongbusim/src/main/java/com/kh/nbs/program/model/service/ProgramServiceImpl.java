@@ -49,4 +49,9 @@ public class ProgramServiceImpl implements ProgramService {
 		return programDao.selectProgram(sqlSession,programNo);
 	}
 	
+	@Override
+	public int joinProgram(int memNo,int programNo) {
+		return programDao.joinProgram(sqlSession,memNo,programNo);
+	}
+	
 }

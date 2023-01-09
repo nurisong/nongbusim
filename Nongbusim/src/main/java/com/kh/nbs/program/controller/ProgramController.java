@@ -169,11 +169,12 @@ public class ProgramController {
 		}
 			
 		@RequestMapping("join.pr")
-		public ModelAndView joinProgram(Model model) {
+		public ModelAndView joinProgram(int memNo, int bno, ModelAndView mv) {
+			
+			programService.joinProgram(memNo,bno);
 			
 			
-			
-			
+			return mv;
 		}
 			
 		

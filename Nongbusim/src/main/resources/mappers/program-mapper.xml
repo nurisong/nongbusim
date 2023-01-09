@@ -124,8 +124,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and
 			program_no = #{programNo}
 			
-	
-	
 	</select>
+	
+	<insert id="joinProgram" parameterType="program">
+	
+	insert 
+		into
+			my_program
+			(
+				mem_no,
+				program_no
+			)
+			
+			values
+			
+			(
+				#{memNo},
+				#{programNo}
+				
+			)
+	
+	</insert>
  
 </mapper>
