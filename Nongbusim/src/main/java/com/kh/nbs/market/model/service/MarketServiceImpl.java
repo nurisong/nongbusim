@@ -2,13 +2,22 @@ package com.kh.nbs.market.model.service;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.kh.nbs.common.model.vo.Comment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.model.vo.Recomment;
+import com.kh.nbs.market.model.dao.MarketDao;
 import com.kh.nbs.market.model.vo.Market;
 
+@Service
 public class MarketServiceImpl implements MarketService{
 
+	
+	@Autowired
+	private MarketDao marketdao;
+	
 	@Override
 	public int selectListCount() {
 		// TODO Auto-generated method stub

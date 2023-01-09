@@ -4,6 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -37,8 +41,8 @@
           <label for="phone">전화번호  :</label>
           <input type="text" class="form-control" name="phone" value="${loginUser.phone }">
       </div>
-        <button type="submit" class="btn btn-success">확인</button>
-        <button type="button" class="btn btn-secondary">취소</button>
+        <button type="submit" class="btn btn-success">수정하기</button>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm">회원탈퇴</button>
       </form>
 </body>
 </html>

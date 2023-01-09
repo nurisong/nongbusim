@@ -13,8 +13,8 @@ public interface MemberService {
 	// 농부 회원가입(insert)
 	int farmerInsertMember(Member m);
 	
-	// 회원 정보 수정 (update)
-	int updateMember(Member m);
+	// 일반 사용자 정보 수정 (update)
+	int updateUser(Member m);
 	
 	// 회원 탈퇴 (update)
 	int deleteMember(String memId);

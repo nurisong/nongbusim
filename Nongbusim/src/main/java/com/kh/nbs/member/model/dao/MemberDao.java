@@ -26,8 +26,8 @@ public class MemberDao {
 	}
 	
 	// 회원 수정
-	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.update("memberMapper.updateMember", m);
+	public int updateUser(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateUser", m);
 	}
 
 	// 아이디 찾기

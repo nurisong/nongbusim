@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,16 +40,17 @@ text-align: center;
 <body>
 
     <jsp:include page="../common/menubar.jsp" />
-    <jsp:include page="Boardbar.jsp" />
+    <jsp:include page="boardbar.jsp" />
     
 
     <div class="outer" align="center">
         <div class="main-area">
 
-            <h1>게시판</h1>
-            <br><br>
+			<c:if test="${ btype=='M' }"><h1>멘티멘토 게시판</h1></c:if>
+			<c:if test="${ btype=='Q' }"><h1>질문 게시판</h1></c:if>
+			<c:if test="${ btype=='K' }"><h1>노하우 게시판</h1></c:if>           
             
-            <button class="btn btn-secondary" id="insert-btn">글작성</button>
+            <button type="button" onclick="location.href='write.bo?wtype=${btype}';" class="btn btn-secondary" id="insert-btn" >글작성</button>
             <br><br>
             
 
@@ -93,22 +95,34 @@ text-align: center;
                     <th>제목</th>
                     <th>작성자</th>
                     <th>작성일</th>
-                    <th>좋아요</th>
                     <th>조회수</th>
+                    <th>좋아요</th>
                 </thead>
                 <tbody align="center">
-                    <tr>
-                        <td>boardNo</td>
-                        <td>boardTitle</td>
-                        <td>boardWriter</td>
-                        <td>createDate</td>
-                        <td>like</td>
-                        <td>count</td>
-                    </tr>
+					<c:forEach items="${ list }" var="b">
+						<tr>
+							<td class="bno">${ b.boardNo }</td>
+							<td>${ b.boardTitle }</td>
+							<td>${ b.boardWriter }</td>
+							<td>${ b.createDate }</td>
+							<td>${ b.count }</td>
+							<td>${ b.boardType }</td>							
+						</tr>
+					</c:forEach>
                 </tbody>
             </table>
+
+            <script>
             
-            <!-- 
+            	$(function(){
+					$('#boardList>tbody>tr').click(function(){
+						location.href = 'detail.bo?bno=' + $(this).children('.bno').text();
+					})
+            	})
+            
+            </script>
+            
+             
             <div id="pagingArea">
                 <ul class="pagination">
                 
@@ -117,7 +131,7 @@ text-align: center;
                     		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                     	</c:when>
                     	<c:otherwise>
-                    		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+                    		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }&type=${btype}">Previous</a></li>
                     	</c:otherwise>
                     </c:choose>
                     
@@ -130,18 +144,19 @@ text-align: center;
                     		<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
                     	</c:when>
                     	<c:otherwise>
-                    		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }">Next</a></li>
+                    		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }&type=${btype}">Next</a></li>
                     	</c:otherwise>
                     </c:choose>
                     
                 </ul>
             </div>
-             -->
+            
             
             
             
         </div>
     </div>
+    
 
 
 </body>

@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
             <label for="email">이메일 :</label>
-            <input type="email" class="form-control" name="email" value="${ sessionScope.loginUser.email }" readonly>
+            <input type="email" class="form-control" name="email" value="${ sessionScope.loginUser.email }">
         </div>
         <div class="form-group">
             <label for="nickName">닉네임 :</label>
