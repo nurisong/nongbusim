@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.nbs.common.model.vo.Comment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.model.vo.Recomment;
+import com.kh.nbs.market.model.dao.MarketDao;
 import com.kh.nbs.market.model.vo.Market;
 
 @Service
