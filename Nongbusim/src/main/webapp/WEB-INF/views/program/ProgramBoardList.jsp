@@ -151,7 +151,6 @@
 	            		
 	            		//console.log($(this).parent().children());
 	            		
-	            		
 	            		location.href = 'detail.pro?bno=' + $(this).parent().children().eq(0).text();
                         
 	            		
