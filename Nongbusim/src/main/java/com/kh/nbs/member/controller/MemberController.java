@@ -128,7 +128,7 @@ public class MemberController {
 		if(memberService.updateMember(m) > 0 ) {
 			session.setAttribute("loginUser", memberService.loginMember(m));
 			session.setAttribute("alertMsg", "회원 정보를 수정했습니다.");
-			return "redirect:updateUser.me";
+			return "redirect:updateUserForm.me";
 		} else {
 			model.addAttribute("errorMsg", "회원정보 변경 실패");
 			return "common/errorPage";

@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="MEM_STATUS" property="memStatus"/>
 		<result column="FARMER_CODE" property="farmerCode"/>
 		<result column="CAREER" property="career"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>		
 	</resultMap>
 
 	<!-- 로그인 -->
@@ -34,17 +35,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 농부 회원가입 -->
-	<insert id="farmerInsertMember">
+	<insert id="farmerInsertMember" parameterType="member">
 		INSERT INTO MEMBER(MEM_NO, MEM_ID, MEM_PWD, NAME, NICKNAME, PHONE, GENDER, EMAIL, ENROLL_DATE, MEM_STATUS, FARMER_CODE, CAREER)
 		VALUES(SEQ_MNO.NEXTVAL, #{memId}, #{memPwd}, #{name}, #{nickName}, #{phone}, #{gender}, #{email}, SYSDATE, 'Y', #{farmerCode}, #{career})
 	</insert>
 	
 	<!-- 회원 정보 수정 -->
-	<insert id="updateMember" parameterType="member">
+	<update id="updateMember" parameterType="member">
 		UPDATE MEMBER
 		SET NAME = #{name}, EMAIL = #{email}, NICKNAME = #{nickName}, PHONE = #{phone}, FARMER_CODE = #{farmerCode}, CAREER = #{career}, MODIFY_DATE = SYSDATE
 		WHERE MEM_ID = #{memId}
-	</insert>
+		AND MEM_STATUS = 'Y'
+	</update>
 	
 	<!-- 아이디 찾기 -->
 	 
