@@ -40,10 +40,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES(SEQ_MNO.NEXTVAL, #{memId}, #{memPwd}, #{name}, #{nickName}, #{phone}, #{gender}, #{email}, SYSDATE, 'Y', #{farmerCode}, #{career})
 	</insert>
 	
-	<!-- 회원 정보 수정 -->
-	<update id="updateMember" parameterType="member">
+	<!-- 일반 사용자 정보 수정 -->
+	<update id="updateUser" parameterType="member">
 		UPDATE MEMBER
-		SET NAME = #{name}, EMAIL = #{email}, NICKNAME = #{nickName}, PHONE = #{phone}, FARMER_CODE = #{farmerCode}, CAREER = #{career}, MODIFY_DATE = SYSDATE
+		SET NAME = #{name}, EMAIL = #{email}, NICKNAME = #{nickName}, PHONE = #{phone}, MODIFY_DATE = SYSDATE
+		WHERE MEM_ID = #{memId}
+		AND MEM_STATUS = 'Y'
+	</update>
+	
+	<!-- 농부 정보 수정 -->
+	<update id="updateFarmer" parameterType="member">
+		UPDATE MEMBER
+		SET NAME = #{name}, EMAIL = #{email}, NICKNAME = #{nickName}, PHONE = #{phone}, MODIFY_DATE = SYSDATE, FARMER_CODE = #{farmerCode}, CAREER = #{career}
 		WHERE MEM_ID = #{memId}
 		AND MEM_STATUS = 'Y'
 	</update>

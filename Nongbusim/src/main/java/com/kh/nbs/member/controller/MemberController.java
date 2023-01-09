@@ -117,23 +117,42 @@ public class MemberController {
 	}
 	
 	@RequestMapping("updateUserForm.me")
-	public String updateForm() {
+	public String updateUserForm() {
 		return "member/myPageUser/updateUser";
 	}
 	
-	@RequestMapping("update.me")
-	public String updateMember(Member m, Model model, HttpSession session) {
+	@RequestMapping("updateUser.me")
+	public String updateUser(Member m, Model model, HttpSession session) {
 		System.out.println(m);
 		
-		if(memberService.updateMember(m) > 0 ) {
+		if(memberService.updateUser(m) > 0 ) {
 			session.setAttribute("loginUser", memberService.loginMember(m));
 			session.setAttribute("alertMsg", "회원 정보를 수정했습니다.");
-			return "redirect:updateUserForm.me";
+			return "redirect:updateUser.me";
 		} else {
 			model.addAttribute("errorMsg", "회원정보 변경 실패");
 			return "common/errorPage";
 		}
 	}
+	
+	@RequestMapping("updateFarmerForm.me")
+	public String updateFarmerForm() {
+		return "member/myPageFarmer/updateFarmer";
+	}
+	
+//	@RequestMapping("updateFarmer.me")
+//	public String updateFarmer(Member m, Model model, HttpSession session) {
+//		System.out.println(m);
+//		
+//		if(memberService.updateFarmer(m) > 0 ) {
+//			session.setAttribute("loginUser", memberService.loginMember(m));
+//			session.setAttribute("alertMsg", "회원 정보를 수정했습니다.");
+//			return "redirect:updateFarmer.me";
+//		} else {
+//			model.addAttribute("errorMsg", "회원정보 변경 실패");
+//			return "common/errorPage";
+//		}
+//	}
 	
 //	@RequestMapping("findId.me")
 //	public String findId(String memPwd, HttpSession session, Model model) {
