@@ -45,20 +45,6 @@ public class MemberController {
 		return mv;
 	}
 	
-//	@RequestMapping("login.me")
-//	public String loginMember(Member m, Model model, HttpSession session) {
-//		Member loginUser = memberService.loginMember(m);
-//		
-//		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {
-//			session.setAttribute("loginUser", loginUser);
-//			return "redirect:/";
-//		} else {
-//			model.addAttribute("errorMsg", "에러발생");
-//			return "common/errorPage";
-//		}
-//	}
-	
-	
 	@RequestMapping("logout.me")
 	public String logoutMember(HttpSession session) {
 		session.removeAttribute("loginUser");
@@ -116,6 +102,11 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("myPageUser.me")
+	public String myPageUser() {
+		return "member/myPageUser/myPageUserCommon";
+	}
+	
 	@RequestMapping("updateUserForm.me")
 	public String updateUserForm() {
 		return "member/myPageUser/updateUser";
@@ -123,12 +114,12 @@ public class MemberController {
 	
 	@RequestMapping("updateUser.me")
 	public String updateUser(Member m, Model model, HttpSession session) {
-		System.out.println(m);
+//		System.out.println("컨트롤러 : " + m);
 		
 		if(memberService.updateUser(m) > 0 ) {
 			session.setAttribute("loginUser", memberService.loginMember(m));
 			session.setAttribute("alertMsg", "회원 정보를 수정했습니다.");
-			return "redirect:updateUser.me";
+			return "redirect:myPageUser.me";
 		} else {
 			model.addAttribute("errorMsg", "회원정보 변경 실패");
 			return "common/errorPage";
@@ -139,18 +130,14 @@ public class MemberController {
 	public String updateFarmerForm() {
 		return "member/myPageFarmer/updateFarmer";
 	}
-	
 
-	@RequestMapping("myPageUser.me")
-	public String myPageUser() {
-		return "member/myPageUser/myPageUserCommon";
-	}
 	
 	@RequestMapping("myPageFarmer.me")
 	public String myPageFarmer() {
 		return "member/myPageFarmer/myPageFarmerCommon";
 	}
 	
+
 	
 //	@RequestMapping("updateFarmer.me")
 //	public String updateFarmer(Member m, Model model, HttpSession session) {
