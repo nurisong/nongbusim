@@ -26,7 +26,15 @@
 	</div>
 	<div class="selectCategory">
 		품목 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<select id="enrolledCategory">
+		<select id="enrolledCategory">		
+			<c:choose>
+				<c:when test="${ not empty categoryList }">
+					<c:forEach var="item"
+				</c:when>
+				<c:otherwise>
+					
+				</c:otherwise>
+			</c:choose>
 			<option>가나다라마바사아</option>
 			<option>가</option>
 			<option>가</option>
@@ -39,5 +47,13 @@
 	</div>
 </div>
 </form>
+<!-- categoryList -->
+
+
+
+
+</script>
+	
+
 </body>
 </html>
