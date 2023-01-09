@@ -23,9 +23,6 @@ public class MarketController {
 	@Autowired
 	private MarketService marketService;
 	
-	@Autowired
-	private Attachment a;
-	
 	
 	//게시판으로 이동
 	@RequestMapping("list.mk")
@@ -53,7 +50,7 @@ public class MarketController {
 	
 	
 	@RequestMapping("insert.mk")
-	public String marketInsert(Market market, MultipartFile upfile, HttpSession session) {
+	public String marketInsert(Market market, MultipartFile upfile, HttpSession session, Attachment a) {
 		
 		if(!upfile.getOriginalFilename().equals("")) {//첨부파일칸에 파일이 비어있지 않으면
 			
@@ -62,9 +59,9 @@ public class MarketController {
 			a.setBoardNo(market.getMarketNo());
 			
 			
-			
 		}
 		
+		return "index";
 	}
 	
 	public String saveFile(MultipartFile upfile, HttpSession session) {
