@@ -25,4 +25,8 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.farmerInsertMember", m);
 	}
 
+	// 아이디 찾기
+//	public Member findId(SqlSessionTemplate sqlSession, String memPwd) {
+//		return sqlSession.selectOne("memberMapper.findId", memPwd);
+//	}
 }

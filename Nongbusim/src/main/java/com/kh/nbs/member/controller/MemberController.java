@@ -115,6 +115,21 @@ public class MemberController {
 		}
 	}
 	
+//	@RequestMapping("findId.me")
+//	public String findId(String memPwd, HttpSession session, Model model) {
+//		
+//		Member findId = memberService.findId(memPwd);
+//		
+//		if(findId.getMemId() == null) {	
+//			model.addAttribute("alertMsg", "해당 회원이 존재하지 않습니다");
+//			return "common/errorPage";
+//		} else {
+//			session.setAttribute("alertMsg", findId.getName() + "님의 아이디는 " + findId.getMemId() + "입니다.");
+//			return "redirect:/";
+//		}
+//	}
+	
+	
 //	@RequestMapping("myPageFarmer.me")
 //	public String myPage() {
 //		return "member/myPageFarmerCommon";

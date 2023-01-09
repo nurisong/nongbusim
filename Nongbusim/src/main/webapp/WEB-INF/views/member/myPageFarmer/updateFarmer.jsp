@@ -24,49 +24,31 @@
     <form action="" id="form-div" method="post">
       <h4>기본정보</h4>
         <div class="form-group">
-          <label for="name">* 성명 :</label>
-          <input type="text" class="form-control" name="name">
-        </div>
-        <div class="form-group">
             <label for="id">* 아이디 :</label>
-            <input type="text" class="form-control" placeholder="아이디는 특수문자 제외 5자 이상 12자리 이하로 입력하여 주세요." name="memId">
-            <button type="button" class="btn btn-success" onclick="idCheck();">중복확인</button>
+            <input type="text" class="form-control" value="${ sessionScope.loginUser.memId }" name="memId" readonly>
         </div>
         <div class="form-group">
             <label for="pwd">* 비밀번호 :</label>
             <input type="password" class="form-control" placeholder="비밀번호는 8~18자리의 영문, 숫자, 특수문자 3종류 이상 혼합해야 합니다." name="memPwd">
         </div>
-          <div class="form-group">
-            <label for="pwdChk">* 비밀번호 확인 :</label>
-            <input type="password" class="form-control" placeholder="비밀번호는 8~18자리의 영문, 숫자, 특수문자 3종류 이상 혼합해야 합니다." name="memPwdChk">
-        </div>
-        <div class="form-group">
-          <label for="gender">* 성별 :</label>
-          <input type="radio" id="Female" value="F" name="gender">여자
-          <input type="radio" id="Male" value="M" name="gender">남자
-        </div>
         <div class="form-group">
             <label for="email">이메일 :</label>
-            <input type="email" class="form-control" name="email">
+            <input type="email" class="form-control" name="email" readonly>
         </div>
         <div class="form-group">
             <label for="nickName">닉네임 :</label>
-            <input type="text" class="form-control" name="nickName">
+            <input type="text" class="form-control" name="nickName" value="${ sessionScope.loginUser.nickName }">
         </div>
-        <div class="form-group">
-          <label for="phone">* 전화번호  :</label>
-          <input type="text" class="form-control" placeholder="-도 입력하세요" name="phone">
-      </div>
 
       <h4>영농정보</h4>
       <hr>
       <div class="form-group">
         <label for="farmerCode">* 농부코드 :</label>
-        <input type="text" class="form-control" name="farmerCode">
+        <input type="text" class="form-control" value="${ sessionScope.loginUser.farmerCode }" name="farmerCode" readonly>
       </div>
       <div class="form-group">
         <label for="career">* 영농경력  :</label>
-        <input type="text" class="form-control" placeholder="년월일을 적어주세요" name="career">
+        <input type="text" class="form-control" value="${ sessionScope.loginUser.career }" name="career">
       </div>
         <button type="submit" class="btn btn-success">확인</button>
         <button type="button" class="btn btn-secondary">취소</button>

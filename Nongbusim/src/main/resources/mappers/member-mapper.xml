@@ -38,4 +38,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO MEMBER(MEM_NO, MEM_ID, MEM_PWD, NAME, NICKNAME, PHONE, GENDER, EMAIL, ENROLL_DATE, MEM_STATUS, FARMER_CODE, CAREER)
 		VALUES(SEQ_MNO.NEXTVAL, #{memId}, #{memPwd}, #{name}, #{nickName}, #{phone}, #{gender}, #{email}, SYSDATE, 'Y', #{farmerCode}, #{career})
 	</insert>
+	
+	<!-- 아이디 찾기 -->
+	 
+	<!--<select id="findId" parameterType="member" resultType="memberResultSet">
+		SELECT MEM_ID
+		FROM MEMBER
+		WHERE MEM_PWD = #{ memPwd }
+		AND MEM_STATUS = 'Y'
+	</select>	 -->
 </mapper>

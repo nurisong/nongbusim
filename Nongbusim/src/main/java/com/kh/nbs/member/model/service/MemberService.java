@@ -19,6 +19,9 @@ public interface MemberService {
 	// 회원 탈퇴 (update)
 	int deleteMember(String memId);
 	
-	// 아이디 중복체크 (Strign checkId)
+	// 아이디 중복체크 (String checkId)
 	int idCheck(String checkId);
+	
+	// 아이디 찾기(select)
+//	Member findId(String memPwd);
 }
