@@ -198,7 +198,7 @@
                     				 <li class="username"><a href="">관리자페이지 ></a></li>
                     			</c:when>
                     			<c:otherwise>
-                    				<li class="username"><a href="">${ loginUser.memName } 님</a> ></li>
+                    				<li class="username"><a href="">${ loginUser.name } 님</a> ></li>
                     			</c:otherwise>
                     		</c:choose>
                     		<li class="logout"><a href="logout.me">로그아웃</a></li>

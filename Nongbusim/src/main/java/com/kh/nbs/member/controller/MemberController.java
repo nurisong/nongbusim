@@ -31,6 +31,8 @@ public class MemberController {
 		
 		Member loginUser = memberService.loginMember(m);
 		
+		//System.out.println(loginUser);
+		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {
 			
 			session.setAttribute("loginUser", loginUser);

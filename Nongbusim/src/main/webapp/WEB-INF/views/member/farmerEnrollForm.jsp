@@ -55,7 +55,7 @@
             <input type="text" class="form-control" name="nickName">
         </div>
         <div class="form-group">
-          <label for="phone">* 전화번호  :</label>
+          <label for="phone">전화번호  :</label>
           <input type="text" class="form-control" placeholder="-도 입력하세요" name="phone">
       </div>
 
