@@ -14,7 +14,7 @@
 <body>
 
 <h1>영농일지 모아보기</h1>
-<form action="" method="post">
+<form action="ajaxSelectDiaryList" method="post">
 <div class="selectArea">
 	<div class="selectPeriod">
 		조회기간 &nbsp; &nbsp;
@@ -43,7 +43,7 @@
 		</select>
 	</div>	
 	<div style="align:right">
-		<button onclick="selectCondition();">검색</button>	
+		<button type="submit">검색</button>
 		<button type="reset" style="align:right">초기화</button>	
 	</div>
 </div>
@@ -52,36 +52,50 @@
 
 	function selectPeriod(period){
 		
+		var startDate ;
 		var now = new Date();	
 		console.log(now);
+		
+		console.log("now"+dateFormat(now));
+		$('#endDate').val= dateFormat(now);
+		
 		
 		switch(period){
 		
 		case 'oneMonth':
-			var startDate = new Date(now.setMonth(now.getMonth() - 1));
-			console.log(startDate);
-			
-			
-			
+			startDate = new Date(now.setMonth(now.getMonth() - 1));			
 			break;
 		case 'threeMonths':
-			$('#startDate').val = new Date(now.setMonth(now.getMonth() - 3));
+			startDate = new Date(now.setMonth(now.getMonth() - 3));
 			break;		
 		case 'sixMonths':
-			$('#startDate').val = new Date(now.setMonth(now.getMonth() - 6));
+			startDate = new Date(now.setMonth(now.getMonth() - 6));
 			break;		
 		case 'oneYear':
-			$('#startDate').val = new Date(now.setMonth(now.getYear - 1));
+			startDate = new Date(now.setMonth(now.getYear() - 1));
 			break;		
-		case threeMonths:
-			$('#startDate').val = new Date(now.setMonth(now.getMonth() - 3));
-			break;		
+	
 			
 		
 		}
+	
 		
-		console.log($('#startDate').val );
+		console.log("startDate"+dateFormat(startDate));
+		$('#startDate').val = dateFormat(startDate);
+		
 	} 
+	
+	
+	
+	//날짜를 yyyy-mm-dd로 바꿔주는 함수
+	function dateFormat(date) {
+		let dateFormat2 = date.getFullYear() +
+		'-' + ( (date.getMonth()+1) < 9 ? "0" + (date.getMonth()+1) : (date.getMonth()+1) )+
+		'-' + ( (date.getDate()) < 10 ? "0" + (date.getDate()) : (date.getDate()) );
+	return dateFormat2;
+	}
+	
+	
 </script>
 
 
