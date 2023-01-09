@@ -30,6 +30,13 @@
 	    <beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/list.di"/>
+			<beans:bean class="com.kh.nbs.common.interceptor.LoginInterceptor" id="loginIncerceptor"></beans:bean>			
+		</interceptor>
+	</interceptors>
+	
 	
 	
 	
