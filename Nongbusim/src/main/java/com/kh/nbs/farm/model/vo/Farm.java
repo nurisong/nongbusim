@@ -19,6 +19,6 @@ public class Farm {
 	private String enrollDate;
 	private String status;
 	private String crop;
-	private ArrayList<Attachment> attaches;
+	private String mainImg;
 }
 

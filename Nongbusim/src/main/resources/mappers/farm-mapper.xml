@@ -25,7 +25,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <result column="board_no" property="boardNo"/>
 	    <result column="board_type" property="boardType"/>
 	</resultMap>
-
+	
+	<select id="selectFarmCount" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		FARM
+		 WHERE
+		 		STATUS = 'Y'
+	</select>
 
 	<select id="selectMyFarmList" resultMap="farmResultSet">
 		SELECT 
@@ -43,6 +51,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE 
 		    	FARMER = #{memNo}
 		   AND
+		  		STATUS = 'Y'
+	</select>
+	
+	<select id="selectFarmList" resultMap="farmResultSet">
+		SELECT 
+		    	FARM_NO,
+		    	FARMER,
+		    	FARM_NAME,
+		    	LOCAL_CODE,
+		    	ADDRESS,
+		    	PHONE,
+		    	ENROLL_DATE,
+		    	STATUS,
+		    	CROP
+		  FROM
+		 		FARM
+		 WHERE 
 		  		STATUS = 'Y'
 	</select>
 	

@@ -22,12 +22,12 @@ public class FarmServiceImpl implements FarmService {
 
 	@Override
 	public int selectFarmCount() {
-		return 0;
+		return farmDao.selectFarmCount(sqlSession);
 	}
 
 	@Override
 	public ArrayList<Farm> selectFarmList(PageInfo pi) {
-		return null;
+		return farmDao.selectFarmList(pi, sqlSession);
 	}
 	
 	@Override
