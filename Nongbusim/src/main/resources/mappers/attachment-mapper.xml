@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  	   ,#{originName}
 		  	   ,#{changeName}
 		  	   ,#{boardType}
-		  	   ,#{boardNo}
+		  	   ,SEQ_FNO.CURRVAL
 		  		)
 		  		
 	</insert>
