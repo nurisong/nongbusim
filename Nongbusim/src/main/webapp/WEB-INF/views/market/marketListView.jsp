@@ -64,139 +64,140 @@
 
             <div class="col-lg-3">
 
-            <div class="list-group">
-                <a href="#" class="list-group-item">모두</a>
-                <a href="#" class="list-group-item">농산물</a>
-                <a href="#" class="list-group-item">수산물</a>
-                <a href="#" class="list-group-item">축산물</a>
-            </div>
+                <select name="marketCategory" style="width: 200px;">
+                    <option vlaue="모두" class="form-select" aria-label="Default select example" selected>모두</option>
+                    <option vlaue="농산물" class="form-select">농산물</option>>
+                    <option vlaue="수산물" class="form-select">수산물</option>>
+                    <option vlaue="축산물" class="form-select">축산물</option>>
+                </select>
 
             </div>
             <!-- /.col-lg-3 -->
 
             <div class="col-lg-9">
                 
-                <button class="btn btn-success btn-sm">글쓰기</button>
-                
-                <span style="float: right;">
-                    <select name="" id="">
-                        <option value="최신순">최신순</option>
-                        <option value="인기순">인기순</option>
-                        <option value="높은가격순">높은가격순</option>
-                        <option value="낮은가격순">낮은가격순</option>
-                    </select>
-                </span>
-                
-                <br>
-                <br>
-                
-                <div class="row">
+                <c:if test="${ not empty sessionScope.loginUser }" >
+                    <form action="insertForm.mk">
+                        <button type="submit" class="btn btn-success btn-sm">글쓰기</button>
+                </c:if>
+                        <span style="float: right;">
+                            <select name="orderBy">
+                                <option value="최신순">최신순</option>
+                                <option value="인기순">인기순</option>
+                                <option value="높은가격순">높은가격순</option>
+                                <option value="낮은가격순">낮은가격순</option>
+                            </select>
+                        </span>  
+                        <br>
+                        <br>
+                        
+                        <div class="row">
 
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
-                            <div class="card-body">
-                            <h6 class="card-title">
-                                <a href="#">금산 딸기 1Kg</a>
-                                <a href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
-                                </a>
-                            </h6>
-                            <h6>29,900원</h6>
-                            <h6>등록일</h6>
-                            <h6>조회수</h6>
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
+                                    <div class="card-body">
+                                    <h6 class="card-title">
+                                        <a href="">금산 딸기 1Kg</a>
+                                        <a href="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                        </a>
+                                    </h6>
+                                    <h6>29,900원</h6>
+                                    <h6>등록일</h6>
+                                    <h6>조회수</h6>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
-                            <div class="card-body">
-                            <h6 class="card-title">
-                                <a href="#">금산 딸기 1Kg</a>
-                                <a href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
-                                </a>
-                            </h6>
-                            <h6>29,900원</h6>
-                            <h6>등록일</h6>
-                            <h6>조회수</h6>
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
+                                    <div class="card-body">
+                                    <h6 class="card-title">
+                                        <a href="#">금산 딸기 1Kg</a>
+                                        <a href="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                        </a>
+                                    </h6>
+                                    <h6>29,900원</h6>
+                                    <h6>등록일</h6>
+                                    <h6>조회수</h6>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
-                            <div class="card-body">
-                            <h6 class="card-title">
-                                <a href="#">금산 딸기 1Kg</a>
-                                <a href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
-                                </a>
-                            </h6>
-                            <h6>29,900원</h6>
-                            <h6>등록일</h6>
-                            <h6>조회수</h6>
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
+                                    <div class="card-body">
+                                    <h6 class="card-title">
+                                        <a href="#">금산 딸기 1Kg</a>
+                                        <a href="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                        </a>
+                                    </h6>
+                                    <h6>29,900원</h6>
+                                    <h6>등록일</h6>
+                                    <h6>조회수</h6>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
-                            <div class="card-body">
-                            <h6 class="card-title">
-                                <a href="#">금산 딸기 1Kg</a>
-                                <a href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
-                                </a>
-                            </h6>
-                            <h6>29,900원</h6>
-                            <h6>등록일</h6>
-                            <h6>조회수</h6>
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
+                                    <div class="card-body">
+                                    <h6 class="card-title">
+                                        <a href="#">금산 딸기 1Kg</a>
+                                        <a href="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                        </a>
+                                    </h6>
+                                    <h6>29,900원</h6>
+                                    <h6>등록일</h6>
+                                    <h6>조회수</h6>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
-                            <div class="card-body">
-                            <h6 class="card-title">
-                                <a href="#">금산 딸기 1Kg</a>
-                                <a href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
-                                </a>
-                            </h6>
-                            <h6>29,900원</h6>
-                            <h6>등록일</h6>
-                            <h6>조회수</h6>
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
+                                    <div class="card-body">
+                                    <h6 class="card-title">
+                                        <a href="#">금산 딸기 1Kg</a>
+                                        <a href="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                        </a>
+                                    </h6>
+                                    <h6>29,900원</h6>
+                                    <h6>등록일</h6>
+                                    <h6>조회수</h6>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
-                            <div class="card-body">
-                            <h6 class="card-title">
-                                <a href="#">금산 딸기 1Kg</a>
-                                <a href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
-                                </a>
-                            </h6>
-                            <h6>29,900원</h6>
-                            <h6>등록일</h6>
-                            <h6>조회수</h6>
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <a href="detail.mk"><img class="card-img-top" src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;" alt=""></a>
+                                    <div class="card-body">
+                                    <h6 class="card-title">
+                                        <a href="#">금산 딸기 1Kg</a>
+                                        <a href="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                        </a>
+                                    </h6>
+                                    <h6>29,900원</h6>
+                                    <h6>등록일</h6>
+                                    <h6>조회수</h6>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
-                    </div>
-
-                </div>
-                <!-- /.row -->
-
+                        <!-- /.row -->
+                    </form>  
             </div>
             <!-- /.col-lg-9 -->
 

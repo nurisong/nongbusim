@@ -23,7 +23,6 @@
 	}
 
     .content{
-        background-color:rgb(247, 245, 245);
         width:80%;
         margin:auto;
     }
