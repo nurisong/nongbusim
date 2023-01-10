@@ -51,8 +51,8 @@
     <div id="myPage">
         <h3>마이페이지</h3>
         <hr>
-        <div class="menuArea"  style="width:200px; height:120px; border:1px solid red; float:left;">
-            <a class="menuButton" href="">내가 작성한 게시글</a><br>
+        <div class="menuArea"  style="width:200px; height:140px; border:1px solid red; float:left;">
+            <a class="menuButton" href="userMyBoardList.me">내가 작성한 게시글</a><br>
             <a class="menuButton" href="updateUserForm.me">회원정보 수정</a><br>
             <a class="menuButton" href="">찜한 게시글</a><br>
             <a class="menuButton" href="">참여 프로그램</a><br>   

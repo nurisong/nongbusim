@@ -197,12 +197,12 @@ public class ProgramController {
 		}
 		
 		@RequestMapping("wish.pr")
-		public String wishProgram(Program p) {
+		public String wishProgram(int programNo) {
 			
-			programService.wishProgram(p);
+			programService.wishProgram(programNo);
 			
 			
-			return "program/ProgramBoardList";
+			return "redirect:list.pr?cpage="+programNo;
 		}
 			
 		

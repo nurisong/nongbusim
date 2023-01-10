@@ -34,7 +34,6 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.farmerInsertMember(sqlSession, m);
 	}
 
-
 	@Override
 	public int updateUser(Member m) {
 		return memberDao.updateUser(sqlSession, m);
@@ -63,6 +62,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ArrayList<Board> userMyBoardList(int memNo) {
 		return memberDao.userMyBoardList(sqlSession, memNo);
+	}
+
+	@Override
+	public ArrayList<Board> farmerMyBoardList(int memNo) {
+		return memberDao.farmerMyBoardList(sqlSession, memNo);
 	}
 
 

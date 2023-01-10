@@ -3,6 +3,7 @@ package com.kh.nbs.market.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.template.Pagination;
 import com.kh.nbs.market.model.service.MarketService;
 import com.kh.nbs.market.model.vo.Market;
+import com.kh.nbs.member.model.vo.Member;
 
 
 @Controller
@@ -39,7 +41,10 @@ public class MarketController {
 
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", marketService.marketSelectList(pi));
-		model.addAttribute("att", marketService.attachmentSelectList());
+		model.addAttribute("at", marketService.attachmentSelectList());
+		
+		ArrayList<Market> list = marketService.marketSelectList(pi);
+		System.out.println(list);
 		
 		return "market/marketListView";
 		
@@ -90,9 +95,10 @@ public class MarketController {
 	@RequestMapping("insert.mk")
 	public ModelAndView marketInsert(Market market, ModelAndView mv, MultipartFile[] upfiles, HttpSession session, Attachment a) {
 		
+		market.setMemNo(((Member)session.getAttribute("loginUser")).getMemNo());
+		
 		if(marketService.insertMarket(market) > 0) {
 			
-			// **selectFarm하고 getFarmNo해서 가져오기
 			int marketNo = market.getMarketNo();
 			
 			for(MultipartFile upfile : upfiles) {

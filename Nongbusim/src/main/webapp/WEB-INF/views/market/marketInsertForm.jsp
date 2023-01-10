@@ -49,7 +49,6 @@
             <br>
 
             <form id="insertForm" method="post" action="insert.mk" enctype="multipart/form-data">
-                <input type="hidden" value="1" name="memNo">
                 <table algin="center">
                     <thead>
                         <tr>

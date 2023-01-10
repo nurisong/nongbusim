@@ -26,30 +26,61 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectDiaryList" parameterType="diary" resultMap="diaryResultSet">
+
+<![CDATA[
 	select
-			diary_no, create_date, diary_category, diary_content, status, mem_no, diary_thunbnail, nickname
+			diary_no, TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", diary_category, diary_content, diary.status, diary.mem_no, diary_thumbnail, member.nickname
 	from
 			diary
 	join 	member
 	
-	where
-			create_date between #{startDate} and #{endDate}
-			
+ 	on	(member.mem_no=diary.mem_no)	
+ 	
+ 	where
+			create_date >= #{startDate}
+    
+    and     create_date-1 <= #{endDate}
+	
+	and
+			diary.mem_no = ${memNo}
+	and
+			diary.status = 'Y'
+	]]>	
+	<!-- date로 값을 넘긴 후 대소비교를 하려고 하니 실제 입력한 마지막 날짜+1로 조회를 해야 마지막날 값이 select 됨... 그래서 createDate-1로 조회 -->
+	
 	<if test="diaryCategory !='noCategory'">
 		and diary_category = #{diaryCategory}
 	
 	</if>
-	
+
 	</select>
 	
 	<select id="selectDiary" parameterType="_int" resultMap="diaryResultSet">
 	select
-			diary_no, create_date, diary_category, diary_content, status, mem_no, diary_thunbnail, nickname
+			diary_no, TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", diary_category, diary_content, diary.status, diary.mem_no, diary_thumbnail, nickname
 	from
 			diary
+	join 	member
+	
+ 	on	(member.mem_no=diary.mem_no) 
 	where
 			diary_no = #{diaryNo}
-	
+	and
+			diary.status= 'Y'
 	</select>
-
+	
+	<insert id="insertAttachment" parameterType="attachment" resultMap="attachmentResultSet">
+	insert
+	into
+			attachment
+	values 
+			(
+			
+	
+	
+			)
+	
+	
+	
+	</insert>
 </mapper>
