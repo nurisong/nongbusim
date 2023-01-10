@@ -36,6 +36,8 @@ public class ProgramController {
 			
 			
 			if(programService.selectMarkNo(memNo) != null ) {
+				
+				System.out.println(programService.selectMarkNo(memNo));
 				mv.addObject("markNoList",programService.selectMarkNo(memNo));
 			}
 			

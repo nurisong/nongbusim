@@ -100,7 +100,24 @@
                         <td class="test">${ p.programPlan }</td>
                         <td class="test">${ p.headcount }</td>
                         <td class="test">${ p.signUp }</td>
-                        <td class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
+
+                        <!-- <c:forEach items="${ markNoList }" var="m">
+                            <c:choose>
+                                <c:when test="${p.programNo eq m.boardNo }">
+                                    <td class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <td class="sorry"><img class="heart"  src="resources/images/heart2.png" alt="${ p.programNo }"></td>
+                                </c:otherwise>
+
+                            </c:choose>
+
+
+                        </c:forEach> -->
+
+                        <td  class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
+                        
                      </tr>
                        
                     </c:forEach>
@@ -148,22 +165,24 @@
                  
             $(function(){
                 $('.heart').click(function(){
+                    var $btn1 = $(this);
                     console.log($(this).attr("alt"));
                     $.ajax({
                             url : 'wish.pr',
                             data :{
                                 programNo : $(this).attr("alt")
                             },
+                            
                             success: function() {
-                                console.log($(this).attr("src"));
-
-                                if($(this).attr("src") == 'resources/images/deleteheart.png'){
+                                console.log($btn1);
+                                $btn1.attr("src", "resources/images/heart2.png");
+                                // if($('.heart').attr("src") == 'resources/images/deleteheart.png'){
                 
-                                $(this).attr("src", "resources/images/heart2.png");
-                                } else {
+                                // $('.heart').attr("src", "resources/images/heart2.png");
+                                // } else {
 
-                                    $(this).attr("src", "resources/images/deleteheart.png");
-                                }
+                                //     $('.heart').attr("src", "resources/images/deleteheart.png");
+                                // }
                             },
 
                             error:function(){
@@ -176,12 +195,6 @@
             })
 
 
-
-
-                
-            
-                
-         
               
                $(function(){
                   $('#boardList>tbody>tr>td').not('.sorry').click(function(){
@@ -194,6 +207,31 @@
                   })
                   
                })
+
+               // $().attr("alt")
+
+            //    $(function() {
+            //             var count = 0;
+            //             <c:forEach items="${ markNoList }" var="m">
+            //                 <c:if test="${m.boardNo eq p.prgramNo }">
+            //                     count++;
+            //                 </c:if>
+            //             </c:forEach>
+            //             console.log(count);
+            //             if(count > 0) {
+            //                 $('.heart').attr("src", "resources/images/heart2.png");
+            //             } else {
+            //                 $('.heart').attr("src", "resources/images/deleteheart.png")
+            //             }
+            //         });
+
+                
+                // $('.heart').each(function() {
+                //     <c:forEach items="${ markNoList }" var="m">
+                //         if()
+
+                //     </c:forEach>
+                // });
                
             
             
