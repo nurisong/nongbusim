@@ -21,19 +21,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectMyFarmList" resultMap="farmResultSet">
 	
 		SELECT 
-		    FARM_NO,
-		    FARMER,
-		    FARM_NAME,
-		    LOCAL_CODE,
-		    ADDRESS,
-		    PHONE,
-		    ENROLL_DATE,
-		    STATUS,
-		    CROP
-		FROM
-		    FARM
+		    	FARM_NO,
+		    	FARMER,
+		    	FARM_NAME,
+		    	LOCAL_CODE,
+		    	ADDRESS,
+		    	PHONE,
+		    	ENROLL_DATE,
+		    	STATUS,
+		    	CROP
+		 FROM
+		 		FARM
 		WHERE 
-		    FARMER = #{memNo}
+		    	FARMER = #{memNo}
+		  AND
+		  		STATUS = 'Y'
+		 
 	
 	</select>
 	

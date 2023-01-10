@@ -49,7 +49,7 @@
                         <th>연락처</th>
                     </thead>
                     <tbody align="center">
-                    <c:forEach var="f" items="${ list }">
+                    <c:forEach var="f" items="${ farmList }">
                         <tr>
                             <input type="hidden" id="farmNo" value="${f.farmNo}">
                             <td>${f.farmName}</td>
