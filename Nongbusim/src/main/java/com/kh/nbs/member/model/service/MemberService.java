@@ -34,6 +34,9 @@ public interface MemberService {
 	// 일반 사용자가 작성한 게시글 조회(select)
 	ArrayList<Board> userMyBoardList(int memNo);
 	
+	// 농부가 작성한 게시글 조회(select)
+	ArrayList<Board> farmerMyBoardList(int memNo);
+	
 	// 아이디 찾기(select)
 //	Member findId(String memPwd);
 }

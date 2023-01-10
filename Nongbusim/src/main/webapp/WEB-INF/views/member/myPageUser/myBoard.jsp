@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,25 +12,29 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!-- 사이드바 -->
+<jsp:include page="myPageUserCommon.jsp"/>
+
     <div class="container">
-        <h3>내가 작성한 게시글-일반 사용자-</h3>
+        <h3>내가 작성한 게시글</h3>
         <table class="table table-bordered table-sm">
           <thead>
-            <tr>
+            <tr style="text-align:center">
               <th>게시판</th>
               <th>제목</th>
+              <th>작성자</th>
               <th>작성일</th>
             </tr>
           </thead>
           <tbody>
-          <!-- 
           	<c:forEach var="b" items="${ list }">
-          		<tr>
-          			<td>${ b.boardType }</td>
+          		<tr style="text-align:center">
+          			<td style="width:150px">${ b.boardType }</td>
           			<td>${ b.boardTitle }</td>
-          			<td>${ b.createDate }</td>
+          			<td style="width:150px">${ b.boardWriter }</td>
+          			<td style="width:150px">${ b.createDate }</td>
           		</tr>
-          	</c:forEach> -->
+          	</c:forEach>
           </tbody>
         </table>
       </div>

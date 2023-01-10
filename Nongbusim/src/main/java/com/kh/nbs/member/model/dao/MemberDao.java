@@ -53,9 +53,14 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.idCheck", memId);
 	}
 	
-	// 내가 작성한 게시글 조회
+	// 일반 사용자가 작성한 게시글 조회
 	public ArrayList<Board> userMyBoardList(SqlSessionTemplate sqlSession, int memNo){
 		return (ArrayList)sqlSession.selectList("memberMapper.userMyBoardList", memNo);
+	}
+	
+	// 농부가 작성한 게시글 조회
+	public ArrayList<Board> farmerMyBoardList(SqlSessionTemplate sqlSession, int memNo){
+		return (ArrayList)sqlSession.selectList("memberMapper.farmerMyBoardList", memNo);
 	}
 	
 	// 아이디 찾기

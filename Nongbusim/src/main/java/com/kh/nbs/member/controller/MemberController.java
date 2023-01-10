@@ -1,5 +1,7 @@
 package com.kh.nbs.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -209,16 +211,32 @@ public class MemberController {
 	}
 	
 //	@RequestMapping("userMyBoardList.me")
-//	public String userMyBoardList(int memNo, Model model) {
-//		model.addAttribute("list", memberService.userMyBoardList(memNo));
-//		
+//	public String userMyBoardList(Model model) {
+//		int memNo = 1;
+//		ArrayList<Board> list = memberService.userMyBoardList(memNo);
+//		model.addAttribute("list", list);
+//		System.out.println(list);
 //		return "member/myPageUser/myBoard";
 //	}
 	
 	@RequestMapping("userMyBoardList.me")
-	public String userMyBoardList() {
-		return "member/myPageUser/myBoard";
+	public ModelAndView userMyBoardList(ModelAndView mv, HttpSession session) {
+		
+		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		mv.addObject("list", memberService.userMyBoardList(mNo)).setViewName("member/myPageUser/myBoard");;
+		return mv;
 	}
+	
+	@RequestMapping("farmerMyBoardList.me")
+	public ModelAndView farmerMyBoardList(ModelAndView mv, HttpSession session) {
+		
+		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		mv.addObject("list", memberService.farmerMyBoardList(mNo)).setViewName("member/myPageFarmer/myBoard");;
+		return mv;
+	}
+
 	
 
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<!-- 사이드바 -->
+<jsp:include page="myPageFarmerCommon.jsp"/>
+
     <div class="container">
         <h3>내가 작성한 게시글</h3>
         <table class="table table-bordered table-sm">
@@ -23,12 +28,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>농작물 거래</td>
-              <td>귤 1kg 팔아요</td>
-              <td>농부신</td>
-              <td>2023-01-06</td>
-            </tr>
+          	<c:forEach var="b" items="${ list }">
+          		<tr style="text-align:center">
+          			<td style="width:150px">${ b.boardType }</td>
+          			<td>${ b.boardTitle }</td>
+          			<td style="width:150px">${ b.boardWriter }</td>
+          			<td style="width:150px">${ b.createDate }</td>
+          		</tr>
+          	</c:forEach>
           </tbody>
         </table>
       </div>
