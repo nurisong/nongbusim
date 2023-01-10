@@ -188,7 +188,7 @@
 			</tr>
 			<tr>
 				<td  class="likeButton" >작성자</td>
-				<td>${ diary.nickname }</td>
+				<td>${ diary.nickName }</td>
 			</tr>
 		<hr>
 		</table>
@@ -204,15 +204,17 @@
 					</div>
 				</td>
 			</tr>
-			<tr>
- 			<c:if test="${not empty diary.diaryThumbnail }" >
-					<td><h3>상세이미지</h3></td>
-			</tr>
-			<tr>
-				<td>
-					<img width="180" height="150" onclick="window.open(this.src);" src="">
-				</td>
-			</tr>
+ 			<c:if test="${not empty dAtList }" >
+				<tr>
+					<td><h3>업로드이미지</h3></td>
+				</tr>
+				<tr>			
+					<c:forEach var="item" items="${ dAtList}">
+						<td>
+							<img width="180" height="150" onclick="window.open(this.src);" src="${item.changeName }">					
+						</td>
+					</c:forEach>
+				</tr>
 			</c:if>
 		<br>
 				

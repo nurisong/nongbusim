@@ -32,11 +32,22 @@ public class DiaryDao {
 	public Diary selectDiary(SqlSessionTemplate sqlSession, int diaryNo) {
 		return sqlSession.selectOne("diaryMapper.selectDiary", diaryNo);
 	}
+	public ArrayList<Attachment> selectAttachmentList(SqlSessionTemplate sqlSession, int diaryNo) {
+		return (ArrayList)sqlSession.selectList("diaryMapper.selectAttachmentList", diaryNo);
+	}
 
 	public int insertAttachment(SqlSessionTemplate sqlSession, Attachment a) {
 		return sqlSession.insert("diaryMapper.insertAttachment", a);
 	}
 
 
-	
+	public int insertDiary(SqlSessionTemplate sqlSession, Diary diary) {
+		return sqlSession.insert("diaryMapper.insertDiary", diary);
+	}
+
+
 }
+
+
+	
+
