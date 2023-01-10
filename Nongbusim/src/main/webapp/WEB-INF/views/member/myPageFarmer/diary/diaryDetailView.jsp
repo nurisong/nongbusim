@@ -151,10 +151,9 @@
 
 </head>
 <body>
-		<input type="hidden" id="loginUserNo" value="<%=loginUser.getUserNo()%>">
+		<input type="hidden" id="MemNo" value="${loginUser.memNo }">
 
-		<input type="hidden" id="loginUserNo" value="">
-	
+		
 	<h1 align = "left">&nbsp;&nbsp;🗓영농일지 등록</h1>
 	<br>
 	<div class="outer">
@@ -165,7 +164,7 @@
 			<tr>
 				<td colpan="3">
 					<div>✔등록일</div>
-					<input id="enrollDate" type="date" disabled>
+					<input id="createDate" type="text" value="${diary.createDate }"disabled>
 				</td>	
 			</tr>
 				<tr>
@@ -189,59 +188,45 @@
 			</tr>
 			<tr>
 				<td  class="likeButton" >작성자</td>
-				<td>${nickName }</td>
+				<td>${ diary.nickname }</td>
 			</tr>
 		<hr>
 		</table>
 		<table id="reviewTable">
 			<hr>
 			<tr>	
-				<td><h3>리뷰내용</h3></td>
+				<td><h3>일지내용</h3></td>
 			</tr>
 			<tr>
 				<td style="padding:30px" colsapn="3">
 					<div>
-					<%=r.getReviewContent() %>
+					${diary.diaryContent }
 					</div>
 				</td>
 			</tr>
 			<tr>
-				<% if(r.getReviewThumbnail() !=null ) { %>
+ 			<c:if test="${not empty diary.diaryThumbnail }" >
 					<td><h3>상세이미지</h3></td>
 			</tr>
 			<tr>
-					<td>
-						<% for(int i=0; i<rAtList.size(); i++) {%>
-					
-							<img width="180" height="150" onclick="window.open(this.src);" src="<%=rAtList.get(i).getFilePath()%>/<%=rAtList.get(i).getChangeName() %>">
-						<% } %>
-					</td>
-				<% } %>						
+				<td>
+					<img width="180" height="150" onclick="window.open(this.src);" src="">
+				</td>
 			</tr>
-
+			</c:if>
 		<br>
 				
 		</table>
 		
 		<br>
 		<div align="center">
-			<a href="<%=contextPath%>/list.re" class= "likeButton">목록으로</a>
+			<a href="${pageContext.request.contextPath }/list.di" class= "likeButton">목록으로</a>
 		<hr>
-		<table align="left" id="likeTable">
-			<tr id="likeAndCount">				
-				<td id="myLikeTag">&nbsp;&nbsp;<i class="fa-regular fa-heart" onclick="updateLike();" style="color:red"></i></td>
-				<td>좋아요&nbsp; </td>
-				<td id="selectCountLike"></td>
-				<td>&nbsp;&nbsp;조회수</td>
-				<td id="selectCount">&nbsp;<%=r.getReviewCount() %></td>
-			</tr>
-		</table>	
 		<br><br>			
 
 	<!--로그인한 사용자고, 현재 이 게시글의 작성자의 경우에만 수정하기 버튼 활성화  -->
-			<a href="<%=contextPath %>/updateEnrollForm.re?rno=<%=r.getReviewNo()%>&cno=<%=r.getChallNo() %>" class="myButton">수정하기</a>
-			<a href="<%=contextPath %>/delete.re?rno=<%=r.getReviewNo()%>" class="myButton">삭제하기</a>
-
+			<a href="${pageContext.request.contextPath}/updateEnrollForm.de?dno="+"${diary.diaryNo }" class="myButton">수정하기</a>
+			<a href="${pageContext.request.contextPath}/delete.de?dno="+"${diary.diaryNo }" class="myButton">삭제하기</a>
 	
 		</div>
 	

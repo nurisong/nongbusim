@@ -281,7 +281,7 @@
 		
 		// category.val 에는 카테고리명 or noCategory
 		var diaryCategory = $('#enrolledCategory').val();
-		
+		// ajax로 해당 조건을 만족하는 diaryList받아오기
 		$.ajax({
 			url: 'selectDiaryList.di',
 			data : {

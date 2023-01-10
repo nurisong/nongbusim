@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.diary.model.dao.DiaryDao;
 import com.kh.nbs.diary.model.vo.Diary;
 
@@ -38,6 +39,16 @@ public class DiaryServiceImpl implements DiaryService {
 	@Override
 	public Diary selectDiary(int diaryNo) {
 		return diaryDao.selectDiary(sqlSession, diaryNo);
+	}
+
+	@Override
+	public int insertAttachment(Attachment a) {
+		return diaryDao.insertAttachment(sqlSession, a);
+	}
+
+	@Override
+	public int insertDiary(Diary diary) {
+		return 0;
 	}
 
 }

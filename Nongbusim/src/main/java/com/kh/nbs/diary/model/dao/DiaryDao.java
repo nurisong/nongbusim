@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.diary.model.vo.Diary;
 
 @Repository
@@ -31,6 +32,11 @@ public class DiaryDao {
 
 	public Diary selectDiary(SqlSessionTemplate sqlSession, int diaryNo) {
 		return sqlSession.selectOne("diaryMapper.selectDiary", diaryNo);
+	}
+
+
+	public int insertAttachment(SqlSessionTemplate sqlSession, Attachment a) {
+		return 0;
 	}
 
 
