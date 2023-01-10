@@ -70,7 +70,7 @@ public class DiaryController {
 	@RequestMapping("enrollForm.di")
 	public ModelAndView diaryEnrollForm(ModelAndView mv, HttpSession session) {
 		Member loginUser= (Member)session.getAttribute("loginUser");
-		mv.addObject("categoryList", diaryService.selectCategoryList(loginUser.getMemNo())).setViewName("member/myPageFarmer/diary/diaryErollForm");
+		mv.addObject("categoryList", diaryService.selectCategoryList(loginUser.getMemNo())).setViewName("member/myPageFarmer/diary/diaryEnrollForm");
 		
 		return mv ;
 		
@@ -94,7 +94,7 @@ public class DiaryController {
 	}
 	
 	@RequestMapping("insert.di")
-	public String insertDiary(Diary diary, ModelAndView mv, MultipartFile[] upfiles, HttpSession session, Attachment a) {
+	public String insertDiary(Diary diary, MultipartFile[] upfiles, HttpSession session, Attachment a) {
 
 		System.out.println(diary);
 		System.out.println(upfiles);
@@ -102,26 +102,34 @@ public class DiaryController {
 			
 			int diaryNo = diary.getDiaryNo();
 			
-			for(MultipartFile upfile: upfiles) {
+			//for(MultipartFile upfile: upfiles) {
+			for(int i=0; i<upfiles.length; i++) {
 				
-				if(!upfile.getOriginalFilename().equals("")) {
+				if(!upfiles[i].getOriginalFilename().equals("")) {
+					
 					a.setBoardNo(diaryNo);
 					a.setBoardType("D");
-					a.setOriginName(upfile.getOriginalFilename());
-					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); 
+					a.setOriginName(upfiles[i].getOriginalFilename());
+					a.setChangeName("resources/uploadFiles/" + saveFile(upfiles[i], session)); 
+					
+					if(i==0) {
+						diary.setDiaryThumbnail(a.getChangeName());
+						
+					}
 					
 					diaryService.insertAttachment(a);
 					
 				}
 			} 
-		
+			
+			
 			session.setAttribute("alertMsg", "영농일지 작성 성공");
 			return "redirect:/list.di";
 		} else {
 			
 			session.setAttribute("alertMsg", "영농일지 작성실패");
 			
-		return "common/errorPage";
+			return "common/errorPage";
 		}
 	}
 	

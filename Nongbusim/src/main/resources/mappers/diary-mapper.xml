@@ -11,10 +11,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="status" property="status"></result>
 		<result column="mem_no" property="memNo"></result>
 		<result column="diary_thumbnail" property="diaryThumbnail"></result>
-		<result column="nickname" property="nickname"></result>
-				
+		<result column="nickname" property="nickname"></result>				
+	</resultMap>	
+
+	<resultMap type="attachment" id="attachmentResultSet">
+		<result column="file_no" property="fileNo"></result>
+		<result column="origin_name" property="originName"></result>
+		<result column="change_name" property="changeName"></result>
+		<result column="filepath" property="filepath"></result>
+		<result column="file_level" property="fileLevel"></result>
+		<result column="upload_date" property="uploadDate"></result>
+		<result column="board_no" property="boardNo"></result>
+		<result column="board_type" property="boardType"></result>						
 	</resultMap>
 	
+
+
 
 	<select id="selectCategoryList" parameterType="_int" resultMap="diaryResultSet">	
 	select 
@@ -69,18 +81,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			diary.status= 'Y'
 	</select>
 	
-	<insert id="insertAttachment" parameterType="attachment" resultMap="attachmentResultSet">
+	<insert id="insertAttachment" parameterType="attachment">
 	insert
 	into
 			attachment
 	values 
-			(
-			
-	
-	
+			( seq_ano.nextval, 			
+			  #{fileNo},
+			  #{originName},
+			  #{changeName},
+			  null,
+			  #{boardNo},
+			  #{boardType}
 			)
-	
-	
 	
 	</insert>
 </mapper>
