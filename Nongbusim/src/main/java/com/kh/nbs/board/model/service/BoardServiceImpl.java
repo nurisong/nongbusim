@@ -38,8 +38,8 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.increaseCount(sqlSession,boardNo);
 	}
 	@Override
-	public ArrayList<Attachment> selectAttachmentsBoard(Board b) {
-		return boardDao.selectAttachmentsBoard(sqlSession, b);
+	public ArrayList<Attachment> selectAttachmentDetailBoard(Board b) {
+		return boardDao.selectAttachmentDetailBoard(sqlSession, b);
 	}
 	
 	

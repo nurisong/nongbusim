@@ -17,7 +17,7 @@ public interface BoardService {
 	//게시글 조회, 조회수 증가, 첨부파일 조회
 	Board selectBoard(int boardNo);
 	int increaseCount(int boardNo);
-	ArrayList<Attachment> selectAttachmentsBoard(Board b);
+	ArrayList<Attachment> selectAttachmentDetailBoard(Board b);
 
 	//게시글 추가, 첨부파일 업로드
 	int insertBoard(Board b);

@@ -72,7 +72,7 @@ public class BoardController {
 		if(boardService.increaseCount(bno) > 0) {
 			
 			Board b=boardService.selectBoard(bno);
-			ArrayList<Attachment> a= boardService.selectAttachmentsBoard(b);
+			ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);
 			
 
 			mv.addObject("a",a).addObject("b", b).setViewName("board/boardDetailView");
