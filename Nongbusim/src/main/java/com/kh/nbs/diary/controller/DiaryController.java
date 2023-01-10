@@ -69,8 +69,9 @@ public class DiaryController {
 	
 	@RequestMapping("enrollForm.di")
 	public ModelAndView diaryEnrollForm(ModelAndView mv, HttpSession session) {
-		Member loginUser= (Member)session.getAttribute("loginUser");
-		mv.addObject("categoryList", diaryService.selectCategoryList(loginUser.getMemNo())).setViewName("member/myPageFarmer/diary/diaryEnrollForm");
+		int memNo= ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		mv.addObject("categoryList", diaryService.selectCategoryList(memNo)).setViewName("member/myPageFarmer/diary/diaryEnrollForm");
 		
 		return mv ;
 		
@@ -97,17 +98,23 @@ public class DiaryController {
 	public String insertDiary(Diary diary, MultipartFile[] upfiles, HttpSession session, Attachment a) {
 
 		System.out.println(diary);
+		
+		
+		
 		System.out.println(upfiles);
+		
 		if(diaryService.insertDiary(diary)>0) {
-			
+			System.out.println("insertDiary hif");
 			int diaryNo = diary.getDiaryNo();
 			
 			//for(MultipartFile upfile: upfiles) {
+			
 			for(int i=0; i<upfiles.length; i++) {
 				
+				System.out.println(upfiles[i]);
+				
 				if(!upfiles[i].getOriginalFilename().equals("")) {
-					
-					a.setBoardNo(diaryNo);
+
 					a.setBoardType("D");
 					a.setOriginName(upfiles[i].getOriginalFilename());
 					a.setChangeName("resources/uploadFiles/" + saveFile(upfiles[i], session)); 
@@ -143,10 +150,9 @@ public class DiaryController {
 	
 	@RequestMapping("detail.di")
 	public ModelAndView selectDiary(@RequestParam(value="dno") int diaryNo, ModelAndView mv) {
-		mv.addObject("diary", diaryService.selectDiary(diaryNo)).setViewName("member/myPageFarmer/diary/diaryDetailView");
-		
+		mv.addObject("diary", diaryService.selectDiary(diaryNo)).addObject("dAtList", diaryService.selectAttachmentList(diaryNo)).setViewName("member/myPageFarmer/diary/diaryDetailView");
 		System.out.println(diaryService.selectDiary(diaryNo));
-		
+		System.out.println("dAtList"+diaryService.selectAttachmentList(diaryNo));
 		return mv;
 	}
 	

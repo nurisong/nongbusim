@@ -20,5 +20,6 @@ public interface DiaryService {
 	Diary selectDiary(int diaryNo);
 	int insertAttachment(Attachment a);
 	int insertDiary(Diary diary);
+	ArrayList<Attachment> selectAttachmentList(int diaryNo);
 
 }

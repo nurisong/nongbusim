@@ -111,7 +111,7 @@
 						<tr>
 							<td colpan="3">
 								<div>✔카테고리</div>
-										<select id="enrolledCategory">		
+										<select id="enrolledCategory" name="diaryCategory">		
 											<c:choose>
 											<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
 												<c:when test="${ not empty categoryList }">
@@ -138,7 +138,7 @@
 								<div class="filebox">
 								    <input class="upload-name"  id="upload-name1" value="첨부파일" placeholder="첨부파일" >
 								    <label for="file1">파일찾기</label> 
-								    <input type="file" name="file1" id="file1" onchange="loadImg(this,1);">
+								    <input type="file" name="upfiles" id="file1" onchange="loadImg(this,1);">
 								</div>
 							</td>
 							<td>
@@ -153,7 +153,7 @@
 								<div class="filebox">
 								    <input class="upload-name"  id="upload-name2"  value="첨부파일" placeholder="첨부파일" ">
 								    <label for="file2">파일찾기</label> 
-								    <input type="file" name="file2" id="file2" onchange="loadImg(this,2);">
+								    <input type="file" name="upfiles" id="file2" onchange="loadImg(this,2);">
 								</div>
 							<td>
 									<div class="img-area">
@@ -167,7 +167,7 @@
 								<div class="filebox">
 								    <input class="upload-name" id="upload-name3" value="첨부파일" placeholder="첨부파일" >
 								    <label for="file3">파일찾기</label> 
-								    <input type="file" name="file3"  id="file3" onchange="loadImg(this,3);">
+								    <input type="file" name="upfiles"  id="file3" onchange="loadImg(this,3);">
 								</div>
 								<td>
 									<div class="img-area">
@@ -200,7 +200,10 @@
 							</tr>
 							<tr>
 								<td>
-									<input type="hidden" name="nickname" value="" >
+									<input type="hidden" name="nickName" value="${loginUser.nickName }" >
+									<input type="hidden" name="memNo" value="${loginUser.memNo}" >
+									
+									
 									
 								</td>			
 							</tr>

@@ -11,9 +11,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="status" property="status"></result>
 		<result column="mem_no" property="memNo"></result>
 		<result column="diary_thumbnail" property="diaryThumbnail"></result>
-		<result column="nickname" property="nickname"></result>				
+		<result column="nickname" property="nickName"></result>				
 	</resultMap>	
 
+	<resultMap type="diary" id="diaryNickNameResultSet">
+		<result column="diary_no" property="diaryNo"></result>
+		<result column="create_date" property="createDate"></result>
+		<result column="diary_category" property="diaryCategory"></result>
+		<result column="diary_content" property="diaryContent"></result>
+		<result column="status" property="status"></result>
+		<result column="mem_no" property="memNo"></result>
+		<result column="diary_thumbnail" property="diaryThumbnail"></result>
+		<result column="nickname" property="nickName"></result>				
+	</resultMap>	
+	
 	<resultMap type="attachment" id="attachmentResultSet">
 		<result column="file_no" property="fileNo"></result>
 		<result column="origin_name" property="originName"></result>
@@ -69,7 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectDiary" parameterType="_int" resultMap="diaryResultSet">
 	select
-			diary_no, TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", diary_category, diary_content, diary.status, diary.mem_no, diary_thumbnail, nickname
+			diary_no, TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", diary_category, diary_content, diary.status, diary.mem_no, diary_thumbnail, member.nickname
 	from
 			diary
 	join 	member
@@ -81,19 +92,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			diary.status= 'Y'
 	</select>
 	
+	
+	<select id="selectAttachmentList" parameterType="_int" resultMap="attachmentResultSet">
+	select	*
+	from
+			attachment
+	where
+			board_no = #{dirayNo}
+	and
+			board_type = 'D'					
+			
+	</select>
+	
+	
+	
+	
+	
 	<insert id="insertAttachment" parameterType="attachment">
 	insert
 	into
 			attachment
 	values 
 			( seq_ano.nextval, 			
-			  #{fileNo},
 			  #{originName},
 			  #{changeName},
 			  null,
-			  #{boardNo},
+			  sysdate,
+			  seq_dno.currval,
 			  #{boardType}
 			)
 	
 	</insert>
+	
+	<insert id="insertDiary" parameterType="diary">
+	insert
+	into
+			diary
+	values 
+			( seq_dno.nextval, 			
+			  sysdate,
+			  #{diaryCategory},
+			  #{diaryContent},
+			  'Y',
+			  #{memNo}
+	<choose>
+		<when test="diaryThumbnail !=null">
+				  , #{diaryThumbnail} )
+		</when>
+		<otherwise>
+				, null )
+		</otherwise>
+	</choose>
+	</insert>
+		
 </mapper>

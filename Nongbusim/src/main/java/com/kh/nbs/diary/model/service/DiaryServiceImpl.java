@@ -40,6 +40,10 @@ public class DiaryServiceImpl implements DiaryService {
 	public Diary selectDiary(int diaryNo) {
 		return diaryDao.selectDiary(sqlSession, diaryNo);
 	}
+	@Override
+	public ArrayList<Attachment> selectAttachmentList(int diaryNo) {
+		return diaryDao.selectAttachmentList(sqlSession, diaryNo);
+	}
 
 	@Override
 	public int insertAttachment(Attachment a) {
@@ -48,7 +52,8 @@ public class DiaryServiceImpl implements DiaryService {
 
 	@Override
 	public int insertDiary(Diary diary) {
-		return 0;
+		return diaryDao.insertDiary(sqlSession, diary);
 	}
+
 
 }
