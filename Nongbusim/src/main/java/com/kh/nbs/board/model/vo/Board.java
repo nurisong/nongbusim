@@ -16,5 +16,8 @@ public class Board {
 	private int count;
 	private String status;	
 	private int memNo;
+	
+	private String boardWriter;
+	private int boardLike;
 
 }
