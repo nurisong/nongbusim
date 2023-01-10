@@ -72,16 +72,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		)
 		VALUES
 		  		(
-		  		SEQ_MKNO.NEXTVAL
+		  		SEQ_ANO.NEXTVAL
 		  	   ,#{originName}
 		  	   ,#{changeName}
 		  	   ,#{boardType}
-		  	   ,#{boardNo}
+		  	   ,seq_bno.currval
 		  		)
 		  		
 	</insert>
 	
-	<!--테스트x-->
+
 	<select id="selectAttachmentDetailBoard" parameterType="board" resultMap="attachmentResultSet">
 		SELECT
 			   FILE_NO

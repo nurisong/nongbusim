@@ -71,6 +71,21 @@
             <div>
                 ${b.boardContent}
             </div>
+            <br>
+            <div>
+            	첨부파일:
+                <c:choose>
+            		<c:when test="${ empty a }">
+            			없어요~
+            		</c:when>
+            		<c:otherwise>
+            		    <c:forEach items="${a}" var="attach">
+                  			<a href="${ attach.changeName }" download="${ attach.originName }">${ attach.originName }</a>
+      					</c:forEach>
+            		</c:otherwise>
+                </c:choose>
+            	
+            </div>
 
             <hr>
             <div class="board-footer" style="width: 100%; height: 25px;">
