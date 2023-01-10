@@ -30,6 +30,13 @@
 	    <beans:property name="defaultEncoding" value="utf-8" />
 	</beans:bean>
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/enrollForm.fm" />
+			<beans:bean class="com.kh.nbs.common.interceptor.LoginInterceptor" id="LoginInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
+	
 
 	
 </beans:beans>

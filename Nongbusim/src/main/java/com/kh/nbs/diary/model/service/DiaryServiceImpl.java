@@ -19,7 +19,7 @@ public class DiaryServiceImpl implements DiaryService {
 	
 
 	@Override
-	public ArrayList selectCategoryList(int memNo) {
+	public ArrayList<Diary> selectCategoryList(int memNo) {
 		return diaryDao.selectCategoryList(sqlSession, memNo);
 	}
 	
@@ -31,8 +31,8 @@ public class DiaryServiceImpl implements DiaryService {
 	
 
 	@Override
-	public ArrayList<Diary> selectDiaryList(String selectDuration, String selectCategory) {
-		return null;
+	public ArrayList<Diary> selectDiaryList(Diary diary) {
+		return diaryDao.selectDiaryList(sqlSession, diary);
 	}
 
 }

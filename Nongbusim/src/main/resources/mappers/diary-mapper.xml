@@ -3,10 +3,8 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="diaryMapper">
-	<resultMap id="diaryResultSet" type="diary">
+	<resultMap type="diary" id="diaryResultSet">
 		<result column="diary_no" property="diaryNo"></result>
-		<result column="start_date" property="startDate"></result>
-		<result column="end_date" property="endDate"></result>
 		<result column="create_date" property="createDate"></result>
 		<result column="diary_category" property="diaryCategory"></result>
 		<result column="diary_content" property="diaryContent"></result>
@@ -16,14 +14,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 
-	<select id="selectCategoryList" parameterType="_int" resultType="ArrayList">	
+	<select id="selectCategoryList" parameterType="_int" resultMap="diaryResultSet">	
 	select 
-			diary_category
+			distinct diary_category
 	from
 			diary
 	where
 			mem_no = #{memNo}
 	</select>
 
+	<select id="selectDiaryList" parameterType="diary" resultMap="diaryResultSet">
+	select
+			*
+	from
+			diary
+	where
+			create_date between #{startDate} and #{endDate}
+			
+	<if test="diaryCategory !='noCategory'">
+		and diary_category = #{diaryCategory}
+	</if>
+	</select>
 
 </mapper>
