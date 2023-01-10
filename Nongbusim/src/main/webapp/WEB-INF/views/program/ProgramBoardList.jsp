@@ -100,7 +100,7 @@
                         <td class="test">${ p.programPlan }</td>
                         <td class="test">${ p.headcount }</td>
                         <td class="test">${ p.signUp }</td>
-                        <td class="sorry"><img class="heart" onclick= "location.href ='wish.pr?programNo=${ p.programNo }'"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
+                        <td class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
                      </tr>
                        
                     </c:forEach>
@@ -148,9 +148,12 @@
                  
             $(function(){
                 $('.heart').click(function(){
-
+                    console.log($(this).attr("alt"));
                     $.ajax({
-                            url : 'wish.pr?programNo='+$(this).attr("alt"),
+                            url : 'wish.pr',
+                            data :{
+                                programNo : $(this).attr("alt")
+                            },
                             success: function() {
                                 console.log($(this).attr("src"));
 
