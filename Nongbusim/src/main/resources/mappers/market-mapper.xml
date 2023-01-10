@@ -103,7 +103,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   FROM (
 		        SELECT 
 		            board_no,
-		             file_no,
+		            file_no,
 		            origin_name,
 		            change_name,
 		            upload_date,

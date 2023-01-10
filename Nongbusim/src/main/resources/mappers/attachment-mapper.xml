@@ -50,11 +50,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		)
 		VALUES
 		  		(
-		  		SEQ_MKNO.NEXTVAL
+		  		SEQ_ANO.NEXTVAL
 		  	   ,#{originName}
 		  	   ,#{changeName}
 		  	   ,#{boardType}
-		  	   ,#{boardNo}
+		  	   ,SEQ_MKNO.CURRVAL
 		  		)
 		  		
 	</insert>
