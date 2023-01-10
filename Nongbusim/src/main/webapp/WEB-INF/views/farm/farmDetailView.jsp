@@ -101,10 +101,9 @@
             
             <br><br>
             <div class="fotorama">
-                <img src="https://images.unsplash.com/photo-1519897831810-a9a01aceccd1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80">
-                <img src="https://images.unsplash.com/photo-1507662228758-08d030c4820b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80">
-                <img src="https://images.unsplash.com/photo-1519897831810-a9a01aceccd1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80">
-                <img src="https://images.unsplash.com/photo-1507662228758-08d030c4820b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80">
+                <c:forEach var="at" items="${atList}">
+                    <img src="${at.changeName}">
+                </c:forEach>
             </div>
             
             <div class="intro-area">

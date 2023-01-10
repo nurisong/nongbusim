@@ -35,8 +35,9 @@ public class FarmController {
 	
 	@RequestMapping("detail.fm")
 	public String selectFarm(int fno, Model model) {
-		System.out.println(farmService.selectFarm(fno));
 		model.addAttribute("farm", farmService.selectFarm(fno));
+		model.addAttribute("atList", farmService.selectAttachment(fno));
+		System.out.println(farmService.selectAttachment(fno));
 		return "farm/farmDetailView";
 	}
 	
@@ -55,19 +56,11 @@ public class FarmController {
 	
 	public String saveFile(MultipartFile upfile, HttpSession session) {
 		
-		// 파일 명 수정 작업 후 서버에 업로드 시키기("image.png" => 20221238123123.png)
 		String originName = upfile.getOriginalFilename();
-		
-		// "20221226102530"(년월일시분초)
 		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-		// 12321(5자리 랜덤값)
 		int ranNum = (int)(Math.random()* 90000 + 10000);
-		// 확장자
 		String ext = originName.substring(originName.lastIndexOf("."));
-		
 		String changeName = currentTime + ranNum + ext;
-		
-		// 업로드 시키고자 하는 폴더의 물리적인 경로 알아내기
 		String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
 		
 		try {
@@ -79,39 +72,34 @@ public class FarmController {
 	}
 	
 	@RequestMapping("insert.fm")
-	public String insertFarm(Farm f, ModelAndView mv, MultipartFile[] upfiles, HttpSession session, Attachment a , RedirectAttributes rttr) {
-		
-		//System.out.println(upfiles);
+	public ModelAndView insertFarm(Farm f, MultipartFile[] upfiles, ModelAndView mv, HttpSession session, Attachment a, RedirectAttributes rttr) {
 		
 		// **farmer에 로그인유저 memNo 넣기**
 		f.setFarmer(((Member)session.getAttribute("loginUser")).getMemNo());
 		
 		if(farmService.insertFarm(f)>0) {
 
-			int farmNo = f.getFarmNo();
+			//int farmNo = f.getFarmNo();
 			
 			for(MultipartFile upfile: upfiles) {
 				
 				if(!upfile.getOriginalFilename().equals("")) {
-					a.setBoardNo(farmNo);
-					a.setBoardType("Farm");
+
+					a.setBoardType("F");
 					a.setOriginName(upfile.getOriginalFilename()); // 원본명
 					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
 					
-					if(farmService.insertAttachment(a) > 0) {
-						rttr.addFlashAttribute("alertMsg", "농장이 등록되었습니다.");
-						return "redirect:/myList.fm";
-					} else {
-						return "common/errorPage";
-					}
+					farmService.insertAttachment(a);
 				}
 			}
-			// 첨부파일 없을 경우
-			return "redirect:/myList.fm";
+			rttr.addFlashAttribute("alertMsg", "농장이 등록되었습니다.");
+			mv.setViewName("redirect:/myList.fm");
+			return mv;
 		} else {
 			// 첨부파일 삭제
-			return "";
+			return mv;
 		}
 	}
-
+	
+	
 }

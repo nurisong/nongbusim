@@ -16,7 +16,7 @@ public interface FarmService {
 	ArrayList<Farm> selectFarmList(PageInfo pi);
 	
 	// 2. 농장 등록 서비스(insert)
-	// 첨부파일
+	// 첨부파일 등록
 	int insertAttachment(Attachment a);
 	int insertFarm(Farm f);
 	
@@ -26,6 +26,7 @@ public interface FarmService {
 	// 4. 농장 상세조회 서비스(select)
 	// **지도 API 연결?
 	Farm selectFarm(int farmNo);
+	ArrayList<Attachment> selectAttachment(int farmNo);
 	
 	// 5. 농장 삭제 서비스(update)
 	int deleteFarm(int farmNo);

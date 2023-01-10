@@ -25,6 +25,13 @@
 .custom-select{width: 100px;}
 .form-control{width: 300px;}
 .select, .text{display: inline-block;}
+#no-farm{
+    width: 1100px;
+    height: 200px;
+    font-size: 18px;
+    background-color: rgb(223, 223, 223);
+    border-radius: 5px;
+}
 </style>
 </head>
 <body>
@@ -42,23 +49,38 @@
             
             <br><br><br>
             <div class="farm-area">
-                <table class="table farm-table">
-                    <thead class="thead-light" align="center">
-                        <th>농장 이름</th>
-                        <th>주소</th>
-                        <th>연락처</th>
-                    </thead>
-                    <tbody align="center">
-                    <c:forEach var="f" items="${ farmList }">
-                        <tr>
-                            <input type="hidden" id="farmNo" value="${f.farmNo}">
-                            <td>${f.farmName}</td>
-                            <td>${f.address}</td>
-                            <td>${f.phone}</td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                <c:choose>
+                    <c:when test="${ not empty farmList }">
+                        <!-- farmList가 있으면 -->
+                        <table class="table farm-table">
+                            <thead class="thead-light" align="center">
+                                <th>농장 이름</th>
+                                <th>주소</th>
+                                <th>연락처</th>
+                            </thead>
+                            <tbody align="center">
+
+                            <c:forEach var="f" items="${ farmList }">
+                                <tr>
+                                    <input type="hidden" id="farmNo" value="${f.farmNo}">
+                                    <td>${f.farmName}</td>
+                                    <td>${f.address}</td>
+                                    <td>${f.phone}</td>
+                                </tr>
+                            </c:forEach>
+
+                            </tbody>
+                        </table>
+                    </c:when>
+                    <c:otherwise>
+                        <br>
+                        <!-- 비어있으면 -->
+                        <div id="no-farm">
+                            <br><br><br>
+                            등록하신 농장이 존재하지 않습니다.
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>
