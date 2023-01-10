@@ -57,6 +57,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
 		      ,count
 		      ,board_type
+		      ,board_writer
+		      ,board_like
 		  from
 		       board
 		 where
