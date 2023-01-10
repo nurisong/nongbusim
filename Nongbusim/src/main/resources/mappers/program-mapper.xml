@@ -21,8 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="CHANGE_NAME" property="changeName"/>
 		
 	</resultMap>
-
-
+	
 	
 	<insert id="registerProgram" parameterType="program">
 	
@@ -101,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="selectProgram" parameterType="program" resultMap="programResultSet">
-	
+	 
 		select
 			program_no,
 			farm_no,
@@ -145,5 +144,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			)
 	
 	</insert>
+	
+		<select id="selectProgramNo" parameterType="program" resultMap="programResultSet">
+	 
+		select
+			program_no
+		from
+			my_program
+		where
+			mem_no = #{memNo}
+			
+	</select>
+	
+	
  
 </mapper>

@@ -224,31 +224,9 @@
     
     
 	<script>
-
-		function adminPage() {
-			location.href = "views/admin/aSidebar.jsp";
- 		}
-						
-		function myPage() {
-			location.href = "subLookup.me";
-        };
-                        
-
-		function cartList() {
-			location.href = "cartList.or";
-		};
-
 		function logout() {
 			location.href = "logout.me";
 		};
-                        
-		function goStore(){
-			location.href = "userProductMarket.pro"
-		}
-                        
-		function gosubscribe(){
-			location.href = "userSubscribe"
-		}
 	</script>
                     
 	<!-- 로그아웃 -->
@@ -258,18 +236,6 @@
      	</script>
 		<c:remove var="alertMsg" scope="session" />
 	</c:if>
-                    
-                    
-	<script type="text/javascript">
-        	$(function(){
-                    		
-                  	$('.search-text').click(function(){
-                        		
-                     	location.href = '';
-                        		
-             	})
-                    		
-        	})
-  	</script>
+
 </body>
 </html> 

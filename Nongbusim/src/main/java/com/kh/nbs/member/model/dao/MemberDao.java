@@ -45,6 +45,11 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.deleteFarmer", memId);
 	}
 	
+	// 아이디 중복체크
+	public int idCheck(SqlSessionTemplate sqlSession, String memId) {
+		return sqlSession.selectOne("memberMapper.idCheck", memId);
+	}
+	
 	// 아이디 찾기
 //	public Member findId(SqlSessionTemplate sqlSession, String memPwd) {
 //		return sqlSession.selectOne("memberMapper.findId", memPwd);

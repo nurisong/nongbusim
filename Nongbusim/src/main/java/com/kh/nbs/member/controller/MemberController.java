@@ -192,7 +192,7 @@ public class MemberController {
 			
 		} else {
 			session.setAttribute("alertMsg", "잘못된 비밀번호입니다.");
-			return "redirect:myPageUser.me";
+			return "redirect:myPageFarmer.me";
 		}
 	}
 	
@@ -201,33 +201,38 @@ public class MemberController {
 		return "member/userType";
 	}
 	
+	@ResponseBody
+	@RequestMapping("idCheck.me")
+	public int idCheck(String memId) {
+		return memberService.idCheck(memId);
+	}
+	
+	
+	
+
+	
 //	@RequestMapping("findId.me")
 //	public String findId(String memPwd, HttpSession session, Model model) {
 //		
-//		Member findId = memberService.findId(memPwd);
+//		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) {
+//		// 비밀번호가 사용자가 입력한 평문으로 만들어진 암호문일 경우
 //		
-//		if(findId.getMemId() == null) {	
-//			model.addAttribute("alertMsg", "해당 회원이 존재하지 않습니다");
-//			return "common/errorPage";
-//		} else {
-//			session.setAttribute("alertMsg", findId.getName() + "님의 아이디는 " + findId.getMemId() + "입니다.");
-//			return "redirect:/";
-//		}
+	//		if(memberService.finId(memId) > 0) {
+	//			session.setAttribute("alertMsg", findId.getName() + "님의 아이디는 " + findId.getmemId() + "입니다.");
+	//			return "redirect:/";
+	//		} else {
+	//			session.setAttribute("errorMsg", "아이디 찾기 실패");
+	//			return "common/errorPage";
+	//		}
+//		
+	//	} else {
+	//		session.setAttribute("alertMsg", "존재하지 않는 비밀번호입니다.");
+	//		return "redirect:myPageFarmer.me";
+	//	}
 //	}
 	
 	
 	
-//	@ResponseBody // 데이터를 돌려보낼 때
-//	@RequestMapping("idCheck.me")
-//	public String idCheck(String checkId) { // 키값을 적어주기
-//		int count = memberService.idCheck(checkId);
-//		if (count > 0) { // 이미 존재하는 아이디 => 사용불가 (NNNNN)
-//			 return "NNNNN";
-//		} else { // 시용 가능 (NNNNY)
-//			return "NNNNY";
-//		}
-//		// return memberService.idCheck(checkId) > 0 ? "NNNNN" : "NNNNY"; 억지로 줄일 수 있음
-//	}
 	
 	
 }

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.farm.model.service.FarmService;
 import com.kh.nbs.farm.model.vo.Farm;
+import com.kh.nbs.member.model.vo.Member;
 
 @Controller
 public class FarmController {
@@ -73,10 +74,10 @@ public class FarmController {
 		//System.out.println(upfiles);
 		
 		// **farmer에 로그인유저 memNo 넣기**
+		f.setFarmer(((Member)session.getAttribute("loginUser")).getMemNo());
 		
 		if(farmService.insertFarm(f)>0) {
-			
-			// **selectFarm하고 getFarmNo해서 가져오기
+
 			int farmNo = f.getFarmNo();
 			
 			for(MultipartFile upfile: upfiles) {
@@ -94,8 +95,11 @@ public class FarmController {
 					}
 				}
 			}
+			// 첨부파일 없을 경우
+			mv.setViewName("redirect:/");
 		} else {
 			// 첨부파일 삭제
+			
 		}
 		
 		return mv;

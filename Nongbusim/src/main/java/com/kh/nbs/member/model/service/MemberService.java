@@ -26,7 +26,7 @@ public interface MemberService {
 	int deleteFarmer(String memId);
 	
 	// 아이디 중복체크 (String checkId)
-	int idCheck(String checkId);
+	int idCheck(String memId);
 	
 	// 아이디 찾기(select)
 //	Member findId(String memPwd);
