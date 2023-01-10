@@ -11,9 +11,9 @@ public interface DiaryService {
 	
 	// diaryListView
 	//
-	ArrayList selectCategoryList(int MemNo);
+	ArrayList<Diary> selectCategoryList(int MemNo);
 	// Ajax: 
-	ArrayList<Diary> selectDiaryList(String selectDuration, String selectCategory);	
+	ArrayList<Diary> selectDiaryList(Diary diary);	
 	Diary selectCalEventList(int memNo);
 
 }

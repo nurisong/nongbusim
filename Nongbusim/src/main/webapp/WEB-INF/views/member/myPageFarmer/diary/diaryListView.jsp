@@ -3,18 +3,189 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ include file="../../../common/menubar.jsp" %>
 <%@ include file="../myPageFarmerCommon.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<style>
+	.img-area img {
+		width: 300px;
+		height: 250px;
+		margin-left: 10px;
+		margin-right: 10px;
+		border-radius: 5%;
+		object-fit: cover;
+	}
 
+	.item-area img {
+	  transition: all 0.2s linear;
+	}
+	.item-area:hover img {
+	  transform: scale(1.4);
+	}
+
+	
+	.item-area {
+
+	  margin: 0px auto;
+	  overflow: hidden;
+	}
+
+
+	.item-area a {
+		text-decoration: none;
+		color: rgb(100, 100, 100);   
+	}
+	
+	.img-area a {
+		text-decoration: none;
+		color: rgb(100, 100, 100);   
+	}
+	
+
+	.item-area:hover a p {
+		color: rgb(10, 10, 10);
+	}
+
+	.item-area h6 {
+		color: rgb(100, 100, 100);; 
+	}
+
+	.item-area:hover h6{
+		color: rgb(49, 81, 179); 
+	}
+
+	.form-check-label input[type=radio] {
+        display: none;
+    }
+
+    .form-check-label input[type="radio"] + span {
+        display: inline-block;
+        padding: 10px 10px;
+        border: 1px solid #dfdfdf;
+        background-color: #ffffff;
+        text-align: center;
+        cursor: pointer;
+        margin-right: 20px;
+        border-radius: 10%;
+    }
+
+    .form-check-label input[type="radio"]:checked + span {
+        background-color: #007bff;
+        color: #ffffff;
+    }
+
+
+	
+	
+    th, td {
+	padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 40px;
+    }
+    
+    #tdBottom{
+    	padding-right: 20px 20px 0px 30px;
+    	margin-right: 10px;
+       	align: bottom;
+  	    valign: bottom;
+  	    font-size: 16px;
+
+    }
+    
+    #tdUp{
+    	padding-right: 20px 20px 0px 30px;
+    	margin-right:10px;
+    	align: top;
+    	valign: top;
+    	font-size: 16px;
+    }
+    
+    
+    
+    
+    .withBorder	{
+		border-collapse: collapse;
+		width : 1000px;
+		border: none;
+		font-size: 20px;
+		transition: 1s;
+		border-spacing: 30px;		
+		border: 1px dotted gray;
+		padding : 10px 20px 20px 20px;
+
+	}
+	 
+	 .withBorder tr:hover{
+		cursor : pointer;
+		background-color:#f3e9e9 !important;
+		font-weight: bolder;
+		font-size: 22px;
+	
+	}  
+    
+
+	 .withBorder div {
+	 	
+	 	height: 100px;
+		display: table-cell; 
+		vertical-align: middle;
+		align:center;
+		
+			 	
+	 }
+    
+    
+    
+   .myButton{ 
+ 		    background-color: #FFA500;
+     		color: maroon;
+     		text-align: center;
+     		text-decoration: none;
+     		display: inline-block;
+     		border-radius: 5px;
+     		font-size: 15px;
+     		padding-top : 0px;
+     		margin-top: 0px;
+     		border-top: 0px; 
+     		align: right; 		
+     		
+   	
+    }
+    
+    h6 {
+    	line-height: 150%;
+    
+    }
+    
+    
+    
+	  .img-area img {
+	  transform: scale(1);
+	  -webkit-transform: scale(1);
+	  -moz-transform: scale(1);
+	  -ms-transform: scale(1);
+	  -o-transform: scale(1);
+	  transition: all 0.3s ease-in-out;   
+		
+	}
+	.img-area img:hover {
+	  transform: scale(1.1);
+	  -webkit-transform: scale(1.1);
+	  -moz-transform: scale(1.1);
+	  -ms-transform: scale(1.1);
+	  -o-transform: scale(1.1);
+	  overflow: hidden;
+	}
+</style>
 </head>
 <body>
 
 <h1>영농일지 모아보기</h1>
-<form action="selectDiaryList" method="post">
 <div class="selectArea">
 	<div class="selectPeriod">
 		조회기간 &nbsp; &nbsp;
@@ -32,7 +203,7 @@
 			<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
 				<c:when test="${ not empty categoryList }">
 					<c:forEach var="category" items="${categoryList }">
-						<option>${ category }</option>
+						<option>${ category.diaryCategory }</option>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
@@ -43,14 +214,13 @@
 		</select>
 	</div>	
 	<div style="align:right">
-		<button type="button" onclick="selectDiaryList">검색</button>
+		<button type="button" onclick="selectDiaryList();">검색</button>
 		<button type="reset" style="align:right">초기화</button>	
 	</div>
 	<div id="listArea">
 	</div>
 	
 </div>
-</form>
 <script>
 
 	function selectPeriod(period){
@@ -101,45 +271,46 @@
 	
 	
 		//기간, 카테고리 지정 후 "검색" 버튼 누를 시 시행되는 함수 (ajax)
-	function selectDiaryList(){
-		
+	function selectDiaryList(){		
 		// yyyy-mm-dd형식
 		var startDate = $('#startDate').val();
 		var endDate = $('#endDate').val();
 		
 		
 		// category.val 에는 카테고리명 or noCategory
-		var category = $('#enrolledCategory').val();
+		var diaryCategory = $('#enrolledCategory').val();
 		
 		$.ajax({
-			url: 'selectDiaryList.di';
+			url: 'selectDiaryList.di',
 			data : {
 				startDate : startDate,
 				endDate : endDate,
-		 		category : category,						
+		 		diaryCategory : diaryCategory,						
 			},
 			success: function(list){
 				console.log(list);
 
                 var result = '';
 				
-                for(var i=0; i<list.length ; i++) {
-                
-                result 
-					+='<div class="item-area">'
-                    + '<a href="<%= contextPath %>/detail.di?dno=' + list[i].diaryNo>'
-                    + '<div class="img-area">'
-                    + '<p>' + list[i].createDate + '</p>'
-                    + '<p>' + list[i].diaryCategory + '</p>'
-                    + '<p>' + list[i].diaryContent + '</p>'                    
-                    + '<img src="' + list[i].diaryThumbnail + '">'
- 	                + '</div>' + '</a>'
-               		+ '<input type="hidden" id="reviewNo" name="reviewNo" value="'+list[i].reviewNo+'">'
-                    +'</div>'
-                    
-                    }
-                    $('#listArea').html(result);
-				
+				if(!list.empty){
+
+					for(var i=0; i<list.length ; i++) {                
+					result 
+						+='<div class="item-area">'
+						+ '<a href="${pageContext.request.contextPath}/detail.di?dno=' + list[i].diaryNo+'">'
+						+ '<div class="img-area">'
+						+ '<p>' + list[i].createDate + '</p>'
+						+ '<p>' + list[i].diaryCategory + '</p>'
+						+ '<p>' + list[i].diaryContent + '</p>'                    
+						+ '<img src="' + list[i].diaryThumbnail + '">'
+						+ '</div>' + '</a>'
+						+ '<input type="hidden" id="diaryNo" name="diaryNo" value="'+list[i].diaryNo+'">'
+						+'</div>'                    
+					}
+				} else {
+ 					result= '작성한 영농일지가 없습니다'
+				}                   
+               	 $('#listArea').html(result);
 			},
 			error: function(){
 				console.log('실패');

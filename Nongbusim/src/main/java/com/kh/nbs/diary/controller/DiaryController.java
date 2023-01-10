@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.nbs.diary.model.service.DiaryService;
+import com.kh.nbs.diary.model.vo.Diary;
 
 @Controller
 public class DiaryController {
@@ -31,19 +33,25 @@ public class DiaryController {
 	}
 	
 
-	// diaryListView
+	// diaryListView 진입시 사용자가 등록한 category를 select태그로 뿌려주기 위한 메소드
 	
 	@RequestMapping("list.di")
 	public ModelAndView selectCategoryList(ModelAndView mv) {
-		ArrayList<String> categoryList= diaryService.selectCategoryList(memNo);
+		ArrayList<Diary> categoryList= diaryService.selectCategoryList(memNo);
 		
 		mv.addObject("categoryList", categoryList).setViewName("member/myPageFarmer/diary/diaryListView");
 		
 		return mv;
 	}
 	
-	//@RequestMapping("selectDiaryList")
-	//public ModelAndView selectDiar
+	// 사용자가 
+	@ResponseBody
+	@RequestMapping(value="selectDiaryList.di", produces="application/json; charset=UTF-8")
+	public String selectDiaryList(Diary diary) {
+		
+		return new Gson().toJson(diaryService.selectDiaryList(diary));		
+		
+	}
 	
 	
 	@RequestMapping("enrollForm.di")
@@ -57,6 +65,7 @@ public class DiaryController {
 		return "member/myPageFarmer/diary/diaryCalView" ;
 		
 	}
+	
 	
 	
 
