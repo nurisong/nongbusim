@@ -38,9 +38,9 @@ public class ProgramDao {
 		
 	}
 	
-	public ArrayList<Farm> selectFarmList(SqlSessionTemplate sqlSession,int memNo){
+	public ArrayList<Farm> selectMyFarmList(SqlSessionTemplate sqlSession,int memNo){
 		
-		return (ArrayList)sqlSession.selectList("farmMapper.selectFarmList",memNo);
+		return (ArrayList)sqlSession.selectList("farmMapper.selectMyFarmList",memNo);
 	}
 	
 	public Program selectProgram(SqlSessionTemplate sqlSession, int programdNo){
@@ -63,6 +63,20 @@ public class ProgramDao {
 		
 	}
 	
+	
+	public int wishProgram(SqlSessionTemplate sqlSession, Program p) {
+		
+		return sqlSession.insert("programMapper.wishProgram",p);
+		
+		
+	}
+	
+	
+	public ArrayList selectMarkNo(SqlSessionTemplate sqlSession, int memNo) {
+		
+		return (ArrayList)sqlSession.selectList("programMapper.selectMarkNo",memNo);
+		
+	}
 	
 
 }

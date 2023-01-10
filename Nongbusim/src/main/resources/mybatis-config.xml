@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.nbs.board.model.vo.Board" alias="board" />
 		<typeAlias type="com.kh.nbs.board.model.vo.Like" alias="like" />
 		<typeAlias type="com.kh.nbs.common.model.vo.Attachment" alias="attachment" />
+		<typeAlias type="com.kh.nbs.common.model.vo.Mark" alias="mark" />
 		<typeAlias type="com.kh.nbs.common.model.vo.Comment" alias="comment" />
 		<typeAlias type="com.kh.nbs.common.model.vo.Recomment" alias="recomment" />
 		<typeAlias type="com.kh.nbs.diary.model.vo.Diary" alias="diary" />

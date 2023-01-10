@@ -102,11 +102,11 @@ text-align: center;
 					<c:forEach items="${ list }" var="b">
 						<tr>
 							<td class="bno">${ b.boardNo }</td>
-							<td>${ b.boardTitle }</td>
-							<td></td>
-							<td>${ b.createDate }</td>
-							<td>${ b.count }</td>
-							<td>${ b.boardType }</td>							
+							<td>${ b.boardTitle  }</td>
+							<td>${ b.boardWriter }</td>
+							<td>${ b.createDate  }</td>
+							<td>${ b.count       }</td>
+							<td>${ b.boardLike   }</td>							
 						</tr>
 					</c:forEach>
                 </tbody>

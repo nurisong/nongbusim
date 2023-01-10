@@ -10,7 +10,7 @@ public interface ProgramService {
 
 	int selectListCount();
 	
-	ArrayList<Farm> selectFarmList(int memNo);
+	ArrayList<Farm> selectMyFarmList(int memNo);
 
 	ArrayList<Program> selectList(PageInfo pi);
 
@@ -22,6 +22,8 @@ public interface ProgramService {
 	
 	ArrayList selectProgramNo(int memNo);
 	
+	int wishProgram(Program p);
 	
-
+	ArrayList selectMarkNo(int memNo);
+	
 }

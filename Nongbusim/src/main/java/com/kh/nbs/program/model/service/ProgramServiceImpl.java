@@ -39,8 +39,8 @@ public class ProgramServiceImpl implements ProgramService {
 	}
 
 	@Override
-	public ArrayList<Farm> selectFarmList(int memNo) {
-		return programDao.selectFarmList(sqlSession,memNo);
+	public ArrayList<Farm> selectMyFarmList(int memNo) {
+		return programDao.selectMyFarmList(sqlSession,memNo);
 	}
 
 
@@ -57,6 +57,19 @@ public class ProgramServiceImpl implements ProgramService {
 	@Override
 	public ArrayList selectProgramNo(int memNo) {
 		return programDao.selectProgramNo(sqlSession,memNo);
+	}
+
+
+	@Override
+	public int wishProgram(Program p) {
+		
+		return programDao.wishProgram(sqlSession,p);
+	}
+
+
+	@Override
+	public ArrayList selectMarkNo(int memNo) {
+		return programDao.selectMarkNo(sqlSession,memNo);
 	}
 	
 }

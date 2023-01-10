@@ -42,7 +42,7 @@ table th {
     <h1>프로그램 상세 정보</h1>
     <table border="1">
         <input type="text" name="memNo" value="1" hidden>
-        <input type="text" name="programNo" value="${ bno }" hidden>
+        <input type="text" name="programNo" value="${ bno }" >
         <tr>
             <th>프로그램 명</th>
             <td>${ p.programName }</td>
