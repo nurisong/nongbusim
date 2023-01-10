@@ -57,6 +57,12 @@ public class ProgramDao {
 		
 	}
 	
+	public ArrayList selectProgramNo(SqlSessionTemplate sqlSession, int memNo){
+		
+		return (ArrayList)sqlSession.selectList("programMapper.selectProgramNo",memNo);
+		
+	}
+	
 	
 
 }

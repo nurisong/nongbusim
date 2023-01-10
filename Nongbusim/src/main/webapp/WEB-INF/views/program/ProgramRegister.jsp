@@ -53,6 +53,7 @@ text-align: center;
             <c:forEach items="${ list }" var="p" >
             
                 <option value="${p.farmNo}"> ${ p.farmName }</option>
+                
             </c:forEach>
        
                
