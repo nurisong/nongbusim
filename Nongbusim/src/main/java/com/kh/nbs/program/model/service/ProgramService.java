@@ -22,6 +22,6 @@ public interface ProgramService {
 	
 	ArrayList selectProgramNo(int memNo);
 	
+	void wishProgram(Program p);
 	
-
 }
