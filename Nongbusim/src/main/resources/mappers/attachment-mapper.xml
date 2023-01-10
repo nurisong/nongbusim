@@ -82,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!--테스트x-->
-	<select id="selectAttachmentDetailBoard" parameterType="board">
+	<select id="selectAttachmentDetailBoard" parameterType="board" resultMap="attachmentResultSet">
 		SELECT
 			   FILE_NO
 			   ,ORIGIN_NAME
