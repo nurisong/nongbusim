@@ -66,6 +66,7 @@
     <script>
         $(function(){
             $('.farm-table>tbody>tr').click(function(){
+                // console.log($(this).children().eq(0).val());
                 location.href = "detail.fm?fno=" + $(this).children().eq(0).val();
             })
 
