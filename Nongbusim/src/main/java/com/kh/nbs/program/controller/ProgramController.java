@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -196,13 +197,17 @@ public class ProgramController {
 			return mv;
 		}
 		
+		
+		
+		@ResponseBody
 		@RequestMapping("wish.pr")
-		public String wishProgram(int programNo) {
+		public void wishProgram(int programNo) {
 			
+			System.out.println(programNo);
 			programService.wishProgram(programNo);
 			
 			
-			return "redirect:list.pr?cpage="+programNo;
+			//return "redirect:list.pr?cpage="+programNo;
 		}
 			
 		
