@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.farm.model.service.FarmService;
@@ -32,7 +33,7 @@ public class FarmController {
 	}
 	
 	@RequestMapping("detail.fm")
-	public String farmDetailView() {
+	public String selectFarm() {
 		// 농장 번호 뽑아서 조회
 		return "farm/farmDetailView";
 	}
@@ -40,6 +41,11 @@ public class FarmController {
 	@RequestMapping("enrollForm.fm")
 	public String farmEnrollForm() {
 		return "farm/farmEnrollForm";
+	}
+	
+	@RequestMapping("myList.fm")
+	public String selectMyFarmList() {
+		return "farm/myPageFarmListView";
 	}
 	
 	public String saveFile(MultipartFile upfile, HttpSession session) {
@@ -69,7 +75,7 @@ public class FarmController {
 	}
 	
 	@RequestMapping("insert.fm")
-	public ModelAndView insertFarm(Farm f, ModelAndView mv, MultipartFile[] upfiles, HttpSession session, Attachment a) {
+	public String insertFarm(Farm f, ModelAndView mv, MultipartFile[] upfiles, HttpSession session, Attachment a , RedirectAttributes rttr) {
 		
 		//System.out.println(upfiles);
 		
@@ -89,20 +95,19 @@ public class FarmController {
 					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
 					
 					if(farmService.insertAttachment(a) > 0) {
-						mv.addObject("alertMsg", "농장이 등록되었습니다.").setViewName("redirect:/");
+						rttr.addFlashAttribute("alertMsg", "농장이 등록되었습니다.");
+						return "redirect:/myList.fm";
 					} else {
-						mv.setViewName("common/errorPage");
+						return "common/errorPage";
 					}
 				}
 			}
 			// 첨부파일 없을 경우
-			mv.setViewName("redirect:/");
+			return "redirect:/myList.fm";
 		} else {
 			// 첨부파일 삭제
-			
+			return "";
 		}
-		
-		return mv;
 	}
 
 }
