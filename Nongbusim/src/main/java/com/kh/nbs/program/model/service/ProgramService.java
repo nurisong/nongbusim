@@ -20,6 +20,8 @@ public interface ProgramService {
 	
 	int joinProgram(Program p);
 	
+	ArrayList selectProgramNo(int memNo);
+	
 	
 
 }

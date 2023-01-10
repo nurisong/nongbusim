@@ -89,7 +89,7 @@ text-align: center;
 			<br><br>            
             
             <!-- 검색된 테이블 -->
-            <table class="table">
+            <table class="table" id="boardList">
                 <thead class="thead-light" align="center">
                     <th>번호</th>
                     <th>제목</th>
@@ -136,12 +136,12 @@ text-align: center;
                     </c:choose>
                     
 					<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-                    	<li class="page-item"><a class="page-link" href="list.bo?cpage=${p}">${ p }</a></li>
+                    	<li class="page-item"><a class="page-link" href="list.bo?cpage=${p}&type=${btype}">${ p }</a></li>
                     </c:forEach>
 
 					<c:choose>
 						<c:when test="${ pi.currentPage eq pi.maxPage }">
-                    		<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                    		<li class="page-item disabled"><a class="page-link" href="#"&type=${btype}>Next</a></li>
                     	</c:when>
                     	<c:otherwise>
                     		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }&type=${btype}">Next</a></li>

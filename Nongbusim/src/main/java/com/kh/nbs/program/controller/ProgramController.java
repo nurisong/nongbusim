@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -52,7 +53,7 @@ public class ProgramController {
 		@RequestMapping("enrollForm.pr")
 		public String enrollForm(Program p, Model model) {
 			
-			int memNo=1; 
+			int memNo= 1; 
 			
 			ArrayList<Farm> list = programService.selectFarmList(memNo);
 			
@@ -146,6 +147,17 @@ public class ProgramController {
 		
 		@RequestMapping("detail.pro")
 		public ModelAndView selectBoard(int bno, ModelAndView mv) {
+			
+			int memNo = 1;
+			
+			
+			if(programService.selectProgramNo(memNo) != null) {
+				
+				System.out.println(programService.selectProgramNo(memNo));
+				
+				mv.addObject("programList", programService.selectProgramNo(memNo));
+				
+			}
 			
 			
 			if( programService.selectProgram(bno) != null ) { //키값과 똑같은 이름의 매개변수, int형으로 쓰면 알아서 파싱

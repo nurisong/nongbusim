@@ -35,4 +35,9 @@ public class DiaryServiceImpl implements DiaryService {
 		return diaryDao.selectDiaryList(sqlSession, diary);
 	}
 
+	@Override
+	public Diary selectDiary(int diaryNo) {
+		return diaryDao.selectDiary(sqlSession, diaryNo);
+	}
+
 }

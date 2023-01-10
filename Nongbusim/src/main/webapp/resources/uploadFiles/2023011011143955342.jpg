@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+
+        table * {margin:5px;}
+        table {width:100%;}
+        
+    </style>
+</head>
+<body>
+	        
+    
+    
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	
+    <!-- jQuery 라이브러리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- 부트스트랩에서 제공하고 있는 스타일 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- JavaScript -->
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+	<!-- CSS -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+	<!-- Default theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+	<!-- Semantic UI theme -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+	
+    <style>
+        div {box-sizing:border-box;} 
+        #header {
+            width:80%;
+            height:100px;
+            padding-top:20px;
+            margin:auto;
+        }
+        #header>div {width:100%; margin-bottom:10px;}
+        #header_1 {height:80%;}
+        #header_2 {height:60%;}
+
+        #header_1>div{
+            height:100%;
+            float:left;
+        }
+        #header_1_left {width:30%; position:relative;}
+        #header_1_center {width:40%;}
+        #header_1_right {width:30%;}
+
+        #header_1_left>img {height:100%; position:absolute; margin:auto; top:0px; bottom:0px; right:0px; left:0px;}
+        #header_1_right {text-align:center; line-height:35px; font-size:12px; text-indent:35px;}
+        #header_1_right>a {margin:5px;}
+        #header_1_right>a:hover {cursor:pointer;}
+
+        #header_2>ul {width:100%; height:100%; list-style-type:none; margin:auto; padding:0;}
+        #header_2>ul>li {float:left; width:25%; height:100%; line-height:55px; text-align:center;}
+        #header_2>ul>li a {text-decoration:none; color:black; font-size:18px; font-weight:900;}
+
+        #header_2 {border-top:1px solid lightgray;}
+
+        #header a {text-decoration:none; color:black;}
+
+        /* 세부페이지마다 공통적으로 유지할 style */
+        .content {
+            background-color:rgb(247, 245, 245);
+            width:80%;
+            margin:auto;
+        }
+        .innerOuter {
+            border:1px solid lightgray;
+            width:80%;
+            margin:auto;
+            padding:5% 10%;
+            background-color:white;
+        }
+
+    </style>
+
+</head>
+<body>
+
+	
+
+
+    <div id="header">
+        <div id="header_1">
+            <div id="header_1_left">
+                <img src="data:image/jpeg;base64,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" alt="">
+            </div>
+            <div id="header_1_center"></div>
+            <div id="header_1_right">
+            
+            	
+            		
+                	
+	                    <label>세번째님 환영합니다</label> &nbsp;&nbsp;
+	                    <br>
+	                    <a href="myPage.me">마이페이지</a>
+	                    <a href="logout.me">로그아웃</a>
+                    
+            	
+            </div>
+        </div>
+        <div id="header_2">
+            <ul>
+                <li><a href="">HOME</a></li>
+                <li><a href="">공지사항</a></li>
+                <li><a href="list.bo">게시판</a></li>
+                <li><a href="">ETC</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 로그인 클릭 시 뜨는 모달 (기존에는 안보이다가 위의 a 클릭 시 보임) -->
+    <div class="modal fade" id="loginModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Login</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+        
+                <form action="login.me" method="post">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <label for="userId" class="mr-sm-2">ID : </label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID" id="userId" name="userId"> <br>
+                        <label for="userPwd" class="mr-sm-2">Password : </label>
+                        <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="userPwd" name="userPwd">
+                    </div>
+                           
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">로그인</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    
+    <br clear="both">
+</body>
+</html>
+
+    <div class="content">
+        <br><br>
+        <div class="innerOuter">
+            <h2>게시글 상세보기</h2>
+            <br>
+
+            <a class="btn btn-secondary" style="float:right;" href="list.bo">목록으로</a>
+            <br><br>
+
+            <table id="contentArea" align="center" class="table">
+                <tr>
+                    <th width="100">제목</th>
+                    <td colspan="3">ㅎㅎ </td>
+                </tr>
+                <tr>
+                    <th>작성자</th>
+                    <td>user03</td>
+                    <th>작성일</th>
+                    <td>2022-12-26</td>
+                </tr>
+                <tr>
+                    <th>첨부파일</th>
+                    <td colspan="3">
+                        <a href="" download="localhost/spring/+resources/uploadFiles/2022122611473258132.jpg">bono.jpg</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td colspan="4"><p style="height:150px;">ㅎㅎ</p></td>
+                </tr>
+            </table>
+            <br>
+
+            <div align="center">
+                <!-- 수정하기, 삭제하기 버튼은 이 글이 본인이 작성한 글일 경우에만 보여져야 함 -->
+                <a class="btn btn-primary" href="">수정하기</a>
+                <a class="btn btn-danger" href="">취소하기</a>
+            </div>
+            <br><br>
+
+            <!-- 댓글 기능은 나중에 ajax 배우고 나서 구현할 예정! 우선은 화면구현만 해놓음 -->
+            <table id="replyArea" class="table" align="center">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
+                        </th>
+                        <th style="vertical-align:middle"><button class="btn btn-secondary">등록하기</button></th>
+                    </tr>
+                    <tr>
+                        <td colspan="3">댓글(<span id="rcount">3</span>)</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>user02</th>
+                        <td>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ꿀잼</td>
+                        <td>2020-03-12</td>
+                    </tr>
+                    <tr>
+                        <th>user01</th>
+                        <td>재밌어요</td>
+                        <td>2020-03-11</td>
+                    </tr>
+                    <tr>
+                        <th>admin</th>
+                        <td>댓글입니다!!</td>
+                        <td>2020-03-10</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+
+    </div>
+    
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+    <style>
+        /* div{border:1px solid red;} */
+        #footer {
+            width:80%;
+            height:200px; 
+            margin:auto;
+            margin-top:50px;
+        }
+        #footer-1 {
+            width:100%;
+            height:20%;
+            border-top:1px solid lightgray;
+            border-bottom:1px solid lightgray;
+        }
+        #footer-2 {width:100%; height:80%;}
+        #footer-1, #footer-2 {padding-left:50px;}
+        #footer-1>a {
+            text-decoration:none;
+            font-weight:600;
+            margin:10px;
+            line-height:40px;
+            color:black;
+        }
+        #footer-2>p {
+            margin:0;
+            padding:10px;
+            font-size:13px;
+        }
+        #p2 {text-align:center;}
+    </style>
+
+</head>
+<body>
+    <div id="footer">
+        <div id="footer-1">
+            <a href="#">이용약관</a> | 
+            <a href="#">개인정보취급방침</a> | 
+            <a href="#">인재채용</a> | 
+            <a href="#">고객센터</a>
+        </div>
+
+        <div id="footer-2">
+            <p id="p1">
+                강남지원 1관 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 2F, 3F, 4F, 5F, 6F <br>
+                강남지원 2관 : 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
+                강남지원 3관 : 서울특별시 강남구 테헤란로 130 호산빌딩 5F, 6F <br>
+                종로지원 : 서울특별시 중구 남대문로 120 대일빌딩 2F, 3F <br>
+                당산지원 : 서울특별시 영등포구 선유동2로 57 이레빌딩 (구관) 19F, 20F
+            </p>
+            <p id="p2">Copyright © 1998-2022 승철 Educational Institute All Right Reserved</p>
+        </div>
+    </div>
+</body>
+</html>
+</body>
+</html>

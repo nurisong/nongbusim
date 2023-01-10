@@ -41,8 +41,8 @@ table th {
 	<div align="center">
     <h1>프로그램 상세 정보</h1>
     <table border="1">
-        <input type="text" name="memNo" value="1">
-        <input type="text" name="programNo" value="${ bno }">
+        <input type="text" name="memNo" value="1" hidden>
+        <input type="text" name="programNo" value="${ bno }" hidden>
         <tr>
             <th>프로그램 명</th>
             <td>${ p.programName }</td>
@@ -66,6 +66,8 @@ table th {
 
     </table>
 
+    
+
     <h1>상세설명</h1>
 
     <input type="text" value="${ p.programDetail }" style="width: 800px; height:150px;" readonly>
@@ -73,10 +75,55 @@ table th {
     <h1>홍보 이미지</h1>
 
 
-	 <img src="${p.changeName}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236"> 
+	 <img src="${p.changeName}" class="img-thumbnail" alt="Cinque Terre" width="800" height="550"> 
    
     <br><br>
-    <button type="submit">신청</button>
+
+    <div style="display:none;" id="applyBtnArea">
+        <button>신청</button>
+    </div>
+    <div style="display:none;" id="applyArea">
+        <p>
+            이미 신청한 프로그램입니다.
+        </p>
+    </div>
+
+
+    <!-- 회원이 이전에 신청했던 프로그램 넘버  -->
+    <!-- <c:forEach items="${ programList }" var="pr">
+
+    <c:choose>
+        <c:when test="${pr.programNo eq bno }">
+            <b>이미 신청한 프로그램입니다.</b>
+        </c:when>
+
+        <c:otherwise>
+            <button type="submit">신청</button>
+        </c:otherwise>
+
+    </c:choose>
+
+    </c:forEach> -->
+
+    <script>
+        $(function() {
+            var count = 0;
+            <c:forEach items="${ programList }" var="pr">
+                <c:if test="${pr.programNo eq bno }">
+                    count++;
+                </c:if>
+            </c:forEach>
+            console.log(count);
+            if(count > 0) {
+                $('#applyArea').css('display', 'block');
+            } else {
+                $('#applyBtnArea').css('display', 'block');
+            }
+        });
+
+    </script>
+
+   
 </div>
 
 

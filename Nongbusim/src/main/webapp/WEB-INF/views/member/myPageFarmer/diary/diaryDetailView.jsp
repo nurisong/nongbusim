@@ -11,5 +11,7 @@
 </head>
 <body>
 
+	console.log('${ diary }');
+	
 </body>
 </html>
