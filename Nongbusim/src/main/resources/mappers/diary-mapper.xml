@@ -68,5 +68,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and
 			diary.status= 'Y'
 	</select>
-
+	
+	<insert id="insertAttachment" parameterType="attachment" resultMap="attachmentResultSet">
+	insert
+	into
+			attachment
+	values 
+			(
+			
+	
+	
+			)
+	
+	
+	
+	</insert>
 </mapper>

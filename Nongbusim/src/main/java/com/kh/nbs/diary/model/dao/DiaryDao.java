@@ -3,7 +3,6 @@ package com.kh.nbs.diary.model.dao;
 import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.nbs.common.model.vo.Attachment;
@@ -34,9 +33,8 @@ public class DiaryDao {
 		return sqlSession.selectOne("diaryMapper.selectDiary", diaryNo);
 	}
 
-
 	public int insertAttachment(SqlSessionTemplate sqlSession, Attachment a) {
-		return 0;
+		return sqlSession.insert("diaryMapper.insertAttachment", a);
 	}
 
 

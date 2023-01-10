@@ -95,7 +95,7 @@ public class DiaryController {
 	
 	@RequestMapping("insert.di")
 	public String insertDiary(Diary diary, ModelAndView mv, MultipartFile[] upfiles, HttpSession session, Attachment a) {
-		ArrayList dAtList;
+
 		System.out.println(diary);
 		System.out.println(upfiles);
 		if(diaryService.insertDiary(diary)>0) {
@@ -105,32 +105,21 @@ public class DiaryController {
 			for(MultipartFile upfile: upfiles) {
 				
 				if(!upfile.getOriginalFilename().equals("")) {
-					
-					dAtList= new ArrayList();
-					
 					a.setBoardNo(diaryNo);
 					a.setBoardType("D");
 					a.setOriginName(upfile.getOriginalFilename());
 					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); 
 					
-					if(diaryService.insertAttachment(a) > 0) {
-						
-						dAtList.add(a);
-						
-						
-					} else {
-						
-						return "common/errorPage";
-						
-					}
-		
+					diaryService.insertAttachment(a);
+					
 				}
 			} 
+		
 			session.setAttribute("alertMsg", "영농일지 작성 성공");
 			return "redirect:/list.di";
 		} else {
 			
-			session.setAttribute("alertMsg", "영농일지 작성 성공");
+			session.setAttribute("alertMsg", "영농일지 작성실패");
 			
 		return "common/errorPage";
 		}
