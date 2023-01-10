@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -187,6 +186,15 @@ public class ProgramController {
 			}
 			
 			return mv;
+		}
+		
+		@RequestMapping("wish.pr")
+		public void wishProgram(Program p) {
+			
+			programService.wishProgram(p);
+			
+			
+			
 		}
 			
 		

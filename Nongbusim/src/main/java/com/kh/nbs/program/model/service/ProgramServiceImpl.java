@@ -58,5 +58,12 @@ public class ProgramServiceImpl implements ProgramService {
 	public ArrayList selectProgramNo(int memNo) {
 		return programDao.selectProgramNo(sqlSession,memNo);
 	}
+
+
+	@Override
+	public void wishProgram(Program p) {
+		
+		return programDao.wishProgram(sqlSession,p)
+	}
 	
 }

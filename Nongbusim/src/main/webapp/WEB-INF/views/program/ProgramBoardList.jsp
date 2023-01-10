@@ -100,7 +100,7 @@
                     	   <td class="test">${ p.programPlan }</td>
                     	   <td class="test">${ p.headcount }</td>
                     	   <td class="test">${ p.signUp }</td>
-                           <td class="sorry"><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
+                           <td class="sorry"><img class="heart" onclick= "location.href ='wish.pr?programNo=${ p.programNo }'"  src="resources/images/deleteheart.png" alt=""></td>
                     	</tr>
                     	
                     </c:forEach>
@@ -144,7 +144,8 @@
 
             <script>
             
-             
+                
+         
               
 	            $(function(){
 	            	$('#boardList>tbody>tr>td').not('.sorry').click(function(){
