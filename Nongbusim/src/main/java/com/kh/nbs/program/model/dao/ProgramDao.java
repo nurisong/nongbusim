@@ -64,9 +64,9 @@ public class ProgramDao {
 	}
 	
 	
-	public int wishProgram(SqlSessionTemplate sqlSession, Program p) {
+	public int wishProgram(SqlSessionTemplate sqlSession, int programNo) {
 		
-		return sqlSession.insert("programMapper.wishProgram",p);
+		return sqlSession.insert("programMapper.wishProgram",programNo);
 		
 		
 	}

@@ -3,6 +3,37 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="marketMapper">
+	
+	<resultMap id="marketResultSet" type="market">
+		
+		<result column="MARKET_NO" property="marketNo"/>
+		<result column="MK_CATOGORY" property="marketCategory"/>
+		<result column="MK_TITLE" property="marketTitle"/>
+		<result column="MK_PRICE" property="marketPrice"/>
+		<result column="MK_INTRO" property="marketIntro"/>
+		<result column="MK_CONTENT" property="marketContent"/>
+		<result column="MK_ENROLLDATE" property="marketEnrollDate"/>
+		<result column="MK_COUNT" property="marketCount"/>
+		<result column="MK_STATUS" property="marketStatus"/>
+		<result column="MEM_NO" property="memNo"/>
+		
+		
+	</resultMap>
+	
+	
+	<resultMap id="attachmentResultSet" type="attachment">
+		
+		<result column="file_no" property="fileNo"/>
+		<result column="origin_name" property="originName"/>
+		<result column="change_name" property="changeName"/>
+		<result column="upload_date" property="uploadDate"/>
+		<result column="board_no" property="boardNo"/>
+		<result column="board_type" property="boardType"/>
+		
+	</resultMap>
+
+	
+
 
 	<insert id="insertMarket">
 		
@@ -30,5 +61,61 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				)
 	
 	</insert>
+	
+	
+	<select id="selectListCount" resultType="_int">
+	
+		select
+	        count(*)
+		from
+			       market
+		 where
+			       mk_status = 'Y'
 
+	
+	</select>
+	
+	
+	<select id="marketSelectList" resultMap="marketResultSet">
+	
+		select 
+			   market_no
+			  ,mk_title
+			  ,mk_price
+			  ,mk_count
+			  ,to_char(mk_enrolldate, 'YYYY-MM-DD') as "enroll_date"
+              ,mem_no
+		  from
+		       market
+		 where
+		       mk_status = 'Y'
+		 order
+		    by
+		       mk_enrolldate desc
+	
+	</select>
+	
+	
+	
+	<select id="attachmentSelectList" resultMap="attachmentResultSet">
+	
+		SELECT *
+		   FROM (
+		        SELECT 
+		            board_no,
+		            file_no,
+		            origin_name,
+		            change_name,
+		            upload_date,
+		            board_type,
+		            ROW_NUMBER() OVER (PARTITION BY board_no ORDER BY file_no) AS RN
+		        FROM 
+		            ATTACHMENT) a
+		WHERE 
+				a.RN = 1
+	
+	</select>
+	
+	
+	
 </mapper>
