@@ -1,5 +1,7 @@
 package com.kh.nbs.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.member.model.service.MemberService;
 import com.kh.nbs.member.model.vo.Member;
 
@@ -207,7 +210,33 @@ public class MemberController {
 		return memberService.idCheck(memId);
 	}
 	
+//	@RequestMapping("userMyBoardList.me")
+//	public String userMyBoardList(Model model) {
+//		int memNo = 1;
+//		ArrayList<Board> list = memberService.userMyBoardList(memNo);
+//		model.addAttribute("list", list);
+//		System.out.println(list);
+//		return "member/myPageUser/myBoard";
+//	}
 	
+	@RequestMapping("userMyBoardList.me")
+	public ModelAndView userMyBoardList(ModelAndView mv, HttpSession session) {
+		
+		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		mv.addObject("list", memberService.userMyBoardList(mNo)).setViewName("member/myPageUser/myBoard");;
+		return mv;
+	}
+	
+	@RequestMapping("farmerMyBoardList.me")
+	public ModelAndView farmerMyBoardList(ModelAndView mv, HttpSession session) {
+		
+		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		mv.addObject("list", memberService.farmerMyBoardList(mNo)).setViewName("member/myPageFarmer/myBoard");;
+		return mv;
+	}
+
 	
 
 	

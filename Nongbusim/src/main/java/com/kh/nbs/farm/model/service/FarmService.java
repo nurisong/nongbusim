@@ -20,14 +20,16 @@ public interface FarmService {
 	int insertAttachment(Attachment a);
 	int insertFarm(Farm f);
 	
+	// 3. 나의 농장 리스트 조회 서비스
+	ArrayList<Farm> selectMyFarmList(int memNo);
 	
-	// 3. 농장 상세조회 서비스(select)
+	// 4. 농장 상세조회 서비스(select)
 	// **지도 API 연결?
 	Farm selectFarm(int farmNo);
 	
-	// 4. 농장 삭제 서비스(update)
+	// 5. 농장 삭제 서비스(update)
 	int deleteFarm(int farmNo);
 	
-	// 5. 농장 정보 수정 서비스(update)
+	// 6. 농장 정보 수정 서비스(update)
 	int updateFarm(Farm f);
 }

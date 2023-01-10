@@ -51,14 +51,14 @@
         </style>
 </head>
 <body>
-	<jsp:include page="../common/menubar.jsp" />
+   <jsp:include page="../common/menubar.jsp" />
       
 
        
         <div class="content" align="center">
 
             <form action="">
-         		<br>
+               <br>
                 <h2>프로그램</h2>
                 <br>
                 <select  name="condition">
@@ -69,7 +69,7 @@
                 <input type="text"  >
                 <button  type="submit" style="width: 50px;" class="searchBtn">검색</button>
 
-        	</form>
+           </form>
           
             <br>
             <div class="innerOuter" style="padding:5% 10%;">
@@ -91,18 +91,18 @@
                 <tbody>
                     
                     <c:forEach items="${ programlist }" var="p">
-                    	
-                    	
-                    	<tr>
-                    	   <td class="bno" hidden>${ p.programNo }</td>
-                    	   <td class="test">${ p.programLocation }</td>
-                    	   <td class="test">${ p.programName }</td>
-                    	   <td class="test">${ p.programPlan }</td>
-                    	   <td class="test">${ p.headcount }</td>
-                    	   <td class="test">${ p.signUp }</td>
-                           <td class="sorry"><img class="heart" src="resources/images/deleteheart.png" alt=""></td>
-                    	</tr>
-                    	
+                       
+                       
+                    <tr>
+                        <td class="bno" hidden>${ p.programNo }</td>
+                        <td class="test">${ p.programLocation }</td>
+                        <td class="test">${ p.programName }</td>
+                        <td class="test">${ p.programPlan }</td>
+                        <td class="test">${ p.headcount }</td>
+                        <td class="test">${ p.signUp }</td>
+                        <td class="sorry"><img class="heart" onclick= "location.href ='wish.pr?programNo=${ p.programNo }'"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
+                     </tr>
+                       
                     </c:forEach>
                     
                 </tbody>
@@ -114,71 +114,105 @@
          <div id="pagingArea">
                 <ul class="pagination">
                 
-                	<c:choose>
-                		<c:when test="${pi.currentPage eq 1 }">
-                   	 		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                		</c:when>
-                		<c:otherwise>
-                		 <li class="page-item "><a class="page-link" href="list.pr?cpage=${ pi.currentPage - 1 }">Previous</a></li>
-                		</c:otherwise>	
-                	 </c:choose>
-                	 
-                	<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-                		 <li class="page-item "><a class="page-link" href="list.pr?cpage=${p}">${ p }</a></li>
-                	
-                	</c:forEach>
-                	
-                	<c:choose>
-                		<c:when test="${ pi.currentPage eq pi.maxPage }">
-                			<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                		
-                		</c:when>
-                		<c:otherwise>
-                		
-                			<li class ="page-item"><a class="page-link" href="list.pr?cpage=${pi.currentPage + 1 }">NEXT</a>
-                		</c:otherwise>
-                		
-                	</c:choose>
+                   <c:choose>
+                      <c:when test="${pi.currentPage eq 1 }">
+                             <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                      </c:when>
+                      <c:otherwise>
+                       <li class="page-item "><a class="page-link" href="list.pr?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+                      </c:otherwise>   
+                    </c:choose>
+                    
+                   <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+                       <li class="page-item "><a class="page-link" href="list.pr?cpage=${p}">${ p }</a></li>
+                   
+                   </c:forEach>
+                   
+                   <c:choose>
+                      <c:when test="${ pi.currentPage eq pi.maxPage }">
+                         <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                      
+                      </c:when>
+                      <c:otherwise>
+                      
+                         <li class ="page-item"><a class="page-link" href="list.pr?cpage=${pi.currentPage + 1 }">NEXT</a>
+                      </c:otherwise>
+                      
+                   </c:choose>
                 </ul>
             </div>
 
             <script>
+
+
+                 
+            $(function(){
+                $('.heart').click(function(){
+
+                    $.ajax({
+                            url : 'wish.pr?programNo='+$(this).attr("alt"),
+                            success: function() {
+                                console.log($(this).attr("src"));
+
+                                if($(this).attr("src") == 'resources/images/deleteheart.png'){
+                
+                                $(this).attr("src", "resources/images/heart2.png");
+                                } else {
+
+                                    $(this).attr("src", "resources/images/deleteheart.png");
+                                }
+                            },
+
+                            error:function(){
+                                        console.log('ajax 통신 실패!');
+                                    }
+
+
+                    });
+                });
+            })
+
+
+
+
+                
             
-             
+                
+         
               
-	            $(function(){
-	            	$('#boardList>tbody>tr>td').not('.sorry').click(function(){
-	            		
-	            		//console.log($(this).parent().children());
-	            		
-	            		location.href = 'detail.pro?bno=' + $(this).parent().children().eq(0).text();
+               $(function(){
+                  $('#boardList>tbody>tr>td').not('.sorry').click(function(){
+                     
+                     //console.log($(this).parent().children());
+                     
+                     location.href = 'detail.pro?bno=' + $(this).parent().children().eq(0).text();
                         
-	            		
-	            	})
-	            	
-	            })
-	            
+                     
+                  })
+                  
+               })
+               
             
             
             
             
             
-				// 찜하기 클릭/해제
-                $(function() {
+            // 찜하기 클릭/해제
+                // $(function() {
     
-                $('.heart').click(function() {
-                    console.log($(this).attr("src"));
+                // $('.heart').click(function() {
+                //     console.log($(this).attr("src"));
 
-                    if($(this).attr("src") == 'resources/images/deleteheart.png'){
+                //     if($(this).attr("src") == 'resources/images/deleteheart.png'){
        
-                       $(this).attr("src", "resources/images/heart2.png");
-                     } else {
+                //        $(this).attr("src", "resources/images/heart2.png");
+                //      } else {
 
-                        $(this).attr("src", "resources/images/deleteheart.png");
-                     }
-                });
+                //         $(this).attr("src", "resources/images/deleteheart.png");
+                //      }
+                // });
        
-                });
+                // });
        
        
           </script>

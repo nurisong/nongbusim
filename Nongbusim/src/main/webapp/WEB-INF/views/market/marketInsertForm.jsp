@@ -23,7 +23,6 @@
 	}
 
     .content{
-        background-color:rgb(247, 245, 245);
         width:80%;
         margin:auto;
     }
@@ -50,7 +49,6 @@
             <br>
 
             <form id="insertForm" method="post" action="insert.mk" enctype="multipart/form-data">
-                <input type="hidden" value="1" name="memNo">
                 <table algin="center">
                     <thead>
                         <tr>

@@ -1,5 +1,8 @@
 package com.kh.nbs.member.model.service;
 
+import java.util.ArrayList;
+
+import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.member.model.vo.Member;
 
 public interface MemberService {
@@ -25,8 +28,14 @@ public interface MemberService {
 	// 농부 탈퇴(update)
 	int deleteFarmer(String memId);
 	
-	// 아이디 중복체크 (String checkId)
+	// 아이디 중복체크(select)
 	int idCheck(String memId);
+	
+	// 일반 사용자가 작성한 게시글 조회(select)
+	ArrayList<Board> userMyBoardList(int memNo);
+	
+	// 농부가 작성한 게시글 조회(select)
+	ArrayList<Board> farmerMyBoardList(int memNo);
 	
 	// 아이디 찾기(select)
 //	Member findId(String memPwd);

@@ -12,12 +12,16 @@ public interface MarketService {
 	
 	
 	//게시글 총 갯수 조회 메소드
-	//게시판 조회용 메소드
+	//게시판 리스트 조회 메소드
+	//게시판 첨부파일(썸네일) 조회 메소드
 	int selectListCount();
 	ArrayList<Market> marketSelectList(PageInfo pi);
-	int increaseCount(int boardNo);
+	ArrayList<Attachment> attachmentSelectList();
 	
+	
+	//게시물 조회수 증가 메소드
 	//게시물 상세조회 메소드
+	int increaseCount(int boardNo);
 	Market marketDetailView(int marketNo);
 
 	//게시물 작성 메소드

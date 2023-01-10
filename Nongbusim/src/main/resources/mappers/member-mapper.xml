@@ -19,6 +19,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="CAREER" property="career"/>
 		<result column="MODIFY_DATE" property="modifyDate"/>		
 	</resultMap>
+	
+	<resultMap id="boardResultSet" type="board">
+		<result column="board_no"      property="boardNo" />
+		<result column="board_type"   property="boardType" />
+		<result column="board_title"  property="boardTitle" />
+		<result column="board_content"  property="boardContent" />
+		<result column="create_date"   property="createDate" />
+		<result column="modify_date"   property="modifyDate" />
+		<result column="thumbnail"   property="thumbnail" />
+		<result column="recruit_yn"   property="recruitYN" />
+		<result column="count"         property="count" />
+		<result column="status"   property="status" />
+		<result column="mem_no" property="memNo" />
+		<result column="board_writer" property="boardWriter" />
+		<result column="board_like" property="boardLike" />
+	</resultMap>
 
 	<!-- 로그인 -->
 	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
@@ -75,6 +91,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE MEM_ID = #{memId}
+	</select>
+	
+	<!-- 내가 작성한 게시글 조회 -->
+	<select id="userMyBoardList" resultMap="boardResultSet" parameterType="board">
+		SELECT BOARD_NO, BOARD_TYPE, BOARD_TITLE, BOARD_CONTENT, CREATE_DATE, MODIFY_DATE, THUMBNAIL, RECRUIT_YN, COUNT, STATUS, MEM_NO
+		FROM BOARD
+		WHERE MEM_NO = #{memNo}
+		AND STATUS = 'Y'
+	</select>
+	
+	<!-- 농부가 작성한 게시글 조회 -->
+	<select id="farmerMyBoardList" resultMap="boardResultSet" parameterType="board">
+		SELECT BOARD_NO, BOARD_TYPE, BOARD_TITLE, BOARD_CONTENT, CREATE_DATE, MODIFY_DATE, THUMBNAIL, RECRUIT_YN, COUNT, STATUS, MEM_NO
+		FROM BOARD
+		WHERE MEM_NO = #{memNo}
+		AND STATUS = 'Y'
 	</select>
 	
 	<!-- 아이디 찾기 -->

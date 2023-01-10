@@ -1,9 +1,12 @@
 package com.kh.nbs.member.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.member.model.dao.MemberDao;
 import com.kh.nbs.member.model.vo.Member;
 
@@ -31,7 +34,6 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.farmerInsertMember(sqlSession, m);
 	}
 
-
 	@Override
 	public int updateUser(Member m) {
 		return memberDao.updateUser(sqlSession, m);
@@ -55,6 +57,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int idCheck(String memId) {
 		return memberDao.idCheck(sqlSession, memId);
+	}
+
+	@Override
+	public ArrayList<Board> userMyBoardList(int memNo) {
+		return memberDao.userMyBoardList(sqlSession, memNo);
+	}
+
+	@Override
+	public ArrayList<Board> farmerMyBoardList(int memNo) {
+		return memberDao.farmerMyBoardList(sqlSession, memNo);
 	}
 
 

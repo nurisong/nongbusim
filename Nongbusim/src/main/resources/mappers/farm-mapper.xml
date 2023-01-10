@@ -9,6 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="FARM_NO" property="farmNo"/>
 		<result column="FARMER" property="farmer"/>
 		<result column="FARM_NAME" property="farmName"/>
+		<result column="FARM_INTRO" property="farmIntro"/>
 		<result column="LOCAL_CODE" property="localCode"/>
 		<result column="ADDRESS" property="address"/>
 		<result column="PHONE" property="phone"/>
@@ -18,23 +19,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 
-	<select id="selectFarmList" resultMap="farmResultSet">
-	
+	<select id="selectMyFarmList" resultMap="farmResultSet">
 		SELECT 
-		    FARM_NO,
-		    FARMER,
-		    FARM_NAME,
-		    LOCAL_CODE,
-		    ADDRESS,
-		    PHONE,
-		    ENROLL_DATE,
-		    STATUS,
-		    CROP
-		FROM
-		    FARM
+		    	FARM_NO,
+		    	FARMER,
+		    	FARM_NAME,
+		    	FARM_INTRO,
+		    	LOCAL_CODE,
+		    	ADDRESS,
+		    	PHONE,
+		    	ENROLL_DATE,
+		    	STATUS,
+		    	CROP
+		 FROM
+		 		FARM
 		WHERE 
-		    FARMER = #{memNo}
+		    	FARMER = #{memNo}
+		  AND
+		  		STATUS = 'Y'
+	</select>
 	
+	<select id="selectFarm" resultMap="farmResultSet">
+		SELECT 
+		    	FARM_NO,
+		    	FARMER,
+		    	FARM_NAME,
+		    	LOCAL_CODE,
+		    	ADDRESS,
+		    	PHONE,
+		    	ENROLL_DATE,
+		    	STATUS,
+		    	CROP
+		 FROM
+		 		FARM
+		WHERE 
+		    	FARM_NO = #{farmNo}
+		  AND
+		  		STATUS = 'Y'
 	</select>
 	
 	<insert id="insertFarm" parameterType="farm">

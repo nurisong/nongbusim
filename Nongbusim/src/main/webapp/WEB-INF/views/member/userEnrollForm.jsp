@@ -73,7 +73,9 @@
             <label for="password">* 비밀번호 확인 :</label>
             <input type="password" class="form-control" id="chkPwd" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." name="memPwdChk" minlength="6" maxlength="18">
         </div>
-        <div id="checkResult" style="font-size:0.7em; display:none;"></div>
+        
+        <span class="checkResult1" style="color: green; display: none">비밀번호가 일치합니다.</span>
+        <span class="checkResult2" style="color: red; display: none">비밀번호가 일치하지 않습니다.</span>
         
         <div class="form-group">
           <label for="pwd"> 성별 :</label>
@@ -101,6 +103,7 @@
       
       <script>
       
+      <!--
       	function validate(){
       		var memId = document.getElemetById('memId');
       		var memPwd = document.getElemetById('memPwd');
@@ -139,7 +142,8 @@
 				$('#checkResult').css('color', 'red').text('비밀번호가 일치합니다.');
 				$('#btns :submit').removeAttr('disabled');
 			}
-      	}
+      	}-->
+      	
       
       	// 아이디 중복체크
 	    function idCheck(){
@@ -154,8 +158,11 @@
 				       }
 			        }
 			     })
-			         
 	    	}
+      	
+      	// 비밀번호 확인
+      	
+      	
 	    			
 	   		// 체크박스 전체 선택
 	    	$(".chk_group").on("click", "#chk_all", function(){

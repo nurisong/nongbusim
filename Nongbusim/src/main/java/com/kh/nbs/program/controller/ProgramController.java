@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -32,6 +31,14 @@ public class ProgramController {
 		@RequestMapping("list.pr")
 		public ModelAndView selectList(@RequestParam(value="cpage",defaultValue="1") int currentPage, ModelAndView mv) {
 			
+			int memNo = 1;
+			
+			
+			if(programService.selectMarkNo(memNo) != null ) {
+				mv.addObject("markNoList",programService.selectMarkNo(memNo));
+			}
+			
+			
 			PageInfo pi = Pagination.getPageInfo(programService.selectListCount(), currentPage , 10 , 5);
 			
 			mv.addObject("pi",pi).addObject("programlist",programService.selectList(pi)).setViewName("program/ProgramBoardList");
@@ -53,9 +60,9 @@ public class ProgramController {
 		@RequestMapping("enrollForm.pr")
 		public String enrollForm(Program p, Model model) {
 			
-			int memNo= 1; 
+			int memNo= 1;  
 			
-			ArrayList<Farm> list = programService.selectFarmList(memNo);
+			ArrayList<Farm> list = programService.selectMyFarmList(memNo);
 			
 			model.addAttribute("list", list);
 			
@@ -148,7 +155,7 @@ public class ProgramController {
 		@RequestMapping("detail.pro")
 		public ModelAndView selectBoard(int bno, ModelAndView mv) {
 			
-			int memNo = 1;
+			int memNo = 1; //로그인 임시!!!!!!!!!!!!!!!!!!
 			
 			
 			if(programService.selectProgramNo(memNo) != null) {
@@ -187,6 +194,15 @@ public class ProgramController {
 			}
 			
 			return mv;
+		}
+		
+		@RequestMapping("wish.pr")
+		public String wishProgram(int programNo) {
+			
+			programService.wishProgram(programNo);
+			
+			
+			return "redirect:list.pr?cpage="+programNo;
 		}
 			
 		

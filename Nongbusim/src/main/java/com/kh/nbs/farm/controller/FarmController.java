@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,8 +34,9 @@ public class FarmController {
 	}
 	
 	@RequestMapping("detail.fm")
-	public String selectFarm() {
-		// 농장 번호 뽑아서 조회
+	public String selectFarm(int fno, Model model) {
+		System.out.println(farmService.selectFarm(fno));
+		model.addAttribute("farm", farmService.selectFarm(fno));
 		return "farm/farmDetailView";
 	}
 	
@@ -44,7 +46,10 @@ public class FarmController {
 	}
 	
 	@RequestMapping("myList.fm")
-	public String selectMyFarmList() {
+	public String selectMyFarmList(HttpSession session, Model model) {
+		
+		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		model.addAttribute("farmList", farmService.selectMyFarmList(memNo));
 		return "farm/myPageFarmListView";
 	}
 	
@@ -70,7 +75,6 @@ public class FarmController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return changeName;
 	}
 	

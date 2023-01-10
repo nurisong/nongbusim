@@ -109,49 +109,7 @@
       
       <script>
       
-      	function validate(){
-      		var memId = document.getElemetById('memId');
-      		var memPwd = document.getElemetById('memPwd');
-      		var chkPwd = document.getElemetById('chkPwd');
-      		
-      		// 아이디 유효성
-      		var regExp = /^[a-zA-Z0-9]{5,15}$/;
-            if(!regExp.test(memId.value)){
-                alert('적합하지 않은 아이디입니다. 다시 입력해주세요.');
-                memId.select();
-                return false;
-            }
-            
-            // 비밀번호 유효성
-            regExp = /^[a-zA-z0-9]{6,18}$/;
-            if(!regExp.test(memPwd.value)){
-                alert('적합하지 않은 비밀번호입니다. 다시 입력해주세요.');
-               	memPwd.select();
-                return false;
-            }
-            
-            // 비밀번호 일치여부
-            var memPwd = document.getElementById('memPwd').value;
-            var chkPwd = document.getElementById('chkPwd').value;
-            
-            if(memPwd != memPwd){
-            	alert('비밀번호가 일치하지 않습니다.');
-            	return false;
-            }
-      	}
-      	
-      	// 비밀번호 일치
-      	function validate2(){
-      		var memPwd = $('#memPwd').val();
-      		var chkPwd = $('#chkPwd').val();
-      		
-      		if(memPwd != chkPwd){
-      			alert('비밀번호가 일치하지 않습니다. 다시 입력하세요.');
-      			return false;
-      		}
-      	}
-      
-      	// 아이디 중복체크
+   		// 아이디 중복체크
 	    function idCheck(){
 			$.ajax({
 			          url : 'idCheck.me',
@@ -164,8 +122,11 @@
 				       }
 			        }
 			     })
-			         
 	    	}
+    	
+    	// 비밀번호 확인
+    	
+    	
 	    			
 	   		// 체크박스 전체 선택
 	    	$(".chk_group").on("click", "#chk_all", function(){

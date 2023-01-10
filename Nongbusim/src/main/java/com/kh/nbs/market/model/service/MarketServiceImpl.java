@@ -23,18 +23,30 @@ public class MarketServiceImpl implements MarketService{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	
+	
+	
 	@Override
 	public int selectListCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return marketdao.selectListCount(sqlSession);
 	}
 
 	@Override
 	public ArrayList<Market> marketSelectList(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		return marketdao.marketSelectList(pi, sqlSession);
 	}
 
+	
+	@Override
+	public ArrayList<Attachment> attachmentSelectList() {
+		return marketdao.attachmentSelectList(sqlSession);
+	}
+	
+	
+	
+	
+	
+	
 	@Override
 	public Market marketDetailView(int marketNo) {
 		// TODO Auto-generated method stub
@@ -122,4 +134,6 @@ public class MarketServiceImpl implements MarketService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 }
