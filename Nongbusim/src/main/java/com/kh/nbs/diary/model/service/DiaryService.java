@@ -15,5 +15,7 @@ public interface DiaryService {
 	// Ajax: 
 	ArrayList<Diary> selectDiaryList(Diary diary);	
 	Diary selectCalEventList(int memNo);
+	
+	Diary selectDiary(int diaryNo);
 
 }

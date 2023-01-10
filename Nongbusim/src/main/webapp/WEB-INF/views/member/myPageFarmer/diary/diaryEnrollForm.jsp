@@ -92,18 +92,7 @@
 			<form action="" id="enroll-form" method="post" enctype="multipart/form-data">
 				<div class="outer" >
 					<table id="diaryEnrollForm">
-						<tr>
-							<td colpan="3">
-								<div>✔시작일</div>
-								<input type="date" required value="${param.startDate }">
-							</td>	
-						</tr>
-						<tr>
-							<td colpan="3">
-								<div>✔종료일</div>
-								<input type="date" required value="${param.endDate }">								
-								
-<!-- 								
+	<!-- 								
 						<c:choose>							
 							<c:when test="${not empty param.endDate}">		
 								<input type="date" required value="${param.endDate }">
@@ -113,8 +102,6 @@
 							</c:otherwise>
 						</c:choose>
  -->						
-							</td>	
-						</tr>
 						<tr>
 							<td colpan="3">
 								<div>✔등록일</div>
@@ -207,5 +194,5 @@
 			document.getElementById('enrollDate').valueAsDate = new Date();
 	</script>
 </body>
-</body>
+
 </html>

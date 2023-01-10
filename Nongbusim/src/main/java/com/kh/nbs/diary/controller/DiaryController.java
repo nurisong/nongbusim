@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -66,6 +67,12 @@ public class DiaryController {
 		
 	}
 	
+	@RequestMapping("detail.di")
+	public ModelAndView selectDiary(@RequestParam(value="dno") int diaryNo, ModelAndView mv) {
+		mv.addObject("diary", diaryService.selectDiary(diaryNo)).setViewName("member/myPageFarmer/diary/diaryDetailView");
+		
+		return mv;
+	}
 	
 	
 

@@ -24,6 +24,10 @@
 	    text-decoration: none;
 	    color: rgb(178, 178, 178);
 	}
+	*>a:hover{
+		text-decoration: none;
+		color: rgb(149, 149, 149);
+	}
 	div{
 	    box-sizing: border-box;
 	}
@@ -170,7 +174,6 @@
                 <ul class="landing-list">
                     <li><a href="list.pr" id="sub-menu-click">농장/체험</a></li>
                     <li><a href="" id="store-menu-click" class="goStore">농작물거래</a></li>
-                    <li><a href="" id="community-menu-click">농부게시판</a></li>
                     <li><a href="enrollForm.pr" id="community-menu-click">프로그램 등록</a></li>
                     <li><a href="picture.bo?type=S" id="community-menu-click">농부게시판</a></li>
                     <li><a href="">공지/정보</a></li>

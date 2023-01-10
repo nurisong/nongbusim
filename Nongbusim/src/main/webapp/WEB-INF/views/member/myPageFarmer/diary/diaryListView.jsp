@@ -218,6 +218,8 @@
 		<button type="reset" style="align:right">초기화</button>	
 	</div>
 	<div id="listArea">
+	<table id="listAreaTable">
+	</table>
 	</div>
 	
 </div>
@@ -291,26 +293,25 @@
 				console.log(list);
 
                 var result = '';
-				
 				if(!list.empty){
 
 					for(var i=0; i<list.length ; i++) {                
 					result 
 						+='<div class="item-area">'
-						+ '<a href="${pageContext.request.contextPath}/detail.di?dno=' + list[i].diaryNo+'">'
 						+ '<div class="img-area">'
-						+ '<p>' + list[i].createDate + '</p>'
-						+ '<p>' + list[i].diaryCategory + '</p>'
-						+ '<p>' + list[i].diaryContent + '</p>'                    
-						+ '<img src="' + list[i].diaryThumbnail + '">'
+						+ '<tr onclick="selectDiary('+list[i].diaryNo+');">'
+						+'<td><p>' + list[i].createDate + '</p></td>'
+						+ '<td><p>' + list[i].diaryCategory + '</p></td>'
+						+ '<td><p>' + list[i].diaryContent + '</p></td>'                    
+						+ '<td><img src="' + list[i].diaryThumbnail + '"></td></tr>'
 						+ '</div>' + '</a>'
-						+ '<input type="hidden" id="diaryNo" name="diaryNo" value="'+list[i].diaryNo+'">'
+						+ '<input type="hidden" name="diaryNo" id="diaryNo" value="'+list[i].diaryNo+'">'
 						+'</div>'                    
 					}
 				} else {
  					result= '작성한 영농일지가 없습니다'
 				}                   
-               	 $('#listArea').html(result);
+               	 $('#listAreaTable').html(result);
 			},
 			error: function(){
 				console.log('실패');
@@ -320,7 +321,15 @@
 		});
 		
 	}
+		
+	function selectDiary(diaryNo){
+		$(location).attr('href', '${pageContext.request.contextPath}/detail.di?dno='+diaryNo);
+		
+	}
 	
+		
+		
+
 	
 </script>
 
