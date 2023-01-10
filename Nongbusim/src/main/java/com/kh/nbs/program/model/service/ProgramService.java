@@ -22,7 +22,7 @@ public interface ProgramService {
 	
 	ArrayList selectProgramNo(int memNo);
 	
-	int wishProgram(Program p);
+	int wishProgram(int programNo);
 	
 	ArrayList selectMarkNo(int memNo);
 	
