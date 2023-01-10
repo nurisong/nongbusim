@@ -156,6 +156,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			
 	</select>
 	
+		<insert id="wishProgram" parameterType="program">
+	
+	insert 
+		into
+			mark
+			(
+				mem_no,
+				status,
+				board_type,
+				board_no
+			)
+			
+			values
+			
+			(
+				1,
+				1,
+				'T',
+				#{programNo}
+				
+			)
+	
+	</insert>
+	
 	
  
 </mapper>

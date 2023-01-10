@@ -54,7 +54,7 @@ public class ProgramController {
 			
 			int memNo= 1; 
 			
-			ArrayList<Farm> list = programService.selectFarmList(memNo);
+			ArrayList<Farm> list = programService.selectMyFarmList(memNo);
 			
 			model.addAttribute("list", list);
 			
@@ -192,7 +192,6 @@ public class ProgramController {
 		public void wishProgram(Program p) {
 			
 			programService.wishProgram(p);
-			
 			
 			
 		}
