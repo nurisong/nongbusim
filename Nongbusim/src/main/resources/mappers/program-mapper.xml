@@ -22,6 +22,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</resultMap>
 	
+	<resultMap id="markResultSet" type="mark">
+		<result column="MEM_NO" property="memNo"/>
+		<result column="STATUS" property="status"/>
+		<result column="BOARD_TYPE" property="boardType"/>
+		<result column="BOARD_NO" property="boardNo"/>
+	
+	</resultMap>
+	
 	
 	<insert id="registerProgram" parameterType="program">
 	
@@ -99,51 +107,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
-	<select id="selectProgram" parameterType="program" resultMap="programResultSet">
+		<select id="selectProgram" parameterType="program" resultMap="programResultSet">
 	 
-		select
-			program_no,
-			farm_no,
-			program_name,
-			program_plan,
-			program_hour,
-			program_lecture,
-			headcount,
-			program_detail,
-			sign_up,
-			mem_no,
-			status,
-			program_location,
-			origin_name,
-			change_name
-		from
-			program
-		where
-			status = 'Y'
-		and
-			program_no = #{programNo}
-			
-	</select>
-	
-	<insert id="joinProgram" parameterType="program">
-	
-	insert 
-		into
-			my_program
-			(
+			select
+				program_no,
+				farm_no,
+				program_name,
+				program_plan,
+				program_hour,
+				program_lecture,
+				headcount,
+				program_detail,
+				sign_up,
 				mem_no,
-				program_no
-			)
+				status,
+				program_location,
+				origin_name,
+				change_name
+			from
+				program
+			where
+				status = 'Y'
+			and
+				program_no = #{programNo}
 			
-			values
-			
-			(
-				#{memNo},
-				#{programNo}
-				
-			)
+		</select>
 	
-	</insert>
+		<insert id="joinProgram" parameterType="program">
+	
+		insert 
+			into
+				my_program
+				(
+					mem_no,
+					program_no
+				)
+				
+				values
+				
+				(
+					#{memNo},
+					#{programNo}
+					
+				)
+	
+		</insert>
 	
 		<select id="selectProgramNo" parameterType="program" resultMap="programResultSet">
 	 
@@ -154,32 +162,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where
 			mem_no = #{memNo}
 			
-	</select>
+		</select>
 	
 		<insert id="wishProgram" parameterType="program">
 	
-	insert 
-		into
-			mark
-			(
-				mem_no,
-				status,
-				board_type,
-				board_no
-			)
-			
-			values
-			
-			(
-				1,
-				1,
-				'T',
-				#{programNo}
+		insert 
+			into
+				mark
+				(
+					mem_no,
+					status,
+					board_type,
+					board_no
+				)
 				
+				values
+				
+				(
+					1,
+					1,
+					'T',
+					#{programNo}
+					
 			)
-	
-	</insert>
-	
-	
+		</insert>
+		
+		<select id="selectMarkNo" parameterType="mark" resultMap="markResultSet">
+	 
+		select
+			board_no
+		from
+			mark
+		where
+			mem_no = #{memNo}
+			
+		</select>
+		
+		
  
 </mapper>

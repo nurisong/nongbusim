@@ -24,4 +24,6 @@ public interface ProgramService {
 	
 	int wishProgram(Program p);
 	
+	ArrayList selectMarkNo(int memNo);
+	
 }

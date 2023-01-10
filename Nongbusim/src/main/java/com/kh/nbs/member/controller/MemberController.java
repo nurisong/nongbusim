@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.member.model.service.MemberService;
 import com.kh.nbs.member.model.vo.Member;
 
@@ -207,7 +208,17 @@ public class MemberController {
 		return memberService.idCheck(memId);
 	}
 	
+//	@RequestMapping("userMyBoardList.me")
+//	public String userMyBoardList(int memNo, Model model) {
+//		model.addAttribute("list", memberService.userMyBoardList(memNo));
+//		
+//		return "member/myPageUser/myBoard";
+//	}
 	
+	@RequestMapping("userMyBoardList.me")
+	public String userMyBoardList() {
+		return "member/myPageUser/myBoard";
+	}
 	
 
 	

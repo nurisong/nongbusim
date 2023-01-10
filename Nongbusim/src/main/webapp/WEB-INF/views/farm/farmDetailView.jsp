@@ -84,14 +84,14 @@
 
         <div class="main-area">
             <div class="name-info">
-                <h1 class="name-area">${f.farmName}</h1>
+                <h1 class="name-area">${farm.farmName}</h1>
                 <div class="info-area">
                     <div class="info">
-                        <span><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/3916/3916884.svg?token=exp=1672904129~hmac=e81e444a64c5751501b363cb80983041"></span>
-                        <span>${f.address}</span>
+                        <span><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/3916/3916862.svg?token=exp=1673332278~hmac=456885459a8b8052dbb0823d6cedc9b6"></span>
+                        <span>${farm.address}</span>
                         <br>
-                        <span><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/5068/5068731.svg?token=exp=1672904129~hmac=6bfd82ce98ca737ee96abbdccf9c0ec5"></span>
-                        <span>${f.phone}</span>
+                        <span><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/5068/5068731.svg?token=exp=1673332233~hmac=89542c24243fd89df052cbb046a47597"></span>
+                        <span>${farm.phone}</span>
                         <br>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                 <h4>소개글</h4>
                 <br>
                 <div class="intro-content">
-                    소개글을 적을까?
+                    ${farm.farmIntro}
                 </div>
             </div>
 

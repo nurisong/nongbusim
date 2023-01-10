@@ -47,7 +47,7 @@ public class FarmServiceImpl implements FarmService {
 
 	@Override
 	public Farm selectFarm(int farmNo) {
-		return null;
+		return farmDao.selectFarm(farmNo, sqlSession);
 	}
 
 	@Override

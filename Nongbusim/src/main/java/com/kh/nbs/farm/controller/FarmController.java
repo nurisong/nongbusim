@@ -34,8 +34,9 @@ public class FarmController {
 	}
 	
 	@RequestMapping("detail.fm")
-	public String selectFarm() {
-		// 농장 번호 뽑아서 조회
+	public String selectFarm(int fno, Model model) {
+		System.out.println(farmService.selectFarm(fno));
+		model.addAttribute("farm", farmService.selectFarm(fno));
 		return "farm/farmDetailView";
 	}
 	
@@ -48,9 +49,7 @@ public class FarmController {
 	public String selectMyFarmList(HttpSession session, Model model) {
 		
 		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
-		
 		model.addAttribute("farmList", farmService.selectMyFarmList(memNo));
-
 		return "farm/myPageFarmListView";
 	}
 	

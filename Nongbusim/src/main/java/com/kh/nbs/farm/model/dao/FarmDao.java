@@ -26,4 +26,8 @@ public class FarmDao {
 		return (ArrayList)sqlSession.selectList("farmMapper.selectMyFarmList", memNo);
 	}
 
+	public Farm selectFarm(int farmNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("farmMapper.selectFarm", farmNo);
+	}
+
 }
