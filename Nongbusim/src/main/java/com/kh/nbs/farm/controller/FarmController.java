@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.PageInfo;
+import com.kh.nbs.common.template.Pagination;
 import com.kh.nbs.farm.model.service.FarmService;
 import com.kh.nbs.farm.model.vo.Farm;
 import com.kh.nbs.member.model.vo.Member;
@@ -28,16 +30,20 @@ public class FarmController {
 	private FarmService farmService;
 	
 	@RequestMapping("list.fm")
-	public String selectFarmList(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv) {
+	public ModelAndView selectFarmList(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv) {
+		
+		PageInfo pi = Pagination.getPageInfo(farmService.selectFarmCount(), currentPage, 10, 5);
+		
 		// 전체 농장 리스트 뽑아오기
-		return "farm/farmListView";
+		mv.addObject("farmList", farmService.selectFarmList(pi)).setViewName("farm/farmListView");
+		
+		return mv;
 	}
 	
 	@RequestMapping("detail.fm")
 	public String selectFarm(int fno, Model model) {
 		model.addAttribute("farm", farmService.selectFarm(fno));
 		model.addAttribute("atList", farmService.selectAttachment(fno));
-		System.out.println(farmService.selectAttachment(fno));
 		return "farm/farmDetailView";
 	}
 	

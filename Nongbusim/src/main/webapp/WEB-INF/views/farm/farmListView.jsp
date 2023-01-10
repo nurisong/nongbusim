@@ -123,90 +123,40 @@
             <div class="farm-main-area">
                 <div class="farm-main-title">
                     <h3>농장 전체 조회</h3>
-                    <span>(총 100개)</span>
+                    <span>(총 ${farmList.size()}개)</span>
                 </div>
                 <hr style="width: 800px;">
     
                 <div class="farm-area">
                     <table class="farm-info-table">
-                        <tr>
-                            <td>
-                                <img class="farm-img" src="https://w.namu.la/s/02cb8e0e26f7dd60a4c10bb64d0466fe0f9e796a0d563c0e3090fa9c7cb52471d357457af8011c0f677fcf7d0c88c19ef9090b1ea82268652857c59412f7eb266eab2818cae85fb3c0fddad2c146ce0e9f4150d9737b5ebae74eb21dfef44d1e">
-                            </td>
-                            <td class="farm-info">
-                                <dl>
-                                    <h5>스타듀밸리</h5>
-                                    <dt><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/3916/3916884.svg?token=exp=1672904129~hmac=e81e444a64c5751501b363cb80983041"></dt>
-                                    <dd>경기도<br></dd>
-                                    <dt><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/5068/5068731.svg?token=exp=1672904129~hmac=6bfd82ce98ca737ee96abbdccf9c0ec5"></dt>
-                                    <dd>010-0000-0000<br><br></dd>
-                                    <dt>진행중인 프로그램</dt>
-                                    <dd>
-                                        <div>딸기 체험</div>
-                                        <div>딸기 체험</div>
-                                        <br>
-                                    </dd>
-                                    <dt>판매중인 작물<br></dt>
-                                    <dd>
-                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
-                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
-                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
-                                    </dd>
-                                </dl>
-                            </td>
-                        </tr>
-    
-                        <tr>
-                            <td>
-                                <img class="farm-img" src="https://w.namu.la/s/02cb8e0e26f7dd60a4c10bb64d0466fe0f9e796a0d563c0e3090fa9c7cb52471d357457af8011c0f677fcf7d0c88c19ef9090b1ea82268652857c59412f7eb266eab2818cae85fb3c0fddad2c146ce0e9f4150d9737b5ebae74eb21dfef44d1e">
-                            </td>
-                            <td class="farm-info">
-                                <dl>
-                                    <h5>스타듀밸리</h5>
-                                    <dt><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/3916/3916884.svg?token=exp=1672904129~hmac=e81e444a64c5751501b363cb80983041"></dt>
-                                    <dd>경기도<br></dd>
-                                    <dt><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/5068/5068731.svg?token=exp=1672904129~hmac=6bfd82ce98ca737ee96abbdccf9c0ec5"></dt>
-                                    <dd>010-0000-0000<br><br></dd>
-                                    <dt>진행중인 프로그램</dt>
-                                    <dd>
-                                        <div>딸기 체험</div>
-                                        <div>딸기 체험</div>
-                                    </dd>
-                                    <dt>판매중인 작물<br></dt>
-                                    <dd>
-                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60">
-                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60">
-                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60">
-                                    </dd>
-                                </dl>
-                            </td>
-                        </tr>
-    
-                        <tr>
-                            <td>
-                                <img class="farm-img" src="https://w.namu.la/s/02cb8e0e26f7dd60a4c10bb64d0466fe0f9e796a0d563c0e3090fa9c7cb52471d357457af8011c0f677fcf7d0c88c19ef9090b1ea82268652857c59412f7eb266eab2818cae85fb3c0fddad2c146ce0e9f4150d9737b5ebae74eb21dfef44d1e">
-                            </td>
-                            <td class="farm-info">
-                                <dl>
-                                    <h5>스타듀밸리</h5>
-                                    <dt><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/3916/3916884.svg?token=exp=1672904129~hmac=e81e444a64c5751501b363cb80983041"></dt>
-                                    <dd>경기도<br></dd>
-                                    <dt><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/5068/5068731.svg?token=exp=1672904129~hmac=6bfd82ce98ca737ee96abbdccf9c0ec5"></dt>
-                                    <dd>010-0000-0000<br><br></dd>
-                                    <dt>진행중인 프로그램</dt>
-                                    <dd>
-                                        <div>딸기 체험</div>
-                                        <div>딸기 체험</div>
-                                    </dd>
-                                    <dt>판매중인 작물<br></dt>
-                                    <dd>
-                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
-                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
-                                        <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
-                                    </dd>
-                                </dl>
-                            </td>
-                        </tr>
+                        <c:forEach var="f" items="${farmList}">
+                            <tr>
+                                <td>
+                                    <img class="farm-img" src="${f.mainImg}">
+                                </td>
+                                <td class="farm-info">
+                                    <dl>
+                                        <h5>${f.farmName}</h5>
+                                        <dt><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/3916/3916862.svg?token=exp=1673332278~hmac=456885459a8b8052dbb0823d6cedc9b6"></dt>
+                                        <dd>경기도${f.address}<br></dd>
+                                        <dt><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/5068/5068731.svg?token=exp=1673332233~hmac=89542c24243fd89df052cbb046a47597"></dt>
+                                        <dd>${f.phone}<br><br></dd>
+                                        <dt>진행중인 프로그램</dt>
+                                        <dd>
+                                            <div>딸기 체험</div>
+                                            <div>딸기 체험</div>
+                                            <br>
+                                        </dd>
+                                        <dt>판매중인 작물<br></dt>
+                                        <dd>
+                                            <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
+                                            <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
+                                            <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
+                                        </dd>
+                                    </dl>
+                                </td>
+                            </tr>
+                        </c:forEach>
                     </table>
                 </div>
             </div>

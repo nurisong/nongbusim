@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ENROLL_DATE" property="enrollDate"/>
 		<result column="STATUS" property="status"/>
 		<result column="CROP" property="crop"/>
+		<result column="CHANGE_NAME" property="mainImg"/>
 	</resultMap>
 	
 	<resultMap id="attachmentResultSet" type="attachment">
@@ -25,7 +26,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <result column="board_no" property="boardNo"/>
 	    <result column="board_type" property="boardType"/>
 	</resultMap>
-
+	
+	<select id="selectFarmCount" resultType="_int">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		FARM
+		 WHERE
+		 		STATUS = 'Y'
+	</select>
 
 	<select id="selectMyFarmList" resultMap="farmResultSet">
 		SELECT 
@@ -44,6 +53,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    	FARMER = #{memNo}
 		   AND
 		  		STATUS = 'Y'
+	</select>
+	
+	<select id="selectFarmList" resultMap="farmResultSet">
+		SELECT 
+		    	FARM_NO,
+		    	FARMER,
+		    	FARM_NAME,
+		    	LOCAL_CODE,
+		    	ADDRESS,
+		    	PHONE,
+		    	ENROLL_DATE,
+		    	STATUS,
+		    	CROP,
+                CHANGE_NAME
+		  FROM
+		 		FARM F
+          JOIN
+		  		(
+                SELECT *
+                  FROM (SELECT CHANGE_NAME, FILE_NO, BOARD_NO FROM ATTACHMENT
+		                ORDER BY FILE_NO)
+		                WHERE ROWNUM = 1
+		                ) ON(BOARD_NO = FARM_NO)
+		 WHERE 
+		  		F.STATUS = 'Y'
 	</select>
 	
 	<select id="selectFarm" resultMap="farmResultSet">
