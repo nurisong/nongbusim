@@ -56,8 +56,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND MEM_STATUS = 'Y'
 	</update>
 	
+	<!-- 일반 사용자 탈퇴 -->
+	<update id="deleteUser" parameterType="String">
+		UPDATE MEMBER
+		SET MEM_STATUS = 'N'
+		WHERE MEM_ID = #{memId}
+	</update>
+	
+	<!-- 농부 탈퇴 -->
+	<update id="deleteFarmer" parameterType="String">
+		UPDATE MEMBER
+		SET MEM_STATUS = 'N'
+		WHERE MEM_ID = #{memId}
+	</update>
+	
+	
+	
 	<!-- 아이디 찾기 -->
-	 
 	<!--<select id="findId" parameterType="member" resultType="memberResultSet">
 		SELECT MEM_ID
 		FROM MEMBER

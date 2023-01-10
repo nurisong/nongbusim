@@ -34,25 +34,29 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int updateUser(Member m) {
-//		System.out.println("Service : " + m);
-
 		return memberDao.updateUser(sqlSession, m);
 	}
 
 	@Override
 	public int updateFarmer(Member m) {
-		return 0;
+		return memberDao.updateFarmer(sqlSession, m);
 	}
 	
 	@Override
-	public int deleteMember(String memId) {
-		return 0;
+	public int deleteUser(String memId) {
+		return memberDao.deleteUser(sqlSession, memId);
 	}
-
+	
+	@Override
+	public int deleteFarmer(String memId) {
+		return memberDao.deleteFarmer(sqlSession, memId);
+	}
+	
 	@Override
 	public int idCheck(String checkId) {
 		return 0;
 	}
+
 
 
 //	@Override

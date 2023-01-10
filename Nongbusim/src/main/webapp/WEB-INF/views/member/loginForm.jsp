@@ -26,6 +26,6 @@
 <br>
 <button class="btn btn-secondary">아이디 찾기</button>
 <button class="btn btn-secondary">비밀번호 찾기</button>
-<button class="btn btn-secondary">회원가입</button>
+<button class="btn btn-secondary"><a href="userType.me">회원가입</a></button>
 </body>
 </html>

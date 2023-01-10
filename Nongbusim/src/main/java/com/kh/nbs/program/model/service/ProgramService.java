@@ -18,6 +18,8 @@ public interface ProgramService {
 	
 	Program selectProgram(int bno);
 	
+	int joinProgram(Program p);
+	
 	
 
 }

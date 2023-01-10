@@ -13,10 +13,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="PROGRAM_LECTURE" property="programLecture"/>
 		<result column="HEADCOUNT" property="headcount"/>
 		<result column="PROGRAM_DETAIL" property="programDetail"/>
-		<result column="MEM_NO" property="NUMBER"/>
+		<result column="MEM_NO" property="memNo"/>
 		<result column="SIGN_UP" property="signUp"/>
 		<result column="STATUS" property="status"/>
 		<result column="PROGRAM_LOCATION" property="programLocation"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
 		
 	</resultMap>
 
@@ -122,8 +124,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and
 			program_no = #{programNo}
 			
-	
-	
 	</select>
+	
+	<insert id="joinProgram" parameterType="program">
+	
+	insert 
+		into
+			my_program
+			(
+				mem_no,
+				program_no
+			)
+			
+			values
+			
+			(
+				#{memNo},
+				#{programNo}
+				
+			)
+	
+	</insert>
  
 </mapper>

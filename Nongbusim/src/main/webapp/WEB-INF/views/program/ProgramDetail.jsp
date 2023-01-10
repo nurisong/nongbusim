@@ -7,6 +7,10 @@
 <meta charset="UTF-8">
 <title>프로그램 상세정보</title>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 
 table{
@@ -26,48 +30,59 @@ table th {
 }
 
 
+
 </style>
 </head>
 <body>
  <jsp:include page="../common/menubar.jsp" />
 
-<div align="center">
+
+<form action="join.pr">
+	<div align="center">
     <h1>프로그램 상세 정보</h1>
     <table border="1">
+        <input type="text" name="memNo" value="1">
+        <input type="text" name="programNo" value="${ bno }">
         <tr>
             <th>프로그램 명</th>
-            <td>귤 따자고</td>
+            <td>${ p.programName }</td>
             <th>강사</th>
-            <td>이영준</td>
+            <td>${ p.programLecture }</td>
         </tr>
 
         <tr>
             <th>교육 일정</th>
-            <td>2023.01.01</td>
+            <td>${ p.programPlan }</td>
             <th>장소</th>
-            <td>제주도 농ssssss장</td>
+            <td>${ p.programLocation }</td>
         </tr>
 
         <tr>
             <th>교육 시간</th>
-            <td>10:00~12:00</td>
+            <td>${ p.programHour }</td>
             <th>모집 인원</th>
-            <td>50</td>
+            <td>${ p.headcount }</td>
         </tr>
 
     </table>
 
     <h1>상세설명</h1>
 
-    <input type="text" style="width: 800px; height:150px;" readonly>
+    <input type="text" value="${ p.programDetail }" style="width: 800px; height:150px;" readonly>
 
     <h1>홍보 이미지</h1>
 
-    <input type="text" style="width: 800px; height:250px;" readonly>
 
+	 <img src="${p.changeName}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236"> 
+   
     <br><br>
-    <button>신청</button>
+    <button type="submit">신청</button>
 </div>
+
+
+
+</form>
+
 
 
 </body>

@@ -2,6 +2,7 @@ package com.kh.nbs.farm.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.farm.model.vo.Farm;
 
@@ -15,7 +16,10 @@ public interface FarmService {
 	ArrayList<Farm> selectFarmList(PageInfo pi);
 	
 	// 2. 농장 등록 서비스(insert)
+	// 첨부파일
+	int insertAttachment(Attachment a);
 	int insertFarm(Farm f);
+	
 	
 	// 3. 농장 상세조회 서비스(select)
 	// **지도 API 연결?

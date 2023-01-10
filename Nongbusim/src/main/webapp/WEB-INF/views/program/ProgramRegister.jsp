@@ -95,7 +95,7 @@ text-align: center;
             </tr>
          </table>
          
-         
+         <img src="" alt="">
           <br>
 
       		<button type="submit">등록</button>

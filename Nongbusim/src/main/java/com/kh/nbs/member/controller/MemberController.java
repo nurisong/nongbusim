@@ -114,11 +114,9 @@ public class MemberController {
 	
 	@RequestMapping("updateUser.me")
 	public String updateUser(Member m, Model model, HttpSession session) {
-//		System.out.println("컨트롤러 : " + m);
 		
 		if(memberService.updateUser(m) > 0 ) {
 			session.setAttribute("loginUser", memberService.loginMember(m));
-			session.setAttribute("alertMsg", "회원 정보를 수정했습니다.");
 			return "redirect:myPageUser.me";
 		} else {
 			model.addAttribute("errorMsg", "회원정보 변경 실패");
@@ -126,32 +124,82 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping("updateFarmerForm.me")
-	public String updateFarmerForm() {
-		return "member/myPageFarmer/updateFarmer";
-	}
-
-	
 	@RequestMapping("myPageFarmer.me")
 	public String myPageFarmer() {
 		return "member/myPageFarmer/myPageFarmerCommon";
 	}
 	
-
+	@RequestMapping("updateFarmerForm.me")
+	public String updateFarmerForm() {
+		return "member/myPageFarmer/updateFarmer";
+	}
 	
-//	@RequestMapping("updateFarmer.me")
-//	public String updateFarmer(Member m, Model model, HttpSession session) {
-//		System.out.println(m);
-//		
-//		if(memberService.updateFarmer(m) > 0 ) {
-//			session.setAttribute("loginUser", memberService.loginMember(m));
-//			session.setAttribute("alertMsg", "회원 정보를 수정했습니다.");
-//			return "redirect:updateFarmer.me";
-//		} else {
-//			model.addAttribute("errorMsg", "회원정보 변경 실패");
-//			return "common/errorPage";
-//		}
-//	}
+	@RequestMapping("updateFarmer.me")
+	public String updateFarmer(Member m, Model model, HttpSession session) {
+		
+		if(memberService.updateFarmer(m) > 0 ) {
+			session.setAttribute("loginUser", memberService.loginMember(m));
+			return "redirect:myPageFarmer.me";
+		} else {
+			model.addAttribute("errorMsg", "회원정보 변경 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("deleteUser.me")
+	public String deleteUser(String memId, String memPwd, HttpSession session) {
+		
+		// userPwd : 회원 탈퇴 요청 시 사용자가 입력한 비밀번호 평문
+		// session의 loginUser Member객체의 userPwd필드 : DB에 기록된 암호화된 비밀번호
+		
+		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();
+		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) {
+			// 비밀번호가 사용자가 입력한 평문으로 만들어진 암호문일 경우
+			
+			if(memberService.deleteUser(memId) > 0) {
+				session.removeAttribute("loginUser");
+				session.setAttribute("alertMsg", "탈퇴되었습니다.");
+				return "redirect:/";
+			} else {
+				session.setAttribute("errorMsg", "회원 탈퇴 실패");
+				return "common/errorPage";
+			}
+			
+		} else {
+			session.setAttribute("alertMsg", "잘못된 비밀번호입니다.");
+			return "redirect:myPageUser.me";
+		}
+	}
+	
+	@RequestMapping("deleteFarmer.me")
+	public String deleteFarmer(String memId, String memPwd, HttpSession session) {
+		
+		// userPwd : 회원 탈퇴 요청 시 사용자가 입력한 비밀번호 평문
+		// session의 loginUser Member객체의 userPwd필드 : DB에 기록된 암호화된 비밀번호
+		
+		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();
+		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) {
+			// 비밀번호가 사용자가 입력한 평문으로 만들어진 암호문일 경우
+			
+			if(memberService.deleteFarmer(memId) > 0) {
+				session.removeAttribute("loginUser");
+				session.setAttribute("alertMsg", "탈퇴되었습니다.");
+				return "redirect:/";
+			} else {
+				session.setAttribute("errorMsg", "회원 탈퇴 실패");
+				return "common/errorPage";
+			}
+			
+		} else {
+			session.setAttribute("alertMsg", "잘못된 비밀번호입니다.");
+			return "redirect:myPageUser.me";
+		}
+	}
+	
+	@RequestMapping("userType.me")
+	public String userType() {
+		return "member/userType";
+	}
 	
 //	@RequestMapping("findId.me")
 //	public String findId(String memPwd, HttpSession session, Model model) {
@@ -168,10 +216,6 @@ public class MemberController {
 //	}
 	
 	
-//	@RequestMapping("myPageFarmer.me")
-//	public String myPage() {
-//		return "member/myPageFarmerCommon";
-//	}
 	
 //	@ResponseBody // 데이터를 돌려보낼 때
 //	@RequestMapping("idCheck.me")

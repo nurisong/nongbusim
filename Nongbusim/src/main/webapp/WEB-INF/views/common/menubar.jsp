@@ -173,7 +173,6 @@
                     <li><a href="" id="community-menu-click">농부게시판</a></li>
                     <li><a href="enrollForm.pr" id="community-menu-click">프로그램 등록</a></li>
                     <li><a href="picture.bo?type=S" id="community-menu-click">농부게시판</a></li>
-                    <li><a href="register.pr" id="community-menu-click">프로그램 등록</a></li>
                     <li><a href="">공지/정보</a></li>
                     
                     <!-- 가짜 검색창 -->
@@ -191,7 +190,7 @@
                 <ul class="user-list">
                     <c:choose>
                     	<c:when test="${ empty loginUser }">
-                    		<li class="logout"><a href="loginForm.me">로그인</a></li>
+                    		<li class="logout"><a href="loginForm.me">로그인</a></li>                 		
                     	</c:when>
                     	<c:otherwise>
                     		<c:choose>
