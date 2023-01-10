@@ -24,6 +24,10 @@
 	    text-decoration: none;
 	    color: rgb(178, 178, 178);
 	}
+	*>a:hover{
+		text-decoration: none;
+		color: rgb(149, 149, 149);
+	}
 	div{
 	    box-sizing: border-box;
 	}

@@ -36,6 +36,8 @@
 
             <h1>나의 농장</h1>
 
+            <br><br><br>
+
             <a class="btn btn-secondary" id="insert-btn" href="enrollForm.fm">+ 신규 농장 등록</a>
             
             <br><br><br>
@@ -47,15 +49,27 @@
                         <th>연락처</th>
                     </thead>
                     <tbody align="center">
+                    <c:forEach var="f" items="${ list }">
                         <tr>
-                            <td>스타듀밸리</td>
-                            <td>서울</td>
-                            <td>010-1111-1111</td>
+                            <input type="hidden" id="farmNo" value="${f.farmNo}">
+                            <td>${f.farmName}</td>
+                            <td>${f.address}</td>
+                            <td>${f.phone}</td>
                         </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    <script>
+        $(function(){
+            $('.farm-table>tbody>tr').click(function(){
+                location.href = "detail.fm?fno=" + $(this).children().eq(0).val();
+            })
+
+        })
+    </script>
 </body>
 </html>

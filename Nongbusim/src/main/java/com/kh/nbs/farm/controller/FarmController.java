@@ -44,7 +44,11 @@ public class FarmController {
 	}
 	
 	@RequestMapping("myList.fm")
-	public String selectMyFarmList() {
+	public String selectMyFarmList(HttpSession session) {
+		
+		int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		farmService.selectMyFarmList(memNo);
 		return "farm/myPageFarmListView";
 	}
 	
@@ -70,7 +74,6 @@ public class FarmController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return changeName;
 	}
 	

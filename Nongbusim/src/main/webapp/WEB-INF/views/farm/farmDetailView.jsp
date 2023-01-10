@@ -84,14 +84,14 @@
 
         <div class="main-area">
             <div class="name-info">
-                <h1 class="name-area">스타듀밸리</h1>
+                <h1 class="name-area">${f.farmName}</h1>
                 <div class="info-area">
                     <div class="info">
                         <span><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/3916/3916884.svg?token=exp=1672904129~hmac=e81e444a64c5751501b363cb80983041"></span>
-                        <span>경기도</span>
+                        <span>${f.address}</span>
                         <br>
                         <span><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/5068/5068731.svg?token=exp=1672904129~hmac=6bfd82ce98ca737ee96abbdccf9c0ec5"></span>
-                        <span>010-0000-0000</span>
+                        <span>${f.phone}</span>
                         <br>
                     </div>
                 </div>
