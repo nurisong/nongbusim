@@ -12,9 +12,6 @@ import com.kh.nbs.farm.model.vo.Farm;
 public class FarmDao {
 
 	public int insertAttachment(Attachment a, SqlSessionTemplate sqlSession) {
-		System.out.println(a.getOriginName());
-		System.out.println(a.getChangeName());
-		System.out.println(a.getBoardType().equals("F"));
 		return sqlSession.insert("attachmentMapper.insertAttachmentFarm", a);
 	}
 
@@ -29,5 +26,8 @@ public class FarmDao {
 	public Farm selectFarm(int farmNo, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("farmMapper.selectFarm", farmNo);
 	}
-
+	
+	public ArrayList<Attachment> selectAttachment(int farmNo, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("farmMapper.selectAttachmentList", farmNo);
+	}
 }

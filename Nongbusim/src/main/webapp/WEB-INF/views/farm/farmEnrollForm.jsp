@@ -57,7 +57,7 @@
 	                        <th>연락처</th>
 	                        <td colspan="3"><input type="text" class="form-control" required name="phone"></td>
 	                    </tr>
-	                    <tr>
+                        <tr>
 	                        <th>대표사진</th>
 	                        <td colspan="3">
 	                           <input type="file" class="form-control-file border" name="upfiles" accept="image/*">
