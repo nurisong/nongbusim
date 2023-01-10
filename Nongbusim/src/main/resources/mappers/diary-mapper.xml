@@ -10,7 +10,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="diary_content" property="diaryContent"></result>
 		<result column="status" property="status"></result>
 		<result column="mem_no" property="memNo"></result>
-		<result column="diary_thumbnail" property="diaryThumbnail"></result>		
+		<result column="diary_thumbnail" property="diaryThumbnail"></result>
+		<result column="nickname" property="nickname"></result>
+				
 	</resultMap>
 	
 
@@ -25,20 +27,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectDiaryList" parameterType="diary" resultMap="diaryResultSet">
 	select
-			*
+			diary_no, create_date, diary_category, diary_content, status, mem_no, diary_thunbnail, nickname
 	from
 			diary
+	join 	member
+	
 	where
 			create_date between #{startDate} and #{endDate}
 			
 	<if test="diaryCategory !='noCategory'">
 		and diary_category = #{diaryCategory}
+	
 	</if>
+	
 	</select>
 	
 	<select id="selectDiary" parameterType="_int" resultMap="diaryResultSet">
 	select
-			*
+			diary_no, create_date, diary_category, diary_content, status, mem_no, diary_thunbnail, nickname
 	from
 			diary
 	where
