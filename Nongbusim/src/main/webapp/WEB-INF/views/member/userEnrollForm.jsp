@@ -73,6 +73,8 @@
             <label for="password">* 비밀번호 확인 :</label>
             <input type="password" class="form-control" id="chkPwd" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." name="memPwdChk" minlength="6" maxlength="18">
         </div>
+        <div id="checkResult" style="font-size:0.7em; display:none;"></div>
+        
         <div class="form-group">
           <label for="pwd"> 성별 :</label>
           <input type="radio" id="Female" value="F" name="gender">여자
@@ -90,8 +92,10 @@
           <label for="phone">전화번호  :</label>
           <input type="text" class="form-control" placeholder="-도 입력하세요" name="phone">
       </div>
-        <button type="submit" class="btn btn-success" onclick="return validate(); return validate2();">회원가입</button>
+      <div id="btns">
+        <button type="submit" class="btn btn-success" onclick="return validate(); return validate2();" disabled>회원가입</button>
         <button type="button" class="btn btn-secondary">취소</button>
+       </div>
       </form>
       
       
@@ -118,25 +122,23 @@
                 return false;
             }
             
-            // 비밀번호 일치여부
-            var memPwd = document.getElementById('memPwd').value;
-            var chkPwd = document.getElementById('chkPwd').value;
-            
-            if(memPwd != memPwd){
-            	alert('비밀번호가 일치하지 않습니다.');
-            	return false;
-            }
       	}
       	
       	// 비밀번호 일치
-      	function validate2(){
-      		var memPwd = $('#memPwd').val();
-      		var chkPwd = $('#chkPwd').val();
-      		
-      		if(memPwd != chkPwd){
-      			alert('비밀번호가 일치하지 않습니다. 다시 입력하세요.');
-      			return false;
-      		}
+      	function checkResult(){
+			var memPwd = document.getElementById('memPwd');
+			var chkPwd = document.getElementById('chkPwd');
+			var checkResult = document.getElemetById('checkResult');
+			
+			if(memPwd.value != chkPwd.value){
+				$('#checkResult').show();
+				$('#checkResult').css('color', 'red').text('비밀번호가 일치하지 않습니다.');
+				$('#btns :submit').attr('disabled', true);
+			} else {
+				$('#checkResult').show();
+				$('#checkResult').css('color', 'red').text('비밀번호가 일치합니다.');
+				$('#btns :submit').removeAttr('disabled');
+			}
       	}
       
       	// 아이디 중복체크
