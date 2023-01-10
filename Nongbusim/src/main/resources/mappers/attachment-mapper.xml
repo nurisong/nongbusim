@@ -77,15 +77,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       ,CHANGE_NAME
 			   ,FILE_PATH
 			   ,UPLOAD_DATE
-			   ,A.BOARD_NO
-			   ,A.BOARD_TYPE
+			   ,BOARD_NO
+			   ,BOARD_TYPE
 		  FROM
-			   ATTACHMENT A
-		  JOIN
-		   	   BOARD B 
-		   	ON 
-		   	   B.BOARD_NO=A.BOARD_NO 
+			   ATTACHMENT
+		 WHERE 
+		   	   BOARD_NO=#{boardNo} 
 		   AND 
-		       B.BOARD_TYPE=A.BOARD_TYPE;
+		       BOARD_TYPE=#{boardType};
 	</select>
 </mapper>
