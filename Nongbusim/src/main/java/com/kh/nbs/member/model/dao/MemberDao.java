@@ -1,8 +1,11 @@
 package com.kh.nbs.member.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.member.model.vo.Member;
 
 @Repository
@@ -48,6 +51,11 @@ public class MemberDao {
 	// 아이디 중복체크
 	public int idCheck(SqlSessionTemplate sqlSession, String memId) {
 		return sqlSession.selectOne("memberMapper.idCheck", memId);
+	}
+	
+	// 내가 작성한 게시글 조회
+	public ArrayList<Board> userMyBoardList(SqlSessionTemplate sqlSession, int memNo){
+		return (ArrayList)sqlSession.selectList("memberMapper.userMyBoardList", memNo);
 	}
 	
 	// 아이디 찾기

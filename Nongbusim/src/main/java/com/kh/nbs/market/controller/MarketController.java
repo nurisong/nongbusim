@@ -3,19 +3,25 @@ package com.kh.nbs.market.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.PageInfo;
+import com.kh.nbs.common.template.Pagination;
 import com.kh.nbs.market.model.service.MarketService;
 import com.kh.nbs.market.model.vo.Market;
+import com.kh.nbs.member.model.vo.Member;
 
 
 @Controller
@@ -27,7 +33,18 @@ public class MarketController {
 	
 	//게시판으로 이동
 	@RequestMapping("list.mk")
-	public String marketSelectList() {
+	public String marketSelectList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+								   Model model) {
+		
+		PageInfo pi = Pagination.getPageInfo(marketService.selectListCount(), currentPage, 12, 5);
+		
+
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", marketService.marketSelectList(pi));
+		model.addAttribute("at", marketService.attachmentSelectList());
+		
+		ArrayList<Market> list = marketService.marketSelectList(pi);
+		System.out.println(list);
 		
 		return "market/marketListView";
 		
@@ -78,9 +95,10 @@ public class MarketController {
 	@RequestMapping("insert.mk")
 	public ModelAndView marketInsert(Market market, ModelAndView mv, MultipartFile[] upfiles, HttpSession session, Attachment a) {
 		
+		market.setMemNo(((Member)session.getAttribute("loginUser")).getMemNo());
+		
 		if(marketService.insertMarket(market) > 0) {
 			
-			// **selectFarm하고 getFarmNo해서 가져오기
 			int marketNo = market.getMarketNo();
 			
 			for(MultipartFile upfile : upfiles) {

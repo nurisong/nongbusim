@@ -16,6 +16,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="count"         property="count" />
 		<result column="status"   property="status" />
 		<result column="mem_no" property="memNo" />
+		<result column="board_writer" property="boardWriter" />
+		<result column="board_like" property="boardLike" />
 	</resultMap>
 
 	<select id="selectListCount" resultType="_int">
@@ -24,24 +26,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  from
 		       board
 		 where
-		 	   board_type= #{boardType}
+		 	   board_type=#{boardType}
 		   and
 		       status = 'Y'
 	</select>
 
-	<!--테스트x, 미완성(like 이중쿼리)-->
+	<!--테스트x-->
 	<select id="selectList" resultMap="boardResultSet">
 		select 
-               board_no,
-               board_title,
-               to_char(create_date, 'YYYY-MM-DD') as "CREATE_DATE",
-               count,
-               nickname as board_writer
+               board_no
+               ,board_title
+               ,to_char(create_date, 'YYYY-MM-DD') as "CREATE_DATE"
+               ,count
+               ,board_writer
+               ,(select count(*) from board b join "LIKE" l on b.board_no=l.board_no and b.board_type=l.board_type) as board_like
 		  from
-		       board b,  member m
+		       board b
          where
-               b.mem_no=m.mem_no
-           and
            	   board_type=#{boardType}
          order
             by
@@ -56,6 +57,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
 		      ,count
 		      ,board_type
+		      ,board_writer
+		      ,board_like
 		  from
 		       board
 		 where
@@ -91,6 +94,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				,COUNT
 				,STATUS
 				,MEM_NO
+				,BOARD_WRITER
+				,BOARD_LIKE
 		       )
 		values
 		       (
@@ -105,6 +110,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      ,0
 		      ,'Y'
 		      ,#{memNo}
+		      ,#{boardWriter}
+		      ,0
 		       )
 	</insert>
 
