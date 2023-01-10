@@ -18,7 +18,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="mem_no" property="memNo" />
 	</resultMap>
 
-	<!--테스트x-->
 	<select id="selectListCount" resultType="_int">
 		select
 		       count(*)
@@ -48,6 +47,67 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             by
                board_no desc
 	</select>
+	
+	<select id="selectBoard" resultMap="boardResultSet">
+		select
+		       board_no
+		      ,board_title
+		      ,board_content
+		      ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
+		      ,count
+		      ,board_type
+		  from
+		       board
+		 where
+		       status = 'Y'
+		   and
+		       board_no = #{boardNo}
+	</select>
+	
+	<update id="increaseCount">
+		update
+		       board
+		   set
+		       count = count + 1
+		 where
+		       board_no = #{boardNo}
+		   and
+		       status='Y'	
+	</update>
+	
+	<insert id="insertBoard" parameterType="board">
+		insert
+		  into
+		       
+		       (
+				 BOARD_NO
+				,BOARD_TYPE
+				,BOARD_TITLE
+				,BOARD_CONTENT
+				,CREATE_DATE
+				,MODIFY_DATE
+				,THUMBNAIL
+				,RECRUIT_YN
+				,COUNT
+				,STATUS
+				,MEM_NO
+		       )
+		values
+		       (
+		       seq_bno.nextval
+		      ,#{boardType}
+		      ,#{boardTitle}
+		      ,#{boardContent}
+		      ,sysdate
+		      ,#{modifyDate}
+		      ,#{thumbnail}
+		      ,#{recruitYN}
+		      ,0
+		      ,'Y'
+		      ,#{memNo}
+		       )
+	</insert>
+
 
 
 

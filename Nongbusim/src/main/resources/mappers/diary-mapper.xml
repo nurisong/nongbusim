@@ -35,5 +35,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and diary_category = #{diaryCategory}
 	</if>
 	</select>
+	
+	<select id="selectDiary" parameterType="_int" resultMap="diaryResultSet">
+	select
+			*
+	from
+			diary
+	where
+			diary_no = #{diaryNo}
+	
+	</select>
 
 </mapper>

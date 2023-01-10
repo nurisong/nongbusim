@@ -25,7 +25,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		
 	</insert>
 	
-	
 	<insert id="insertAttachmentMarket" parameterType="attachment">
 		INSERT
 		  INTO
@@ -47,4 +46,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		)
 		  		
 	</insert>
+	
+	<insert id="insertAttachmentBoard" parameterType="attachment">
+		INSERT
+		  INTO
+		  		ATTACHMENT
+		  		(
+		  		file_no,
+		  		origin_name,
+		  		change_name,
+		  		board_type,
+		  		board_no
+		  		)
+		VALUES
+		  		(
+		  		SEQ_MKNO.NEXTVAL
+		  	   ,#{originName}
+		  	   ,#{changeName}
+		  	   ,#{boardType}
+		  	   ,#{boardNo}
+		  		)
+		  		
+	</insert>
+	
+	<!--테스트x-->
+	<select id="selectAttachmentDetailBoard" parameterType="board">
+		SELECT
+			   FILE_NO
+			   ,ORIGIN_NAME
+		       ,CHANGE_NAME
+			   ,FILE_PATH
+			   ,UPLOAD_DATE
+			   ,A.BOARD_NO
+			   ,A.BOARD_TYPE
+		  FROM
+			   ATTACHMENT A
+		  JOIN
+		   	   BOARD B 
+		   	ON 
+		   	   B.BOARD_NO=A.BOARD_NO 
+		   AND 
+		       B.BOARD_TYPE=A.BOARD_TYPE;
+	</select>
 </mapper>

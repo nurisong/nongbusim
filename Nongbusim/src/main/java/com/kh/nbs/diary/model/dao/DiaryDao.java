@@ -29,5 +29,10 @@ public class DiaryDao {
 	}
 
 
+	public Diary selectDiary(SqlSessionTemplate sqlSession, int diaryNo) {
+		return sqlSession.selectOne("diaryMapper.selectDiary", diaryNo);
+	}
+
+
 	
 }

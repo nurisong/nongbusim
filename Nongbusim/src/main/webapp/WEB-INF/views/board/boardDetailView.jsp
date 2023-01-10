@@ -44,8 +44,10 @@
         <!-- 게시글 상세내용 -->
         <div class="main-area">
 
-            <h1>게시판</h1>
-            <h3>boardtitle</h3>
+			<c:if test="${ b.boardType=='M' }"><h1>멘티멘토 게시판</h1></c:if>
+			<c:if test="${ b.boardType=='Q' }"><h1>질문 게시판</h1></c:if>
+			<c:if test="${ b.boardType=='K' }"><h1>노하우 게시판</h1></c:if> 
+            <h3>${b.boardTitle}</h3>
 
             <div class="board-header" style="width: 100%; height: 30px;">
                 <div class="user-profile" style="width: 20%; height: 30px;">
@@ -56,7 +58,7 @@
                     nickname
                 </div>
                 <div class="board-dateview" style="width: 60%; height: 30px;">
-                    작성일: 20xx-xx-xx 조회수: xx
+                                작성일: ${b.createDate} 조회수: ${b.count}
                 </div>
                 <div class="board-updatedelete"style="width: 20%;">
                     <button>수정</button>
@@ -67,7 +69,7 @@
             <hr>
 
             <div>
-                boardcontent 뿌리는 곳
+                ${b.boardContent}
             </div>
 
             <hr>
@@ -149,69 +151,9 @@
         
         
         
-        <script>
+    <script>
             
-            
-            $(function(){
-    		selectReplyList();
-    	});
-    	
-    	function addReply(){ // 댓글 작성용 ajax
-    		
-    		if($('#content').val().trim() != ''){
-    			$.ajax({
-					url : 'rinsert.bo',
-					data :{
-						refBoardNo : ${b.boardNo},
-						replyContent : $('#content').val(),
-						replyWriter : '${loginUser.userId}'
-					},
-					success:function(status){
-						console.log(status);
-						
-						if(status == 'success'){
-							selectReplyList();
-							$('#content').val('');
-						}
-						
-					},
-					error:function(){
-						console.log('실패 ~');						
-					}
-    				
-    			})
-    		}
-    		else{
-    			alertify.alert('정상적인 댓글을 작성해주세요 ~ ');
-    		}
-    	}
-    
-    	function selectReplyList(){
-    		$.ajax({
-    			url : 'rlist.bo', // 전체 조회 아님 X, 게시글에 달린 댓글만 조회해야함(현재 보고있는 게시글 번호를 넘겨야함)
-    			data : {bno : ${b.boardNo}},
-				success : function(list){
-					console.log(list);
-					
-					let value = '';
-					for(let i in list){
-						value += '<tr>'
-							   + '<th>' + list[i].replyWriter  + '</th>'
-							   + '<th>' + list[i].replyContent + '</th>'
-							   + '<th>' + list[i].createDate   + '</th>'
-							   + '</tr>';
-					}
-					
-					$('#replyArea tbody').html(value);
-					$('#rcount').text(list.length);
-					
-				},
-				error : function(){
-					console.log('댓글목록조회 실패!');					
-				}
-    		})
-    		
-    	}
+
     	
     </script>
     

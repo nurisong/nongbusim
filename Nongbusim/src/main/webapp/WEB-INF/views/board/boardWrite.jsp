@@ -96,13 +96,13 @@
                             </tr>
                             <tr>
                                 <th><label for="upfile">첨부파일</label></th>
-                                <td><input type="file" id="upfile" class="form-control-file border" name="upfile"></td>
+                                <td><input type="file" class="form-control-file border" name="upfiles" accept="image/*"></td>
                             </tr>
                     
                         </table>
                         <br>
                         <input type="hidden" name="boardType" value="${btype}">
-                        <input type="hidden" name="memNo" value="300">
+                        <input type="hidden" name="memNo" value="${loginUser.memNo}">
                         
                         
                         <div align="center">
