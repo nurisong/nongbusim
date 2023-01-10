@@ -70,7 +70,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE MEM_ID = #{memId}
 	</update>
 	
-	
+	<!-- 아이디 중복 체크 -->
+	<select id="idCheck" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEM_ID = #{memId}
+	</select>
 	
 	<!-- 아이디 찾기 -->
 	<!--<select id="findId" parameterType="member" resultType="memberResultSet">
