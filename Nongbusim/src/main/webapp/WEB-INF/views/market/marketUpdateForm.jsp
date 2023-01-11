@@ -90,7 +90,6 @@
                 <div align="center">
                     <button type="submit" class="btn btn-primary">수정하기</button>
                     <button type="reset" class="btn btn-danger">취소하기</button>
-                    <button type="reset" class="btn btn-danger">삭제하기</button>
                 </div>
             </form>
         </div>

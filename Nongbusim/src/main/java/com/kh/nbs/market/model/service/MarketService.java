@@ -21,8 +21,11 @@ public interface MarketService {
 	
 	//게시물 조회수 증가 메소드
 	//게시물 상세조회 메소드
-	int increaseCount(int boardNo);
-	Market marketDetailView(int marketNo);
+	//게시물 첨부파일 조회 메소드
+	int increaseCount(Market market);
+	Market marketDetailView(Market market);
+	ArrayList<Attachment> marketDetailAttachment(Market market);
+	
 
 	//게시물 작성 메소드
 	//첨부파일 업로드 메소드

@@ -56,6 +56,9 @@
 </style>
 </head>
 <body> 
+<!-- 메뉴바 -->
+<jsp:include page="../../common/menubar.jsp" />
+
 <div id="myPage">
 	<h3>마이페이지</h3>
 	<div class="menuArea"  style="width:200px; height:150px; border:1px solid red; float:left;">
