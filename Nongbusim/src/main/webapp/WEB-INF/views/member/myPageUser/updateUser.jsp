@@ -57,7 +57,39 @@
       </form>
       
       <!-- 비밀번호 변경 시 보여지는 Modal -->
-      
+      <div class="modal fade" id="updatePwd">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">비밀번호 변경</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <form action="updatePwd.me" method="post">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div align="center">
+                        </div>
+                        <br>
+                            <label for="userPwd" class="mr-sm-2">현재 비밀번호 : </label>
+                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="memPwd" name="memPwd"> <br>
+                            <input type="hidden" name="memId" value="${ loginUser.memId }"> <br>
+                            
+                            <label for="userPwd" class="mr-sm-2">새 비밀번호 : </label>
+                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="memPwd" name="memPwd"> <br>
+                            <label for="userPwd" class="mr-sm-2">새 비밀번호 확인 : </label>
+                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="memPwd" name="memPwd"> <br>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer" align="center">
+                        <button type="submit" class="btn btn-danger">변경하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
       
       
       

@@ -254,6 +254,21 @@ public class MemberController {
 		mv.addObject("list", memberService.markMarket(mNo)).setViewName("member/myPageUser/markMarket");
 		return mv;
 	}
+	
+//	@RequestMapping("updatePwd.me")
+//	public ModelAndView updatePwd(HttpSession session, ModelAndView mv, String memPwd) {
+//		Member changePwd = memberService.updatePwd(memPwd);
+//		
+//		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {
+//			
+//			session.setAttribute("loginUser", loginUser);
+//			mv.setViewName("redirect:/");
+//			
+//		} else {
+//			mv.addObject("errorMsg", "로그인 실패").setViewName("common/errorPage");
+//		}
+//		return mv;
+//	}
 
 	
 
