@@ -29,7 +29,7 @@ public class BoardDao {
 		return sqlSession.update("boardMapper.increaseCount",boardNo);
 	}
 	public ArrayList<Attachment> selectAttachmentDetailBoard(SqlSessionTemplate sqlSession, Board b) {
-		return (ArrayList)sqlSession.selectList("attachmentMapper.selectAttachmentDetailBoard",b);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectAttachmentDetailBoard",b);
 	}
 	
 	public int insertBoard(Board b, SqlSessionTemplate sqlSession) {		  
@@ -37,6 +37,10 @@ public class BoardDao {
 	}  
 	public int insertAttachmentBoard(Attachment a, SqlSessionTemplate sqlSession) {		  
 		return sqlSession.insert("attachmentMapper.insertAttachmentBoard", a);				  				  
+	}
+	
+	public ArrayList<Attachment> attachmentSelectList(SqlSessionTemplate sqlSession){	
+		return (ArrayList)sqlSession.selectList("boardMapper.attachmentSelectList");
 	}
 	
 }

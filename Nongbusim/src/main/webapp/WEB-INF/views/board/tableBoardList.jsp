@@ -31,8 +31,16 @@ display: inline-block;
 text-align: center;
 }
 
+/*~순 오른쪽 정렬*/
 .img-select{
   float: right;
+}
+
+  /*페이징 가운데 정렬*/
+  #pagingArea>ul {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 </style>
