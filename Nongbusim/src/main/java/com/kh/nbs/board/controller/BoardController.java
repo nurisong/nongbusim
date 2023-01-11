@@ -20,6 +20,7 @@ import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.template.Pagination;
+import com.kh.nbs.member.model.vo.Member;
 
 @Controller
 public class BoardController {
@@ -28,50 +29,42 @@ public class BoardController {
 	private BoardService boardService;
 
 	
-	//게시판리스트로 이동(페이징+리스트 조회, 미완성:like조회x)
+	//게시판으로 이동
 	@RequestMapping("list.bo")
 	public ModelAndView selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage,@RequestParam(value="type") String boardType, ModelAndView mv) {
 		
-		System.out.println(currentPage);
-		System.out.println(boardType);
+		PageInfo pi= new PageInfo();
+
+		if(boardType.charAt(0)=='S') {
+			
+			pi = Pagination.getPageInfo(boardService.selectListCount(boardType), currentPage, 10, 8);			
+			mv.addObject("at",boardService.attachmentSelectList()).setViewName("board/pictureBoardList");
+		} else {
+			
+			pi = Pagination.getPageInfo(boardService.selectListCount(boardType), currentPage, 10, 5);
+			mv.setViewName("board/tableBoardList");	
+		}
 		
-		PageInfo pi = Pagination.getPageInfo(boardService.selectListCount(boardType), currentPage, 10, 5);
-		System.out.println(pi.getCurrentPage());
-		System.out.println(pi.getListCount());
-		
-		mv.addObject("pi", pi).addObject("list", boardService.selectList(boardType,pi)).addObject("btype",boardType).setViewName("board/tableBoardList");
-		
-		return mv;
-	}
-	
-	//자랑게시판으로 이동
-	@RequestMapping("picture.bo")
-	public ModelAndView pictureBoardView(@RequestParam(value="cpage", defaultValue="1") int currentPage,@RequestParam(value="type") String boardType, ModelAndView mv) {
-		
-		PageInfo pi = Pagination.getPageInfo(boardService.selectListCount(boardType), currentPage, 10, 8);
-		
-		mv.addObject("pi", pi).addObject("list", boardService.selectList(boardType,pi)).addObject("btype",boardType).setViewName("board/pictureBoardList");
+		mv.addObject("pi", pi).addObject("list", boardService.selectList(boardType,pi)).addObject("btype",boardType);
 		
 		return mv;
 	}
 	
-	//게시판 글쓰기로 이동
+	//글쓰기로 이동
 	@RequestMapping("write.bo")
 	public ModelAndView boardWrite(@RequestParam(value="wtype") String boardType, ModelAndView mv) {
-		
-		System.out.println(boardType);
 		
 		mv.addObject("btype", boardType).setViewName("board/boardWrite");
 		return mv;
 	}
 
-	
+	//게시글 조회
 	@RequestMapping("detail.bo")
-	public ModelAndView selectBoard(ModelAndView mv, int bno) { // 키값과 똑같은 이름의 매개변수, int형으로 쓰면 알아서 파싱
+	public ModelAndView selectBoard(ModelAndView mv,@RequestParam(value="bno") int boardNo) { // 키값과 똑같은 이름의 매개변수, int형으로 쓰면 알아서 파싱
 
-		if(boardService.increaseCount(bno) > 0) {
+		if(boardService.increaseCount(boardNo) > 0) {
 			
-			Board b=boardService.selectBoard(bno);
+			Board b=boardService.selectBoard(boardNo);
 			ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);
 			
 
@@ -85,7 +78,7 @@ public class BoardController {
 	}
 	
 	
-	//게시판 등록하기(일단 테이블게시판 테스트 해보고 사진게시판 작업)
+	//게시판 등록하기
 	@RequestMapping("insert.bo")
 	public ModelAndView insertBoard(Board b, MultipartFile[] upfiles, HttpSession session, ModelAndView mv, Attachment a) {
 		
@@ -144,5 +137,18 @@ public class BoardController {
 		return changeName;
 	}
 	
+	//게시물 수정하기
+	@RequestMapping("update.bo")
+	public ModelAndView updateBoard(@RequestParam(value="btype") String boardType,@RequestParam(value="bno") int boardNo, ModelAndView mv) {
+		
+		Board b=boardService.selectBoard(boardNo);
+		ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);		
+		
+		mv.addObject("btype", boardType).addObject("b",b).addObject("a",a).setViewName("board/boardUpdate");
+		
+		return mv;
+	}
 	
+	
+		
 }

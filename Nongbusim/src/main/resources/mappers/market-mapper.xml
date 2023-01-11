@@ -181,6 +181,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	<delete id="marketDeleteAttachment">
+	
+		delete
+			from
+				attachment
+			where
+				board_no = #{ marketNo }
+			and
+				board_type = 'mk'
+	
+	</delete>
+	
+	
+	<update id="marketDelete">
+		
+		update 
+				market
+		set
+			mk_status = 'N'
+		where
+			market_No = #{ marketNo }
+		and	
+		    mk_status = 'Y'
+	
+	
+	
+	</update>
 	
 	
 </mapper>

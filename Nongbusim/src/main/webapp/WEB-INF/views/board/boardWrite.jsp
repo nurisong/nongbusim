@@ -17,6 +17,18 @@
 
         #enrollForm>table {width:100%;}
         #enrollForm>table * {margin:5px;}
+        
+        /*이미지 클릭시 파일 업로드CSS*/
+        .image-upload > input
+		{
+		    display: none;
+		}
+		
+		.image-upload img
+		{
+		    width: 80px;
+		    cursor: pointer;
+		}
     </style>
 </head>
 <body>
@@ -54,9 +66,12 @@
                             <tr>
                                 <th><label for="content">썸네일</label></th>
                                 <td>
-                                    <div class="form-group">
-                                        <img width="300" height="200" id="thumbnailImg" style="background-color:white">
-                                    </div>    
+                                    <div class="image-upload">
+									    <label for="file-input">
+									        <img id="myimage" class="myimage" src="https://adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width="200" height="100"/>
+									    </label>									
+									    <input id="file-input" type="file" name="upfiles" required onchange="onFileSelected(event)"/>
+									</div> 
                                 </td>
                             </tr>
                             <tr>
@@ -64,12 +79,22 @@
                                 <td><textarea id="content" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" name="boardContent" required style="width:200px;"></textarea></td>
                             </tr>
                             <tr>
-                                <th><label for="upfile">첨부파일</label></th>
-                                <td><input type="file" id="upfile" class="form-control-file border" name="upfile" style="width:80%"></td>
+                            	<th><label for="images">이미지추가</label></th>
+                            	<td>
+									<input type="file" name="upfiles" />
+									<input type="file" name="upfiles" />
+									<input type="file" name="upfiles" />
+                            	</td>
                             </tr>
                     
                         </table>
+
+                        
                         <br>
+
+                        <input type="hidden" name="boardType" value="${btype}">
+                        <input type="hidden" name="memNo" value="${loginUser.memNo}">
+                        <input type="hidden" name="boardWriter" value="${loginUser.nickName}">
                         
                         <div align="center">
                             <button type="submit" class="btn btn-primary">등록하기</button>
@@ -129,11 +154,11 @@
     	$(document).ready(function(){
     		$('#boardType').val('${btype}').prop("selected",true);
             if($("#boardType option:selected").val()=='S') {
-                $("#picture-area").show();
-                $("#table-area").hide();
+                $(".picture-area").show();
+                $(".table-area").hide();
             }  else {
-                $("#picture-area").hide();
-                $("#table-area").show();
+                $(".picture-area").hide();
+                $(".table-area").show();
             }    		
 
     	});
@@ -144,14 +169,30 @@
             var value_str=document.getElementById('boardType');
 
             if(value_str.options[value_str.selectedIndex].value=='S') {
-                $("#picture-area").show();
-                $("#table-area").hide();
+                $(".picture-area").show();
+                $(".table-area").hide();
             }  else {
-                $("#picture-area").hide();
-                $("#table-area").show();
+                $(".picture-area").hide();
+                $(".table-area").show();
             }
 
         }
+        
+        <!-- 업로드되는 사진으로 src값을 변경-->
+        
+        function onFileSelected(event) {
+        	  var selectedFile = event.target.files[0];
+        	  var reader = new FileReader();
+
+        	  var imgtag = document.getElementById("myimage");
+        	  imgtag.title = selectedFile.name;
+
+        	  reader.onload = function(event) {
+        	    imgtag.src = event.target.result;
+        	  };
+
+        	  reader.readAsDataURL(selectedFile);
+        	}
 
     </script>
 
