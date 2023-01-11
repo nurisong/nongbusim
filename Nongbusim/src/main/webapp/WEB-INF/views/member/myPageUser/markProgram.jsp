@@ -78,9 +78,7 @@
     </div>
     
     
-                <script>
-
-
+     <script>
                  
             $(function(){
                 $('.heart').click(function(){
