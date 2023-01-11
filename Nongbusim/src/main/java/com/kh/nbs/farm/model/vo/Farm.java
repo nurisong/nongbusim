@@ -1,9 +1,5 @@
 package com.kh.nbs.farm.model.vo;
 
-import java.util.ArrayList;
-
-import com.kh.nbs.common.model.vo.Attachment;
-
 import lombok.Data;
 
 @Data
@@ -20,5 +16,6 @@ public class Farm {
 	private String status;
 	private String crop;
 	private String mainImg;
+	private String programName;
 }
 
