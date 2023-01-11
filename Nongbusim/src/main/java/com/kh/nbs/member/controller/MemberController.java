@@ -1,7 +1,5 @@
 package com.kh.nbs.member.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.member.model.service.MemberService;
 import com.kh.nbs.member.model.vo.Member;
+import com.kh.nbs.program.model.service.ProgramService;
 
 @Controller
 public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private ProgramService programService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -219,7 +220,7 @@ public class MemberController {
 		
 		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
-		mv.addObject("list", memberService.userMyBoardList(mNo)).setViewName("member/myPageUser/myBoard");;
+		mv.addObject("list", memberService.userMyBoardList(mNo)).setViewName("member/myPageUser/myBoard");
 		return mv;
 	}
 	
@@ -235,6 +236,12 @@ public class MemberController {
 	@RequestMapping("markProgram.me")
 	public ModelAndView markProgram(ModelAndView mv, HttpSession session) {
 		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+//		if(programService.selectMarkNo(mNo) != null ) {
+//			
+//			// 찜한 게시글 번호 조회
+//			mv.addObject("markNoList",programService.selectMarkNo(mNo));
+//		}
 		
 		mv.addObject("list", memberService.markProgram(mNo)).setViewName("member/myPageUser/markProgram");
 		return mv;
