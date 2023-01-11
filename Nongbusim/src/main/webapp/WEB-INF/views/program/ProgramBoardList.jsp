@@ -75,7 +75,7 @@
             <div class="innerOuter" style="padding:5% 10%;">
 
                 
-			<c:if test="${ not empty loginUser }">
+			<c:if test="${ not empty loginUser.farmerCode}">
             	<a class ="btn btn-secondary" style="float:right;" href="enrollForm.bo">프로그램 등록</a>
             </c:if>
 			
@@ -98,7 +98,7 @@
                        
                        
                     <tr>
-                    	
+                    	<td>${ loginUser.memNo }</td>
                   
                         <td class="bno" hidden>${ p.programNo }</td>
                         <td class="test">${ p.programLocation }</td>

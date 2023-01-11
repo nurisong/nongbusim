@@ -197,7 +197,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    where 
 		        board_no = #{boardNo}
 		    and
-		    	board_type = 'T'
+		    	board_type = 'P'
 		
 		</update>
 		
@@ -212,7 +212,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and 
 			status = 1
 		and 
-			board_type = 'T'
+			board_type = 'P'
 			
 		</select>
 		
