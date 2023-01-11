@@ -83,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  ,mk_title
 			  ,mk_price
 			  ,mk_count
-			  ,to_char(mk_enrolldate, 'YYYY-MM-DD') as "enroll_date"
+			  ,to_char(mk_enrolldate, 'YYYY-MM-DD') as "mk_enrolldate"
               ,mem_no
 		  from
 		       market

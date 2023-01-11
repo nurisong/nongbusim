@@ -78,5 +78,12 @@ public class ProgramDao {
 		
 	}
 	
+	public int wishDelete(SqlSessionTemplate sqlSession, int programNo) {
+		
+		
+		return sqlSession.update("programMapper.wishDelete",programNo);
+		
+	}
+	
 
 }

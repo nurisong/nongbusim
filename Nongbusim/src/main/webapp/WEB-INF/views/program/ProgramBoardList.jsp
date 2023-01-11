@@ -100,7 +100,24 @@
                         <td class="test">${ p.programPlan }</td>
                         <td class="test">${ p.headcount }</td>
                         <td class="test">${ p.signUp }</td>
-                        <td class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
+
+                        <!-- <c:forEach items="${ markNoList }" var="m">
+                            <c:choose>
+                                <c:when test="${p.programNo eq m.boardNo }">
+                                    <td class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <td class="sorry"><img class="heart"  src="resources/images/heart2.png" alt="${ p.programNo }"></td>
+                                </c:otherwise>
+
+                            </c:choose>
+
+
+                        </c:forEach> -->
+
+                        <td  class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
+                        
                      </tr>
                        
                     </c:forEach>
@@ -119,18 +136,18 @@
                              <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                       </c:when>
                       <c:otherwise>
-                       <li class="page-item "><a class="page-link" href="list.pr?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+                       <li class="page-item "><a class="page-link" href="list.pr?cpage=${ pi.currentPage - 1 }" >Previous</a></li>
                       </c:otherwise>   
                     </c:choose>
                     
                    <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-                       <li class="page-item "><a class="page-link" href="list.pr?cpage=${p}">${ p }</a></li>
+                       <li class="page-item "><a class="page-link" href="list.pr?cpage=${p}" >${ p }</a></li>
                    
                    </c:forEach>
                    
                    <c:choose>
                       <c:when test="${ pi.currentPage eq pi.maxPage }">
-                         <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                         <li class="page-item disabled"><a class="page-link" href="#" >Next</a></li>
                       
                       </c:when>
                       <c:otherwise>
@@ -148,40 +165,58 @@
                  
             $(function(){
                 $('.heart').click(function(){
-                    console.log($(this).attr("alt"));
-                    $.ajax({
+                    var $btn1 = $(this);
+                    // console.log($(this).attr("alt"));
+
+                    //console.log($(this).attr("src"));
+
+               
+
+                    if($(this).attr("src") == "resources/images/deleteheart.png"){
+
+                      
+
+                        $.ajax({
                             url : 'wish.pr',
                             data :{
                                 programNo : $(this).attr("alt")
                             },
+                            
                             success: function() {
-                                console.log($(this).attr("src"));
-
-                                if($(this).attr("src") == 'resources/images/deleteheart.png'){
-                
-                                $(this).attr("src", "resources/images/heart2.png");
-                                } else {
-
-                                    $(this).attr("src", "resources/images/deleteheart.png");
-                                }
+                                console.log($btn1);
+                                $btn1.attr("src", "resources/images/heart2.png");
                             },
 
                             error:function(){
                                         console.log('ajax 통신 실패!');
                                     }
-
-
                     });
+
+
+                    }else{
+
+                        $.ajax({
+                            url : 'wishDelete.pr',
+                            data :{
+                                programNo : $(this).attr("alt")
+                            },
+                            
+                            success: function() {
+                                console.log($btn1);
+                                $btn1.attr("src", "resources/images/deleteheart.png");
+                        
+                            },
+
+                            error:function(){
+                                        console.log('ajax 통신 실패!');
+                                    }
+                    });
+
+                    }
                 });
             })
 
 
-
-
-                
-            
-                
-         
               
                $(function(){
                   $('#boardList>tbody>tr>td').not('.sorry').click(function(){
@@ -193,9 +228,57 @@
                      
                   })
                   
-               })
-               
-            
+
+                  
+                  
+
+                 
+                  
+                // mark 테이블에서 조회해서 markNoList에서 borarNo 가져와서 현재 하트 IMG ALT에 있는 programNo랑 비교헤서 하트 바꿔줌,  비교해서 같은 값이 있으면 check값 증가
+                $('.heart').each(function() {
+
+
+                    var check2 = 0;
+                   
+                    
+                    <c:forEach items="${ markNoList }" var="m">
+                        if(${m.boardNo} == $(this).attr("alt")) {check2 = check2 + 1}
+                       
+
+                    </c:forEach>
+
+                    console.log(check2);
+                    
+                    if(check2 > 0) {
+                        $(this).attr("src", "resources/images/heart2.png");
+                    }
+                    else {
+                        $(this).attr("src", "resources/images/deleteheart.png");
+                    }
+                });
+                
+
+
+
+
+               });
+
+               // $().attr("alt")
+
+            //    $(function() {
+            //             var count = 0;
+            //             <c:forEach items="${ markNoList }" var="m">
+            //                 <c:if test="${m.boardNo eq p.prgramNo }">
+            //                     count++;
+            //                 </c:if>
+            //             </c:forEach>
+            //             console.log(count);
+            //             if(count > 0) {
+            //                 $('.heart').attr("src", "resources/images/heart2.png");
+            //             } else {
+            //                 $('.heart').attr("src", "resources/images/deleteheart.png")
+            //             }
+            //         });
             
             
             
