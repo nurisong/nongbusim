@@ -24,6 +24,8 @@ public interface ProgramService {
 	
 	int wishProgram(int programNo);
 	
+	int wishDelete(int programNo);
+	
 	ArrayList selectMarkNo(int memNo);
 	
 }
