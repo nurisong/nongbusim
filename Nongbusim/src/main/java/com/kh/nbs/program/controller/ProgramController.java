@@ -31,9 +31,9 @@ public class ProgramController {
 	private ProgramService programService;
 
 		@RequestMapping("list.pr")
-		public ModelAndView selectList(@RequestParam(value="cpage",defaultValue="1") int currentPage, ModelAndView mv) {
+		public ModelAndView selectList(@RequestParam(value="cpage",defaultValue="1") int currentPage,HttpSession session , ModelAndView mv) {
 			
-			int memNo = 1;
+			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 			
 			
 			if(programService.selectMarkNo(memNo) != null ) {
@@ -80,7 +80,7 @@ public class ProgramController {
 		@RequestMapping("insert.pr")//dd
 		public String programRegister(Program p, MultipartFile upfile, HttpSession session, Model model) {
 				
-			
+			 int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 			
 			if(!upfile.getOriginalFilename().equals("")) {
 				
