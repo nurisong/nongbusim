@@ -12,22 +12,22 @@
 <title>Insert title here</title>
 <style>
 
-			#container{
-				padding-left:30%;
-			}
+		#container{
+			padding-left:30%;
+		}
     
-            #boardList {text-align:center;}
-            #boardList>tbody>tr:hover {cursor:pointer;}
+        #boardList {text-align:center;}
+        #boardList>tbody>tr:hover {cursor:pointer;}
     
-            .heart{
+        .heart{
             
-            width: 30px;
+         	width: 30px;
             height: 30px;
          
             top:20px;
             right : 5px;
             }
-        </style>
+</style>
 </head>
 <body>
 <jsp:include page="myPageUserCommon.jsp" />
