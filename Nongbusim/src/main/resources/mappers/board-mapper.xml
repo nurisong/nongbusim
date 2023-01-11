@@ -19,6 +19,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="board_writer" property="boardWriter" />
 		<result column="board_like" property="boardLike" />
 	</resultMap>
+	
+	<resultMap id="attachmentResultSet" type="attachment">
+		<result column="file_no"      property="fileNo" />
+		<result column="origin_name"   property="originName" />
+		<result column="change_name"  property="changeName" />
+		<result column="upload_date"   property="uploadDate" />
+		<result column="board_no"   property="boardNo" />
+		<result column="board_type"   property="boardType" />
+	</resultMap>
+	
+	
 
 	<select id="selectListCount" resultType="_int">
 		select
@@ -114,8 +125,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      ,0
 		       )
 	</insert>
-
-
+	
+	<select id="selectAttachmentDetailBoard" parameterType="board" resultMap="attachmentResultSet">
+		SELECT
+			   FILE_NO
+			   ,ORIGIN_NAME
+		       ,CHANGE_NAME
+			   ,FILE_PATH
+			   ,UPLOAD_DATE
+			   ,BOARD_NO
+			   ,BOARD_TYPE
+		  FROM
+			   ATTACHMENT
+		 WHERE 
+		   	   BOARD_NO=#{boardNo} 
+		   AND 
+		       BOARD_TYPE=#{boardType}
+	</select>
+	
+	<select id="attachmentSelectList" resultMap="attachmentResultSet">
+	
+		SELECT board_no,
+		            file_no,
+		            origin_name,
+		            change_name,
+		            upload_date
+		   FROM (
+		        SELECT 
+		            board_no,
+		            file_no,
+		            origin_name,
+		            change_name,
+		            upload_date,
+		            board_type,
+		            ROW_NUMBER() OVER (PARTITION BY board_no ORDER BY file_no) AS RN
+		        FROM 
+		            ATTACHMENT) a
+		WHERE 
+				a.RN = 1
+		  AND
+		        board_type='S'
+	
+	</select>
 
 
 </mapper>

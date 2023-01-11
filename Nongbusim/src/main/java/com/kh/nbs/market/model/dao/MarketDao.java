@@ -71,5 +71,16 @@ public class MarketDao {
   }
   
   
+  public int marketDeleteAttachment(int marketNo, SqlSessionTemplate sqlSession) {
+	  
+	  return sqlSession.delete("marketMapper.marketDeleteAttachment", marketNo);
+  }
+  
+  
+  public int marketDelete(int marketNo, SqlSessionTemplate sqlSession) {
+	  
+	  return sqlSession.update("marketMapper.marketDelete", marketNo);
+  }
+  
   
 }

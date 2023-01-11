@@ -23,5 +23,7 @@ public interface BoardService {
 	int insertBoard(Board b);
 	int insertAttachment(Attachment a);
 	
+	//사진 리스트 조회,
+	ArrayList<Attachment> attachmentSelectList();
 	
 }

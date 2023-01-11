@@ -64,13 +64,6 @@ public class ProgramDao {
 	}
 	
 	
-	public int wishProgram(SqlSessionTemplate sqlSession, int programNo) {
-		
-		return sqlSession.insert("programMapper.wishProgram",programNo);
-		
-		
-	}
-	
 	
 	public ArrayList selectMarkNo(SqlSessionTemplate sqlSession, int memNo) {
 		
@@ -78,10 +71,17 @@ public class ProgramDao {
 		
 	}
 	
-	public int wishDelete(SqlSessionTemplate sqlSession, int programNo) {
+	public int wishProgram(SqlSessionTemplate sqlSession, Program p) {
+		
+		return sqlSession.insert("programMapper.wishProgram",p);
 		
 		
-		return sqlSession.update("programMapper.wishDelete",programNo);
+	}
+	
+	public int wishDelete(SqlSessionTemplate sqlSession, Program p) {
+		
+		
+		return sqlSession.update("programMapper.wishDelete",p);
 		
 	}
 	

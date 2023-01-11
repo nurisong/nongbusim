@@ -84,7 +84,9 @@
                 <div class="col-lg-6">
                     <div class="fotorama">
                         <c:forEach items="${ at }" var="at" >
-                            <div><img src="${at.changeName}" style="width: 100%; height: 300px;"></div>
+                            <div>
+                                <img src="${at.changeName}" style="width: 100%; height: 300px;" />
+                            </div>
                         </c:forEach>
                     </div>
                 </div>
@@ -110,7 +112,7 @@
                     </c:if>
 
                     <form action="" method="post" id="postForm">
-                        <input type="hidden" name="marketNo" value="${list.marketNo}" />
+                        <input type="hidden" name="marketNo" value="${ list.marketNo }" />
                     </form>
 
                     <script>

@@ -48,16 +48,16 @@ text-align: center;
     		
       <form action="insert.pr" method="post" enctype="multipart/form-data">
 
+         
+         <input name="memNo" type="text" value="${loginUser.memNo}">
          <select  name="farmNo">
     			
             <c:forEach items="${ list }" var="p" >
             
                 <option value="${p.farmNo}"> ${ p.farmName }</option>
-                
+
             </c:forEach>
        
-               
-            
             </select>
 
 
