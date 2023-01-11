@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
@@ -113,38 +114,32 @@ public class MarketController {
 	
 	//게시물 작성
 	@RequestMapping("insert.mk")
-	public ModelAndView marketInsert(Market market, ModelAndView mv, MultipartFile[] upfiles, HttpSession session, Attachment a) {
+	public ModelAndView marketInsert(Market market, ModelAndView mv, MultipartFile[] upfiles, RedirectAttributes rttr, HttpSession session, Attachment a) {
 		
 		market.setMemNo(((Member)session.getAttribute("loginUser")).getMemNo());
 		
 		if(marketService.insertMarket(market) > 0) {
-			
-			int marketNo = market.getMarketNo();
-			
+	
 			for(MultipartFile upfile : upfiles) {
 				
 				if(!upfile.getOriginalFilename().equals("")) {
-					a.setBoardNo(marketNo);
+
 					a.setBoardType("mk");
 					a.setOriginName(upfile.getOriginalFilename()); // 원본명
 					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
 					
-					if(marketService.insertAttachment(a) > 0) {
-						mv.setViewName("redirect:/");
-					} else {
-						mv.setViewName("common/errorPage");
-					}
+					marketService.insertAttachment(a);
 						
 				}
 			}
-		
-			mv.setViewName("redirect:/");
-			
+			rttr.addFlashAttribute("alertMsg", "게시물이 등록되었습니다");
+			mv.setViewName("redirect:/list.mk");
+			return mv;
 		} else {
 			// 첨부파일 삭제
+			return mv;
 		}
 		
-		return mv;
 		
 	}
 	
@@ -158,5 +153,11 @@ public class MarketController {
 	}
 	
 	
+	
+	//게시물 수정
+	
+	
+	
+	//게시물 삭제 
 	
 }
