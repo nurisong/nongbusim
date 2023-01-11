@@ -68,11 +68,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM
 		 		FARM
 		 WHERE 
-		  		F.STATUS = 'Y'
+		  		STATUS = 'Y'
 	</select>
 	
 	<select id="selectAttachmentList" resultMap="attachmentResultSet">
-	
 		SELECT *
 		   FROM (
 		        SELECT 
@@ -107,6 +106,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    	FARM_NO = #{farmNo}
 		   AND
 		  		STATUS = 'Y'
+	</select>
+	
+	<select id="selectAttachment" resultMap="attachmentResultSet">
+		SELECT
+				FILE_NO
+			   ,ORIGIN_NAME
+			   ,CHANGE_NAME
+			   ,UPLOAD_DATE
+			   ,BOARD_NO
+			   ,BOARD_TYPE
+		 FROM
+				ATTACHMENT
+		WHERE
+				BOARD_NO = #{farmNo}
+		  AND
+				BOARD_TYPE = 'F'
+		ORDER
+		   BY
+				FILE_NO
 	</select>
 	
 	<insert id="insertFarm" parameterType="farm">

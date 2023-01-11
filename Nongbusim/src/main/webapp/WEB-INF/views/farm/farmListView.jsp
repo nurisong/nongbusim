@@ -138,7 +138,13 @@
                         <c:forEach var="f" items="${farmList}">
                             <tr>
                                 <td>
-                                    <img class="farm-img" src="${f.mainImg}">
+                                    <c:forEach var="at" items="${atList}">
+                                        <c:if test="${f.farmNo eq at.boardNo}">
+                                            <a href="detail.fm?fno=${f.farmNo}">
+                                                <img class="farm-img" src="${at.changeName}">
+                                            </a>
+                                        </c:if>
+                                    </c:forEach>
                                 </td>
                                 <td class="farm-info">
                                     <dl>
