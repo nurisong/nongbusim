@@ -13,6 +13,14 @@
 
 <style>
 
+    body{
+        font-family: 'Pretendard-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+	}
+
+
     #market_wrap{
 
         display: inline-block;
@@ -99,7 +107,7 @@
                                 <c:if test="${ not empty at }">
                                     <c:forEach items="${ at }" var="at">
                                         <c:if test="${ m.marketNo == at.boardNo}">
-                                                    <a href="detail.mk" >
+                                                    <a href="detail.mk?marketNo=${ m.marketNo }" >
                                                         <img class="card-img-top" src="${ at.changeName }" style="width: 100%; height: 250px;" alt="">
                                                     </a>
                                         </c:if>
@@ -171,13 +179,6 @@
 
     </div>
 
-    <script>
-            
-        $(function(){
-
-        })
-    
-    </script>
 
 
 

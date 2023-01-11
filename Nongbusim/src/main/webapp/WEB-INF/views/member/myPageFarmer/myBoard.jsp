@@ -10,14 +10,21 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <title>Insert title here</title>
+<style>
+	.container{
+		padding-left:20%;
+	}
+</style>
 </head>
 <body>
+
 
 <!-- 사이드바 -->
 <jsp:include page="myPageFarmerCommon.jsp"/>
 
     <div class="container">
         <h3>내가 작성한 게시글</h3>
+        <hr>
         <table class="table table-bordered table-sm">
           <thead>
             <tr>

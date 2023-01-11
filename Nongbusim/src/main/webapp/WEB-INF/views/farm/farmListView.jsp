@@ -138,7 +138,13 @@
                         <c:forEach var="f" items="${farmList}">
                             <tr>
                                 <td>
-                                    <img class="farm-img" src="${f.mainImg}">
+                                    <c:forEach var="at" items="${atList}">
+                                        <c:if test="${f.farmNo eq at.boardNo}">
+                                            <a href="detail.fm?fno=${f.farmNo}">
+                                                <img class="farm-img" src="${at.changeName}">
+                                            </a>
+                                        </c:if>
+                                    </c:forEach>
                                 </td>
                                 <td class="farm-info">
                                     <dl>
@@ -152,6 +158,11 @@
                                             <div><a href="">${f.crop}</a></div>
                                             <br>
                                         </dd>
+
+                                        <!-- 프로그램이 있을 경우 -->
+                                        <c:if test="${not empty farm.programName}">
+                                        </c:if>
+
                                         <dt>진행중인 프로그램</dt>
                                         <dd>
                                             <div><a href="">${f.programName}</a></div>
