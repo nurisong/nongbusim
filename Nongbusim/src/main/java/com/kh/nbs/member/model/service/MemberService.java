@@ -3,7 +3,9 @@ package com.kh.nbs.member.model.service;
 import java.util.ArrayList;
 
 import com.kh.nbs.board.model.vo.Board;
+import com.kh.nbs.market.model.vo.Market;
 import com.kh.nbs.member.model.vo.Member;
+import com.kh.nbs.program.model.vo.Program;
 
 public interface MemberService {
 
@@ -36,6 +38,12 @@ public interface MemberService {
 	
 	// 농부가 작성한 게시글 조회(select)
 	ArrayList<Board> farmerMyBoardList(int memNo);
+	
+	// 찜한 프로그램(select)
+	ArrayList<Program> markProgram(int memNo);
+	
+	// 찜한 마켓(select)
+	ArrayList<Market> markMarket(int memNo);
 	
 	// 아이디 찾기(select)
 //	Member findId(String memPwd);

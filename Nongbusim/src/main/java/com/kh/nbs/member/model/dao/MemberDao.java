@@ -6,7 +6,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.nbs.board.model.vo.Board;
+import com.kh.nbs.market.model.vo.Market;
 import com.kh.nbs.member.model.vo.Member;
+import com.kh.nbs.program.model.vo.Program;
 
 @Repository
 public class MemberDao {
@@ -43,7 +45,7 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.deleteUser", memId);
 	}
 
-	// 일반 사용자 탈퇴
+	// 농부 탈퇴
 	public int deleteFarmer(SqlSessionTemplate sqlSession, String memId) {
 		return sqlSession.update("memberMapper.deleteFarmer", memId);
 	}
@@ -61,6 +63,16 @@ public class MemberDao {
 	// 농부가 작성한 게시글 조회
 	public ArrayList<Board> farmerMyBoardList(SqlSessionTemplate sqlSession, int memNo){
 		return (ArrayList)sqlSession.selectList("memberMapper.farmerMyBoardList", memNo);
+	}
+	
+	// 찜한 프로그램
+	public ArrayList<Program> markProgram(SqlSessionTemplate sqlSession, int memNo){
+		return (ArrayList)sqlSession.selectList("memberMapper.markProgram", memNo);
+	}
+	
+	// 찜한 마켓
+	public ArrayList<Market> markMarket(SqlSessionTemplate sqlSession, int memNo){
+		return (ArrayList)sqlSession.selectList("memberMapper.markMarket", memNo);
 	}
 	
 	// 아이디 찾기

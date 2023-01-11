@@ -88,9 +88,7 @@ public class MemberController {
 	@RequestMapping("farmerInsert.me")
 	public String farmerInsertMember(Member m, Model model, HttpSession session) {
 		
-//		System.out.println("평문 : " + m.getMemPwd());
 		String encPwd = bcryptPasswordEncoder.encode(m.getMemPwd());
-//		System.out.println("암호문 : " + encPwd);
 		
 		m.setMemPwd(encPwd);
 		
@@ -177,9 +175,6 @@ public class MemberController {
 	@RequestMapping("deleteFarmer.me")
 	public String deleteFarmer(String memId, String memPwd, HttpSession session) {
 		
-		// userPwd : 회원 탈퇴 요청 시 사용자가 입력한 비밀번호 평문
-		// session의 loginUser Member객체의 userPwd필드 : DB에 기록된 암호화된 비밀번호
-		
 		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();
 		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) {
 			// 비밀번호가 사용자가 입력한 평문으로 만들어진 암호문일 경우
@@ -231,9 +226,25 @@ public class MemberController {
 	@RequestMapping("farmerMyBoardList.me")
 	public ModelAndView farmerMyBoardList(ModelAndView mv, HttpSession session) {
 		
+		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();	// 세션에 담긴 로그인유저의 memNo를 뽑음
+		
+		mv.addObject("list", memberService.farmerMyBoardList(mNo)).setViewName("member/myPageFarmer/myBoard");
+		return mv;
+	}
+	
+	@RequestMapping("markProgram.me")
+	public ModelAndView markProgram(ModelAndView mv, HttpSession session) {
 		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
-		mv.addObject("list", memberService.farmerMyBoardList(mNo)).setViewName("member/myPageFarmer/myBoard");;
+		mv.addObject("list", memberService.markProgram(mNo)).setViewName("member/myPageUser/markProgram");
+		return mv;
+	}
+
+	@RequestMapping("markMarket.me")
+	public ModelAndView markMarket(ModelAndView mv, HttpSession session) {
+		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		mv.addObject("list", memberService.markMarket(mNo)).setViewName("member/myPageUser/markMarket");
 		return mv;
 	}
 
