@@ -58,12 +58,12 @@
         width: 800px;
     }
     .farm-info-table tr{
-        height: 380px;
+        height: 310px;
         border-bottom: 1px solid rgb(227, 227, 227);
     }
     .farm-img{
-        width: 330px;
-        height: 330px;
+        width: 300px;
+        height: 300px;
     }
     .farm-info{
         width: 700px;
@@ -80,6 +80,12 @@
     }
     .farm-info-icon{
         width: 18px;
+    }
+    .farm-info h4 {
+        font-weight: bold;
+    }
+    .farm-info a{
+        color: black;
     }
 </style>
 </head>
@@ -136,23 +142,29 @@
                                 </td>
                                 <td class="farm-info">
                                     <dl>
-                                        <h5>${f.farmName}</h5>
-                                        <dt><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/3916/3916862.svg?token=exp=1673332278~hmac=456885459a8b8052dbb0823d6cedc9b6"></dt>
+                                        <h4>${f.farmName}</h4><br>
+                                        <dt><img class="farm-info-icon" src="resources/images/marker-icon.png"></dt>
                                         <dd>경기도${f.address}<br></dd>
-                                        <dt><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/5068/5068731.svg?token=exp=1673332233~hmac=89542c24243fd89df052cbb046a47597"></dt>
+                                        <dt><img class="farm-info-icon" src="resources/images/phone-icon.png"></dt>
                                         <dd>${f.phone}<br><br></dd>
-                                        <dt>진행중인 프로그램</dt>
+                                        <dt>대표 작물</dt>
                                         <dd>
-                                            <div>딸기 체험</div>
-                                            <div>딸기 체험</div>
+                                            <div><a href="">${f.crop}</a></div>
                                             <br>
                                         </dd>
-                                        <dt>판매중인 작물<br></dt>
+                                        <dt>진행중인 프로그램</dt>
+                                        <dd>
+                                            <div><a href="">${f.programName}</a></div>
+                                            <br>
+                                        </dd>
+
+                                        <!-- <dt>판매중인 작물<br></dt>
                                         <dd>
                                             <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
                                             <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
                                             <img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60" alt="">
-                                        </dd>
+                                        </dd> -->
+                                        
                                     </dl>
                                 </td>
                             </tr>

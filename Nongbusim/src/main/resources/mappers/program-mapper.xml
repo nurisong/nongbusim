@@ -161,6 +161,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			my_program
 		where
 			mem_no = #{memNo}
+		
 			
 		</select>
 	
@@ -187,6 +188,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			)
 		</insert>
 		
+		
+		<update id="wishDelete"  parameterType="mark" >
+			update 
+		        mark
+		    set
+		        status = 0
+		    where 
+		        board_no = #{boardNo}
+		    and
+		    	board_type = 'T'
+		
+		</update>
+		
 		<select id="selectMarkNo" parameterType="mark" resultMap="markResultSet">
 	 
 		select
@@ -195,6 +209,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			mark
 		where
 			mem_no = #{memNo}
+		and 
+			status = 1
+		and 
+			board_type = 'T'
 			
 		</select>
 		

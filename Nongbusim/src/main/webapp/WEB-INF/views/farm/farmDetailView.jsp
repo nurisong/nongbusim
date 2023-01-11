@@ -87,10 +87,10 @@
                 <h1 class="name-area">${farm.farmName}</h1>
                 <div class="info-area">
                     <div class="info">
-                        <span><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/3916/3916862.svg?token=exp=1673332278~hmac=456885459a8b8052dbb0823d6cedc9b6"></span>
+                        <span><img class="farm-info-icon" src="resources/images/marker-icon.png"></span>
                         <span>${farm.address}</span>
                         <br>
-                        <span><img class="farm-info-icon" src="https://cdn-icons.flaticon.com/svg/5068/5068731.svg?token=exp=1673332233~hmac=89542c24243fd89df052cbb046a47597"></span>
+                        <span><img class="farm-info-icon" src="resources/images/phone-icon.png"></span>
                         <span>${farm.phone}</span>
                         <br>
                     </div>

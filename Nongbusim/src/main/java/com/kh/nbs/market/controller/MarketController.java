@@ -36,15 +36,15 @@ public class MarketController {
 	public String marketSelectList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
 								   Model model) {
 		
-		PageInfo pi = Pagination.getPageInfo(marketService.selectListCount(), currentPage, 12, 5);
+		PageInfo pi = Pagination.getPageInfo(marketService.selectListCount(), currentPage, 5, 9);
 		
 
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", marketService.marketSelectList(pi));
 		model.addAttribute("at", marketService.attachmentSelectList());
 		
+		
 		ArrayList<Market> list = marketService.marketSelectList(pi);
-		System.out.println(list);
 		
 		return "market/marketListView";
 		
