@@ -56,8 +56,12 @@
      
       </form>
       
+      <!-- 비밀번호 변경 시 보여지는 Modal -->
       
-            <!-- 회원탈퇴 버튼 클릭 시 보여질 Modal -->
+      
+      
+      
+    <!-- 회원탈퇴 버튼 클릭 시 보여질 Modal -->
     <div class="modal fade" id="deleteForm">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">

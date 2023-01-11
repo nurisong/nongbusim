@@ -141,7 +141,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 찜한 프로그램 -->
 	<select id="markProgram" resultMap="programResultSet" parameterType="program">
-		SELECT PROGRAM_LOCATION, PROGRAM_NAME, PROGRAM_PLAN, HEADCOUNT, SIGN_UP
+		SELECT PROGRAM_LOCATION, PROGRAM_NAME, PROGRAM_PLAN, HEADCOUNT, SIGN_UP, PROGRAM_NO
 		FROM PROGRAM P
 		JOIN MARK M USING(MEM_NO)
 		WHERE MEM_NO = #{memNo}
@@ -168,4 +168,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE MEM_PWD = #{ memPwd }
 		AND MEM_STATUS = 'Y'
 	</select>	 -->
+	
+	<!-- 비밀번호 찾기 -->
 </mapper>
