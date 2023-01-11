@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ include file="../../../common/menubar.jsp" %>
-<%@ include file="../myPageFarmerCommon.jsp" %>
+<jsp:include page="../myPageFarmerCommon.jsp" />
 
 <!DOCTYPE html>
 <html>
@@ -11,9 +10,9 @@
 <title>Insert title here</title>
 
 <style>
-	.img-area img {
-		width: 300px;
-		height: 250px;
+	#listAreaTable img {
+		width: 200px;
+		height: 150px;
 		margin-left: 10px;
 		margin-right: 10px;
 		border-radius: 5%;
@@ -40,7 +39,7 @@
 		color: rgb(100, 100, 100);   
 	}
 	
-	.img-area a {
+	#listAreaTable a {
 		text-decoration: none;
 		color: rgb(100, 100, 100);   
 	}
@@ -164,7 +163,7 @@
     
     
     
-	  .img-area img {
+	  #listAreaTable img {
 	  transform: scale(1);
 	  -webkit-transform: scale(1);
 	  -moz-transform: scale(1);
@@ -173,7 +172,7 @@
 	  transition: all 0.3s ease-in-out;   
 		
 	}
-	.img-area img:hover {
+	#listAreaTable img:hover {
 	  transform: scale(1.1);
 	  -webkit-transform: scale(1.1);
 	  -moz-transform: scale(1.1);
@@ -205,7 +204,7 @@
 			<c:choose>
 			<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
 				<c:when test="${ not empty categoryList }">
-					<option value="selectAll">전체</option>				
+					<option value="selectAll" selected>전체</option>				
 					<c:forEach var="category" items="${categoryList }">
 						<option>${ category.diaryCategory }</option>
 					</c:forEach>
@@ -301,13 +300,11 @@
 					for(var i=0; i<list.length ; i++) {                
 					result 
 						+='<div class="item-area">'
-						+ '<div class="img-area">'
 						+ '<tr onclick="selectDiary('+list[i].diaryNo+');">'
 						+'<td><p>' + list[i].createDate + '</p></td>'
 						+ '<td><p>' + list[i].diaryCategory + '</p></td>'
 						+ '<td><p>' + list[i].diaryContent + '</p></td>'                    
 						+ '<td><img src="' + list[i].diaryThumbnail + '"></td></tr>'
-						+ '</div>' + '</a>'
 						+ '<input type="hidden" name="diaryNo" id="diaryNo" value="'+list[i].diaryNo+'">'
 						+'</div>'                    
 					}
@@ -330,7 +327,14 @@
 		
 	}
 	
+	//list.di가 처음 로딩될  때 default 값 
+	// 검색조건 - 1년, 품목- 전체
+	$(function(){
 		
+		selectPeriod('oneYear');
+		selectDiaryList();
+		
+	});
 	
 
 	

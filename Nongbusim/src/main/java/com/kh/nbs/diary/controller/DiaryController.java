@@ -101,13 +101,16 @@ public class DiaryController {
 	@RequestMapping("insert.di")
 	public String insertDiary(Diary diary, String newCategory, MultipartFile[] upfiles, HttpSession session, Attachment a) {
 	
+		System.out.println(diary);
+		System.out.println(newCategory);
 		// 만약 신규등록한 카테고리가 있다면
 		/// diary의 diaryCategory필드 값을 신규등록값으로 변경
-		if(newCategory !="") {			
+		if(!newCategory.equals("")) {
+			System.out.println("hi");
 			diary.setDiaryCategory(newCategory);
 		}
 		
-		
+		System.out.println(diary);
 		
 		// diary테이블 insert 성공여부 저장을 위한 변수선언
 		int insertDiaryResult = 0;
@@ -156,10 +159,7 @@ public class DiaryController {
 		}
 		
 	}
-			
 	
-
-
 	@RequestMapping("calView.di")
 	public String diaryCalView() {
 		return "member/myPageFarmer/diary/diaryCalView" ;

@@ -68,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					'진행',
 					'Y',
 					#{programLocation},
-					1,
+					#{memNo},
 					#{originName},
 					#{changeName}
 					

@@ -105,8 +105,24 @@
                         ${ list.marketIntro }
                     </p>
                     <c:if test="${ loginUser.memNo == list.memNo }" >
-                        <a class="btn btn-secondary">수정하기</a>
+                        <a class="btn btn-primary btn-sm" onclick="postFormSubmit(1);">수정하기</a>
+                        <a class="btn btn-danger btn-sm" onclick="postFormSubmit(2);">삭제하기</a>
                     </c:if>
+
+                    <form action="" method="post" id="postForm">
+                        <input type="hidden" name="marketNo" value="${list.marketNo}" />
+                    </form>
+
+                    <script>
+                        function postFormSubmit(num){
+                            if(num == 1){ //수정하기
+                                $('#postForm').attr('action', 'updateForm.mk').submit();
+                            } else{	//삭제하기
+                                $('#postForm').attr('action', 'delete.mk').submit();
+                            }
+                        }
+                    </script>
+
                 </div>
             </div>
           
@@ -194,6 +210,7 @@
 
         </div>
 
+    <!-- 댓글 모달창 나타나는 스크립트 -->
     <script>
 
         $(function(){
@@ -217,12 +234,7 @@
 
                 });
 
-
-
             }
-
-
-
 
     </script>
 

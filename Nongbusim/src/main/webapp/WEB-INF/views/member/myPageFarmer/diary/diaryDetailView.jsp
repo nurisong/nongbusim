@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ include file="../../../common/menubar.jsp" %>
-<%@ include file="../myPageFarmerCommon.jsp" %>
+<jsp:include page="../myPageFarmerCommon.jsp" />>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +10,6 @@
 <style>
 
 	
-
 	body { 
 		width: 1200px;
 		margin: auto;
@@ -125,8 +123,7 @@
 	.outer img{
 		 width: 250px;
         height: 150px;
-        border-radius: 5px;
-		
+        border-radius: 5px;		
 		object-fit: cover;
 	
 	}
