@@ -11,7 +11,6 @@
 <style>
 
 	
-
 	body { 
 		width: 1200px;
 		margin: auto;
@@ -125,8 +124,7 @@
 	.outer img{
 		 width: 250px;
         height: 150px;
-        border-radius: 5px;
-		
+        border-radius: 5px;		
 		object-fit: cover;
 	
 	}
