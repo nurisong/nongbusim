@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.nbs.common.model.vo.Mark;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.farm.model.vo.Farm;
 import com.kh.nbs.program.model.dao.ProgramDao;
@@ -68,7 +69,7 @@ public class ProgramServiceImpl implements ProgramService {
 
 
 	@Override
-	public ArrayList selectMarkNo(int memNo) {
+	public ArrayList<Mark> selectMarkNo(int memNo) {
 		return programDao.selectMarkNo(sqlSession,memNo);
 	}
 

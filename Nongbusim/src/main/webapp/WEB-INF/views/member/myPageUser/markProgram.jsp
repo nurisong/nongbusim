@@ -76,5 +76,79 @@
 	        </tbody>
 	    </table>
     </div>
+    
+    
+                <script>
+
+
+                 
+            $(function(){
+                $('.heart').click(function(){
+                    var $btn1 = $(this);
+                    if($(this).attr("src") == "resources/images/deleteheart.png"){
+							console.log( $(this).attr("alt"));
+                        $.ajax({
+                            url : 'wish.pr',
+                            data :{
+                                programNo : $(this).attr("alt")
+                            },
+                            
+                            success: function() {
+                                console.log($btn1);
+                                $btn1.attr("src", "resources/images/heart2.png");
+                            },
+
+                            error:function(){
+                                        console.log('ajax 통신 실패!');
+                                    }
+                    });
+
+
+                    }else{
+                        $.ajax({
+                            url : 'wishDelete.pr',
+                            data :{
+                                programNo : $(this).attr("alt")
+                            },
+                            success: function() {
+                                console.log($btn1);
+                                $btn1.attr("src", "resources/images/deleteheart.png");
+                            },
+                            error:function(){
+                                        console.log('ajax 통신 실패!');
+                                    }
+                    	});
+
+                    }
+                });
+            })
+
+               $(function(){
+                  $('#boardList>tbody>tr>td').not('.sorry').click(function(){
+                     location.href = 'detail.pro?bno=' + $(this).parent().children().eq(0).text();
+                  })
+                  
+                // mark 테이블에서 조회해서 markNoList에서 borarNo 가져와서 현재 하트 IMG ALT에 있는 programNo랑 비교헤서 하트 바꿔줌,  비교해서 같은 값이 있으면 check값 증가
+                $('.heart').each(function() {
+
+                    var check2 = 0;
+                    
+                    <c:forEach items="${ markNoList }" var="m">
+                        if(${m.boardNo} == $(this).attr("alt")) {check2 = check2 + 1}
+
+                    </c:forEach>
+
+                    console.log(check2);
+                    
+                    if(check2 > 0) {
+                        $(this).attr("src", "resources/images/heart2.png");
+                    }
+                    else {
+                        $(this).attr("src", "resources/images/deleteheart.png");
+                    }
+                });
+                  
+               });
+          </script>
 </body>
 </html>
