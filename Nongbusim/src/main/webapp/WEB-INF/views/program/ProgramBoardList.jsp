@@ -98,7 +98,7 @@
                        
                        
                     <tr>
-                    	<td>${ loginUser.memNo }</td>
+                    	
                   
                         <td class="bno" hidden>${ p.programNo }</td>
                         <td class="test">${ p.programLocation }</td>
@@ -123,7 +123,7 @@
                         </c:forEach> -->
 
                         <td  class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
-                        
+                     
                      </tr>
                        
                     </c:forEach>
@@ -181,11 +181,13 @@
                     if($(this).attr("src") == "resources/images/deleteheart.png"){
 
                       
-
+                        
                         $.ajax({
                             url : 'wish.pr',
                             data :{
-                                programNo : $(this).attr("alt")
+                                programNo : $(this).attr("alt"),
+                                memNo : ${loginUser.memNo}
+                                
                             },
                             
                             success: function() {
@@ -204,7 +206,8 @@
                         $.ajax({
                             url : 'wishDelete.pr',
                             data :{
-                                programNo : $(this).attr("alt")
+                                programNo : $(this).attr("alt"),
+                                memNo : ${loginUser.memNo}
                             },
                             
                             success: function() {

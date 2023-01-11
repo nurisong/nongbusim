@@ -62,9 +62,9 @@ public class ProgramServiceImpl implements ProgramService {
 
 
 	@Override
-	public int wishProgram(int programNo) {
+	public int wishProgram(Program p) {
 		
-		return programDao.wishProgram(sqlSession,programNo);
+		return programDao.wishProgram(sqlSession,p);
 	}
 
 
@@ -75,8 +75,8 @@ public class ProgramServiceImpl implements ProgramService {
 
 
 	@Override
-	public int wishDelete(int programNo) {
-		return programDao.wishDelete(sqlSession,programNo);
+	public int wishDelete(Program p) {
+		return programDao.wishDelete(sqlSession,p);
 	}
 	
 }
