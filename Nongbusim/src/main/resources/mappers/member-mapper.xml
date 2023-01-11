@@ -35,6 +35,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="board_writer" property="boardWriter" />
 		<result column="board_like" property="boardLike" />
 	</resultMap>
+	
+	<resultMap id="programResultSet" type="program">
+		<result column="PROGRAM_NO" property="programNo"/>
+		<result column="FARM_NO" property="programNo"/>
+		<result column="PROGRAM_NAME" property="programName"/>
+		<result column="PROGRAM_PLAN" property="programPlan"/>
+		<result column="PROGRAM_HOUR" property="programHour"/>
+		<result column="PROGRAM_LECTURE" property="programLecture"/>
+		<result column="HEADCOUNT" property="headcount"/>
+		<result column="PROGRAM_DETAIL" property="programDetail"/>
+		<result column="MEM_NO" property="memNo"/>
+		<result column="SIGN_UP" property="signUp"/>
+		<result column="STATUS" property="status"/>
+		<result column="PROGRAM_LOCATION" property="programLocation"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+	</resultMap>
 
 	<!-- 로그인 -->
 	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
@@ -108,6 +125,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE MEM_NO = #{memNo}
 		AND STATUS = 'Y'
 	</select>
+	
+	<!-- 찜한 프로그램 -->
+	<select id="markProgram" resultMap="programResultSet" parameterType="program">
+		SELECT PROGRAM_LOCATION, PROGRAM_NAME, PROGRAM_PLAN, HEADCOUNT, SIGN_UP
+		FROM PROGRAM P
+		JOIN MARK M USING(MEM_NO)
+		WHERE MEM_NO = #{memNo}
+		AND BOARD_TYPE = 'P'
+		AND P.STATUS = 'Y'
+		AND M.STATUS = 1
+	</select>
+	
+	<!-- 찜한 마켓 -->
+	<select id="markMarket" resultMap="programResultSet" parameterType="program">
+		SELECT PROGRAM_LOCATION, PROGRAM_NAME, PROGRAM_PLAN, HEADCOUNT, SIGN_UP
+		FROM PROGRAM P
+		JOIN MARK M USING(MEM_NO)
+		WHERE MEM_NO = #{memNo}
+		AND BOARD_TYPE = 'T'
+		AND P.STATUS = 'Y'
+		AND M.STATUS = 1
+	</select>	
 	
 	<!-- 아이디 찾기 -->
 	<!--<select id="findId" parameterType="member" resultType="memberResultSet">

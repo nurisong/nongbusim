@@ -34,6 +34,9 @@ public class FarmController {
 		
 		PageInfo pi = Pagination.getPageInfo(farmService.selectFarmCount(), currentPage, 10, 5);
 		
+		// 첨부파일
+		mv.addObject("atList", farmService.selectAttachmentList());
+		
 		// 전체 농장 리스트 뽑아오기
 		mv.addObject("farmList", farmService.selectFarmList(pi)).setViewName("farm/farmListView");
 		

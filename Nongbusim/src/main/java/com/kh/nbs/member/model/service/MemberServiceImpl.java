@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.nbs.board.model.vo.Board;
+import com.kh.nbs.market.model.vo.Market;
 import com.kh.nbs.member.model.dao.MemberDao;
 import com.kh.nbs.member.model.vo.Member;
+import com.kh.nbs.program.model.vo.Program;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -68,6 +70,18 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Board> farmerMyBoardList(int memNo) {
 		return memberDao.farmerMyBoardList(sqlSession, memNo);
 	}
+
+	@Override
+	public ArrayList<Program> markProgram(int memNo) {
+		return memberDao.markProgram(sqlSession, memNo);
+	}
+
+	@Override
+	public ArrayList<Market> markMarket(int memNo) {
+		return memberDao.markMarket(sqlSession, memNo);
+	}
+	
+	
 
 
 

@@ -14,16 +14,19 @@
 	.form-group{
 		width: 30%;
 	}
+	#form-div{
+		padding-left:25%;
+	}
 </style>
 <body>
 <!-- 메뉴바 -->
-<jsp:include page="../../common/menubar.jsp"/>
+<jsp:include page="myPageFarmerCommon.jsp"/>
 
-<!-- 사이드바 -->
 <br>
-<h3>회원정보 수정</h3>
-  <hr>
+
     <form action="updateFarmer.me" id="form-div" method="post">
+	<h3>회원정보 수정</h3>
+	  <hr>
     
     <input type="hidden" name="memId" value="${ loginUser.memId }">
     
