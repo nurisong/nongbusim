@@ -205,11 +205,21 @@ public class ProgramController {
 		@RequestMapping("wish.pr")
 		public void wishProgram(int programNo) {
 			
-			System.out.println(programNo);
+//			System.out.println(programNo);
 			programService.wishProgram(programNo);
 			
 			
 			//return "redirect:list.pr?cpage="+programNo;
+		}
+		
+		
+		@ResponseBody
+		@RequestMapping("wishDelete.pr")
+		public void wishDeltete(int programNo) {
+			
+			programService.wishDelete(programNo);
+			
+			System.out.println("우하ㅏ하하하하");
 		}
 			
 		

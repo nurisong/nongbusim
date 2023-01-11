@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.farm.model.vo.Farm;
+import com.kh.nbs.program.model.vo.Program;
 
 public interface FarmService {
 	
@@ -14,6 +15,8 @@ public interface FarmService {
 	// 1-2) 농장 리스트 조회
 	// **프로그램, 판매품목 연결
 	ArrayList<Farm> selectFarmList(PageInfo pi);
+	// 1-3) 농장 프로그램 조회
+	ArrayList<Attachment> selectAttachmentList();
 	
 	// 2. 농장 등록 서비스(insert)
 	// 첨부파일 등록

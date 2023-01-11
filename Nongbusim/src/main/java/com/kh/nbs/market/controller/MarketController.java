@@ -36,15 +36,15 @@ public class MarketController {
 	public String marketSelectList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
 								   Model model) {
 		
-		PageInfo pi = Pagination.getPageInfo(marketService.selectListCount(), currentPage, 12, 5);
+		PageInfo pi = Pagination.getPageInfo(marketService.selectListCount(), currentPage, 5, 9);
 		
 
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", marketService.marketSelectList(pi));
 		model.addAttribute("at", marketService.attachmentSelectList());
 		
+		
 		ArrayList<Market> list = marketService.marketSelectList(pi);
-		System.out.println(list);
 		
 		return "market/marketListView";
 		
@@ -53,9 +53,25 @@ public class MarketController {
 	
 	//게시물상세화면으로 이동
 	@RequestMapping("detail.mk")
-	public String marketDetailView() {
+	public ModelAndView marketDetailView(Market market, ModelAndView mv) {
 		
-		return "market/marketDetailView";
+		if(marketService.increaseCount(market) > 0) {
+			
+			if(marketService.marketDetailView(market) != null) {
+				
+				mv.addObject("list", marketService.marketDetailView(market));
+				
+				if(marketService.marketDetailAttachment(market) != null) {
+						
+					mv.addObject("at", marketService.marketDetailAttachment(market));
+					mv.setViewName("market/marketDetailView");
+					
+				}
+			}
+			
+		}
+		
+		return mv;
 		
 	}
 	
@@ -66,6 +82,8 @@ public class MarketController {
 		return "market/marketInsertForm";
 	}
 	
+	
+	//파일이름수정
 	public String saveFile(MultipartFile upfile, HttpSession session) {
 		
 		// 파일 명 수정 작업 후 서버에 업로드 시키기("image.png" => 2022.12.38123.123.png)
@@ -92,6 +110,8 @@ public class MarketController {
 		return changeName;
 	}
 	
+	
+	//게시물 작성
 	@RequestMapping("insert.mk")
 	public ModelAndView marketInsert(Market market, ModelAndView mv, MultipartFile[] upfiles, HttpSession session, Attachment a) {
 		

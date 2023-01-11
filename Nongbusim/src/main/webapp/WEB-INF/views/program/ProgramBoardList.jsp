@@ -136,18 +136,18 @@
                              <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                       </c:when>
                       <c:otherwise>
-                       <li class="page-item "><a class="page-link" href="list.pr?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+                       <li class="page-item "><a class="page-link" href="list.pr?cpage=${ pi.currentPage - 1 }" >Previous</a></li>
                       </c:otherwise>   
                     </c:choose>
                     
                    <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-                       <li class="page-item "><a class="page-link" href="list.pr?cpage=${p}">${ p }</a></li>
+                       <li class="page-item "><a class="page-link" href="list.pr?cpage=${p}" >${ p }</a></li>
                    
                    </c:forEach>
                    
                    <c:choose>
                       <c:when test="${ pi.currentPage eq pi.maxPage }">
-                         <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                         <li class="page-item disabled"><a class="page-link" href="#" >Next</a></li>
                       
                       </c:when>
                       <c:otherwise>
@@ -166,8 +166,17 @@
             $(function(){
                 $('.heart').click(function(){
                     var $btn1 = $(this);
-                    console.log($(this).attr("alt"));
-                    $.ajax({
+                    // console.log($(this).attr("alt"));
+
+                    //console.log($(this).attr("src"));
+
+               
+
+                    if($(this).attr("src") == "resources/images/deleteheart.png"){
+
+                      
+
+                        $.ajax({
                             url : 'wish.pr',
                             data :{
                                 programNo : $(this).attr("alt")
@@ -176,21 +185,34 @@
                             success: function() {
                                 console.log($btn1);
                                 $btn1.attr("src", "resources/images/heart2.png");
-                                // if($('.heart').attr("src") == 'resources/images/deleteheart.png'){
-                
-                                // $('.heart').attr("src", "resources/images/heart2.png");
-                                // } else {
-
-                                //     $('.heart').attr("src", "resources/images/deleteheart.png");
-                                // }
                             },
 
                             error:function(){
                                         console.log('ajax 통신 실패!');
                                     }
-
-
                     });
+
+
+                    }else{
+
+                        $.ajax({
+                            url : 'wishDelete.pr',
+                            data :{
+                                programNo : $(this).attr("alt")
+                            },
+                            
+                            success: function() {
+                                console.log($btn1);
+                                $btn1.attr("src", "resources/images/deleteheart.png");
+                        
+                            },
+
+                            error:function(){
+                                        console.log('ajax 통신 실패!');
+                                    }
+                    });
+
+                    }
                 });
             })
 
@@ -206,7 +228,40 @@
                      
                   })
                   
-               })
+
+                  
+                  
+
+                 
+                  
+                // mark 테이블에서 조회해서 markNoList에서 borarNo 가져와서 현재 하트 IMG ALT에 있는 programNo랑 비교헤서 하트 바꿔줌,  비교해서 같은 값이 있으면 check값 증가
+                $('.heart').each(function() {
+
+
+                    var check2 = 0;
+                   
+                    
+                    <c:forEach items="${ markNoList }" var="m">
+                        if(${m.boardNo} == $(this).attr("alt")) {check2 = check2 + 1}
+                       
+
+                    </c:forEach>
+
+                    console.log(check2);
+                    
+                    if(check2 > 0) {
+                        $(this).attr("src", "resources/images/heart2.png");
+                    }
+                    else {
+                        $(this).attr("src", "resources/images/deleteheart.png");
+                    }
+                });
+                
+
+
+
+
+               });
 
                // $().attr("alt")
 
@@ -224,16 +279,6 @@
             //                 $('.heart').attr("src", "resources/images/deleteheart.png")
             //             }
             //         });
-
-                
-                // $('.heart').each(function() {
-                //     <c:forEach items="${ markNoList }" var="m">
-                //         if()
-
-                //     </c:forEach>
-                // });
-               
-            
             
             
             

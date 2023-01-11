@@ -23,6 +23,10 @@ public class FarmDao {
 		return (ArrayList)sqlSession.selectList("farmMapper.selectFarmList", null, rowBounds);
 	}
 	
+	public ArrayList<Attachment> selectAttachmentList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("farmMapper.selectAttachmentList");
+	}
+	
 	public int insertAttachment(Attachment a, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("attachmentMapper.insertAttachmentFarm", a);
 	}
@@ -40,8 +44,10 @@ public class FarmDao {
 	}
 	
 	public ArrayList<Attachment> selectAttachment(int farmNo, SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("farmMapper.selectAttachmentList", farmNo);
+		return (ArrayList)sqlSession.selectList("farmMapper.selectAttachment", farmNo);
 	}
+
+
 
 
 }

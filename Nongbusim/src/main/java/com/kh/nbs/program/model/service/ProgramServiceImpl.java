@@ -71,5 +71,11 @@ public class ProgramServiceImpl implements ProgramService {
 	public ArrayList selectMarkNo(int memNo) {
 		return programDao.selectMarkNo(sqlSession,memNo);
 	}
+
+
+	@Override
+	public int wishDelete(int programNo) {
+		return programDao.wishDelete(sqlSession,programNo);
+	}
 	
 }

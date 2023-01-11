@@ -15,7 +15,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ENROLL_DATE" property="enrollDate"/>
 		<result column="STATUS" property="status"/>
 		<result column="CROP" property="crop"/>
-		<result column="CHANGE_NAME" property="mainImg"/>
 	</resultMap>
 	
 	<resultMap id="attachmentResultSet" type="attachment">
@@ -65,21 +64,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    	PHONE,
 		    	ENROLL_DATE,
 		    	STATUS,
-		    	CROP,
-                CHANGE_NAME
+		    	CROP
 		  FROM
-		 		FARM F
-          JOIN
-		  		(
-                SELECT *
-                  FROM (SELECT CHANGE_NAME, FILE_NO, BOARD_NO FROM ATTACHMENT
-		                ORDER BY FILE_NO)
-		                WHERE ROWNUM = 1
-		                ) ON(BOARD_NO = FARM_NO)
+		 		FARM
 		 WHERE 
-		  		F.STATUS = 'Y'
+		  		STATUS = 'Y'
 	</select>
 	
+	<select id="selectAttachmentList" resultMap="attachmentResultSet">
+		SELECT *
+		   FROM (
+		        SELECT 
+		            board_no,
+		            file_no,
+		            origin_name,
+		            change_name,
+		            upload_date,
+		            board_type,
+		            ROW_NUMBER() OVER (PARTITION BY board_no ORDER BY file_no) AS RN
+		        FROM 
+		            ATTACHMENT) a
+		WHERE 
+				a.RN = 1
+	</select>
+		
 	<select id="selectFarm" resultMap="farmResultSet">
 		SELECT 
 		    	FARM_NO
@@ -100,7 +108,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		STATUS = 'Y'
 	</select>
 	
-	<select id="selectAttachmentList" resultMap="attachmentResultSet">
+	<select id="selectAttachment" resultMap="attachmentResultSet">
 		SELECT
 				FILE_NO
 			   ,ORIGIN_NAME

@@ -31,6 +31,11 @@ public class FarmServiceImpl implements FarmService {
 	}
 	
 	@Override
+	public ArrayList<Attachment> selectAttachmentList() {
+		return farmDao.selectAttachmentList(sqlSession);
+	}
+	
+	@Override
 	public ArrayList<Farm> selectMyFarmList(int memNo) {
 		return farmDao.selectMyFarmList(memNo, sqlSession);
 	}
@@ -64,5 +69,7 @@ public class FarmServiceImpl implements FarmService {
 	public int updateFarm(Farm f) {
 		return 0;
 	}
+
+
 
 }

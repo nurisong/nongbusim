@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap id="marketResultSet" type="market">
 		
 		<result column="MARKET_NO" property="marketNo"/>
-		<result column="MK_CATOGORY" property="marketCategory"/>
+		<result column="MK_CATEGORY" property="marketCategory"/>
 		<result column="MK_TITLE" property="marketTitle"/>
 		<result column="MK_PRICE" property="marketPrice"/>
 		<result column="MK_INTRO" property="marketIntro"/>
@@ -83,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  ,mk_title
 			  ,mk_price
 			  ,mk_count
-			  ,to_char(mk_enrolldate, 'YYYY-MM-DD') as "enroll_date"
+			  ,to_char(mk_enrolldate, 'YYYY-MM-DD') as "mk_enrolldate"
               ,mem_no
 		  from
 		       market
@@ -115,6 +115,71 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				a.RN = 1
 	
 	</select>
+	
+	
+	<update id="increaseCount">
+		
+		update
+		    market
+		set
+		    mk_count = mk_count + 1
+		where
+		    mk_status = 'Y'
+		and
+		    market_No = #{ marketNo }
+	
+	</update>
+	
+	
+	<select id="marketDetailView" resultMap="marketResultSet">
+	
+		select
+			  market_no
+			  ,mk_category
+			  ,mk_title
+			  ,mk_price
+			  ,mk_intro
+			  ,mk_content
+			  ,to_char(mk_enrolldate, 'YYYY-MM-DD') as "mk_enrolldate"
+			  ,mk_count
+			  ,mk_status
+			  ,mem_no
+		from
+			 market
+		where
+			mk_status = 'Y'
+		and
+			market_no = #{ marketNo }
+			
+	
+	</select>
+	
+	
+	<select id="marketDetailAttachment" resultMap="attachmentResultSet">
+	
+		select 
+				file_no
+				,origin_name
+				,change_name
+				,upload_date
+				,board_no
+				,board_type
+		from
+				attachment
+		join
+				market
+		on    
+				(board_no = #{marketNo})
+		where
+				board_type = 'mk'
+        and
+                market_no = #{marketNo}
+        order
+            by
+                file_no
+	
+	</select>
+	
 	
 	
 	

@@ -1,4 +1,4 @@
- package com.kh.nbs.common.model.vo;
+package com.kh.nbs.common.model.vo;
 
 import lombok.Data;
 

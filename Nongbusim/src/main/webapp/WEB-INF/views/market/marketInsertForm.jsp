@@ -78,7 +78,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="file" name="upfiles" id="upfile1" class="form-control-file border" onchange="loadImg(this, 1);" accept="image/*">
+                                <input type="file" name="upfiles" id="upfile1" class="form-control-file border" required onchange="loadImg(this, 1);" accept="image/*">
                             </td>
                         </tr>
                         <tr style="display:none;">
