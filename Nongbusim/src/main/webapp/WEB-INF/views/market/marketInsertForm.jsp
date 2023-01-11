@@ -29,6 +29,7 @@
     .innerOuter{
         border:1px solid lightgray;
         width:80%;
+        padding-left: 15%;
         margin:auto;
         padding:5% 10%;
         background-color:white;

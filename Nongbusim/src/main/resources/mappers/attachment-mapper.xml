@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		SEQ_ANO.NEXTVAL
 		  	   ,#{originName}
 		  	   ,#{changeName}
-		  	   ,#{boardType}
+		  	   ,'mk'
 		  	   ,SEQ_MKNO.CURRVAL
 		  		)
 		  		
