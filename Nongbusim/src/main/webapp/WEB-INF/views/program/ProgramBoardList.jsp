@@ -206,7 +206,40 @@
                      
                   })
                   
-               })
+
+                  
+                  
+
+                 
+                  
+                
+                $('.heart').each(function() {
+
+
+                    var check2 = 0;
+                   
+                    
+                    <c:forEach items="${ markNoList }" var="m">
+                        if(${m.boardNo} == $(this).attr("alt")) {check2 = check2 + 1}
+                       
+
+                    </c:forEach>
+
+                    console.log(check2);
+                    
+                    if(check2 > 0) {
+                        $(this).attr("src", "resources/images/heart2.png");
+                    }
+                    else {
+                        $(this).attr("src", "resources/images/deleteheart.png");
+                    }
+                });
+                
+
+
+
+
+               });
 
                // $().attr("alt")
 
@@ -224,16 +257,6 @@
             //                 $('.heart').attr("src", "resources/images/deleteheart.png")
             //             }
             //         });
-
-                
-                // $('.heart').each(function() {
-                //     <c:forEach items="${ markNoList }" var="m">
-                //         if()
-
-                //     </c:forEach>
-                // });
-               
-            
             
             
             
