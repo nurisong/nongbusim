@@ -75,6 +75,10 @@
             <div class="innerOuter" style="padding:5% 10%;">
 
                 
+			<c:if test="${ not empty loginUser }">
+            	<a class ="btn btn-secondary" style="float:right;" href="enrollForm.bo">프로그램 등록</a>
+            </c:if>
+			
 
           
             <table id="boardList"  class="table table-hover" align="center">
@@ -94,6 +98,8 @@
                        
                        
                     <tr>
+                    	
+                  
                         <td class="bno" hidden>${ p.programNo }</td>
                         <td class="test">${ p.programLocation }</td>
                         <td class="test">${ p.programName }</td>

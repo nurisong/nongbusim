@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.template.Pagination;
 import com.kh.nbs.farm.model.vo.Farm;
+import com.kh.nbs.member.model.vo.Member;
 import com.kh.nbs.program.model.service.ProgramService;
 import com.kh.nbs.program.model.vo.Program;
 
@@ -61,9 +62,10 @@ public class ProgramController {
 		
 		
 		@RequestMapping("enrollForm.pr")
-		public String enrollForm(Program p, Model model) {
+		public String enrollForm(Program p, Model model,HttpSession session) {
 			
-			int memNo= 1;  
+			
+			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 			
 			ArrayList<Farm> list = programService.selectMyFarmList(memNo);
 			
@@ -163,7 +165,6 @@ public class ProgramController {
 			
 			if(programService.selectProgramNo(memNo) != null) {
 				
-				System.out.println(programService.selectProgramNo(memNo));
 				
 				mv.addObject("programList", programService.selectProgramNo(memNo));
 				
@@ -205,7 +206,6 @@ public class ProgramController {
 		@RequestMapping("wish.pr")
 		public void wishProgram(int programNo) {
 			
-//			System.out.println(programNo);
 			programService.wishProgram(programNo);
 			
 			
@@ -219,7 +219,6 @@ public class ProgramController {
 			
 			programService.wishDelete(programNo);
 			
-			System.out.println("우하ㅏ하하하하");
 		}
 			
 		
