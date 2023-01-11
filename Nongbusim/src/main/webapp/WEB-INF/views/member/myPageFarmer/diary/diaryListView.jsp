@@ -186,6 +186,9 @@
 <body>
 
 <h1>영농일지 모아보기</h1>
+
+
+<!--조회기간 설정 후, "검색"버튼 누를 시 ajax 실행 -->
 <div class="selectArea">
 	<div class="selectPeriod">
 		조회기간 &nbsp; &nbsp;
@@ -202,6 +205,7 @@
 			<c:choose>
 			<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
 				<c:when test="${ not empty categoryList }">
+					<option value="selectAll">전체</option>				
 					<c:forEach var="category" items="${categoryList }">
 						<option>${ category.diaryCategory }</option>
 					</c:forEach>
@@ -215,7 +219,6 @@
 	</div>	
 	<div style="align:right">
 		<button type="button" onclick="selectDiaryList();">검색</button>
-		<button type="reset" style="align:right">초기화</button>	
 	</div>
 	<div id="listArea">
 	<table id="listAreaTable">
@@ -328,7 +331,7 @@
 	}
 	
 		
-		
+	
 
 	
 </script>

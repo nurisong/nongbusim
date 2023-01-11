@@ -43,19 +43,20 @@ public class DiaryController {
 	 * 
 	 * }
 	 */	
-
-	// diaryListView 진입시 사용자가 등록한 category를 select태그로 뿌려주기 위한 메소드
 	
+	
+	// list.di 로딩을 위한 메소드
 	@RequestMapping("list.di")
 	public ModelAndView selectCategoryList(ModelAndView mv, HttpSession session ) {
-		
+
+		// diaryListView 진입시 user가 등록한 category를 select태그로 뿌려주기 위한 메소드 (where memNo=사용자)
 		int memNo=((Member)session.getAttribute("loginUser")).getMemNo();
 		mv.addObject("categoryList", diaryService.selectCategoryList(memNo)).setViewName("member/myPageFarmer/diary/diaryListView");
 		
 		return mv;
 	}
 	
-	// 사용자가 
+	// list.di 페이지에서 사용자가 검색조건 설정 후 "검색" 버튼 클릭시 이를 만족하는 diaryList(table표)를 뿌려주기 위한 메소드 (ajax)
 	@ResponseBody
 	@RequestMapping(value="selectDiaryList.di", produces="application/json; charset=UTF-8")
 	public String selectDiaryList(Diary diary, HttpSession session) {
@@ -63,10 +64,11 @@ public class DiaryController {
 		int memNo= ((Member)session.getAttribute("loginUser")).getMemNo();
 		
 		diary.setMemNo(memNo);
-		System.out.println(diary);
 		return new Gson().toJson(diaryService.selectDiaryList(diary));	
 	}
 	
+	
+	// diary등록 메소드
 	@RequestMapping("enrollForm.di")
 	public ModelAndView diaryEnrollForm(ModelAndView mv, HttpSession session) {
 		int memNo= ((Member)session.getAttribute("loginUser")).getMemNo();
@@ -77,6 +79,7 @@ public class DiaryController {
 		
 	}
 	
+	// 첨부파일 업로드 시, changename설정을 위한 메소드
 	private String saveFile(MultipartFile upfile, HttpSession session) {
 		
 		String originName = upfile.getOriginalFilename();
@@ -94,51 +97,66 @@ public class DiaryController {
 		return changeName;
 	}
 	
+	// diary enrollForm 입력 후 "등록하기"버튼 누를 시 실행되는 메소드	
 	@RequestMapping("insert.di")
-	public String insertDiary(Diary diary, MultipartFile[] upfiles, HttpSession session, Attachment a) {
-
-		System.out.println(diary);
+	public String insertDiary(Diary diary, String newCategory, MultipartFile[] upfiles, HttpSession session, Attachment a) {
+	
+		// 만약 신규등록한 카테고리가 있다면
+		/// diary의 diaryCategory필드 값을 신규등록값으로 변경
+		if(newCategory !="") {			
+			diary.setDiaryCategory(newCategory);
+		}
 		
 		
 		
-		System.out.println(upfiles);
+		// diary테이블 insert 성공여부 저장을 위한 변수선언
+		int insertDiaryResult = 0;
 		
-		if(diaryService.insertDiary(diary)>0) {
-			System.out.println("insertDiary hif");
-			int diaryNo = diary.getDiaryNo();
-			
-			//for(MultipartFile upfile: upfiles) {
-			
-			for(int i=0; i<upfiles.length; i++) {
+		// jsp페이지에서 upfiles name속성을 총 3개의 input:file 에 부여하였으므로 최대 3개의 객체배열이 넘어옴
+		// 사용자가 등록한 파일이 1개 이상일 경우, 하단 for문 코드블럭 진입
+		for(int i=0; i<upfiles.length; i++) {
+			// upfiles 갯수만큼 반복문을 돌면서 각 인덱스에 저장된 파일이 있는지 여부를 확인, 
+			// 있을시 하단 if문 코드블럭으로 
+			if(!upfiles[i].getOriginalFilename().equals("")) {
 				
-				System.out.println(upfiles[i]);
+				//0번째 인덱스에 올려진 파일이 있다면 
+				if(i==0) {
+					// diary를 insert하기 전 썸네일 필드 세팅(diary의 thumbnail필드엔 첫번쨰 file을 등록)
+					diary.setDiaryThumbnail("resources/uploadFiles/" + saveFile(upfiles[i], session));
+					// for문 내에서 insert문은 단 한 번만 실행되어야하므로 i==0 블럭에서 실행
+					insertDiaryResult= diaryService.insertDiary(diary);
+				}
 				
-				if(!upfiles[i].getOriginalFilename().equals("")) {
-
+				// insert 성공시 attachment 클래스 필드세팅 후 insert
+				if(insertDiaryResult>0) {	
 					a.setBoardType("D");
 					a.setOriginName(upfiles[i].getOriginalFilename());
 					a.setChangeName("resources/uploadFiles/" + saveFile(upfiles[i], session)); 
-					
-					if(i==0) {
-						diary.setDiaryThumbnail(a.getChangeName());
-						
-					}
-					
-					diaryService.insertAttachment(a);
-					
-				}
-			} 
-			
-			
-			session.setAttribute("alertMsg", "영농일지 작성 성공");
-			return "redirect:/list.di";
-		} else {
-			
-			session.setAttribute("alertMsg", "영농일지 작성실패");
-			
+	
+					if(diaryService.insertAttachment(a)<0) {
+						session.setAttribute("alertMsg", "영농일지 작성 실패");
+						return "common/errorPage";
+					}					
+				} 				
+			}
+		} 
+		
+		// 사용자가 등록한 파일이 없을 경우, diary를 insert하기 위한 if블럭 
+		if (insertDiaryResult==0) {
+			insertDiaryResult= diaryService.insertDiary(diary);
+		}
+	
+		
+		if(insertDiaryResult>0) {			
+			session.setAttribute("alertMsg", "영농일지 작성성공");
+			return "redirect:list.di";
+		} else {			
+			session.setAttribute("alertMsg", "영농일지 작성 실패");
 			return "common/errorPage";
 		}
+		
 	}
+			
 	
 
 

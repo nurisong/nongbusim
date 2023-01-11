@@ -71,11 +71,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>	
 	<!-- date로 값을 넘긴 후 대소비교를 하려고 하니 실제 입력한 마지막 날짜+1로 조회를 해야 마지막날 값이 select 됨... 그래서 createDate-1로 조회 -->
 	
-	<if test="diaryCategory !='noCategory'">
-		and diary_category = #{diaryCategory}
+		<if test="diaryCategory !='noCategory' and diaryCategory !='selectAll'">
+			and diary_category = #{diaryCategory}		
+		</if>
 	
-	</if>
-
 	</select>
 	
 	<select id="selectDiary" parameterType="_int" resultMap="diaryResultSet">
