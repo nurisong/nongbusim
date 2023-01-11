@@ -149,15 +149,49 @@ public class MarketController {
 	//게시물 수정화면으로 이동
 	@RequestMapping("updateForm.mk")
 	public String marketUpdateForm() {
+	
 		return "market/marketUpdateForm";
 	}
 	
 	
 	
-	//게시물 수정
+	//게시물 수정 
 	
-	
-	
+
 	//게시물 삭제 
+	@RequestMapping("delete.mk")
+	public ModelAndView marketDelete(int marketNo, ModelAndView mv, RedirectAttributes rttr) {
+		
+		if(marketService.marketDeleteAttachment(marketNo) > 0) {
+			
+			if(marketService.marketDelete(marketNo) > 0) {		
+				
+				//첨부파일 삭제
+				
+				
+				rttr.addFlashAttribute("alertMsg", "게시물이 삭제되었습니다.");
+				mv.setViewName("redirect:list.mk");
+				return mv;
+			}
+			
+		}else {
+			rttr.addFlashAttribute("alertMsg", "게시물 삭제를 실패했습니다.");
+			mv.setViewName("redirect:list.mk");
+			return mv;
+			
+		}
+		return mv;
+
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 }
