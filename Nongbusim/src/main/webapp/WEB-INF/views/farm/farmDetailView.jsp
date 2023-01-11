@@ -74,6 +74,11 @@
         padding: 30px;
         border-radius: 5px;
     }
+    #update-btn{
+        margin-left: 640px;
+        background-color: green;
+        display: inline-block;
+    }
 </style>
 </head>
 <body>
@@ -81,6 +86,8 @@
     <jsp:include page="../common/menubar.jsp" />
 
 	<div class="outer" align="center">
+
+        <a class="btn btn-secondary" id="update-btn" onclick="postFormSubmit();">농장 정보 수정하기</a>
 
         <div class="main-area">
             <div class="name-info">
@@ -116,6 +123,7 @@
 
             <div class="bottom-area">
                 <div class="program-area">
+
                     <h4>진행중인 프로그램</h4>
                     <br>
                     <table class="table">
@@ -157,5 +165,15 @@
             </div>
         </div>
     </div>
+
+    <form action="" method="post" id="postForm">
+        <input type="hidden" name="fno" value="${farm.farmNo}">
+    </form>
+
+    <script>
+        function postFormSubmit(){
+            $('#postForm').attr('action', 'updateForm.fm').submit();
+        }
+    </script>
 </body>
 </html>
