@@ -18,6 +18,14 @@
 
 <style>
 
+    body{
+        font-family: 'Pretendard-Regular';
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+	}
+
+
     #modal {
      
       display: none;
@@ -75,35 +83,41 @@
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
                 <div class="col-lg-6">
                     <div class="fotorama">
-                        <div><img src="https://sitem.ssgcdn.com/06/82/93/item/0000008938206_i1_1100.jpg" style="width: 100%; height: 300px;"></div>
-                        <div><img src="https://biz.chosun.com/resizer/euLrheFZgSB8pUXW-H9fcGoHiwE=/1280x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/7QXLKA2FIZGVPBBLSBLZQNWJGQ.jpg" style="width: 100%; height: 300px;"></div>
-                        <div></div>
+                        <c:forEach items="${ at }" var="at" >
+                            <div><img src="${at.changeName}" style="width: 100%; height: 300px;"></div>
+                        </c:forEach>
                     </div>
                 </div>
 
                 <div class="col-lg-6">
-                    <h1 class="font-weight-bold">금실 딸기 1kg 
+                    <h1 class="font-weight-bold"> ${ list.marketTitle }
                         <a href="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
                         </a>
                     <h3>
-                        29,900원
+                        ${ list.marketPrice }
                     </h3>
                     <h6>
-                        2023년 01월 24일
+                        ${ list.marketEnrollDate }
                     </h6>
                     </h1>
                     <p>
-                        진주 금실 딸기는 일반 딸기보다 1~2Brix 높은 당도를 가진 품종입니다.
-                        특히 금실딸기는 엄격한 재배방식과 당도와 숙성도의 검수를 통해 평균 13Brix이상의 딸기로 당일 수확합니다.
+                        ${ list.marketIntro }
                     </p>
-                    <a class="btn btn-secondary" href="">수정하기</a>
+                    <c:if test="${ loginUser.memNo == list.memNo }" >
+                        <a class="btn btn-secondary">수정하기</a>
+                    </c:if>
                 </div>
             </div>
           
             <hr>
 
-           
+            <div>
+
+                ${ list.marketContent }
+
+            </div>
+
             <table id="replyArea" class="table" align="center">
                 <thead>
                     <tr>

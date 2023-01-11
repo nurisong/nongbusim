@@ -26,6 +26,8 @@ public class MarketServiceImpl implements MarketService{
 	
 	
 	
+	// 게시판 조회
+	
 	@Override
 	public int selectListCount() {
 		return marketdao.selectListCount(sqlSession);
@@ -44,22 +46,7 @@ public class MarketServiceImpl implements MarketService{
 	
 	
 	
-	
-	
-	
-	@Override
-	public Market marketDetailView(int marketNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int increaseCount(int boardNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	
+	//게시글 작성
 
 	@Override
 	public int insertMarket(Market market) {
@@ -74,6 +61,33 @@ public class MarketServiceImpl implements MarketService{
 
 	
 	
+	//게시물 조회
+	
+	@Override
+	public int increaseCount(Market market) {
+		return marketdao.increaseCount(market, sqlSession);
+	}
+	
+	
+	
+	@Override
+	public Market marketDetailView(Market market) {
+		return marketdao.marketDetailView(market, sqlSession);
+	}
+	
+	@Override
+	public ArrayList<Attachment> marketDetailAttachment(Market market) {
+		return marketdao.marketDetailAttachment(market, sqlSession);
+	}
+	
+	
+	
+	
+	
+	
+	
+	//게시글 수정v
+	
 
 	@Override
 	public int marketUpdate(Market market) {
@@ -81,12 +95,22 @@ public class MarketServiceImpl implements MarketService{
 		return 0;
 	}
 
+	
+	
+	
+	//게시글 삭제
+	
 	@Override
 	public int marketDelete(int merketNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	
+	
+	
+	
+	
 	@Override
 	public ArrayList<Comment> selectCommentList(int marketNo) {
 		// TODO Auto-generated method stub
@@ -110,6 +134,12 @@ public class MarketServiceImpl implements MarketService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public ArrayList<Recomment> selectRecommentList(int cno) {
