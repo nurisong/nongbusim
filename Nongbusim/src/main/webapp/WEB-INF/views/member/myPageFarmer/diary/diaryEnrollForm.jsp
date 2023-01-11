@@ -91,17 +91,7 @@
 		<h1>🗓영농일지 등록</h1>
 			<form action="insert.di" id="enroll-form" method="post" enctype="multipart/form-data">
 				<div class="outer" >
-					<table id="diaryEnrollForm">
-	<!-- 								
-						<c:choose>							
-							<c:when test="${not empty param.endDate}">		
-								<input type="date" required value="${param.endDate }">
-							</c:when>
-							<c:otherwise>
-								<input type="date" required value="${param.startDate }">
-							</c:otherwise>
-						</c:choose>
- -->						
+					<table id="diaryEnrollForm">		
 						<tr>
 							<td colpan="3">
 								<div>✔등록일</div>
@@ -111,9 +101,9 @@
 						<tr>
 							<td colpan="3">
 								<div>✔카테고리</div>
-										<select id="enrolledCategory" name="diaryCategory">		
+										<select id="diaryCategory" name="diaryCategory">		
 											<c:choose>
-											<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
+												<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
 												<c:when test="${ not empty categoryList }">
 													<c:forEach var="category" items="${categoryList }">
 														<option>${ category.diaryCategory }</option>
@@ -123,8 +113,8 @@
 													<option value="noCategory">등록된 카테고리가 없습니다.</option>
 												</c:otherwise>
 											</c:choose>
-								
-								카테고리 신규등록: <input id="newCategory" type="text" disabled>
+											<option id="enrollNew" name="enrollNew" value="enrollNew">카테고리 신규입력</option>									
+											<input type="hidden" id="newCategory" name="newCategory">
 							</td>	
 						</tr>
 						
@@ -213,8 +203,6 @@
 	</div>
 	
 	<script>
-		// "등록일(id=enrollDate)" 날짜를 현재날짜로 설정
-			document.getElementById('enrollDate').valueAsDate = new Date();
 	function loadImg(inputFile, num){
 				
 				
@@ -279,7 +267,25 @@
 
 	});	
 		
+		
 
+	$(function(){
+	
+		$('#diaryCategory').change(function(){
+			if($(this).val()=="enrollNew"){
+				$("#newCategory").attr("type", "text");
+							
+			} else {
+				$("#newCategory").attr("type", "hidden");
+					
+			}
+		})		
+	}); 
+	
+	
+	// createDate에 오늘날짜를 넣기 위한 구문
+	document.getElementById('createDate').valueAsDate = new Date();
+	
 	</script>
 </body>
 
