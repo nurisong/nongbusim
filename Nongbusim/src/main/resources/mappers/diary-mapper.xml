@@ -112,12 +112,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	into
 			attachment
 	values 
-			( seq_ano.nextval, 			
+			( seq_ano.nextval, 
 			  #{originName},
 			  #{changeName},
 			  null,
 			  sysdate,
+			  
+		<choose>
+			<when test="boardNo !=null">
+				#{boardNo}, 
+			</when>
+			<otherwise>
 			  seq_dno.currval,
+			</otherwise>
+		</choose>	
 			  #{boardType}
 			)
 	
@@ -134,14 +142,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  #{diaryContent},
 			  'Y',
 			  #{memNo}
-	<choose>
-		<when test="diaryThumbnail !=null">
-				  , #{diaryThumbnail} )
-		</when>
-		<otherwise>
-				, null )
-		</otherwise>
-	</choose>
+		<choose>
+			<when test="diaryThumbnail !=null">
+					  , #{diaryThumbnail} )
+			</when>
+			<otherwise>
+					, null )
+			</otherwise>
+		</choose>
 	</insert>
+		
+	<update id="updateDiary" parameterType="diary">
+	update
+			diary
+	set
+			diary_category = #{diaryCategory},
+			diary_content = #{diaryContent},
+			diary_thumbnail = #{diaryThumbnail}
+	where
+			diary_no  = #{diaryNo}
+	
+	</update>
+	<update id="updateAttachment" parameterType="attachment">
+	update
+			attachment
+	set
+			origin_name = #{originName},
+			change_name = #{changeName}
+	where
+			file_no = #{fileNo}
+	</update>
+
 		
 </mapper>
