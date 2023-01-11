@@ -77,7 +77,7 @@
                         <!-- 비어있으면 -->
                         <div id="no-farm">
                             <br><br><br>
-                            등록하신 농장이 존재하지 않습니다.
+                            등록한 농장이 존재하지 않습니다.
                         </div>
                     </c:otherwise>
                 </c:choose>

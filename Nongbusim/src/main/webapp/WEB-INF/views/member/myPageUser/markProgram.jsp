@@ -64,8 +64,12 @@
 			          	</c:forEach>
 		        	</c:when>
 		        	<c:otherwise>
-		        		<tr>
-		        			<td>찜한 게시글이 없습니다.</td>
+		        	    <tr>
+		        			<td style="width:200px">찜한 게시글이 없습니다.</td>
+		        			<td></td>
+		        			<td></td>
+		        			<td></td>
+		        			<td></td>
 		        		</tr>
 		        	</c:otherwise>
 		        </c:choose>

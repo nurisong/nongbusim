@@ -33,11 +33,8 @@ public class FarmController {
 	public ModelAndView selectFarmList(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv) {
 		
 		PageInfo pi = Pagination.getPageInfo(farmService.selectFarmCount(), currentPage, 10, 5);
-		
-		// 첨부파일
-		mv.addObject("atList", farmService.selectAttachmentList());
-		
-		// 전체 농장 리스트 뽑아오기
+		// 프로그램 조회
+		mv.addObject("atList", farmService.selectAttachmentList()); // 첨부파일
 		mv.addObject("farmList", farmService.selectFarmList(pi)).setViewName("farm/farmListView");
 		
 		return mv;
@@ -108,6 +105,12 @@ public class FarmController {
 			// 첨부파일 삭제
 			return mv;
 		}
+	}
+	
+	@RequestMapping("updateForm.fm")
+	public String updateFarm(int fno, Model model) {
+		model.addAttribute("farm", farmService.selectFarm(fno));
+		return "farm/farmUpdateForm";
 	}
 	
 	
