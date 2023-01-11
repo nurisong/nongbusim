@@ -237,11 +237,11 @@ public class MemberController {
 	public ModelAndView markProgram(ModelAndView mv, HttpSession session) {
 		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
-//		if(programService.selectMarkNo(mNo) != null ) {
-//			
-//			// 찜한 게시글 번호 조회
-//			mv.addObject("markNoList",programService.selectMarkNo(mNo));
-//		}
+		if(programService.selectMarkNo(mNo) != null ) {
+			
+			// 찜한 게시글 번호 조회
+			mv.addObject("markNoList",programService.selectMarkNo(mNo));
+		}
 		
 		mv.addObject("list", memberService.markProgram(mNo)).setViewName("member/myPageUser/markProgram");
 		return mv;

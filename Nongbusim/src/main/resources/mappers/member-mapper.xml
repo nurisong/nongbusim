@@ -141,6 +141,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 찜한 프로그램 -->
 	<select id="markProgram" resultMap="programResultSet" parameterType="program">
+		SELECT DISTINCT PROGRAM_LOCATION, PROGRAM_NAME , PROGRAM_PLAN, HEADCOUNT, SIGN_UP, PROGRAM_NO
+	    FROM PROGRAM 
+	    JOIN MARK ON (PROGRAM.MEM_NO = MARK.MEM_NO) 
+	    WHERE MARK.MEM_NO = #{memNo}
+	    AND MARK.BOARD_TYPE = 'P'
+	    AND PROGRAM.STATUS = 'Y'
+	    AND MARK.STATUS = 1
+	    AND BOARD_NO = PROGRAM.PROGRAM_NO
+	</select>
+	
+	<!-- 
+	<select id="markProgram" resultMap="programResultSet" parameterType="program">
 		SELECT PROGRAM_LOCATION, PROGRAM_NAME, PROGRAM_PLAN, HEADCOUNT, SIGN_UP, PROGRAM_NO
 		FROM PROGRAM P
 		JOIN MARK M USING(MEM_NO)
@@ -148,7 +160,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND BOARD_TYPE = 'P'
 		AND P.STATUS = 'Y'
 		AND M.STATUS = 1
-	</select>
+	</select> -->
 	
 	<!-- 찜한 마켓 -->
 	<select id="markMarket" resultMap="marketResultSet" parameterType="market">

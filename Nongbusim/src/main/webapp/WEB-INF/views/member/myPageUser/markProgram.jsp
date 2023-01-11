@@ -37,6 +37,8 @@
 <div class="container">
 	<h3>찜한 프로그램</h3>
 	<hr>
+	
+		
 		<table id="" class="table table-hover" align="center">
 	        <thead>
 	            <tr style="text-align:center">
@@ -54,6 +56,8 @@
 		        	<c:when test="${ not empty list }">
 			            <c:forEach var="p" items="${ list }">
 			          		<tr style="text-align:center">
+			          		
+			          			<td class="bno">${p.programNo }</td>
 			          			<td>${ p.programLocation }</td>
 			          			<td>${ p.programName }</td>
 			          			<td>${ p.programPlan }</td>
@@ -78,17 +82,29 @@
     </div>
     
     
-     <script>
+            <script>
+
+
                  
             $(function(){
                 $('.heart').click(function(){
                     var $btn1 = $(this);
+                    // console.log($(this).attr("alt"));
+
+                    //console.log($(this).attr("src"));
+
+               
+
                     if($(this).attr("src") == "resources/images/deleteheart.png"){
-							console.log( $(this).attr("alt"));
+
+                      
+                        
                         $.ajax({
                             url : 'wish.pr',
                             data :{
-                                programNo : $(this).attr("alt")
+                                programNo : $(this).attr("alt"),
+                                memNo : ${loginUser.memNo}
+                                
                             },
                             
                             success: function() {
@@ -103,36 +119,57 @@
 
 
                     }else{
+
                         $.ajax({
                             url : 'wishDelete.pr',
                             data :{
-                                programNo : $(this).attr("alt")
+                                programNo : $(this).attr("alt"),
+                                memNo : ${loginUser.memNo}
                             },
+                            
                             success: function() {
                                 console.log($btn1);
                                 $btn1.attr("src", "resources/images/deleteheart.png");
+                        
                             },
+
                             error:function(){
                                         console.log('ajax 통신 실패!');
                                     }
-                    	});
+                    });
 
                     }
                 });
             })
 
+
+              
                $(function(){
                   $('#boardList>tbody>tr>td').not('.sorry').click(function(){
+                     
+                     //console.log($(this).parent().children());
+                     
                      location.href = 'detail.pro?bno=' + $(this).parent().children().eq(0).text();
+                        
+                     
                   })
+                  
+
+                  
+                  
+
+                 
                   
                 // mark 테이블에서 조회해서 markNoList에서 borarNo 가져와서 현재 하트 IMG ALT에 있는 programNo랑 비교헤서 하트 바꿔줌,  비교해서 같은 값이 있으면 check값 증가
                 $('.heart').each(function() {
 
+
                     var check2 = 0;
-                    
                     <c:forEach items="${ markNoList }" var="m">
+                    
+                    
                         if(${m.boardNo} == $(this).attr("alt")) {check2 = check2 + 1}
+                       
 
                     </c:forEach>
 
@@ -145,8 +182,15 @@
                         $(this).attr("src", "resources/images/deleteheart.png");
                     }
                 });
-                  
+                
+
+
+
+
                });
+
+       
+       
           </script>
 </body>
 </html>
