@@ -6,12 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,7 +22,6 @@ import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.template.Pagination;
-import com.kh.nbs.member.model.vo.Member;
 
 @Controller
 public class BoardController {
@@ -45,16 +46,16 @@ public class BoardController {
 			mv.setViewName("board/tableBoardList");	
 		}
 		
-		mv.addObject("pi", pi).addObject("list", boardService.selectList(boardType,pi)).addObject("btype",boardType);
+		mv.addObject("pi", pi).addObject("list", boardService.selectList(boardType,pi)).addObject("type",boardType);
 		
 		return mv;
 	}
 	
 	//글쓰기로 이동
 	@RequestMapping("write.bo")
-	public ModelAndView boardWrite(@RequestParam(value="wtype") String boardType, ModelAndView mv) {
+	public ModelAndView boardWrite(@RequestParam(value="type") String boardType, ModelAndView mv) {
 		
-		mv.addObject("btype", boardType).setViewName("board/boardWrite");
+		mv.addObject("type", boardType).setViewName("board/boardWrite");
 		return mv;
 	}
 
@@ -95,7 +96,7 @@ public class BoardController {
 					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
 					
 					if(boardService.insertAttachment(a) > 0) {
-						mv.addObject("btype", b.getBoardType()).setViewName("redirect:/");
+						mv.addObject("type", b.getBoardType()).setViewName("redirect:/");
 					} else {
 						mv.setViewName("common/errorPage");
 					}
@@ -139,16 +140,70 @@ public class BoardController {
 	
 	//게시물 수정하기
 	@RequestMapping("update.bo")
-	public ModelAndView updateBoard(@RequestParam(value="btype") String boardType,@RequestParam(value="bno") int boardNo, ModelAndView mv) {
+	public ModelAndView updateBoard(@RequestParam(value="type") String boardType,@RequestParam(value="bno") int boardNo, ModelAndView mv) {
 		
 		Board b=boardService.selectBoard(boardNo);
 		ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);		
 		
-		mv.addObject("btype", boardType).addObject("b",b).addObject("a",a).setViewName("board/boardUpdate");
+		mv.addObject("type", boardType).addObject("b",b).addObject("a",a).setViewName("board/boardUpdate");
 		
 		return mv;
 	}
 	
+	//게시글 삭제
+	@RequestMapping("delete.bo")
+	public ModelAndView deleteBoard(int boardNo, String boardType,ModelAndView mv) {
+		
+		Board b= new Board();
+		b.setBoardNo(boardNo);
+		b.setBoardType(boardType);
+		
+		if(boardService.deleteAttachment(b)>0) {
+			System.out.println("첨부파일 삭제 성공");
+		}
+		
+		if(boardService.deleteBoard(b)>0) {
+			System.out.println("게시글 삭제 성공");
+		}
+		
+		mv.addObject("type",boardType).setViewName("redirect:list.bo");
+		
+		return mv;
+	}
+	
+	//좋아요 입력
+	@ResponseBody
+	@RequestMapping("insert.lk")
+	public void insertLike(String boardType, int boardNo, int memNo) {
+		Board b= new Board();
+		b.setBoardNo(boardNo);
+		b.setBoardType(boardType);
+		b.setMemNo(memNo);
+		
+	
+		
+		boardService.insertLike(b);
+		
+		
+	}
+	
+	//좋아요 삭제
+	@ResponseBody
+	@RequestMapping("delete.lk")
+	public void deleteLike(int boardNo, int memNo) {
+		Board b= new Board();
+		b.setBoardNo(boardNo);
+		b.setMemNo(memNo);
+		
+		boardService.deleteLike(b);
+		
+	};
+	
+	//좋아요 개수 조회
+	@RequestMapping("selectCount.lk")
+	public String selectLikeCount() {
+		return "";
+	}
 	
 		
 }

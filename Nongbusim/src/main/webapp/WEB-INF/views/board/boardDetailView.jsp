@@ -35,6 +35,10 @@
 
 
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -66,9 +70,12 @@
                 	
                 	<!-- 글 수정, 삭제 추가 -->
                 	<c:if test="${ loginUser.nickName==b.boardWriter }">
-	                    <button onclick="location.href='update.bo?btype=${b.boardType}&bno=${b.boardNo}';">수정</button>
-	                    <button class="btn btn-secondary">삭제</button>
+	                    <button onclick="location.href='update.bo?type=${b.boardType}&bno=${b.boardNo}';">수정</button>
+	                    <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
+						  삭제
+						</button>
                 	</c:if>
+                	
                 	
                 </div>
             </div>
@@ -113,13 +120,12 @@
             <hr>
             <div class="board-footer" style="width: 100%; height: 25px;">
                 <div class="board-heart" style="width: 12.5%; height: 25px;">
-                	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
-  						<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-					</svg>
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                    </svg>좋아요${b.boardLike}&nbsp;&nbsp;&nbsp;
+					<button id="heartLike">
+						<svg id="heartless" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
+  							<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+						</svg>좋아요<span id="likeNumber">${b.boardLike}</span>&nbsp;&nbsp;&nbsp;
+	                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+					</button>
                 </div>
                 <div class="board-comment" style="width: 12.5%; height: 25px;">
                     
@@ -193,6 +199,30 @@
             
         </div>
     </div>
+    
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle">게시글 삭제</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+			      <div class="modal-body">
+			        	정말 게시글을 삭제하나요? 복구 안 됩니다..
+			      </div>
+			      <div class="modal-footer">
+		      <form action="delete.bo" method="post">
+			      	<input type="hidden" name="boardType" value="${b.boardType}"/>
+			      	<input type="hidden" name="boardNo" value="${b.boardNo}"/>
+			        <button type="submit" class="btn btn-secondary">확인</button>
+		      </form>
+			      </div>
+		    </div>
+		  </div>
+		</div>
+
                         
 	<script>
 	    var boardType = '<c:out value="${b.boardType}"/>';
@@ -205,6 +235,61 @@
 	            $(".table-area").show();
 	        }    		
 	    });
+	    
+	    $(document).ready(function() {
+	        $("#heartLike").click(function() {
+	        	
+	        	if($("#heartLike>path").attr('d') == "m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"){
+	        	
+		            $.ajax({
+		                type: "GET",
+		                url: "insert.lk",  // fix url
+		                data: {
+		                    boardType: '${b.boardType}',
+		                    boardNo: ${b.boardNo},
+		                    memNo: ${loginUser.memNo}
+		                },
+		                success: function() {
+
+		                        $('#heartless>path').attr('d', "M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z");  // fix color
+		                    	$('#likeNumber').text(<c:out value="${b.boardLike+1}"/>);
+		                },
+		                error: function() {
+		                    console.log('ajax communication failed');
+		                }
+		            });
+		            
+	        	}
+	        	else{
+	        		
+		            $.ajax({
+		                type: "GET",
+		                url: "delete.lk",  // fix url
+		                data: {
+		                    boardType: '${b.boardType}',
+		                    boardNo: ${b.boardNo},
+		                    memNo: ${loginUser.memNo}
+		                },
+		                success: function(result) {
+
+		                    	$('#heartless>path').attr('d', "m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z");  // fix color
+		                    	$('#likeNumber').text(<c:out value="${b.boardLike-1}"/>);
+
+		                },
+		                error: function() {
+		                    console.log('ajax communication failed');
+		                }
+		            });
+	        		
+	        	}
+	        });
+	    });
+	    
+	    
+	    
+	    
+	    
+
 	</script>
     
 </body>

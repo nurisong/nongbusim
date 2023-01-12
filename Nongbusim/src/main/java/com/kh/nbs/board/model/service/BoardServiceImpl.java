@@ -56,5 +56,31 @@ public class BoardServiceImpl implements BoardService{
 	public ArrayList<Attachment> attachmentSelectList() {
 		return boardDao.attachmentSelectList(sqlSession);
 	}
+	
 
+	@Override
+	public int deleteAttachment(Board b) {
+		return boardDao.deleteAttachment(sqlSession,b);
+	}
+	@Override
+	public int deleteBoard(Board b) {
+		return boardDao.deleteBoard(sqlSession,b);
+	}
+	
+	@Override
+	public int insertLike(Board b) {
+		return boardDao.insertLike(sqlSession,b);
+	}
+	@Override
+	public int deleteLike(Board b) {
+		return boardDao.deleteLike(sqlSession,b);
+	}
+	@Override
+	public int selectLikeCount(Board b) {
+		return boardDao.selectLikeCount(sqlSession,b);
+	}
+	@Override
+	public int selectLike(Board b) {
+		return boardDao.selectLike(sqlSession, b);
+	}
 }

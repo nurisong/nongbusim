@@ -269,7 +269,7 @@ public class MemberController {
 	public String findId(Member m, HttpSession session) {
 //		System.out.println(memberService.findId(m).getMemId());
 		
-		if(memberService.findId(m).getMemId().equals("9999")) {
+		if(memberService.findId(m).getMemId().equals("9999")) {	// 없는 아이디를 입력하면 9999로 null값 대신 들어가서 아래의 alert창이 뜸
 			session.setAttribute("alertMsg", "해당 회원이 존재하지 않습니다.");
 			return "member/findId";
 		} else {
@@ -278,21 +278,26 @@ public class MemberController {
 		}
 	}
 
-//	@RequestMapping("updatePwd.me")
-//	public ModelAndView updatePwd(HttpSession session, ModelAndView mv, Member m) {
-//		
-//		Member updatePwdMem = memberService.updatePwd(m);
-//		
-//		if(updatePwdMem == null) {	// 실패
-//			session.setAttribute("alertMsg", "비밀번호 변경 실패");
-//		} else {	// 성공
-//			session.setAttribute("alertMsg", "비밀번호 변경 성공");
-//			session.setAttribute("loginUser", updatePwdMem);
-//		}
-//		mv.setViewName("member/myPageUser/updateUser"); 
-//		
-//		return mv;
-//	}
+	@RequestMapping("updatePwd.me")
+	public String updatePwd(HttpSession session, Member m, Model model) {
+		
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemPwd());
+		System.out.println(encPwd);
+		
+		m.setMemPwd(encPwd);
+		
+		int updatePwdMem = memberService.updatePwd(m);
+		
+		if(updatePwdMem > 0) {	// 성공
+			session.setAttribute("alertMsg", "비밀번호 변경 성공");
+			session.setAttribute("loginUser", updatePwdMem);
+			
+			return "redirect:/";
+		} else {	// 실패
+			model.addAttribute("errorMsg", "비밀번호 변경 실패");
+			return "common/errorPage";
+		}
+	}
 	
 	
 	
