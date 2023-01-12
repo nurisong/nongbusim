@@ -85,5 +85,11 @@ public class ProgramDao {
 		
 	}
 	
+	public int headCountIncrease(SqlSessionTemplate sqlSession, Program p) {
+		
+		return sqlSession.update("programMapper.headCountIncrease",p);
+		
+	}
+	
 
 }

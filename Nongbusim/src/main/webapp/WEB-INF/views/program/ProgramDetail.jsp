@@ -38,11 +38,13 @@ table th {
 
 
 <form action="join.pr">
-	<div align="center">
+   <div align="center">
     <h1>프로그램 상세 정보</h1>
     <table border="1">
-        <input type="text" name="memNo" value="1" hidden>
-        <input type="text" name="programNo" value="${ bno }" >
+        <!-- memNo와 programNo를 들고 가서 my_program테이블에 insert -->
+
+        <input type="text" name="memNo" value="${loginUser.memNo}" hidden>
+        <input type="text" name="programNo" value="${ bno }" hidden >
         <tr>
             <th>프로그램 명</th>
             <td>${ p.programName }</td>
@@ -75,12 +77,14 @@ table th {
     <h1>홍보 이미지</h1>
 
 
-	 <img src="${p.changeName}" class="img-thumbnail" alt="Cinque Terre" width="800" height="550"> 
+    <img src="${p.changeName}" class="img-thumbnail" alt="Cinque Terre" width="800" height="550"> 
    
     <br><br>
 
+
+
     <div style="display:none;" id="applyBtnArea">
-        <button>신청</button>
+        <button type="submit">신청</button>
     </div>
     <div style="display:none;" id="applyArea">
         <p>
@@ -109,9 +113,12 @@ table th {
         $(function() {
             var count = 0;
             <c:forEach items="${ programList }" var="pr">
+     
                 <c:if test="${pr.programNo eq bno }">
                     count++;
                 </c:if>
+
+                
             </c:forEach>
             console.log(count);
             if(count > 0) {

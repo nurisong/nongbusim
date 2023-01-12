@@ -80,5 +80,9 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.findId", m);
 	}
 	
+	// 비밀번호 변경
+	public int updatePwd(SqlSessionTemplate sqlSession, String memPwd, String updatePwd) {
+		return sqlSession.update("memberMapper.updatePwd", memPwd);
+	}
 	
 }

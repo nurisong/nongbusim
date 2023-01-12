@@ -38,7 +38,6 @@ public class ProgramController {
 			
 			if(programService.selectMarkNo(memNo) != null ) {
 				
-				System.out.println(programService.selectMarkNo(memNo));
 				mv.addObject("markNoList",programService.selectMarkNo(memNo));
 			}
 			
@@ -112,7 +111,6 @@ public class ProgramController {
 			if(programService.programRegister(p)> 0) { //성공 => 게시글 리스트 페이지
 				
 				
-				System.out.println(p);
 				session.setAttribute("alertMsg", "프로그램이 등록 되었습니다.");
 				return "redirect:list.pr";
 				
@@ -160,10 +158,11 @@ public class ProgramController {
 		@RequestMapping("detail.pro")
 		public ModelAndView selectBoard(int bno, ModelAndView mv,HttpSession session) {
 			
-			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo(); //로그인 임시!!!!!!!!!!!!!!!!!!
+			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo(); 
 			
 			
 			if(programService.selectProgramNo(memNo) != null) {
+				//신청한지 조회
 				
 				
 				mv.addObject("programList", programService.selectProgramNo(memNo));
@@ -171,8 +170,7 @@ public class ProgramController {
 			}
 			
 			
-			if( programService.selectProgram(bno) != null ) { //키값과 똑같은 이름의 매개변수, int형으로 쓰면 알아서 파싱
-				
+			if( programService.selectProgram(bno) != null ) { 
 				mv.addObject("p", programService.selectProgram(bno)).addObject("bno",bno).setViewName("program/ProgramDetail");
 				
 				
@@ -187,6 +185,7 @@ public class ProgramController {
 		@RequestMapping("join.pr")
 		public ModelAndView joinProgram(Program p, ModelAndView mv, HttpSession session) {
 			
+			
 			if(programService.joinProgram(p) > 0) {
 				
 				session.setAttribute("alertMsg", "프로그램 신청이 되었습니다.");
@@ -196,6 +195,13 @@ public class ProgramController {
 			}else {
 				mv.addObject("errorMsg","신청 실패").setViewName("common/errorPage");
 			}
+
+			
+			//현재 신청 회원 증가
+			programService.headCountIncrease(p);
+			
+			
+			
 			
 			return mv;
 		}

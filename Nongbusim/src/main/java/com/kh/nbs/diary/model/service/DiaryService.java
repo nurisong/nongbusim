@@ -24,5 +24,7 @@ public interface DiaryService {
 	int updateDiary(Diary diary);
 	int updateAttachment(Attachment at);
 	/* int insertNewAttachment(Attachment at); */
+	int deleteDiary(int diaryNo);
+	int deleteAttachment(int diaryNo);
 
 }

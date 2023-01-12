@@ -76,8 +76,8 @@
 
                 
 			<c:if test="${ not empty loginUser.farmerCode}">
-            	<a class ="btn btn-secondary" style="float:right;" href="enrollForm.bo">프로그램 등록</a>
-            </c:if>
+            	<a class ="btn btn-secondary" style="float:right;" href="enrollForm.pr">프로그램 등록</a>
+                  </c:if>
 			
 
           
@@ -105,7 +105,24 @@
                         <td class="test">${ p.programName }</td>
                         <td class="test">${ p.programPlan }</td>
                         <td class="test">${ p.headcount }</td>
-                        <td class="test">${ p.signUp }</td>
+
+
+
+                        <c:choose>
+                            <c:when test="${p.headcount le p.nowHeadCount}">
+                                <td class="test">마감</td>
+
+                            </c:when>
+                            
+                            <c:otherwise>
+
+                                <td class="test">진행중</td>
+                            </c:otherwise>
+
+                        </c:choose>
+
+
+                        <!-- <td class="test">${ p.signUp }</td> -->
 
                         <!-- <c:forEach items="${ markNoList }" var="m">
                             <c:choose>
