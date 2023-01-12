@@ -174,14 +174,14 @@
     <script>
         function postFormSubmit(num){
 
-            switch(num){
-                case 1: $('#postForm').attr('action', 'updateForm.fm').submit();
-                case 2: 
-                        if(confirm('삭제하시겠습니까?')){
-                            $('#postForm').attr('action', 'delete.fm').submit();
-                        }        
+            if(num==1){
+                $('#postForm').attr('action', 'updateForm.fm').submit();
             }
-           
+            else{
+                if(confirm('삭제하시겠습니까?')){
+                    $('#postForm').attr('action', 'delete.fm').submit();
+                }        
+            }
         }
     </script>
 </body>

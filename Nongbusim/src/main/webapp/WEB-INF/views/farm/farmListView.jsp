@@ -148,9 +148,9 @@
                                 </td>
                                 <td class="farm-info">
                                     <dl>
-                                        <h4>${f.farmName}</h4><br>
+                                        <a href="detail.fm?fno=${f.farmNo}"><h4>${f.farmName}</h4></a><br>
                                         <dt><img class="farm-info-icon" src="resources/images/marker-icon.png"></dt>
-                                        <dd>경기도${f.address}<br></dd>
+                                        <dd>${f.address}<br></dd>
                                         <dt><img class="farm-info-icon" src="resources/images/phone-icon.png"></dt>
                                         <dd>${f.phone}<br><br></dd>
                                         <dt>대표 작물</dt>

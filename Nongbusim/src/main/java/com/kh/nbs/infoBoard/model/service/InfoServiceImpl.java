@@ -22,12 +22,32 @@ public class InfoServiceImpl implements InfoService {
 
 	@Override
 	public int selectListCount() {
-		return 0;
+		return infoDao.selectListCount(sqlSession);
 	}
 
 	@Override
 	public ArrayList<Info> selectList(PageInfo pi) {
-		return null;
+		return infoDao.selectList(pi, sqlSession);
+	}
+	
+	@Override
+	public int increaseCount(int infoNo) {
+		return infoDao.increaseCount(infoNo, sqlSession);
+	}
+	
+	@Override
+	public Info selecetInfo(int infoNo) {
+		return infoDao.selecetInfo(infoNo, sqlSession);
+	}
+	
+	@Override
+	public ArrayList<Attachment> selectAttachment(int infoNo){
+		return infoDao.selectAttachment(infoNo, sqlSession);
+	}
+	
+	@Override
+	public ArrayList<Attachment> selectImg(int infoNo){
+		return infoDao.selectImg(infoNo, sqlSession);
 	}
 
 	@Override
@@ -38,16 +58,6 @@ public class InfoServiceImpl implements InfoService {
 	@Override
 	public int insertAttachment(Attachment a) {
 		return infoDao.insertAttachment(a, sqlSession);
-	}
-
-	@Override
-	public int increaseCount(int infoNo) {
-		return 0;
-	}
-
-	@Override
-	public Info selecetInfo(int infoNo) {
-		return null;
 	}
 
 	@Override

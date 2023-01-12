@@ -10,7 +10,7 @@ public class Info {
 	private String infoTitle;
 	private String infoContent;
 	private String source;
-	private String enrollDate;
+	private String createDate;
 	private int count;
 	private String status;
 }
