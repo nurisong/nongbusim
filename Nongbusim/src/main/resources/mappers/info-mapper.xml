@@ -135,6 +135,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			)
 </insert>
 
+<select id="selectSearchList" resultMap="infoResultSet" parameterType="HashMap">
+	SELECT
+			 INFO_NO
+			,CATEGORY
+			,INFO_TITLE
+			,INFO_CONTENT
+			,TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') as "CREATE_DATE"
+			,COUNT
+	  FROM
+			INFO_BOARD
+	 WHERE
+			STATUS = 'Y'
+	<choose>
+		<when test="condition == 'all'">
+		   AND
+				INFO_CONTENT LIKE '%'||#{keyword}||'%'
+			OR
+				INFO_TITLE LIKE '%'||#{keyword}||'%'
+		</when>
+	</choose>
+
+</select>
+
 
 
 </mapper>

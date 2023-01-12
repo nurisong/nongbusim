@@ -1,6 +1,7 @@
 package com.kh.nbs.infoBoard.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -45,6 +46,10 @@ public class InfoDao {
 
 	public int insertAttachment(Attachment a, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("attachmentMapper.insertAttachmentInfo", a);
+	}
+
+	public ArrayList<Info> selectSearchList(HashMap map, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("infoMapper.selectSearchList", map);
 	}
 
 }

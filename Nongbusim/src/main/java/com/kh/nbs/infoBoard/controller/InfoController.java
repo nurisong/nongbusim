@@ -1,5 +1,7 @@
 package com.kh.nbs.infoBoard.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ public class InfoController {
 	
 	@RequestMapping("list.if")
 	public String infoListView(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
 		PageInfo pi = Pagination.getPageInfo(infoService.selectListCount(), currentPage, 10, 5);
 		model.addAttribute("infoList", infoService.selectList(pi));
 		System.out.println(infoService.selectList(pi));
@@ -33,7 +36,7 @@ public class InfoController {
 	
 	@RequestMapping("detail.if")
 	public String selectInfo(int ino, Model model) {
-		// 글번호 뽑아서 조회
+	
 		if(infoService.increaseCount(ino) > 0 ) {
 			model.addAttribute("info", infoService.selecetInfo(ino));
 			model.addAttribute("atList", infoService.selectAttachment(ino));
@@ -50,6 +53,7 @@ public class InfoController {
 	
 	@RequestMapping("insert.if")
 	public String insertInfo(Info i, Attachment a, MultipartFile[] upfilesImg, MultipartFile[] upfiles, HttpSession session, RedirectAttributes rttr) {
+		
 		if(infoService.insertInfo(i) > 0) {
 			
 			for(MultipartFile upfile: upfilesImg) {
@@ -85,7 +89,13 @@ public class InfoController {
 	}
 	
 	@RequestMapping("search.if")
-	public String searchInfo(String condition, String keyword, Model model) {
-		return "common/infoBoardListView";
+	public String selectSearchList(String condition, String keyword, Model model) {
+		HashMap<String, String> map = new HashMap();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		model.addAttribute("ifList", infoService.selectSearchList(map));
+		
+		return "infoBoard/infoBoardListView";
 	}
 }
