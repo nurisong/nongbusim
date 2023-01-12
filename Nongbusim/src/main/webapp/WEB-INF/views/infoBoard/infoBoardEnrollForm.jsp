@@ -53,13 +53,13 @@
                         <tr>
                             <th>사진파일</th>
                             <td colspan="3">
-                            <input type="file" class="form-control-file border" name="upfilesImg" accept="image/*">
+                            <input type="file" class="form-control-file border" name="upfilesImg" accept="image/*" multiple="multiple">
                             </td>
                         </tr>
                         <tr>
                             <th>첨부파일</th>
                             <td colspan="3">
-                            <input type="file" class="form-control-file border" name="upfiles">
+                            <input type="file" class="form-control-file border" name="upfiles" multiple="multiple">
                             </td>
                         </tr>
                         <tr>

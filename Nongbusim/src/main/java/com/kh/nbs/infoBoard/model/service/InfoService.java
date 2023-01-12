@@ -23,6 +23,8 @@ public interface InfoService {
 	int increaseCount(int infoNo);
 	// 3-2) 게시글 상세 조회(select)
 	Info selecetInfo(int infoNo);
+	ArrayList<Attachment> selectAttachment(int infoNo); // 첨부파일
+	ArrayList<Attachment> selectImg(int infoNo); // 이미지
 	
 	// 4. 게시글 삭제 서비스(update)
 	int deleteInfo(int infoNo);
