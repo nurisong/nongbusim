@@ -113,8 +113,8 @@
 													<option value="noCategory">등록된 카테고리가 없습니다.</option>
 												</c:otherwise>
 											</c:choose>
-										</select>
 										<option id="enrollNew" name="enrollNew" value="enrollNew">카테고리 신규입력</option>									
+										</select>
 										<input type="hidden" id="newCategory" name="newCategory">
 							</td>	
 						</tr>

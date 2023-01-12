@@ -148,19 +148,12 @@
 
 </head>
 <body>
-		<!--
-		
-		<input type="hidden" name="memNo" value="${diary.memNo }">
-		  -->
-
-		
-	<h1 align = "left">&nbsp;&nbsp;🗓영농일지 상세보기</h1>
+	<form action="updateForm.di" method="post">
+		<input type="hidden" name="memNo" value="${ loginUser.memNo }">
+		<input type="hidden" name="dno" value="${ diary.diaryNo }">				
+	<h1 align ="left">&nbsp;&nbsp;🗓영농일지 상세보기</h1>
 	<br>
-	<div class="outer">
-	<br>
-
-
-		<table id="detail-area" align="center" width="1100px">
+	<div class="outer"><br>		<table id="detail-area" align="center" width="1100px">
 			<tr>
 				<td colspan="3">
 					<div>✔등록일</div>
@@ -218,17 +211,15 @@
 		
 		<br>
 		<div align="center">
-			<a href="${pageContext.request.contextPath }/list.di" class= "likeButton">목록으로</a>
-	
-		<br><br>	
-			<a href="${pageContext.request.contextPath}/updateForm.di?dno=${diary.diaryNo }&memNo=${diary.memNo}" class="myButton">수정하기</a>
-			<a href="${pageContext.request.contextPath}/delete.de?dno=${diary.diaryNo }" class="myButton">삭제하기</a>
-	
-		</div>
-	
-	</div>
-	
-	<br><br><br>
+			<a href="${pageContext.request.contextPath }/list.di" class= "likeButton">목록으로</a><br><br>	
+			<button class="myButton">수정하기</button>
+		</form>	
+		<form action="delete.di" >
+			<input type="hidden" name="diaryNo" value="${diary.diaryNo }">
+			<button class="myButton">삭제하기</button>
+		</form>
+		</div>	
+	</div><br><br><br>
 </body>
 	
 </html>

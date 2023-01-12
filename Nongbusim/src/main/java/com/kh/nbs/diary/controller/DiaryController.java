@@ -173,7 +173,8 @@ public class DiaryController {
 		//update할때 필요한 정보들은 diaryDetailView에서 필요한 Service메소드  + categoryList Serviec메소드 
 		// 동일 메소드로 재활용하기		
 		int diaryNo= Integer.parseInt(dno);
-		int memberNo= Integer.parseInt(memNo);		
+		int memberNo= Integer.parseInt(memNo);
+				
 		mv.addObject("diary", diaryService.selectDiary(diaryNo)).addObject("dAtList", diaryService.selectAttachmentList(diaryNo));
 		mv.addObject("categoryList", diaryService.selectCategoryList(memberNo));		
 		mv.setViewName("member/myPageFarmer/diary/diaryUpdateForm");
@@ -191,9 +192,6 @@ public class DiaryController {
 		if(!newCategory.equals("")) {
 			diary.setDiaryCategory(newCategory);
 		}
-	
-		
-		
 		for(int i=0; i<3; i++) {
 			
 			System.out.println("updateDiary reUpfiles"+reUpfiles[i]);
@@ -201,8 +199,7 @@ public class DiaryController {
 			
 			String which = "";
 			
-			if(!reUpfiles[i].getOriginalFilename().equals("")) {		
-				
+			if(!reUpfiles[i].getOriginalFilename().equals("")) {					
 
 				if(i==0) {	
 					// diary를 insert하기 전 썸네일 필드 세팅(diary의 thumbnail필드엔 첫번쨰 file을 등록)
@@ -219,14 +216,14 @@ public class DiaryController {
 				at.setChangeName("resources/uploadFiles/" + saveFile(reUpfiles[i], session)); 
 	
 				
-				if(request.getParameter("beforeFileNo"+(i+1)) != null) {
-
-			
+				if(request.getParameter("beforeFileNo"+(i+1)) != null) {			
 					// 기존 에 파일이 존재했던 인덱스라면 
 					// DB에서 기존 파일의 fileNo에 덮어쓰기w
 					at.setFileNo(Integer.parseInt(request.getParameter("beforeFileNo"+(i+1))));
 					// 기존 파일은 삭제
-					new File(request.getParameter("beforeFileChangeName"+(i+1))).delete();
+					System.out.println(request.getParameter("beforeFileChangeName"+(i+1)));
+					System.out.println(new File(request.getParameter("beforeFileChangeName"+(i+1))));
+					new File("/"+request.getParameter("beforeFileChangeName"+(i+1))).delete();
 					// 실행할 SQL문은  attachment - UPDATE
 					diaryService.updateAttachment(at);
 					
@@ -244,4 +241,23 @@ public class DiaryController {
 				mv.setViewName("member/myPageFarmer/diary/diaryListView");
 				return mv;
 	}	
+	
+	
+	
+	@RequestMapping("delete.di")
+	public ModelAndView deleteDiary(int diaryNo, ModelAndView mv, HttpSession session) {	
+		if( diaryService.deleteDiary(diaryNo)*diaryService.deleteAttachment(diaryNo)>0) {
+			session.setAttribute("alertMsg", "영농일지가 삭제되었습니다");
+			mv.setViewName("redirect:list.di");
+		} else {
+			session.setAttribute("alertMsg", "영농일지 삭제에 실패하였습니다.");
+			mv.setViewName("common/errorPage");			
+		}
+		return mv;	
+	
+	} 
+	
+	
+	
+	
 }
