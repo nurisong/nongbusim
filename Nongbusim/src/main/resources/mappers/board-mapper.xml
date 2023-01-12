@@ -29,6 +29,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="board_type"   property="boardType" />
 	</resultMap>
 	
+	<resultMap id="likeResultSet" type="like">
+		<result column="MEM_NO" property="memNo"/>
+		<result column="STATUS" property="status"/>
+		<result column="BOARD_TYPE" property="boardType"/>
+		<result column="BOARD_NO" property="boardNo"/>
+	</resultMap>
+	
 	
 
 	<select id="selectListCount" resultType="_int">
@@ -167,6 +174,86 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        board_type='S'
 	
 	</select>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBoard" parameterType="board">
+		delete
+		  from	   
+		  	   board
+		 where
+		       board_no=#{boardNo}
+		
+	</delete>
+	
+	<delete id="deleteAttachment" parameterType="board">
+		delete
+		  from	   
+		  	   attachment
+		 where
+		       board_no=#{boardNo}
+		   and
+		   	   board_type=#{boardType}
+	</delete>
+	
+	
+	
+	<insert id="insertLike" parameterType="board">
+	
+		insert 
+		  into
+				"LIKE"
+				(
+				mem_no,
+				status,
+				board_type,
+				board_no
+				)
+				
+				values
+				(
+				#{memNo},
+				1,
+				#{boardType},
+				#{boardNo}		
+				)
+	</insert>
+	
+	<update id="deleteLike" parameterType="board">
+		update
+		  	   "LIKE"
+		   set
+		   	   status=0
+		 where
+		 	   mem_no=#{memNo}
+		   and
+		       board_no=#{boardNo}
+	</update>
+	
+	<select id="selectLikeCount" parameterType="board" resultMap="likeResultSet">
+		select
+			   count(*)
+		  from
+		  	   "LIKE"
+		 where
+		       board_no=#{boardNo}
+		   and
+		   	   board_type=#{boardType}
+	</select>
+	
+	<select id="selectLike" parameterType="board" resultMap="likeResultSet">
+		select
+			   count(*)
+		  from
+		  	   "LIKE"
+		 where
+		 	   mem_no=#{memNo}
+		   and
+		   	   board_no=#{boardNo}
+		   and
+		   	   board_type=#{boardType}
+	</select>
+	
+	
 
 
 </mapper>

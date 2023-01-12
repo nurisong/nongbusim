@@ -74,8 +74,10 @@
 									</div> 
                                 </td>
                             </tr>
+                            <!-- 주말에 완성할 듯 -->
                             <tr>
                                 <th><label for="content">내용</label></th>
+                                
                                 <td><textarea id="content" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" name="boardContent" required style="width:200px;"></textarea></td>
                             </tr>
                             <tr>
@@ -92,7 +94,7 @@
                         
                         <br>
 
-                        <input type="hidden" name="boardType" value="${btype}">
+                        <input type="hidden" name="boardType" value="${type}">
                         <input type="hidden" name="memNo" value="${loginUser.memNo}">
                         <input type="hidden" name="boardWriter" value="${loginUser.nickName}">
                         
@@ -126,7 +128,7 @@
                     
                         </table>
                         <br>
-                        <input type="hidden" name="boardType" value="${btype}">
+                        <input type="hidden" name="boardType" value="${type}">
                         <input type="hidden" name="memNo" value="${loginUser.memNo}">
                         <input type="hidden" name="boardWriter" value="${loginUser.nickName}">
                         
@@ -152,7 +154,7 @@
     
     	<!--글 작성 이전의 게시판 종류로 초기 선택하는 기능-->
     	$(document).ready(function(){
-    		$('#boardType').val('${btype}').prop("selected",true);
+    		$('#boardType').val('${type}').prop("selected",true);
             if($("#boardType option:selected").val()=='S') {
                 $(".picture-area").show();
                 $(".table-area").hide();
