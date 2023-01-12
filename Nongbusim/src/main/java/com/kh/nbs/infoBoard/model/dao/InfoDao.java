@@ -14,7 +14,7 @@ public class InfoDao {
 	}
 
 	public int insertAttachment(Attachment a, SqlSessionTemplate sqlSession) {
-		return sqlSession.insert("infoMapper.insertAttachment", a);
+		return sqlSession.insert("attachmentMapper.insertAttachmentInfo", a);
 	}
 
 }
