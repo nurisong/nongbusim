@@ -56,6 +56,16 @@ public class DiaryDao {
 	}
 
 
+	public int deleteDiary(SqlSessionTemplate sqlSession, int diaryNo) {
+		return sqlSession.update("diaryMapper.deleteDiary", diaryNo);
+	}
+
+
+	public int deleteAttachment(SqlSessionTemplate sqlSession, int diaryNo) {
+		return sqlSession.update("diaryMapper.deleteAttachment", diaryNo);
+	}
+
+
 	/*
 	 * public int insertNewAttachment(SqlSessionTemplate sqlSession, Attachment at)
 	 * { return sqlSession.insert("diaryMapper.insertNeAttachment", at); }
@@ -63,6 +73,4 @@ public class DiaryDao {
 
 }
 
-
-	
 

@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>영농일지</title>
+<title>가계부</title>
 <style>
 
 	#myPage { 

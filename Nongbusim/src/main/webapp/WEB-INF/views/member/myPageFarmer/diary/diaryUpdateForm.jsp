@@ -96,7 +96,7 @@
 						<tr>
 							<td colspan="3">
 								<div>✔등록일</div>
-								<input id="createDate" type="date" value="${diary.createDate }">
+								<input name="createDate" type="date" value="${diary.createDate }">
 							</td>	
 						</tr>
 						<tr>
@@ -126,6 +126,10 @@
 							<c:forEach var="at" items="${ dAtList}" varStatus="status">
 								<input type="hidden" name="beforeFileNo${status.count}" value="${at.fileNo }">
 								<input type="hidden" name="beforeFileName${status.count}" value="${at.originName }">
+								<input type="hidden" name="beforeFileChangeName${status.count}" value="${at.changeName }">
+								
+								
+								
 							</c:forEach> 
 						</c:if>
 					
@@ -283,10 +287,10 @@
 		})		
 	}); 
 	
-	// createDate에 오늘날짜를 넣기 위한 구문
+/* 	// createDate에 오늘날짜를 넣기 위한 구문
 	document.getElementById('createDate').valueAsDate = new Date();
 	
-	
+ */	
 	</script>
 </body>
 
