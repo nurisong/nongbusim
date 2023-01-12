@@ -48,8 +48,15 @@ public class InfoDao {
 		return sqlSession.insert("attachmentMapper.insertAttachmentInfo", a);
 	}
 
-	public ArrayList<Info> selectSearchList(HashMap map, SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("infoMapper.selectSearchList", map);
+	public int selectSearchListCount(HashMap map, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("infoMapper.selectSearchListCount", map);
 	}
+	
+	public ArrayList<Info> selectSearchList(PageInfo pi, HashMap map, SqlSessionTemplate sqlSession) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("infoMapper.selectSearchList", map, rowBounds);
+	}
+
 
 }

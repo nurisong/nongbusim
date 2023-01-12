@@ -135,7 +135,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			)
 </insert>
 
-<select id="selectSearchList" resultMap="infoResultSet" parameterType="HashMap">
+<select id="selectSearchListCount" resultType="_int" parameterType="hashmap">
+	SELECT
+			COUNT(*)
+	  FROM
+			INFO_BOARD
+	 WHERE
+			STATUS = 'Y'
+	<if test="condition == 'all'">
+	   AND
+			INFO_CONTENT LIKE '%'||#{keyword}||'%'
+		OR
+			INFO_TITLE LIKE '%'||#{keyword}||'%'
+	</if>
+	<if test="condition == 'title'">
+	   AND
+			INFO_TITLE LIKE '%'||#{keyword}||'%'
+	</if>
+	<if test="condition == 'content'">
+	   AND
+			INFO_CONTENT LIKE '%'||#{keyword}||'%'
+	</if>
+
+</select>
+
+<select id="selectSearchList" resultMap="infoResultSet" parameterType="hashmap">
 	SELECT
 			 INFO_NO
 			,CATEGORY
@@ -147,14 +171,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			INFO_BOARD
 	 WHERE
 			STATUS = 'Y'
-	<choose>
-		<when test="condition == 'all'">
-		   AND
-				INFO_CONTENT LIKE '%'||#{keyword}||'%'
-			OR
-				INFO_TITLE LIKE '%'||#{keyword}||'%'
-		</when>
-	</choose>
+	<if test="condition == 'all'">
+	   AND
+			INFO_CONTENT LIKE '%'||#{keyword}||'%'
+		OR
+			INFO_TITLE LIKE '%'||#{keyword}||'%'
+	</if>
+	<if test="condition == 'title'">
+	   AND
+			INFO_TITLE LIKE '%'||#{keyword}||'%'
+	</if>
+	<if test="condition == 'content'">
+	   AND
+			INFO_CONTENT LIKE '%'||#{keyword}||'%'
+	</if>
 
 </select>
 

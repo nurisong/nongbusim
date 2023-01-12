@@ -89,12 +89,14 @@ public class InfoController {
 	}
 	
 	@RequestMapping("search.if")
-	public String selectSearchList(String condition, String keyword, Model model) {
+	public String selectSearchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition, String keyword, Model model) {
+		
 		HashMap<String, String> map = new HashMap();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
 		
-		model.addAttribute("ifList", infoService.selectSearchList(map));
+		PageInfo pi = Pagination.getPageInfo(infoService.selectSearchListCount(map), currentPage, 10, 5);
+		model.addAttribute("infoList", infoService.selectSearchList(pi, map));
 		
 		return "infoBoard/infoBoardListView";
 	}

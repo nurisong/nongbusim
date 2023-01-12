@@ -34,6 +34,9 @@ public interface InfoService {
 	int updateInfo(Info i);
 	
 	// 6. 검색 서비스(select)
-	ArrayList<Info> selectSearchList(HashMap map);
+	// 6-1) 검색 게시글 총 개수
+	int selectSearchListCount(HashMap map);
+	// 6-2) 검색 게시글 리스트 조회
+	ArrayList<Info> selectSearchList(PageInfo pi, HashMap map);
 	
 }
