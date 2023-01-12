@@ -86,10 +86,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.findId(sqlSession, m);
 	}
 
-	@Override
-	public int updatePwd(String pwd) {
-		return 0;
-	}
+//	@Override
+//	public Member updatePwd(Member m) {
+//		return memberDao.updatePwd(sqlSession, m);
+//	}
 
 
 	

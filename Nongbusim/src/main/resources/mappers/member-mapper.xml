@@ -165,8 +165,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 아이디 찾기 -->
 	<select id="findId" resultMap="memberResultSet" parameterType="member">
-		SELECT MEM_ID
-		FROM MEMBER
+		SELECT NVL(MAX(MEM_ID), 9999) MEM_ID 
+		FROM MEMBER 
 		WHERE NAME = #{name}
 		AND EMAIL = #{email}
 		AND MEM_STATUS = 'Y'
