@@ -151,7 +151,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    AND BOARD_NO = PROGRAM.PROGRAM_NO
 	</select>
 	
-	<!-- 찜한 마켓 -->
+	<!-- 찜한 마켓 --><!-- 테스트 전 -->
 	<select id="markMarket" resultMap="marketResultSet" parameterType="market">
 		SELECT MK_CATEGORY, MK_TITLE, MK_PRICE, MK_ENROLLDATE
 		FROM MARKET
