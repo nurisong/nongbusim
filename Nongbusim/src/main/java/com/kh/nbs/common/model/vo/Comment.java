@@ -11,5 +11,7 @@ public class Comment {
 	private int boardNo;
 	private String boardType;
 	private int memNo;
+	private String status;
+	private String memId;
 
 }

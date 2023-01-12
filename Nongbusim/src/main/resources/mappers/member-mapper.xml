@@ -165,11 +165,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 아이디 찾기 -->
 	<select id="findId" resultMap="memberResultSet" parameterType="member">
-		SELECT MEM_ID
-		FROM MEMBER
+		SELECT NVL(MAX(MEM_ID), 9999) MEM_ID 
+		FROM MEMBER 
 		WHERE NAME = #{name}
 		AND EMAIL = #{email}
 		AND MEM_STATUS = 'Y'
 	</select>
 	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePwd" parameterType="member">
+		UPDATE MEMBER
+		SET MEM_PWD = #{updatePwd}, MODIFY_DATE = SYSDATE
+		WHERE MEM_PWD = #{memPwd}
+		AND MEM_STATUS = 'Y'
+	</update>	
 </mapper>

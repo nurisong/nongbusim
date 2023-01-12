@@ -41,20 +41,19 @@
             <h1>정보 게시판</h1>
             
             <div class="info-menu">
-                <a href="">전체</a> | 
-                <a href="">보도자료</a> | 
-                <a href="">농업정보</a> | 
-                <a href="">농촌소식</a>
+                <a href="list.if">전체</a> | 
+                <a href="search.if?ctg=보도자료">보도자료</a> | 
+                <a href="search.if?ctg=농업정보">농업정보</a> | 
+                <a href="search.if?ctg=농촌소식">농촌소식</a>
             </div>
             <br><br>
 
             <form id="searchForm" action="search.if" method="get" align="center">
                 <div class="select">
                     <select class="custom-select" name="condition">
-                        <option value="writer">전체</option>
-                        <option value="title">보도자료</option>
-                        <option value="content">농업정보</option>
-                        <option value="content">농촌소식</option>
+                        <option value="all">전체</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
                     </select>
                 </div>
                 <div class="text">
@@ -74,51 +73,19 @@
                         <th>no</th>
                         <th>카테고리</th>
                         <th>제목</th>
-                        <th>첨부파일</th>
                         <th>등록일</th>
                         <th>조회수</th>
                     </thead>
                     <tbody align="center">
-                        <tr>
-                            <td>1</td>
-                            <td>보도기사</td>
-                            <td>그런일이 있었답니다</td>
-                            <td>0</td>
-                            <td>2023-01-05</td>
-                            <td>102</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>보도기사</td>
-                            <td>그런일이 있었답니다</td>
-                            <td>0</td>
-                            <td>2023-01-05</td>
-                            <td>102</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>보도기사</td>
-                            <td>그런일이 있었답니다</td>
-                            <td>0</td>
-                            <td>2023-01-05</td>
-                            <td>102</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>보도기사</td>
-                            <td>그런일이 있었답니다</td>
-                            <td>0</td>
-                            <td>2023-01-05</td>
-                            <td>102</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>보도기사</td>
-                            <td>그런일이 있었답니다</td>
-                            <td>0</td>
-                            <td>2023-01-05</td>
-                            <td>102</td>
-                        </tr>
+                        <c:forEach var="info" items="${infoList}">
+                            <tr>
+                                <td class="ino">${info.infoNo}</td>
+                                <td>${info.category}</td>
+                                <td>${info.infoTitle}</td>
+                                <td>${info.createDate}</td>
+                                <td>${info.count}</td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -139,6 +106,13 @@
         </div>
     </div>
 
+    <script>
+        $('.info-table>tbody>tr').click(function(){
+            location.href="detail.if?ino=" + $(this).children('.ino').text();
+
+        });
+
+    </script>
 
 </body>
 </html>

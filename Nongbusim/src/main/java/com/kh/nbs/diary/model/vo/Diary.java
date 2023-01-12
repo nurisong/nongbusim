@@ -16,5 +16,4 @@ public class Diary {
 	private int memNo;
 	private String diaryThumbnail;
 	
-	
 }

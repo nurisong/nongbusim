@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="LOCAL_CODE" property="localCode"/>
 		<result column="ADDRESS" property="address"/>
 		<result column="PHONE" property="phone"/>
-		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="CREATE_DATE" property="createDate"/>
 		<result column="STATUS" property="status"/>
 		<result column="CROP" property="crop"/>
 	</resultMap>
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    	LOCAL_CODE,
 		    	ADDRESS,
 		    	PHONE,
-		    	ENROLL_DATE,
+		    	CREATE_DATE,
 		    	STATUS,
 		    	CROP
 		  FROM
@@ -62,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    	LOCAL_CODE,
 		    	ADDRESS,
 		    	PHONE,
-		    	ENROLL_DATE,
+		    	CREATE_DATE,
 		    	STATUS,
 		    	CROP
 		  FROM
@@ -97,7 +97,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       ,LOCAL_CODE
 		       ,ADDRESS
 		       ,PHONE
-		       ,ENROLL_DATE
+		       ,CREATE_DATE
 		       ,STATUS
 		       ,CROP
 		  FROM

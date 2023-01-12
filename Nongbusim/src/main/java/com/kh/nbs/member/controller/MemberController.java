@@ -259,20 +259,6 @@ public class MemberController {
 		return mv;
 	}
 	
-//	@RequestMapping("updatePwd.me")
-//	public ModelAndView updatePwd(HttpSession session, ModelAndView mv, String memPwd) {
-//		Member changePwd = memberService.updatePwd(memPwd);
-//		
-//		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {
-//			
-//			session.setAttribute("loginUser", loginUser);
-//			mv.setViewName("redirect:/");
-//			
-//		} else {
-//			mv.addObject("errorMsg", "로그인 실패").setViewName("common/errorPage");
-//		}
-//		return mv;
-//	}
 	
 	@RequestMapping("findIdForm.me")
 	public String findIdForm() {
@@ -281,17 +267,41 @@ public class MemberController {
 	
 	@RequestMapping("findId.me")
 	public String findId(Member m, HttpSession session) {
+//		System.out.println(memberService.findId(m).getMemId());
 		
-		Member findId = memberService.findId(m);
-		System.out.println(findId);
-		if(findId.getMemId() == null) {
+		if(memberService.findId(m).getMemId().equals("9999")) {	// 없는 아이디를 입력하면 9999로 null값 대신 들어가서 아래의 alert창이 뜸
 			session.setAttribute("alertMsg", "해당 회원이 존재하지 않습니다.");
 			return "member/findId";
 		} else {
-			session.setAttribute("alertMsg", m.getName() + "님의 아이디는 " + findId.getMemId() + "입니다.");
+			session.setAttribute("alertMsg", m.getName() + "님의 아이디는 " + memberService.findId(m).getMemId() + "입니다.");
 			return "member/loginForm";
 		}
 	}
+
+	@RequestMapping("updatePwd.me")
+	public String updatePwd(HttpSession session, Member m, Model model) {
+		
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemPwd());
+		System.out.println(encPwd);
+		
+		m.setMemPwd(encPwd);
+		
+		int updatePwdMem = memberService.updatePwd(m);
+		
+		if(updatePwdMem > 0) {	// 성공
+			session.setAttribute("alertMsg", "비밀번호 변경 성공");
+			session.setAttribute("loginUser", updatePwdMem);
+			
+			return "redirect:/";
+		} else {	// 실패
+			model.addAttribute("errorMsg", "비밀번호 변경 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	
+	
+	
 	
 	
 	

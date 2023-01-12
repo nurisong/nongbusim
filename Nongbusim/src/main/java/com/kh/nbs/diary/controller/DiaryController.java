@@ -160,6 +160,7 @@ public class DiaryController {
 		
 	}
 	
+	//영농일지 상세페이지
 	@RequestMapping("detail.di")
 	public ModelAndView selectDiary(@RequestParam(value="dno") int diaryNo, ModelAndView mv) {
 		mv.addObject("diary", diaryService.selectDiary(diaryNo)).addObject("dAtList", diaryService.selectAttachmentList(diaryNo)).setViewName("member/myPageFarmer/diary/diaryDetailView");;
@@ -167,7 +168,7 @@ public class DiaryController {
 	}
 	
 	
-	
+	// 영농일지 상세페이지에서 "수정" 버튼 누를시 수정 폼을 띄워주는 메소드
 	@RequestMapping("updateForm.di")
 	public ModelAndView updateDiaryForm(String dno, String memNo, ModelAndView mv) {		
 		//update할때 필요한 정보들은 diaryDetailView에서 필요한 Service메소드  + categoryList Serviec메소드 
@@ -182,16 +183,16 @@ public class DiaryController {
 	
 	} 
 	
-	
+	// 영농일지 수정하기에서 "확인" 버튼 누를 시, DB에 수정된 내용을 저장하기 위한 메소드
 	@RequestMapping("update.di")
 	public ModelAndView updateDiary(Diary diary, String newCategory, MultipartFile[] reUpfiles, HttpServletRequest request, HttpSession session, Attachment at, ModelAndView mv) {
-		System.out.println(diary);
 		// 만약 신규등록한 카테고리가 있다면
 		/// diary의 diaryCategory필드 값을 신규등록값으로 변경
 
 		if(!newCategory.equals("")) {
 			diary.setDiaryCategory(newCategory);
 		}
+		
 		for(int i=0; i<3; i++) {
 			
 			System.out.println("updateDiary reUpfiles"+reUpfiles[i]);
@@ -218,7 +219,7 @@ public class DiaryController {
 				
 				if(request.getParameter("beforeFileNo"+(i+1)) != null) {			
 					// 기존 에 파일이 존재했던 인덱스라면 
-					// DB에서 기존 파일의 fileNo에 덮어쓰기w
+					// DB에서 기존 파일의 fileNo에 덮어쓰기
 					at.setFileNo(Integer.parseInt(request.getParameter("beforeFileNo"+(i+1))));
 					// 기존 파일은 삭제
 					System.out.println(request.getParameter("beforeFileChangeName"+(i+1)));
@@ -237,11 +238,10 @@ public class DiaryController {
 			} else {
 				diaryService.updateDiary(diary);
 			}
-	}
+		}
 				mv.setViewName("member/myPageFarmer/diary/diaryListView");
 				return mv;
 	}	
-	
 	
 	
 	@RequestMapping("delete.di")

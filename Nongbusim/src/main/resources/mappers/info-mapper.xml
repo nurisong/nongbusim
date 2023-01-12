@@ -4,10 +4,126 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="infoMapper">
 
+<resultMap id="infoResultSet" type="info">
+	<result column="INFO_NO" property="infoNo" />
+	<result column="WRITER" property="writer" />
+	<result column="CATEGORY" property="category" />
+	<result column="INFO_TITLE" property="infoTitle" />
+	<result column="INFO_CONTENT" property="infoContent" />
+	<result column="SOURCE" property="source" />
+	<result column="CREATE_DATE" property="createDate" />
+	<result column="COUNT" property="count" />
+	<result column="STATUS" property="status" />
+</resultMap>
+
+<resultMap id="attachmentResultSet" type="attachment">
+	<result column="file_no" property="fileNo"/>
+    <result column="origin_name" property="originName"/>
+    <result column="change_name" property="changeName"/>
+    <result column="file_level" property="fileLevel"/>
+    <result column="upload_date" property="uploadDate"/>
+    <result column="board_no" property="boardNo"/>
+    <result column="board_type" property="boardType"/>
+</resultMap>
+
+<select id="selectList" resultMap="infoResultSet">
+	SELECT
+			 INFO_NO
+			,CATEGORY
+			,INFO_TITLE
+			,INFO_CONTENT
+			,TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') as "CREATE_DATE"
+			,COUNT
+	  FROM
+			INFO_BOARD
+	 WHERE
+			STATUS = 'Y'
+</select>
+
+<select id="selectListCount" resultType="_int">
+	SELECT
+			COUNT(*)
+	  FROM
+			INFO_BOARD
+	 WHERE
+			STATUS = 'Y'
+</select>
+
+<update id="increaseCount">
+	UPDATE
+			INFO_BOARD
+	   SET
+	   		COUNT = COUNT + 1
+	 WHERE
+	 		INFO_NO = #{infoNo}
+	   AND
+	   		STATUS = 'Y'
+</update>
+
+<select id="selecetInfo" resultMap="infoResultSet">
+	SELECT
+			 INFO_NO
+			,WRITER
+			,CATEGORY
+			,INFO_TITLE
+			,INFO_CONTENT
+			,SOURCE
+			,TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') as "CREATE_DATE"
+			,COUNT
+	  FROM
+			INFO_BOARD
+	 WHERE
+	 		INFO_NO = #{infoNo}
+</select>
+
+<select id="selectAttachment" resultMap="attachmentResultSet">
+		SELECT
+				FILE_NO
+			   ,ORIGIN_NAME
+			   ,CHANGE_NAME
+			   ,UPLOAD_DATE
+			   ,BOARD_NO
+			   ,BOARD_TYPE
+		 FROM
+				ATTACHMENT
+		WHERE
+				BOARD_NO = #{infoNo}
+		  AND
+				BOARD_TYPE = 'I'
+		  AND
+		  		FILE_LEVEL = 4
+</select>
+
+<select id="selectImg" resultMap="attachmentResultSet">
+		SELECT
+				FILE_NO
+			   ,ORIGIN_NAME
+			   ,CHANGE_NAME
+			   ,UPLOAD_DATE
+			   ,BOARD_NO
+			   ,BOARD_TYPE
+		 FROM
+				ATTACHMENT
+		WHERE
+				BOARD_NO = #{infoNo}
+		  AND
+				BOARD_TYPE = 'I'
+		  AND
+		  		FILE_LEVEL = 1
+</select>
+
 <insert id="insertInfo">
 	INSERT
 	  INTO
 			INFO_BOARD
+			(
+			 INFO_NO
+			,WRITER
+			,CATEGORY
+			,INFO_TITLE
+			,INFO_CONTENT
+			,SOURCE
+			)
 	VALUES
 			(
 			 SEQ_INO.NEXTVAL
@@ -16,10 +132,65 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			,#{infoTitle}
 			,#{infoContent}
 			,#{source}
-			,SYSDATE
-			,0
-			,'Y'
 			)
 </insert>
+
+<select id="selectSearchListCount" resultType="_int" parameterType="hashmap">
+	SELECT
+			COUNT(*)
+	  FROM
+			INFO_BOARD
+	 WHERE
+			STATUS = 'Y'
+	<if test="condition == 'all'">
+	   AND
+			INFO_CONTENT LIKE '%'||#{keyword}||'%'
+		OR
+			INFO_TITLE LIKE '%'||#{keyword}||'%'
+	</if>
+	<if test="condition == 'title'">
+	   AND
+			INFO_TITLE LIKE '%'||#{keyword}||'%'
+	</if>
+	<if test="condition == 'content'">
+	   AND
+			INFO_CONTENT LIKE '%'||#{keyword}||'%'
+	</if>
+
+</select>
+
+<select id="selectSearchList" resultMap="infoResultSet" parameterType="hashmap">
+	SELECT
+			 INFO_NO
+			,CATEGORY
+			,INFO_TITLE
+			,INFO_CONTENT
+			,TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') as "CREATE_DATE"
+			,COUNT
+	  FROM
+			INFO_BOARD
+	 WHERE
+			STATUS = 'Y'
+	<if test="category != 'all'">
+	   AND CATEGORY = #{category}
+	</if>
+	<if test="condition == 'all'">
+	   AND
+			INFO_CONTENT LIKE '%'||#{keyword}||'%'
+		OR
+			INFO_TITLE LIKE '%'||#{keyword}||'%'
+	</if>
+	<if test="condition == 'title'">
+	   AND
+			INFO_TITLE LIKE '%'||#{keyword}||'%'
+	</if>
+	<if test="condition == 'content'">
+	   AND
+			INFO_CONTENT LIKE '%'||#{keyword}||'%'
+	</if>
+
+</select>
+
+
 
 </mapper>

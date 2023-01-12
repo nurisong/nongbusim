@@ -85,7 +85,7 @@
           
           <!--글 작성-->
           <div>
-              <button type="button" onclick="location.href='write.bo?wtype=${btype}';" class="btn btn-secondary" id="insert-btn" >글작성</button>
+              <button type="button" onclick="location.href='write.bo?type=${type}';" class="btn btn-secondary" id="insert-btn" >글작성</button>
           </div>
           <br>
           <br>

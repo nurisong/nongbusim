@@ -3,5 +3,70 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="accountMapper">
+	<resultMap type="account" id="accountResultSet">
+		<result column="account_no" property="accountNo"></result>
+		<result column="type" property="type"></result>
+		<result column="account_category" property="accountCategory"></result>
+		<result column="goods" property="goods"></result>
+		<result column="create_date" property="createDate"></result>
+		<result column="amount" property="amount"></result>
+		<result column="account_content" property="accountContent"></result>
+		<result column="status" property="status"></result>
+		<result column="memNo" property="memNo"></result>	
+	</resultMap>	
+
+	<resultMap type="attachment" id="attachmentResultSet">
+		<result column="file_no" property="fileNo"></result>
+		<result column="origin_name" property="originName"></result>
+		<result column="change_name" property="changeName"></result>
+		<result column="filepath" property="filepath"></result>
+		<result column="file_level" property="fileLevel"></result>
+		<result column="upload_date" property="uploadDate"></result>
+		<result column="board_no" property="boardNo"></result>
+		<result column="board_type" property="boardType"></result>						
+	</resultMap>
+
+<select id="selectCatAndGoods" parameterType="_int" resultType="java.util.HashMap">	
+	select 
+			distinct account_category, goods 
+	from
+			account_Book
+	where
+			mem_no = #{memNo}
+</select>
+
+<select id="selectAccountList" parameterType="account" resultMap="accountResultSet">
+
+<![CDATA[
+	select
+			account_no, type, TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", account_category, goods, amount, account_content, account_book.status, account_book.mem_no
+	from
+			account_book
+	join 	member
+	
+ 	on	(member.mem_no=account_book.mem_no)	
+ 	
+ 	where
+			create_date >= #{startDate}
+    
+    and     create_date-1 <= #{endDate}
+	
+	and
+			account_book.mem_no = ${memNo}
+	and
+			account_book.status = 'Y'
+	]]>	
+	<!-- date로 값을 넘긴 후 대소비교를 하려고 하니 실제 입력한 마지막 날짜+1로 조회를 해야 마지막날 값이 select 됨... 그래서 createDate-1로 조회 -->
+		<if test="type !='selectAll'">
+			and type = #{type}		
+		</if>
+		<if test="accountCategory !='noCategory' and accountCategory !='selectAll'">
+			and account_category = #{accountCategory}		
+		</if>
+		<if test="goods !='noGoods' and goods !='selectAll'">
+			and goods = #{goods}		
+		</if>
+	
+	</select>
 
 </mapper>

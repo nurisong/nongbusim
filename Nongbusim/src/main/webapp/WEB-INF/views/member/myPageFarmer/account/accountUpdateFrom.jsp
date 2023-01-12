@@ -100,7 +100,7 @@
 							</td>	
 						</tr>
 						<tr>
-							<td colpan="3">
+							<td colspan="3">
 								<div>✔카테고리</div>
 										<select id="diaryCategory" name="diaryCategory">		
 											<c:choose>

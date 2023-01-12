@@ -40,17 +40,21 @@ public interface MarketService {
 	int marketDeleteAttachment(int marketNo);
 	int marketDelete(int marketNo);
 	
+	
+	
 	//댓글 작성 메소드
-	int ajaxInsertMarketComment(Comment c);
+	int ajaxInsertMarketComment(Comment comment);
 	
 	//댓글 리스트 조회 메소드
-	ArrayList<Comment> selectCommentList(int marketNo);
+	ArrayList<Comment> ajaxSelectListMarketComment(Comment comment);
 	
 	//댓글 삭제 메소드
-	int deleteComment(int cno);
+	int ajaxDeleteMarketComment(Comment comment);
 	
 	//댓글 수정 메소드
-	int updateComment(int cno);
+	
+	
+	
 	
 	//대댓글 리스트 조회 메소드
 	ArrayList<Recomment> selectRecommentList(int cno);

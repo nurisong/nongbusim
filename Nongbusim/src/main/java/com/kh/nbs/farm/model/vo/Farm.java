@@ -12,7 +12,7 @@ public class Farm {
 	private String localCode;
 	private String address;
 	private String phone;
-	private String enrollDate;
+	private String createDate;
 	private String status;
 	private String crop;
 	private String mainImg;

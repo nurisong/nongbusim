@@ -32,6 +32,7 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectAttachmentDetailBoard",b);
 	}
 	
+	
 	public int insertBoard(Board b, SqlSessionTemplate sqlSession) {		  
 		return sqlSession.insert("boardMapper.insertBoard", b);		  
 	}  
@@ -43,4 +44,25 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("boardMapper.attachmentSelectList");
 	}
 	
+	
+	public int deleteAttachment(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.delete("boardMapper.deleteAttachment",b);
+	}
+	public int deleteBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.delete("boardMapper.deleteBoard",b);
+	}
+	
+	
+	public int insertLike(SqlSessionTemplate sqlSession,Board b) {
+		return sqlSession.insert("boardMapper.insertLike",b);
+	}
+	public int deleteLike(SqlSessionTemplate sqlSession,Board b) {
+		return sqlSession.update("boardMapper.deleteLike",b);
+	}
+	public int selectLikeCount(SqlSessionTemplate sqlSession,Board b) {
+		return sqlSession.selectOne("boardMapper.selectLikeCount",b);
+	}
+	public int selectLike(SqlSessionTemplate sqlSession,Board b) {
+		return sqlSession.selectOne("boardMapper.selectLike",b);
+	}
 }

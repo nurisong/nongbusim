@@ -1,0 +1,18 @@
+WebappClassLoaderBase checkThreadLocalMapForLeaks
+
+1월 09, 2023 4:34:00 오후 org.apache.catalina.loader.WebappClassLoaderBase checkThreadLocalMapForLeaks
+심각: 웹 애플리케이션 [nbs]이(가), 타입 [java.lang.ThreadLocal]인 키와 (값: [java.lang.ThreadLocal@6a7aca63]) 타입 [java.lang.Class]인 값을 (값: [class oracle.sql.TypeDescriptorFactory]) 사용하여 ThreadLocal 객체를 생성했지만, 웹 애플리케이션이 중지될 때 그것을 제거하지 못했습니다. 혹시 있을 법한 메모리 누수를 방지하기 위하여, 시간을 두고 쓰레드들을 재생성할 것입니다.
+1월 09, 2023 4:34:00 오후 org.apache.catalina.loader.WebappClassLoaderBase checkThreadLocalMapForLeaks
+심각: 웹 애플리케이션 [nbs]이(가), 타입 [org.springframework.core.NamedThreadLocal]인 키와 (값: [Request attributes]) 타입 [org.springframework.web.context.request.ServletRequestAttributes]인 값을 (값: [org.apache.catalina.connector.RequestFacade@79397c45]) 사용하여 ThreadLocal 객체를 생성했지만, 웹 애플리케이션이 중지될 때 그것을 제거하지 못했습니다. 혹시 있을 법한 메모리 누수를 방지하기 위하여, 시간을 두고 쓰레드들을 재생성할 것입니다.
+1월 09, 2023 4:34:00 오후 org.apache.catalina.loader.WebappClassLoaderBase checkThreadLocalMapForLeaks
+심각: 웹 애플리케이션 [nbs]이(가), 타입 [java.lang.ThreadLocal.SuppliedThreadLocal]인 키와 (값: [java.lang.ThreadLocal$SuppliedThreadLocal@148dda41]) 타입 [org.apache.ibatis.executor.ErrorContext]인 값을 (값: [
+### The error may exist in /mappers/farm-mapper.xml
+### The error may involve farmMapper.insertFarm-Inline
+### The error occurred while setting parameters
+### SQL: INSERT     INTO     FARM     (     FARM_NO       ,FARMER       ,FARM_NAME       ,FARM_INTRO       ,ADDRESS       ,PHONE       ,CROP     )   VALUES     (     SEQ_FNO.NEXTVAL       ,2       ,?       ,?       ,?       ,?       ,?     )]) 사용하여 ThreadLocal 객체를 생성했지만, 웹 애플리케이션이 중지될 때 그것을 제거하지 못했습니다. 혹시 있을 법한 메모리 누수를 방지하기 위하여, 시간을 두고 쓰레드들을 재생성할 것입니다.
+1월 09, 2023 4:34:00 오후 org.apache.catalina.loader.WebappClassLoaderBase checkThreadLocalMapForLeaks
+심각: 웹 애플리케이션 [nbs]이(가), 타입 [java.lang.ThreadLocal]인 키와 (값: [java.lang.ThreadLocal@52ff744e]) 타입 [java.lang.Class]인 값을 (값: [class oracle.sql.AnyDataFactory]) 사용하여 ThreadLocal 객체를 생성했지만, 웹 애플리케이션이 중지될 때 그것을 제거하지 못했습니다. 혹시 있을 법한 메모리 누수를 방지하기 위하여, 시간을 두고 쓰레드들을 재생성할 것입니다.
+1월 09, 2023 4:34:00 오후 org.apache.catalina.loader.WebappClassLoaderBase checkThreadLocalMapForLeaks
+심각: 웹 애플리케이션 [nbs]이(가), 타입 [org.springframework.core.NamedThreadLocal]인 키와 (값: [LocaleContext]) 타입 [org.springframework.web.servlet.DispatcherServlet$$Lambda$170/1829049819]인 값을 (값: [org.springframework.web.servlet.DispatcherServlet$$Lambda$170/1829049819@6e6a85a0]) 사용하여 ThreadLocal 객체를 생성했지만, 웹 애플리케이션이 중지될 때 그것을 제거하지 못했습니다. 혹시 있을 법한 메모리 누수를 방지하기 위하여, 시간을 두고 쓰레드들을 재생성할 것입니다.
+1월 09, 2023 4:34:00 오후 org.apache.coyote.AbstractProtocol stop
+정보: 프로토콜 핸들러 ["http-nio-8989"]을(를) 중지시킵니다.
