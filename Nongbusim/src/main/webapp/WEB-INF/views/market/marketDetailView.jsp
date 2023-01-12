@@ -136,21 +136,46 @@
 
             </div>
 
+            <hr>
+
+            
+                
+    
             <table id="replyArea" class="table" align="center">
                 <thead>
-                    <tr>
-                        <td>
-                            <a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>
-                            </a>
-                        </td>
-                        <th>
-                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
-                        </th>
-                        <th style="vertical-align:middle">
-                            <button class="btn btn-success" >등록하기</button>
-                        </th>
-                    </tr>
+                    <c:choose>
+                        <c:when test="${ not empty loginUser }">
+                            <tr>
+                                <td>
+                                    <a href="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>
+                                    </a>
+                                </td>
+                                <th>
+                                    <textarea class="form-control" id="content" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
+                                </th>
+                                <th style="vertical-align:middle">
+                                    <button class="btn btn-success" style="width: 80px; height:50px;" onclick="addComment()";>등록</button>
+                                </th>
+                            </tr>
+                        </c:when>
+
+                        <c:otherwise>
+                            <tr>
+                                <td>
+                                    <a href="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>
+                                    </a>
+                                </td>
+                                <th>
+                                    <textarea class="form-control" cols="55" rows="2" style="resize:none; width:100%;" readonly>로그인 후 이용해주세요.</textarea>
+                                </th>
+                                <th style="vertical-align:middle">
+                                    <button class="btn btn-success" style="width: 80px; height:50px;" disabled>등록</button>
+                                </th>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
                     <tr>
                         <td colspan="3">댓글(<span id="rcount">3</span>)</td>
                     </tr>
@@ -175,6 +200,49 @@
                     </tr>
                 </tbody>
             </table>
+
+
+
+            <!-- 댓글 작성용 모달창 -->
+            <script>
+
+
+                //댓글 작성용 ajax
+                function addComment(){
+                    
+                    if($('#content').val().trim() != ''){
+                        $.ajax({
+
+                            url : 'insertComment.mk',
+
+                            data : {
+                                
+                                memNo : ${loginUser.memNo },
+                                boardNo : ${ list.marketNo },
+                                boardType : 'mk',
+                                commentContent : $('#content').val()
+
+                            },
+
+                            success : function(status){
+                                console.log(status);
+
+
+                            },
+                            error : function(){
+                                console.log('실패');
+                            }
+                            
+
+                        });
+                    }
+
+
+                };
+
+            </script>
+
+
 
             <!-- 페이지처리하는 영역-->
             <div id="market_page">

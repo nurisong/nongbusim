@@ -11,10 +11,14 @@
     <title>아이디 찾기</title>
 </head>
 <body>
+
+<!-- 메뉴바 -->
+<jsp:include page="../common/menubar.jsp" />
         <h3>아이디 찾기</h3>
         <hr>
         <form method="post" action="findId.me">
-            비밀번호 : <input type="password" name="memPwd" placeholder="비밀번호를 입력하세요." required>
+	            이름 : <input type="text" name="name" required><br>
+	            이메일 : <input type="email" name="email" required>
             <button type="submit" class="btn btn-success">아이디 찾기</button>
         </form>
 </body>

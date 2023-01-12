@@ -1,6 +1,8 @@
 package com.kh.nbs.farm.model.dao;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -46,6 +48,23 @@ public class FarmDao {
 	public ArrayList<Attachment> selectAttachment(int farmNo, SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("farmMapper.selectAttachment", farmNo);
 	}
+
+	public int updateFarm(Farm f, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("farmMapper.updateFarm", f);
+	}
+	
+	public ArrayList<Attachment> deleteAttachment(int[] fileNo, SqlSessionTemplate sqlSession) {
+		List list = Arrays.asList(fileNo);
+		
+		return (ArrayList)sqlSession.selectList("farmMapper.deleteAttachment", list);
+	}
+
+	public int deleteFarm(int farmNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("farmMapper.deleteFarm", farmNo);
+	}
+
+	
+	
 
 
 

@@ -108,9 +108,44 @@ public class FarmController {
 	}
 	
 	@RequestMapping("updateForm.fm")
-	public String updateFarm(int fno, Model model) {
+	public String updateFormFarm(int fno, Model model) {
+		model.addAttribute("atList", farmService.selectAttachment(fno));
 		model.addAttribute("farm", farmService.selectFarm(fno));
+		System.out.println(farmService.selectFarm(fno));
 		return "farm/farmUpdateForm";
+	}
+	
+	@RequestMapping("update.fm")
+	public String updateFarm(Farm farm, Model model, RedirectAttributes rttr) {
+		if(farmService.updateFarm(farm) > 0) {
+			rttr.addFlashAttribute("alertMsg", "정보가 수정되었습니다.");
+			return "redirect:/detail.fm?fno=" + farm.getFarmNo();
+		} else {
+			rttr.addFlashAttribute("alertMsg", "정보 수정에 실패했습니다.");
+			return "redirect:/detail.fm?fno=" + farm.getFarmNo();
+		}
+	}
+	
+	// 언젠가..첨부파일 수정 성공하길..
+	//@RequestMapping("update.fm")
+	public String updateFarm(int[] originFileNo) {
+		System.out.println(originFileNo.length);
+		for(int fileNo : originFileNo) {
+			System.out.println(fileNo);
+		}
+		System.out.println(farmService.deleteAttachment(originFileNo));
+		//farmService.deleteAttachment(originFileNo);
+		return "";
+	}
+	
+	@RequestMapping("delete.fm")
+	public String deleteFarm(int fno, Model model, RedirectAttributes rttr) {
+		if(farmService.deleteFarm(fno) > 0) {
+			rttr.addFlashAttribute("alertMsg", "농장이 삭제되었습니다.");
+			return "redirect:/myList.fm";
+		} else {
+			return "common/errorPage";
+		}
 	}
 	
 	

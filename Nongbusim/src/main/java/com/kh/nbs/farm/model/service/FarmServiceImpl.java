@@ -18,7 +18,7 @@ public class FarmServiceImpl implements FarmService {
 	private FarmDao farmDao;
 	
 	@Autowired
-	SqlSessionTemplate sqlSession;
+	private SqlSessionTemplate sqlSession;
 
 	@Override
 	public int selectFarmCount() {
@@ -62,12 +62,17 @@ public class FarmServiceImpl implements FarmService {
 
 	@Override
 	public int deleteFarm(int farmNo) {
-		return 0;
+		return farmDao.deleteFarm(farmNo, sqlSession);
 	}
 
 	@Override
 	public int updateFarm(Farm f) {
-		return 0;
+		return farmDao.updateFarm(f, sqlSession);
+	}
+
+	@Override
+	public ArrayList<Attachment> deleteAttachment(int[] fileNo) {
+		return farmDao.deleteAttachment(fileNo, sqlSession);
 	}
 
 

@@ -64,7 +64,7 @@
             </form>
 
             <c:if test="${loginUser.status eq a}">
-                <a class="btn btn-secondary" id="insert-btn" href="insert.if">글작성</a>
+                <a class="btn btn-secondary" id="insert-btn" href="enrollForm.if">글작성</a>
             </c:if>
             
             <br><br><br>

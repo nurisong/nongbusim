@@ -45,11 +45,11 @@ public interface MemberService {
 	// 찜한 마켓(select)
 	ArrayList<Market> markMarket(int memNo);
 	
+	// 아이디 찾기(select)
+	Member findId(Member m);
+	
 	// 비밀번호 변경(update)
 	int updatePwd(String pwd);
-	
-	// 아이디 찾기(select)
-//	Member findId(String memPwd);
 	
 	// 비밀번호 찾기(select)
 }

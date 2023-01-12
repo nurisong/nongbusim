@@ -13,11 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.Comment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.template.Pagination;
 import com.kh.nbs.market.model.service.MarketService;
@@ -229,6 +231,17 @@ public class MarketController {
 	
 	
 	
+	//댓글 조회 
+	@ResponseBody
+	@RequestMapping("insertComment.mk")
+	public String ajaxInsertMarketComment(Comment comment) {
+	
+		System.out.println(comment);
+		
+		return marketService.ajaxInsertMarketComment(comment) > 0? "success" : "fail";
+	}
+	
+
 	
 	
 	

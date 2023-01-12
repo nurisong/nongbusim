@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>농부심 | 정보 게시판</title>
+<title>농부심</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -45,6 +45,7 @@
             <div class="board-area">
             	<form action="update.fm" method="post" enctype="multipart/form-data">	
 	                <table class="table info-table">
+                        <input type="hidden" name="farmNo" value="${farm.farmNo}">
 	                    <tr>
 	                        <th>농장이름</th>
 	                        <td colspan="3"><input type="text" class="form-control" required name="farmName" value="${farm.farmName}"></td>
@@ -60,20 +61,27 @@
                         <tr>
 	                        <th>대표사진</th>
 	                        <td colspan="3">
-	                           <input type="file" class="form-control-file border" name="upfiles" accept="image/*">
+                                <img width="200" src="${atList[0].changeName}">
+                                <span>${atList[0].originName}</span><button>수정</button>
+                                <input type="file" class="form-control-file border" name="upfiles" accept="image/*">
 	                        </td>
 	                    </tr>
 	                    <tr>
-	                        <th>상세사진</th>
+                            <th>첨부파일</th>
 	                        <td colspan="3" class="sub-img-area">
-                                <button type="button" class="add-btn">추가</button><label style="display: none;" id="max-label">상세사진은 최대 3장까지 첨부 가능합니다.</label><br> 
+                                <c:forEach var="at" items="${atList}">
+                                    <img width="150" src="${at.changeName}">
+                                    <input type="hidden" name="originFileNo " value="${at.fileNo}">
+                                    <span>${at.originName}</span><button id="del-img-btn">삭제</button><br>
+                                </c:forEach>
+                                <button type="button" class="add-btn">추가</button><label style="display: none;" id="max-label">사진 첨부는 최대 4장까지 가능합니다.</label><br> 
                                 <input type="file" class="form-control-file border" name="upfiles" accept="image/*">
                             </td>
 	                    </tr>
 	                    <tr>
 	                        <th>소개글</th>
 	                        <td colspan="3">
-	                            <textarea class="form-control" style="resize: none;" rows="10" name="farmIntro" value="${farm.farmIntro}"></textarea>
+	                            <textarea class="form-control" style="resize: none;" rows="10" name="farmIntro">${farm.farmIntro}</textarea>
 	                        </td>
 	                    </tr>
 	                    <tr>
@@ -92,11 +100,17 @@
     </div>
 
     <script> 
+        $(function(){
+            $('#del-img-btn').on('click', function(){
+                $('#file')
+            })
+
+        })
         // 버튼 클릭시 input 추가
-        var maxAppend = 1;
+        var maxAppend = '${atList.size()}';
 
         $('.add-btn').on('click', function(){
-            if(maxAppend >= 3){
+            if(maxAppend >= 4){
                 $('#max-label').css('display', '');
                 return;
             }else{
@@ -105,40 +119,7 @@
             }
 
 
-            // switch(maxAppend){
-            //     case 1: $('#subImg2').css('display', '');
-            //             maxAppend++;
-            //             break;
-            //     case 2: $('#subImg3').css('display', '');
-            //             maxAppend++;
-            //             $('#max-label').css('display', '');
-            //             $(this).css('display', 'none');
-            //             break;
-            // }
-        });
 
-        function delInput(e){
-            $(e).closest('div').remove();
-            $('#max-label').css('display', 'none');
-            maxAppend --;
-        }
-
-        // input 삭제
-        $('#del-btn2').on('click', function(){
-            $('#subImg2').css('display', 'none');
-            $('#max-label').css('display', 'none');
-            $('#subImgInput2').val('');
-            $('.add-btn').css('display', '');
-            maxAppend--;
-        });
-
-        $('#del-btn3').on('click', function(){
-            $('#subImg3').css('display', 'none');
-            $('#max-label').css('display', 'none');
-            $('#subImgInput3').val('');
-            $('.add-btn').css('display', '');
-            maxAppend--;
-        })
 
 
     </script>

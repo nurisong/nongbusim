@@ -238,7 +238,6 @@ public class MemberController {
 		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
 		if(programService.selectMarkNo(mNo) != null ) {
-			
 			// 찜한 게시글 번호 조회
 			mv.addObject("markNoList",programService.selectMarkNo(mNo));
 		}
@@ -250,6 +249,11 @@ public class MemberController {
 	@RequestMapping("markMarket.me")
 	public ModelAndView markMarket(ModelAndView mv, HttpSession session) {
 		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		if(programService.selectMarkNo(mNo) != null ) {
+			// 찜한 게시글 번호 조회
+			mv.addObject("markNoList",programService.selectMarkNo(mNo));
+		}
 		
 		mv.addObject("list", memberService.markMarket(mNo)).setViewName("member/myPageUser/markMarket");
 		return mv;
@@ -269,30 +273,26 @@ public class MemberController {
 //		}
 //		return mv;
 //	}
-
+	
+	@RequestMapping("findIdForm.me")
+	public String findIdForm() {
+		return "member/findId";
+	}
+	
+	@RequestMapping("findId.me")
+	public String findId(Member m, HttpSession session) {
+		
+		Member findId = memberService.findId(m);
+		if(findId.getMemId() == null) {
+			session.setAttribute("alertMsg", "해당 회원이 존재하지 않습니다.");
+			return "redirect:/";
+		} else {
+			session.setAttribute("alertMsg", m.getName() + "님의 아이디는 " + findId.getMemId() + "입니다.");
+			return "member/loginForm";
+		}
+	}
 	
 
-	
-//	@RequestMapping("findId.me")
-//	public String findId(String memPwd, HttpSession session, Model model) {
-//		
-//		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) {
-//		// 비밀번호가 사용자가 입력한 평문으로 만들어진 암호문일 경우
-//		
-	//		if(memberService.finId(memId) > 0) {
-	//			session.setAttribute("alertMsg", findId.getName() + "님의 아이디는 " + findId.getmemId() + "입니다.");
-	//			return "redirect:/";
-	//		} else {
-	//			session.setAttribute("errorMsg", "아이디 찾기 실패");
-	//			return "common/errorPage";
-	//		}
-//		
-	//	} else {
-	//		session.setAttribute("alertMsg", "존재하지 않는 비밀번호입니다.");
-	//		return "redirect:myPageFarmer.me";
-	//	}
-//	}
-	
 	
 	
 	

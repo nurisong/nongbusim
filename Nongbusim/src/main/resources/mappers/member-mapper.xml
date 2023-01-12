@@ -143,7 +143,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="markProgram" resultMap="programResultSet" parameterType="program">
 		SELECT DISTINCT PROGRAM_LOCATION, PROGRAM_NAME , PROGRAM_PLAN, HEADCOUNT, SIGN_UP, PROGRAM_NO
 	    FROM PROGRAM 
-	    JOIN MARK ON (PROGRAM.MEM_NO = MARK.MEM_NO) 
+	    JOIN MARK ON (PROGRAM.PROGRAM_NO = MARK.BOARD_NO) 
 	    WHERE MARK.MEM_NO = #{memNo}
 	    AND MARK.BOARD_TYPE = 'P'
 	    AND PROGRAM.STATUS = 'Y'
@@ -151,35 +151,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    AND BOARD_NO = PROGRAM.PROGRAM_NO
 	</select>
 	
-	<!-- 
-	<select id="markProgram" resultMap="programResultSet" parameterType="program">
-		SELECT PROGRAM_LOCATION, PROGRAM_NAME, PROGRAM_PLAN, HEADCOUNT, SIGN_UP, PROGRAM_NO
-		FROM PROGRAM P
-		JOIN MARK M USING(MEM_NO)
-		WHERE MEM_NO = #{memNo}
-		AND BOARD_TYPE = 'P'
-		AND P.STATUS = 'Y'
-		AND M.STATUS = 1
-	</select> -->
-	
-	<!-- 찜한 마켓 -->
+	<!-- 찜한 마켓 --><!-- 테스트 전 -->
 	<select id="markMarket" resultMap="marketResultSet" parameterType="market">
 		SELECT MK_CATEGORY, MK_TITLE, MK_PRICE, MK_ENROLLDATE
 		FROM MARKET
-		JOIN MARK M USING(MEM_NO)
-		WHERE MEM_NO = #{memNo}
+		JOIN MARK ON (MARKET_NO = BOARD_NO)
+		WHERE MARK.MEM_NO = #{memNo}
 		AND BOARD_TYPE = 'T'
 		AND MK_STATUS = 'Y'
-		AND M.STATUS = 1
+		AND MARK.STATUS = 1
+		AND BOARD_NO = MARKET_NO
 	</select>
 	
 	<!-- 아이디 찾기 -->
-	<!--<select id="findId" parameterType="member" resultType="memberResultSet">
+	<select id="findId" resultMap="memberResultSet" parameterType="member">
 		SELECT MEM_ID
 		FROM MEMBER
-		WHERE MEM_PWD = #{ memPwd }
+		WHERE NAME = #{name}
+		AND EMAIL = #{email}
 		AND MEM_STATUS = 'Y'
-	</select>	 -->
+	</select>
 	
 	<!-- 비밀번호 찾기 -->
 </mapper>

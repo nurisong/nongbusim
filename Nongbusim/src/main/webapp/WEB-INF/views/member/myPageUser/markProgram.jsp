@@ -63,7 +63,7 @@
 			          			<td>${ p.programPlan }</td>
 			          			<td>${ p.headcount }</td>
 			          			<td>${ p.signUp }</td>
-			          			<td class="sorry"><img class="heart" src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
+			          			<td class="sorry"><img class="heart" src="resources/images/heart2.png" alt="${ p.programNo }"></td>
 			          		</tr>
 			          	</c:forEach>
 		        	</c:when>
@@ -84,41 +84,13 @@
     
             <script>
 
-
                  
             $(function(){
                 $('.heart').click(function(){
                     var $btn1 = $(this);
-                    // console.log($(this).attr("alt"));
+                     console.log($(this).attr("alt"));
 
-                    //console.log($(this).attr("src"));
-
-               
-
-                    if($(this).attr("src") == "resources/images/deleteheart.png"){
-
-                      
-                        
-                        $.ajax({
-                            url : 'wish.pr',
-                            data :{
-                                programNo : $(this).attr("alt"),
-                                memNo : ${loginUser.memNo}
-                                
-                            },
-                            
-                            success: function() {
-                                console.log($btn1);
-                                $btn1.attr("src", "resources/images/heart2.png");
-                            },
-
-                            error:function(){
-                                        console.log('ajax 통신 실패!');
-                                    }
-                    });
-
-
-                    }else{
+                    console.log($(this).attr("src"));
 
                         $.ajax({
                             url : 'wishDelete.pr',
@@ -129,7 +101,8 @@
                             
                             success: function() {
                                 console.log($btn1);
-                                $btn1.attr("src", "resources/images/deleteheart.png");
+                                location.reload();
+                                
                         
                             },
 
@@ -138,10 +111,8 @@
                                     }
                     });
 
-                    }
                 });
             })
-
 
               
                $(function(){

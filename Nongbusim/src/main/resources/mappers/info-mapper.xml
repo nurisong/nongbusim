@@ -4,4 +4,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="infoMapper">
 
+<insert id="insertInfo">
+	INSERT
+	  INTO
+			INFO_BOARD
+	VALUES
+			(
+			 SEQ_INO.NEXTVAL
+			,#{writer}
+			,#{category}
+			,#{infoTitle}
+			,#{infoContent}
+			,#{source}
+			,SYSDATE
+			,0
+			,'Y'
+			)
+</insert>
+
 </mapper>

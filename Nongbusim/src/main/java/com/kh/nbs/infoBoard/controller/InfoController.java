@@ -1,10 +1,23 @@
 package com.kh.nbs.infoBoard.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.template.SaveFile;
+import com.kh.nbs.infoBoard.model.service.InfoService;
+import com.kh.nbs.infoBoard.model.vo.Info;
 
 @Controller
 public class InfoController {
+	
+	@Autowired
+	private InfoService infoService;
 	
 	@RequestMapping("list.if")
 	public String infoListView() {
@@ -23,4 +36,40 @@ public class InfoController {
 		return "infoBoard/infoBoardEnrollForm";
 	}
 	
+	@RequestMapping("insert.if")
+	public String insertInfo(Info i, Attachment a, MultipartFile[] upfilesImg, MultipartFile[] upfiles, HttpSession session, RedirectAttributes rttr) {
+		if(infoService.insertInfo(i) > 0) {
+			
+			for(MultipartFile upfile: upfilesImg) {
+				
+				if(!upfile.getOriginalFilename().equals("")) {
+
+					a.setBoardType("I");
+					a.setFileLevel(1); // 이미지 파일
+					a.setOriginName(upfile.getOriginalFilename()); // 원본명
+					a.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfile, session)); // 저장경로
+					
+					infoService.insertAttachment(a);
+				} 
+			}
+			
+			for(MultipartFile upfile: upfiles) {
+				
+				if(!upfile.getOriginalFilename().equals("")) {
+
+					a.setBoardType("I");
+					a.setFileLevel(4); // 다운로드 첨부파일
+					a.setOriginName(upfile.getOriginalFilename()); // 원본명
+					a.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfile, session)); // 저장경로
+					
+					infoService.insertAttachment(a);
+				} 
+			}
+			
+			rttr.addFlashAttribute("alertMsg", "글이 작성되었습니다.");
+			return "redirect:/list.if";
+		} else {
+			return "common/errorPage";
+		}
+	}
 }
