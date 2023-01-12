@@ -111,6 +111,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	insert
 	into
 			attachment
+			(
+			file_no, 
+			origin_name, 
+			change_name, 
+			file_path, 
+			upload_date, 
+			board_no, 
+			board_type, 
+			status			
+			)
 	values 
 			( seq_ano.nextval, 
 			  #{originName},
@@ -126,11 +136,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  seq_dno.currval,
 			</otherwise>
 		</choose>	
-			  #{boardType}
+			  #{boardType},
+			  'Y'
 			)
 	
-	</insert>
-	
+	</insert>	
 	<insert id="insertDiary" parameterType="diary">
 	insert
 	into
@@ -161,8 +171,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			diary_content = #{diaryContent},
 			diary_thumbnail = #{diaryThumbnail}
 	where
-			diary_no  = #{diaryNo}
-	
+			diary_no  = #{diaryNo}	
 	</update>
 	<update id="updateAttachment" parameterType="attachment">
 	update
@@ -173,6 +182,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where
 			file_no = #{fileNo}
 	</update>
+	<update id="deleteDiary" parameterType="_int">
+	update
+			diary
+	set	
+			status= 'N'
+	where		
+			diary_no  = #{diaryNo}	
+	</update>
+	<update id="deleteAttachment" parameterType="_int">
+	update
+			attachment
+	set
+			status = 'N'
+	where
+			board_no = #{diaryNo}
 
-		
+	</update>
 </mapper>

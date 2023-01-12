@@ -65,6 +65,16 @@ public class DiaryServiceImpl implements DiaryService {
 		return diaryDao.updateAttachment(sqlSession, at);
 	}
 
+	@Override
+	public int deleteDiary(int diaryNo) {
+		return diaryDao.deleteDiary(sqlSession, diaryNo);
+	}
+
+	@Override
+	public int deleteAttachment(int diaryNo) {
+		return diaryDao.deleteAttachment(sqlSession, diaryNo);
+	}
+
 	/*
 	 * @Override public int insertNewAttachment(Attachment at) { return
 	 * diaryDao.insertNewAttachment(sqlSession, at); }
