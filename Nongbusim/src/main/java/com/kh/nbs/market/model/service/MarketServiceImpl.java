@@ -116,16 +116,16 @@ public class MarketServiceImpl implements MarketService{
 	
 	
 	@Override
+	public int ajaxInsertMarketComment(Comment comment) {
+		return marketdao.ajaxInsertMarketComment(comment, sqlSession);
+	}
+	
+	@Override
 	public ArrayList<Comment> selectCommentList(int marketNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public int insertComment(Comment c) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public int deleteComment(int cno) {

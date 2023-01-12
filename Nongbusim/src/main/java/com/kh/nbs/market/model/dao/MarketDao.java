@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.Comment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.market.model.vo.Market;
 
@@ -81,6 +82,12 @@ public class MarketDao {
 	  
 	  return sqlSession.update("marketMapper.marketDelete", marketNo);
   }
+  
+  
+  public int ajaxInsertMarketComment(Comment comment, SqlSessionTemplate sqlSession) {
+	  return sqlSession.insert("marketMapper.ajaxInsertMarketComment", comment);
+  }
+  
   
   
 }
