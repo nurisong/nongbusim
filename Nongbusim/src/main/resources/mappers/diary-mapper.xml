@@ -119,7 +119,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  sysdate,
 			  
 		<choose>
-			<when test="boardNo !=null">
+			<when test="boardNo !=0">
 				#{boardNo}, 
 			</when>
 			<otherwise>
@@ -156,6 +156,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update
 			diary
 	set
+			create_date = #{createDate}, 
 			diary_category = #{diaryCategory},
 			diary_content = #{diaryContent},
 			diary_thumbnail = #{diaryThumbnail}

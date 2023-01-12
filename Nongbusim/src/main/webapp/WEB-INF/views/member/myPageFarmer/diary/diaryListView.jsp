@@ -205,7 +205,7 @@
 			<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
 				<c:when test="${ not empty categoryList }">
 					<option value="selectAll" selected>전체</option>				
-					<c:forEach var="category" items="${categoryList }">
+					<c:forEach var="category" items="${categoryList}">
 						<option>${ category.diaryCategory }</option>
 					</c:forEach>
 				</c:when>
