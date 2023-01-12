@@ -90,4 +90,19 @@ public class MarketDao {
   
   
   
+  public ArrayList<Comment> ajaxSelectListMarketComment(Comment comment, SqlSessionTemplate sqlSession){
+	  
+	  return (ArrayList)sqlSession.selectList("marketMapper.ajaxSelectListMarketComment", comment);
+	  
+  }
+  
+  
+  public int ajaxDeleteMarketComment(Comment comment, SqlSessionTemplate sqlSession) {
+	  
+	  return sqlSession.update("marketMapper.ajaxDeleteMarketComment", comment);
+  }
+  
+  
+  
+  
 }

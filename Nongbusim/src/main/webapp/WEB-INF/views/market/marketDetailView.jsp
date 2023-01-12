@@ -107,8 +107,8 @@
                         ${ list.marketIntro }
                     </p>
                     <c:if test="${ loginUser.memNo == list.memNo }" >
-                        <a class="btn btn-primary btn-sm" onclick="postFormSubmit(1);">수정하기</a>
-                        <a class="btn btn-danger btn-sm" onclick="postFormSubmit(2);">삭제하기</a>
+                        <a class="btn btn-primary btn-sm" onclick="postFormSubmit(1);">수정</a>
+                        <a class="btn btn-danger btn-sm" onclick="postFormSubmit(2);">삭제</a>
                     </c:if>
 
                     <form action="" method="post" id="postForm">
@@ -177,10 +177,11 @@
                         </c:otherwise>
                     </c:choose>
                     <tr>
-                        <td colspan="3">댓글(<span id="rcount">3</span>)</td>
+                        <td colspan="5">댓글(<span id="rcount">0</span>)</td>
                     </tr>
                 </thead>
                 <tbody>
+                    <!--
                     <tr>
                         <th>user02</th>
                         <td>비밀댓글입니다.
@@ -188,23 +189,20 @@
                         </td>
                         <td>2020-03-12</td>
                     </tr>
-                    <tr>
-                        <th>user01</th>
-                        <td>재밌어요</td>
-                        <td>2020-03-11</td>
-                    </tr>
-                    <tr>
-                        <th>admin</th>
-                        <td>댓글입니다!!</td>
-                        <td>2020-03-10</td>
-                    </tr>
+                    -->
                 </tbody>
             </table>
 
 
-
+            
+            
             <!-- 댓글 작성용 모달창 -->
             <script>
+                
+                
+                $(function(){
+                    selectCommentList();
+                });
 
 
                 //댓글 작성용 ajax
@@ -214,10 +212,9 @@
                         $.ajax({
 
                             url : 'insertComment.mk',
-
                             data : {
                                 
-                                memNo : ${loginUser.memNo },
+                                memNo : '${ loginUser.memNo }',
                                 boardNo : ${ list.marketNo },
                                 boardType : 'mk',
                                 commentContent : $('#content').val()
@@ -225,8 +222,11 @@
                             },
 
                             success : function(status){
-                                console.log(status);
+                                if(status == 'success'){
+                                    selectCommentList();
+                                    $('#content').val('');
 
+                                }
 
                             },
                             error : function(){
@@ -240,11 +240,120 @@
 
                 };
 
+                //댓글 조회용 ajax
+                function selectCommentList(){
+
+     
+                    $.ajax({
+                        
+                        url : 'listComment.mk',
+                        data : {
+                            boardNo : ${list.marketNo},
+                            boardType : 'mk'
+                        },
+                        success : function(cList){
+
+                            let value = '';
+
+                            if(cList.length != 0) {
+                            
+                                for(let i in cList){
+
+                                    value += '<tr>'
+                                        + '<th>' + cList[i].memId + '</th>'
+                                        + '<th>' + cList[i].commentContent + '</th>'
+                                        + '<th>' + cList[i].commentEnrollDate + '</th>';
+                                        
+                                        if(cList[i].memId=='${loginUser.memId}') {
+                                        value +=  '<th>'
+                                              +   '<button class="btn btn-sm" onclick="deleteComment(' + cList[i].commentNo + ')"> X </button>'
+                                              +   '</th>'
+                                              +   '<th>'
+                                              +   '<button class="btn btn-sm" onclick="updateComment(' + cList[i].commentNo + cList[i].commentContent + cList[i].memId + ')"> 수정 </button>'
+                                              +   '</th>'
+
+                                        }
+
+
+
+                                    value += '</tr>';
+                                }
+
+                            } else {
+
+                                value += '<tr>'
+                                       + '<th>' + '등록된 댓글이 없습니다.' + '</th>'
+                                       + '</tr>';
+
+
+                            }
+
+                            
+
+                            $('#replyArea tbody').html(value);
+                            $('#rcount').text(cList.length);
+
+
+                        },
+                        error : function(){
+
+                            console.log('댓글목록조회실패');
+                        
+                        }
+
+                    });
+
+                };
+
+
+
+
+                //댓글 삭제용 ajax
+                function deleteComment(num){ 
+
+                    $.ajax({
+
+                        url : 'deleteComment.mk',
+
+                        data : { 
+                            commentNo : num,
+                            boardType : 'mk'
+                        },
+
+                        type : 'POST',
+
+                        success : function(status){
+
+                            if(status == 'success'){
+                                    selectCommentList(); 
+                            }
+                            
+
+                        },
+                        error : function(){
+
+                            console.log('실패');
+
+                        }
+
+
+                    });
+                    
+                }
+
+                
+                //댓글 수정용 ajax
+
+                function updateComment(cNo, cContent, cWriter){
+                        console.log(cNo);
+                }
+
+
             </script>
 
 
 
-            <!-- 페이지처리하는 영역-->
+            <!-- 댓글 페이지처리하는 영역
             <div id="market_page">
                 <ul class="pagination justify-content-center">
                     <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
@@ -256,7 +365,7 @@
                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
                 </ul>
             </div>
-            
+            -->
 
 
 
