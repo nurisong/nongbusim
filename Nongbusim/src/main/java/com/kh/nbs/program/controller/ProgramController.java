@@ -210,6 +210,8 @@ public class ProgramController {
 			
 			
 			//return "redirect:list.pr?cpage="+programNo;
+			
+			//return "redirect:list.pr?cpage";
 		}
 		
 		

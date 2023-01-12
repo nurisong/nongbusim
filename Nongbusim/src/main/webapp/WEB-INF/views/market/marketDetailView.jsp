@@ -136,45 +136,47 @@
 
             </div>
 
-            <table id="replyArea" class="table" align="center">
-                <thead>
-                    <tr>
-                        <td>
-                            <a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>
-                            </a>
-                        </td>
-                        <th>
-                            <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
-                        </th>
-                        <th style="vertical-align:middle">
-                            <button class="btn btn-success" >등록하기</button>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td colspan="3">댓글(<span id="rcount">3</span>)</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>user02</th>
-                        <td>비밀댓글입니다.
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>
-                        </td>
-                        <td>2020-03-12</td>
-                    </tr>
-                    <tr>
-                        <th>user01</th>
-                        <td>재밌어요</td>
-                        <td>2020-03-11</td>
-                    </tr>
-                    <tr>
-                        <th>admin</th>
-                        <td>댓글입니다!!</td>
-                        <td>2020-03-10</td>
-                    </tr>
-                </tbody>
-            </table>
+            <form action="insertComment.mk" method="post">
+                <table id="replyArea" class="table" align="center">
+                    <thead>
+                        <tr>
+                            <td>
+                                <a href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>
+                                </a>
+                            </td>
+                            <th>
+                                <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
+                            </th>
+                            <th style="vertical-align:middle">
+                                <button class="btn btn-success" >등록하기</button>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td colspan="3">댓글(<span id="rcount">3</span>)</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>user02</th>
+                            <td>비밀댓글입니다.
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>
+                            </td>
+                            <td>2020-03-12</td>
+                        </tr>
+                        <tr>
+                            <th>user01</th>
+                            <td>재밌어요</td>
+                            <td>2020-03-11</td>
+                        </tr>
+                        <tr>
+                            <th>admin</th>
+                            <td>댓글입니다!!</td>
+                            <td>2020-03-10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
 
             <!-- 페이지처리하는 영역-->
             <div id="market_page">
