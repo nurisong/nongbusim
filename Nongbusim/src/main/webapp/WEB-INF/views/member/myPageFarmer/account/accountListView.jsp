@@ -188,43 +188,71 @@
 
 
 <!--조회기간 설정 후, "검색"버튼 누를 시 ajax 실행 -->
-<div class="selectArea">
+<div class="selectArea" style="float:left">
 	<div class="selectPeriod">
 		조회기간 &nbsp; &nbsp;
 		<button type="button" onclick="selectPeriod('oneMonth');">1개월</button>
 		<button type="button" onclick="selectPeriod('threeMonths');">3개월</button>
 		<button type="button" onclick="selectPeriod('sixMonths');">6개월</button>
 		<button type="button" onclick="selectPeriod('oneYear');">1년</button>
-
 		<input type="date" id="startDate" name="startDate"> ~ <input type="date" id="endDate" name="endDate">
 	</div>
+	<div class="selectTransaction">
+      <label><input type="radio" name="type" value="selectAll" checked> 전체 </label>
+	  <label><input type="radio" name="type" value="I"> 수입 </label>
+      <label><input type="radio" name="type" value="O"> 지출 </label>
+	</div>	
+	
 	<div class="selectCategory">
-		품목 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		분류 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select id="enrolledCategory">		
 			<c:choose>
 			<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
-				<c:when test="${ not empty categoryList }">
+				<c:when test="${ not empty catAndGoods}">
 					<option value="selectAll" selected>전체</option>				
-					<c:forEach var="category" items="${categoryList}">
-						<option>${ category.diaryCategory }</option>
+					<c:forEach var="catAndGood" items="${catAndGoods}">
+						<option>${ catAndGood.get("ACCOUNT_CATEGORY") }</option>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
 					<option value="noCategory">등록된 카테고리가 없습니다.</option>
 				</c:otherwise>
 			</c:choose>
-			
 		</select>
-	</div>	
-	<div style="align:right">
-		<button type="button" onclick="selectDiaryList();">검색</button>
+	</div>		
+	<div class="selectGoods">
+		품목 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select id="enrolledGoods">		
+			<c:choose>
+			<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
+				<c:when test="${ not empty catAndGoods}">
+					<option value="selectAll" selected>전체</option>				
+					<c:forEach var="catAndGood" items="${catAndGoods}">
+						<option>${ catAndGood.get("GOODS") }</option>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<option value="noGoods">등록된 품목이 없습니다.</option>
+				</c:otherwise>
+			</c:choose>
+		</select>
+	</div>		
+	<div>
+		<button type="button" onclick="selectAccountList();">검색</button>
 	</div>
+
+	<br><br><Br>
+	<button>선택삭제</button>
+	<button>선택수정</button>
+	<button>엑셀 다운로드</button>
+
 	<div id="listArea">
-	<table id="listAreaTable">
-	</table>
+		<table id="listAreaTable">
+		</table>
 	</div>
 	
 </div>
+]
 <script>
 
 	function selectPeriod(period){
@@ -251,11 +279,8 @@
 		case 'oneYear':
 			startDate = new Date(now.setFullYear(now.getFullYear() - 1));
 			break;		
-	
-			
 		
 		}
-	
 		
 		console.log("startDate"+dateFormat(startDate));
 		$('#startDate').val(dateFormat(startDate));
@@ -273,39 +298,55 @@
 	}
 	
 	
-	
-		//기간, 카테고리 지정 후 "검색" 버튼 누를 시 시행되는 함수 (ajax)
-	function selectDiaryList(){		
+		//기간, 구분, 분류, 품목 지정 후 "검색" 버튼 누를 시 시행되는 함수 (ajax)
+	function selectAccountList(){		
 		// yyyy-mm-dd형식
 		var startDate = $('#startDate').val();
 		var endDate = $('#endDate').val();
 		
 		
 		// category.val 에는 카테고리명 or noCategory
-		var diaryCategory = $('#enrolledCategory').val();
-		// ajax로 해당 조건을 만족하는 diaryList받아오기
+		var accountCategory = $('#enrolledCategory').val();
+		var goods = $('#enrolledGoods').val();
+		// type (selectAll, income, outcome)중 체크된 라디오버튼
+		
+		
+		var type=$("input[name=type]:checked").val();
+		
+		
+		
+
+		// ajax로 해당 조건을 만족하는 accountList받아오기
 		$.ajax({
-			url: 'selectDiaryList.di',
+			url: 'selectAccountList.di',
 			data : {
 				startDate : startDate,
 				endDate : endDate,
-		 		diaryCategory : diaryCategory,						
+		 		accountCategory : accountCategory,		
+				goods: goods,
+				type: type				
 			},
 			success: function(list){
-				console.log(list);
-
-                var result = '';
+				var result = '';
 				if(!list.empty){
 
 					for(var i=0; i<list.length ; i++) {                
 					result 
 						+='<div class="item-area">'
-						+ '<tr onclick="selectDiary('+list[i].diaryNo+');">'
-						+'<td><p>' + list[i].createDate + '</p></td>'
-						+ '<td><p>' + list[i].diaryCategory + '</p></td>'
-						+ '<td><p>' + list[i].diaryContent + '</p></td>'                    
-						+ '<td><img src="' + list[i].diaryThumbnail + '"></td></tr>'
-						+ '<input type="hidden" name="diaryNo" id="diaryNo" value="'+list[i].diaryNo+'">'
+						+ '<tr onclick="selectAccount('+list[i].accountNo+');">'
+						+'<td><input type="radio" name="accountNo" value="'+list[i].accountNo+'"></td>'
+						+'<td><p>' + list[i].createDate + '</p></td>';
+						
+					if(list[i].type=='I'){
+						result+='<td><p>수입</p></td>';
+					} else {
+						result+='<td><p>지출</p></td>';	
+					}	
+						
+						result+= '<td><p>' + list[i].accountCategory + '</p></td>'
+						+ '<td><p>' + list[i].goods + '</p></td>'
+						+ '<td><p>' + list[i].accountContent + '</p></td>'                 
+						+ '<input type="hidden" name="accountNo" id="accountNo" value="'+list[i].accountNo+'">'
 						+'</div>'                    
 					}
 				} else {
@@ -321,9 +362,10 @@
 		});
 		
 	}
+
 		
-	function selectDiary(diaryNo){
-		$(location).attr('href', '${pageContext.request.contextPath}/detail.di?dno='+diaryNo);
+	function selectaccount(accountNo){
+		$(location).attr('href', '${pageContext.request.contextPath}/detail.di?dno='+accountNo);
 		
 	}
 	
@@ -332,7 +374,7 @@
 	$(function(){
 		
 		selectPeriod('oneYear');
-		selectDiaryList();
+		selectAccountList();
 		
 	});
 	

@@ -215,7 +215,7 @@
 			</c:choose>
 			
 		</select>
-	</div>	
+	</div>
 	<div style="align:right">
 		<button type="button" onclick="selectDiaryList();">검색</button>
 	</div>
@@ -223,8 +223,7 @@
 	<table id="listAreaTable">
 	</table>
 	</div>
-	
-</div>
+	</div>
 <script>
 
 	function selectPeriod(period){
