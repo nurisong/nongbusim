@@ -164,12 +164,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 아이디 찾기 -->
-	<!--<select id="findId" parameterType="member" resultType="memberResultSet">
+	<select id="findId" resultMap="memberResultSet" parameterType="member">
 		SELECT MEM_ID
 		FROM MEMBER
-		WHERE MEM_PWD = #{ memPwd }
+		WHERE NAME = #{name}
+		AND EMAIL = #{email}
 		AND MEM_STATUS = 'Y'
-	</select>	 -->
+	</select>
 	
 	<!-- 비밀번호 찾기 -->
 </mapper>
