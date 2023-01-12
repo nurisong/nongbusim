@@ -49,7 +49,6 @@ public interface MemberService {
 	Member findId(Member m);
 	
 	// 비밀번호 변경(update)
-	int updatePwd(String pwd);
+	int updatePwd(Member m);
 	
-	// 비밀번호 찾기(select)
 }

@@ -36,11 +36,10 @@
         </div>
         <div class="form-group">
             <label for="pwd">* 비밀번호 :</label>
-            
-            <input type="password" class="form-control" placeholder="비밀번호는 8~18자리의 영문, 숫자, 특수문자 3종류 이상 혼합해야 합니다." name="memPwd">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#updatePwd">비밀번호 변경</button>
         </div>
         <div class="form-group">
-            <label for="email">이메일 :</label>
+            <label for="email">* 이메일 :</label>
             <input type="email" class="form-control" name="email" value="${ loginUser.email }">
         </div>
         <div class="form-group">
@@ -78,9 +77,9 @@
                             <input type="hidden" name="memId" value="${ loginUser.memId }"> <br>
                             
                             <label for="userPwd" class="mr-sm-2">새 비밀번호 : </label>
-                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="memPwd" name="memPwd"> <br>
+                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="updatePwd" name="updatePwd"> <br>
                             <label for="userPwd" class="mr-sm-2">새 비밀번호 확인 : </label>
-                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="memPwd" name="memPwd"> <br>
+                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="updatePwdChk" name="updatePwdChk"> <br>
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer" align="center">
@@ -90,8 +89,6 @@
             </div>
         </div>
     </div>
-      
-      
       
     <!-- 회원탈퇴 버튼 클릭 시 보여질 Modal -->
     <div class="modal fade" id="deleteForm">

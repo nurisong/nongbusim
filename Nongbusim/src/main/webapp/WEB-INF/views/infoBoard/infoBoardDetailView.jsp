@@ -38,20 +38,22 @@
                 <table class="table info-table">
                     <tr>
                         <th width="100">제목</th>
-                        <td colspan="3">${ b.boardTitle }</td>
+                        <td colspan="3">${ info.infoTitle }</td>
                     </tr>
                     <tr>
                         <th>작성일</th>
-                        <td>${ b.createDate }</td>
+                        <td>${ info.createDate }</td>
                     </tr>
                     <tr>
                         <th>첨부파일</th>
                         <td colspan="3">
                             <!-- 첨부파일이 있을 경우/없을 경우 -->
                             <c:choose>
-                                <c:when test="${ not empty b.originName }">
-                                <!-- download속성: 다운로드 시 파일명 -->
-                                    <a href="${ b.changeName }" download="${ b.originName }">${ b.originName }</a>
+                                <c:when test="${ not empty atList }">
+                                    <c:forEach var="a" items="${atList}">
+                                        <!-- download속성: 다운로드 시 파일명 -->
+                                        <a href="${ a.changeName }" download="${ a.originName }">${ a.originName }</a><br>
+                                    </c:forEach>
                                 </c:when>
                                 <c:otherwise>
                                     첨부파일이 없습니다.
@@ -61,14 +63,18 @@
                     </tr>
                     <tr>
                         <th>내용</th>
-                        <td colspan="3"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="4"><p style="height:150px;">${ b.boardContent }</p></td>
+                        <td colspan="3">
+                            <c:if test="${not empty imgList}">
+                                <c:forEach var="i" items="${imgList}">
+                                    <img width="500" src="${i.changeName}">
+                                </c:forEach>
+                            </c:if>
+                            <p style="height:150px;">${ info.infoContent }</p>
+                        </td>
                     </tr>
                 </table>
 
-                <a class="btn btn-secondary" href="">수정하기</a>
+                <a class="btn btn-secondary" href="updateForm.if">수정하기</a>
                 <a class="btn btn-secondary" href="">삭제하기</a>
             </div>
 

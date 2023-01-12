@@ -54,11 +54,11 @@ text-align: center;
     <div class="outer" align="center">
         <div class="main-area">
 
-			<c:if test="${ btype=='M' }"><h1>멘티멘토 게시판</h1></c:if>
-			<c:if test="${ btype=='Q' }"><h1>질문 게시판</h1></c:if>
-			<c:if test="${ btype=='K' }"><h1>노하우 게시판</h1></c:if>           
+			<c:if test="${ type=='M' }"><h1>멘티멘토 게시판</h1></c:if>
+			<c:if test="${ type=='Q' }"><h1>질문 게시판</h1></c:if>
+			<c:if test="${ type=='K' }"><h1>노하우 게시판</h1></c:if>           
             
-            <button type="button" onclick="location.href='write.bo?wtype=${btype}';" class="btn btn-secondary" id="insert-btn" >글작성</button>
+            <button type="button" onclick="location.href='write.bo?type=${type}';" class="btn btn-secondary" id="insert-btn" >글작성</button>
             <br><br>
             
 
@@ -139,20 +139,20 @@ text-align: center;
                     		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                     	</c:when>
                     	<c:otherwise>
-                    		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }&type=${btype}">Previous</a></li>
+                    		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }&type=${type}">Previous</a></li>
                     	</c:otherwise>
                     </c:choose>
                     
 					<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-                    	<li class="page-item"><a class="page-link" href="list.bo?cpage=${p}&type=${btype}">${ p }</a></li>
+                    	<li class="page-item"><a class="page-link" href="list.bo?cpage=${p}&type=${type}">${ p }</a></li>
                     </c:forEach>
 
 					<c:choose>
 						<c:when test="${ pi.currentPage eq pi.maxPage }">
-                    		<li class="page-item disabled"><a class="page-link" href="#"&type=${btype}>Next</a></li>
+                    		<li class="page-item disabled"><a class="page-link" href="#"&type=${type}>Next</a></li>
                     	</c:when>
                     	<c:otherwise>
-                    		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }&type=${btype}">Next</a></li>
+                    		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }&type=${type}">Next</a></li>
                     	</c:otherwise>
                     </c:choose>
                     

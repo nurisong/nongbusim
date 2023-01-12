@@ -31,6 +31,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="board_type" property="boardType"/>
 		
 	</resultMap>
+	
+	<resultMap id="commentResultSet" type="comment">
+	
+		<result column="COMMENT_NO" property="commentNo" />
+		<result column="COMMENT_CONTENT" property="commentContent" />
+		<result column="ENROLL_DATE" property="commentEnrollDate" />
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="BOARD_TYPE" property="boardType" />
+		<result column="MEM_NO" property="memNo" />
+		<result column="STATUS" property="status" />
+		<result column="MEM_ID" property="memId" />
+	
+	</resultMap>
 
 	
 
@@ -66,7 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectListCount" resultType="_int">
 	
 		select
-	        count(*)
+	       		 count(*)
 		from
 			       market
 		 where
@@ -202,8 +215,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			mk_status = 'N'
 		where
 			market_No = #{ marketNo }
-		and	
-		    mk_status = 'Y'
+
 	
 	
 	
@@ -240,6 +252,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	</insert>
+	
+	
+	<select id="ajaxSelectListMarketComment" resultMap="commentResultSet">
+	
+		select
+			 c.comment_no
+			 ,c.comment_content
+			 ,to_char(c.enroll_date, 'YYYY-MM-DD') as "enroll_date"
+			 ,c.mem_no
+			 ,m.mem_id
+		from
+			"COMMENT" c
+		join
+			member m
+		on
+			(m.mem_no = c.mem_no)
+		where
+			board_no = #{ boardNo }
+		and
+			board_type = #{ boardType }
+		and
+			status	= 'Y'
+		order
+			by
+			  comment_no desc
+	
+	</select>
+	
+	
+	
+	
+	<update id="ajaxDeleteMarketComment">
+	
+		update
+				"COMMENT"
+		set 
+				status = 'N'
+		where
+				comment_no = #{ commentNo }
+	
+	
+	</update>
+	
+	
+	
+	
 	
 	
 </mapper>

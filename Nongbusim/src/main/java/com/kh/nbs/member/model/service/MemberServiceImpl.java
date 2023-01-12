@@ -87,8 +87,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int updatePwd(String pwd) {
-		return 0;
+	public int updatePwd(Member m) {
+		return memberDao.updatePwd(sqlSession, m);
 	}
 
 

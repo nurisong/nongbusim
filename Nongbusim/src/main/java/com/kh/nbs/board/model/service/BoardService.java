@@ -26,4 +26,17 @@ public interface BoardService {
 	//사진 리스트 조회,
 	ArrayList<Attachment> attachmentSelectList();
 	
+	//게시글 삭제
+	int deleteAttachment(Board b); 
+	int deleteBoard(Board b);
+	
+	//좋아요 입력
+	int insertLike(Board b);
+	//좋아요 삭제
+	int deleteLike(Board b);
+	//좋아요 수 조회
+	int selectLikeCount(Board b);
+	//좋아요 조회
+	int selectLike(Board b);
+	
 }
