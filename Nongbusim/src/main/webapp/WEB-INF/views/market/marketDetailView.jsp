@@ -112,7 +112,7 @@
                     </c:if>
 
                     <form action="" method="post" id="postForm">
-                        <input type="hidden" name="marketNo" value="${list.marketNo}" />
+                        <input type="hidden" name="marketNo" value="${ list.marketNo }" />
                     </form>
 
                     <script>

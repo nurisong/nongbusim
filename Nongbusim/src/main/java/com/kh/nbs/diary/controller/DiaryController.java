@@ -3,9 +3,9 @@ package com.kh.nbs.diary.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,6 @@ public class DiaryController {
 	private DiaryService diaryService;
 	// dummy memNo
 	
-	
-
 	/*
 	 * @ResponseBody
 	 * 
@@ -99,14 +97,10 @@ public class DiaryController {
 	
 	// diary enrollForm 입력 후 "등록하기"버튼 누를 시 실행되는 메소드	
 	@RequestMapping("insert.di")
-	public String insertDiary(Diary diary, String newCategory, MultipartFile[] upfiles, HttpSession session, Attachment a) {
-	
-		System.out.println(diary);
-		System.out.println(newCategory);
+	public String insertDiary(Diary diary, String newCategory, MultipartFile[] upfiles, HttpSession session, Attachment at) {
 		// 만약 신규등록한 카테고리가 있다면
 		/// diary의 diaryCategory필드 값을 신규등록값으로 변경
 		if(!newCategory.equals("")) {
-			System.out.println("hi");
 			diary.setDiaryCategory(newCategory);
 		}
 		
@@ -132,11 +126,11 @@ public class DiaryController {
 				
 				// insert 성공시 attachment 클래스 필드세팅 후 insert
 				if(insertDiaryResult>0) {	
-					a.setBoardType("D");
-					a.setOriginName(upfiles[i].getOriginalFilename());
-					a.setChangeName("resources/uploadFiles/" + saveFile(upfiles[i], session)); 
+					at.setBoardType("D");
+					at.setOriginName(upfiles[i].getOriginalFilename());
+					at.setChangeName("resources/uploadFiles/" + saveFile(upfiles[i], session)); 
 	
-					if(diaryService.insertAttachment(a)<0) {
+					if(diaryService.insertAttachment(at)<0) {
 						session.setAttribute("alertMsg", "영농일지 작성 실패");
 						return "common/errorPage";
 					}					
@@ -168,12 +162,72 @@ public class DiaryController {
 	
 	@RequestMapping("detail.di")
 	public ModelAndView selectDiary(@RequestParam(value="dno") int diaryNo, ModelAndView mv) {
-		mv.addObject("diary", diaryService.selectDiary(diaryNo)).addObject("dAtList", diaryService.selectAttachmentList(diaryNo)).setViewName("member/myPageFarmer/diary/diaryDetailView");
-		System.out.println(diaryService.selectDiary(diaryNo));
-		System.out.println("dAtList"+diaryService.selectAttachmentList(diaryNo));
+		mv.addObject("diary", diaryService.selectDiary(diaryNo)).addObject("dAtList", diaryService.selectAttachmentList(diaryNo)).setViewName("member/myPageFarmer/diary/diaryDetailView");;
 		return mv;
 	}
 	
 	
-
+	
+	@RequestMapping("updateForm.di")
+	public ModelAndView updateDiaryForm(String dno, String memNo, ModelAndView mv) {		
+		//update할때 필요한 정보들은 diaryDetailView에서 필요한 Service메소드  + categoryList Serviec메소드 
+		// 동일 메소드로 재활용하기		
+		int diaryNo= Integer.parseInt(dno);
+		int memberNo= Integer.parseInt(memNo);		
+		mv.addObject("diary", diaryService.selectDiary(diaryNo)).addObject("dAtList", diaryService.selectAttachmentList(diaryNo));
+		mv.addObject("categoryList", diaryService.selectCategoryList(memberNo));		
+		mv.setViewName("member/myPageFarmer/diary/diaryUpdateForm");
+		return mv;	
+	
+	} 
+	
+	
+	@RequestMapping("update.di")
+	public ModelAndView updateDiary(Diary diary, String newCategory, MultipartFile[] reUpfiles, HttpServletRequest request, HttpSession session, Attachment at, ModelAndView mv) {
+		System.out.println(diary);
+		System.out.println(reUpfiles[1].getOriginalFilename());
+		
+		for(int i=0; i<3; i++) {
+			
+			//0번째 인덱스에 올려진 파일이 있고
+			
+			String which = "";
+			
+			if(!reUpfiles[i].getOriginalFilename().equals("")) {			
+				if(request.getParameter("beforeFileNo"+i) != null) {
+					if(i==0) {
+						// diary를 insert하기 전 썸네일 필드 세팅(diary의 thumbnail필드엔 첫번쨰 file을 등록)
+						diary.setDiaryThumbnail("resources/uploadFiles/" + saveFile(reUpfiles[i], session));
+						// for문 내에서 insert문은 단 한 번만 실행되어야하므로 i==0 블럭에서 실행
+						diaryService.updateDiary(diary);
+					}
+					
+					at.setBoardType("D");
+					at.setOriginName(reUpfiles[i].getOriginalFilename());
+					at.setChangeName("resources/uploadFiles/" + saveFile(reUpfiles[i], session)); 
+					
+					//attachment vo에 새로 들어온 파일의 값을 담고
+					
+					// 기존 에 파일이 존재했던 인덱스라면 
+					// DB에서 기존 파일의 fileNo에 덮어쓰기
+					at.setFileNo(Integer.parseInt(request.getParameter("beforeFileNo"+i)));
+					// 기존 파일은 삭제
+					new File(request.getParameter("beforeFileName"+i)).delete();
+					// 실행할 SQL문은  attachment - UPDATE
+					diaryService.updateAttachment(at);
+					
+				} else {
+					// 기존파일이 존재하지 않을 경우
+					// 다이어리 no를 boardNo에 세팅
+					at.setBoardNo(diary.getDiaryNo());
+					// 실행할 SQL문은   attachment - insert
+					diaryService.insertAttachment(at);					
+				}
+			} else {
+				diaryService.updateDiary(diary);
+			}
+	}
+				mv.setViewName("member/myPageFarmer/diary/diaryListView");
+				return mv;
+	}	
 }

@@ -148,10 +148,13 @@
 
 </head>
 <body>
-		<input type="hidden" id="MemNo" value="${loginUser.memNo }">
+		<!--
+		
+		<input type="hidden" name="memNo" value="${diary.memNo }">
+		  -->
 
 		
-	<h1 align = "left">&nbsp;&nbsp;🗓영농일지 등록</h1>
+	<h1 align = "left">&nbsp;&nbsp;🗓영농일지 상세보기</h1>
 	<br>
 	<div class="outer">
 	<br>
@@ -159,7 +162,7 @@
 
 		<table id="detail-area" align="center" width="1100px">
 			<tr>
-				<td colpan="3">
+				<td colspan="3">
 					<div>✔등록일</div>
 					<input id="createDate" type="text" value="${diary.createDate }"disabled>
 				</td>	
@@ -187,15 +190,13 @@
 				<td  class="likeButton" >작성자</td>
 				<td>${ diary.nickName }</td>
 			</tr>
-		<hr>
 		</table>
 		<table id="reviewTable">
-			<hr>
 			<tr>	
 				<td><h3>일지내용</h3></td>
 			</tr>
 			<tr>
-				<td style="padding:30px" colsapn="3">
+				<td style="padding:30px" colspan="3">
 					<div>
 					${diary.diaryContent }
 					</div>
@@ -213,19 +214,15 @@
 					</c:forEach>
 				</tr>
 			</c:if>
-		<br>
-				
 		</table>
 		
 		<br>
 		<div align="center">
 			<a href="${pageContext.request.contextPath }/list.di" class= "likeButton">목록으로</a>
-		<hr>
-		<br><br>			
-
-	<!--로그인한 사용자고, 현재 이 게시글의 작성자의 경우에만 수정하기 버튼 활성화  -->
-			<a href="${pageContext.request.contextPath}/updateEnrollForm.de?dno="+"${diary.diaryNo }" class="myButton">수정하기</a>
-			<a href="${pageContext.request.contextPath}/delete.de?dno="+"${diary.diaryNo }" class="myButton">삭제하기</a>
+	
+		<br><br>	
+			<a href="${pageContext.request.contextPath}/updateForm.di?dno=${diary.diaryNo }&memNo=${diary.memNo}" class="myButton">수정하기</a>
+			<a href="${pageContext.request.contextPath}/delete.de?dno=${diary.diaryNo }" class="myButton">삭제하기</a>
 	
 		</div>
 	

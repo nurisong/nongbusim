@@ -36,4 +36,5 @@ public interface FarmService {
 	
 	// 6. 농장 정보 수정 서비스(update)
 	int updateFarm(Farm f);
+	ArrayList<Attachment> deleteAttachment(int[] fileNo);
 }

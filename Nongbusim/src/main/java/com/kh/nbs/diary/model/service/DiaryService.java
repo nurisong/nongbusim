@@ -21,5 +21,8 @@ public interface DiaryService {
 	int insertAttachment(Attachment a);
 	int insertDiary(Diary diary);
 	ArrayList<Attachment> selectAttachmentList(int diaryNo);
+	int updateDiary(Diary diary);
+	int updateAttachment(Attachment at);
+	/* int insertNewAttachment(Attachment at); */
 
 }
