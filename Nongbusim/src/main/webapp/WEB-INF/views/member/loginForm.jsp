@@ -24,7 +24,7 @@
     <button type="submit" class="btn btn-success">로그인</button>
 </form>
 <br>
-<button type="submit" class="btn btn-secondary" onclick="location.href='findId.me';">아이디 찾기</button>
+<button type="submit" class="btn btn-secondary" onclick="location.href='findIdForm.me';">아이디 찾기</button>
 <button class="btn btn-secondary">비밀번호 찾기</button>
 <button type="submit" class="btn btn-secondary" onclick="location.href='userType.me';">회원가입</button>
 </body>

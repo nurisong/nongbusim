@@ -76,7 +76,9 @@ public class MemberDao {
 	}
 	
 	// 아이디 찾기
-//	public Member findId(SqlSessionTemplate sqlSession, String memPwd) {
-//		return sqlSession.selectOne("memberMapper.findId", memPwd);
-//	}
+	public Member findId(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.findId", m);
+	}
+	
+	
 }
