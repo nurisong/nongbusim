@@ -269,7 +269,7 @@
                                               +   '<button class="btn btn-sm" onclick="deleteComment(' + cList[i].commentNo + ')"> X </button>'
                                               +   '</th>'
                                               +   '<th>'
-                                              +   '<button class="btn btn-sm" onclick="updateComment(' + cList[i].commentNo + cList[i].commentContent + cList[i].memId + ')"> 수정 </button>'
+                                              +   '<button class="btn btn-sm" onclick="updateComment(' + cList[i].commentNo + ',' + cList[i].memNo + ',' + "'" + cList[i].commentContent + "'" + ')"> 수정 </button>'
                                               +   '</th>'
 
                                         }
@@ -344,8 +344,9 @@
                 
                 //댓글 수정용 ajax
 
-                function updateComment(cNo, cContent, cWriter){
-                        console.log(cNo);
+                function updateComment(commentNo, memNo, content){
+                       
+
                 }
 
 
@@ -401,7 +402,7 @@
         function secretComment(){
                 
 
-                $('#replyArea>tbody>tr').click(function(){
+                $('#updateCommentbtn').click(function(){
 
                     $('#modal').css('display', 'block');
 
