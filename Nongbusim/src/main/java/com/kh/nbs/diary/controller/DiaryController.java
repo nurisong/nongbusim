@@ -129,7 +129,7 @@ public class DiaryController {
 					at.setBoardType("D");
 					at.setOriginName(upfiles[i].getOriginalFilename());
 					at.setChangeName("resources/uploadFiles/" + saveFile(upfiles[i], session)); 
-	
+					System.out.println(at);
 					if(diaryService.insertAttachment(at)<0) {
 						session.setAttribute("alertMsg", "영농일지 작성 실패");
 						return "common/errorPage";
@@ -185,34 +185,48 @@ public class DiaryController {
 	@RequestMapping("update.di")
 	public ModelAndView updateDiary(Diary diary, String newCategory, MultipartFile[] reUpfiles, HttpServletRequest request, HttpSession session, Attachment at, ModelAndView mv) {
 		System.out.println(diary);
-		System.out.println(reUpfiles[1].getOriginalFilename());
+		// 만약 신규등록한 카테고리가 있다면
+		/// diary의 diaryCategory필드 값을 신규등록값으로 변경
+
+		if(!newCategory.equals("")) {
+			diary.setDiaryCategory(newCategory);
+		}
+	
+		
 		
 		for(int i=0; i<3; i++) {
 			
-			//0번째 인덱스에 올려진 파일이 있고
+			System.out.println("updateDiary reUpfiles"+reUpfiles[i]);
+				//0번째 인덱스에 올려진 파일이 있고
 			
 			String which = "";
 			
-			if(!reUpfiles[i].getOriginalFilename().equals("")) {			
-				if(request.getParameter("beforeFileNo"+i) != null) {
-					if(i==0) {
-						// diary를 insert하기 전 썸네일 필드 세팅(diary의 thumbnail필드엔 첫번쨰 file을 등록)
-						diary.setDiaryThumbnail("resources/uploadFiles/" + saveFile(reUpfiles[i], session));
-						// for문 내에서 insert문은 단 한 번만 실행되어야하므로 i==0 블럭에서 실행
-						diaryService.updateDiary(diary);
-					}
-					
-					at.setBoardType("D");
-					at.setOriginName(reUpfiles[i].getOriginalFilename());
-					at.setChangeName("resources/uploadFiles/" + saveFile(reUpfiles[i], session)); 
-					
-					//attachment vo에 새로 들어온 파일의 값을 담고
-					
+			if(!reUpfiles[i].getOriginalFilename().equals("")) {		
+				
+
+				if(i==0) {	
+					// diary를 insert하기 전 썸네일 필드 세팅(diary의 thumbnail필드엔 첫번쨰 file을 등록)
+					diary.setDiaryThumbnail("resources/uploadFiles/" + saveFile(reUpfiles[i], session));	
+					// for문 내에서 insert문은 단 한 번만 실행되어야하므로 i==0 블럭에서 실행
+					System.out.println(diary);
+					diaryService.updateDiary(diary);
+				}
+			
+				
+				at.setBoardType("D");
+				//attachment vo에 새로 들어온 파일의 값을 담고
+				at.setOriginName(reUpfiles[i].getOriginalFilename());
+				at.setChangeName("resources/uploadFiles/" + saveFile(reUpfiles[i], session)); 
+	
+				
+				if(request.getParameter("beforeFileNo"+(i+1)) != null) {
+
+			
 					// 기존 에 파일이 존재했던 인덱스라면 
-					// DB에서 기존 파일의 fileNo에 덮어쓰기
-					at.setFileNo(Integer.parseInt(request.getParameter("beforeFileNo"+i)));
+					// DB에서 기존 파일의 fileNo에 덮어쓰기w
+					at.setFileNo(Integer.parseInt(request.getParameter("beforeFileNo"+(i+1))));
 					// 기존 파일은 삭제
-					new File(request.getParameter("beforeFileName"+i)).delete();
+					new File(request.getParameter("beforeFileChangeName"+(i+1))).delete();
 					// 실행할 SQL문은  attachment - UPDATE
 					diaryService.updateAttachment(at);
 					
