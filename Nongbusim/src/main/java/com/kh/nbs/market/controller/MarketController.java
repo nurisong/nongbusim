@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.Comment;
 import com.kh.nbs.common.model.vo.PageInfo;
@@ -231,19 +232,38 @@ public class MarketController {
 	
 	
 	
-	//댓글 조회 
+	//댓글 작성
 	@ResponseBody
 	@RequestMapping("insertComment.mk")
 	public String ajaxInsertMarketComment(Comment comment) {
-	
-		System.out.println(comment);
-		
+
 		return marketService.ajaxInsertMarketComment(comment) > 0? "success" : "fail";
 	}
 	
+	
+	//댓글 조회
+	@ResponseBody
+	@RequestMapping(value="listComment.mk", produces="application/json; charset=UTF-8")
+	public String ajaxSelectListMarketComment(Comment comment) {
+		
+		return new Gson().toJson(marketService.ajaxSelectListMarketComment(comment));
+		
+		
+	}
+	
 
+	//댓글 삭제
+	@ResponseBody
+	@RequestMapping("deleteComment.mk")
+	public String ajaxDeleteMarketComment(Comment comment) {
+		
+		return marketService.ajaxDeleteMarketComment(comment) > 0? "success" : "fail";
+		
+		
+	}
+		
 	
-	
+	//댓글 수정
 	
 
 	

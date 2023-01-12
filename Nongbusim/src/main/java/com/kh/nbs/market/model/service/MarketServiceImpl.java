@@ -114,30 +114,25 @@ public class MarketServiceImpl implements MarketService{
 	
 	
 	
-	
+	//댓글 작성
 	@Override
 	public int ajaxInsertMarketComment(Comment comment) {
 		return marketdao.ajaxInsertMarketComment(comment, sqlSession);
 	}
 	
+	//댓글 조회
 	@Override
-	public ArrayList<Comment> selectCommentList(int marketNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Comment> ajaxSelectListMarketComment(Comment comment) {
+		return marketdao.ajaxSelectListMarketComment(comment, sqlSession);
 	}
 
-
+	
+	//댓글 삭제
 	@Override
-	public int deleteComment(int cno) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int ajaxDeleteMarketComment(Comment comment) {
+		return marketdao.ajaxDeleteMarketComment(comment, sqlSession);
 	}
 
-	@Override
-	public int updateComment(int cno) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
 	
 	
