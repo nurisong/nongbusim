@@ -172,5 +172,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND MEM_STATUS = 'Y'
 	</select>
 	
-	<!-- 비밀번호 찾기 -->
 </mapper>

@@ -283,17 +283,15 @@ public class MemberController {
 	public String findId(Member m, HttpSession session) {
 		
 		Member findId = memberService.findId(m);
+		System.out.println(findId);
 		if(findId.getMemId() == null) {
 			session.setAttribute("alertMsg", "해당 회원이 존재하지 않습니다.");
-			return "redirect:/";
+			return "member/findId";
 		} else {
 			session.setAttribute("alertMsg", m.getName() + "님의 아이디는 " + findId.getMemId() + "입니다.");
 			return "member/loginForm";
 		}
 	}
-	
-
-	
 	
 	
 	

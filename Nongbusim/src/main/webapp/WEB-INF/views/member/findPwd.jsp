@@ -14,7 +14,9 @@
         <h3>비밀번호 찾기</h3>
         <hr>
         <form method="post" action="findPwd.me">
-            아이디 : <input type="text" name="" placeholder="아이디를 입력하세요.">
+           	 아이디 : <input type="text" name="memId"><br>
+           	 이름 : <input type="text" name="name"><br>
+           	 이메일 : <input type="email" name="email">
             <button type="submit" class="btn btn-success">비밀번호 찾기</button>
         </form>
 
