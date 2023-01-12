@@ -39,7 +39,7 @@
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#updatePwd">비밀번호 변경</button>
         </div>
         <div class="form-group">
-            <label for="email">이메일 :</label>
+            <label for="email">* 이메일 :</label>
             <input type="email" class="form-control" name="email" value="${ loginUser.email }">
         </div>
         <div class="form-group">
@@ -89,8 +89,6 @@
             </div>
         </div>
     </div>
-      
-      
       
     <!-- 회원탈퇴 버튼 클릭 시 보여질 Modal -->
     <div class="modal fade" id="deleteForm">
