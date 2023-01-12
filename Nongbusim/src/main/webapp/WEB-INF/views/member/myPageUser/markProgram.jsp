@@ -100,7 +100,7 @@
                       
                         
                         $.ajax({
-                            url : 'wish.pr',
+                            url : 'wish.myPr',
                             data :{
                                 programNo : $(this).attr("alt"),
                                 memNo : ${loginUser.memNo}

@@ -214,6 +214,17 @@ public class ProgramController {
 		
 		
 		@ResponseBody
+		@RequestMapping("wish.myPr")
+		public String wishMyProgram(Program p) {
+			
+			programService.wishProgram(p);
+			
+			
+			return "member/markProgram";
+		}
+		
+		
+		@ResponseBody
 		@RequestMapping("wishDelete.pr")
 		public void wishDeltete(Program p) {
 			
