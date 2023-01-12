@@ -80,6 +80,11 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Market> markMarket(int memNo) {
 		return memberDao.markMarket(sqlSession, memNo);
 	}
+
+	@Override
+	public int updatePwd(String pwd) {
+		return 0;
+	}
 	
 	
 

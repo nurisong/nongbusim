@@ -238,7 +238,6 @@ public class MemberController {
 		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
 		if(programService.selectMarkNo(mNo) != null ) {
-			
 			// 찜한 게시글 번호 조회
 			mv.addObject("markNoList",programService.selectMarkNo(mNo));
 		}
@@ -250,6 +249,11 @@ public class MemberController {
 	@RequestMapping("markMarket.me")
 	public ModelAndView markMarket(ModelAndView mv, HttpSession session) {
 		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		if(programService.selectMarkNo(mNo) != null ) {
+			// 찜한 게시글 번호 조회
+			mv.addObject("markNoList",programService.selectMarkNo(mNo));
+		}
 		
 		mv.addObject("list", memberService.markMarket(mNo)).setViewName("member/myPageUser/markMarket");
 		return mv;
