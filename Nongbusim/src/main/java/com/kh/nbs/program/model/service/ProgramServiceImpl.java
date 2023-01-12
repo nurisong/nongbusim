@@ -78,5 +78,12 @@ public class ProgramServiceImpl implements ProgramService {
 	public int wishDelete(Program p) {
 		return programDao.wishDelete(sqlSession,p);
 	}
+
+
+	@Override
+	public int headCountIncrease(Program p) {
+		
+		return programDao.headCountIncrease(sqlSession,p);
+	}
 	
 }

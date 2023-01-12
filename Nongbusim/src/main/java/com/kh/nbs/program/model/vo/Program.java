@@ -19,6 +19,7 @@ public class Program {
 	private int farmNo;
 	private String originName;
 	private String changeName;
+	private int nowHeadCount;
 	
 	
 	
