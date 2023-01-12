@@ -23,7 +23,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  	   ,#{boardType}
 		  	   ,SEQ_FNO.CURRVAL
 		  		)
-		  		
 	</insert>
 	
 	<insert id="insertAttachmentMarket" parameterType="attachment">
@@ -45,7 +44,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  	   ,'mk'
 		  	   ,SEQ_MKNO.CURRVAL
 		  		)
-		  		
 	</insert>
 	
 	<insert id="insertAttachmentBoard" parameterType="attachment">
@@ -67,7 +65,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  	   ,#{boardType}
 		  	   ,seq_bno.currval
 		  		)
-		  		
+	</insert>
+	
+	<insert id="insertAttachmentInfo" parameterType="attachment">
+		INSERT
+		  INTO
+		  		ATTACHMENT
+		  		(
+		  		file_no,
+		  		origin_name,
+		  		change_name,
+		  		board_type,
+		  		board_no
+		  		)
+		VALUES
+		  		(
+		  		SEQ_ANO.NEXTVAL
+		  	   ,#{originName}
+		  	   ,#{changeName}
+		  	   ,#{boardType}
+		  	   ,SEQ_INO.CURRVAL
+		  		)
 	</insert>
 	
 

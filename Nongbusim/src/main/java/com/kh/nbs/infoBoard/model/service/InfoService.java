@@ -2,6 +2,7 @@ package com.kh.nbs.infoBoard.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.infoBoard.model.vo.Info;
 
@@ -15,6 +16,7 @@ public interface InfoService {
 	
 	// 2. 게시글 작성 서비스(insert)
 	int insertInfo(Info i);
+	int insertAttachment(Attachment a);
 	
 	// 3. 상세조회 서비스
 	// 3-1) 게시글 조회수 증가(update)

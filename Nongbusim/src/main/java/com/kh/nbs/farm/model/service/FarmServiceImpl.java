@@ -18,7 +18,7 @@ public class FarmServiceImpl implements FarmService {
 	private FarmDao farmDao;
 	
 	@Autowired
-	SqlSessionTemplate sqlSession;
+	private SqlSessionTemplate sqlSession;
 
 	@Override
 	public int selectFarmCount() {

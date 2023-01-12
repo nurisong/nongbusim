@@ -32,49 +32,52 @@
             <br><br>
 
             <br><br><br>
-            <div class="board-area">
-                <table class="table info-table">
-                    <tr>
-                        <th width="100">카테고리</th>
-                        <td colspan="3">
-                            <select name="" id="" class="form-control" style="width: 120px;">
-                                <option value="">보도자료</option>
-                                <option value="">농촌소식</option>
-                                <option value="">농업정보</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>제목</th>
-                        <td colspan="3"><input type="text" class="form-control" required name=""></td>
-                    </tr>
-                    <tr>
-                        <th>사진파일</th>
-                        <td colspan="3">
-                           <input type="file" class="form-control-file border" name="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>첨부파일</th>
-                        <td colspan="3">
-                           <input type="file" class="form-control-file border" name="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>내용</th>
-                        <td colspan="3">
-                            <textarea name="" id="" class="form-control" style="resize: none;" rows="10"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th width="100">출처</th>
-                        <td colspan="3"><input type="text" class="form-control" required name=""></td>
-                    </tr>
-                </table>
+            <form action="insert.if" method="post" enctype="multipart/form-data">
+                <div class="board-area">
+                    <table class="table info-table">
+                        <input type="hidden" name="writer" value="${loginUser.memNo}">
+                        <tr>
+                            <th width="100">카테고리</th>
+                            <td colspan="3">
+                                <select name="category" id="" class="form-control" style="width: 120px;">
+                                    <option value="보도자료">보도자료</option>
+                                    <option value="농촌소식">농촌소식</option>
+                                    <option value="농업정보">농업정보</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>제목</th>
+                            <td colspan="3"><input type="text" class="form-control" required name="infoTitle"></td>
+                        </tr>
+                        <tr>
+                            <th>사진파일</th>
+                            <td colspan="3">
+                            <input type="file" class="form-control-file border" name="upfilesImg" accept="image/*">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>첨부파일</th>
+                            <td colspan="3">
+                            <input type="file" class="form-control-file border" name="upfiles">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>내용</th>
+                            <td colspan="3">
+                                <textarea name="infoContent" id="" class="form-control" style="resize: none;" rows="10"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="100">출처</th>
+                            <td colspan="3"><input type="text" class="form-control" required name="source"></td>
+                        </tr>
+                    </table>
 
-                <a class="btn btn-secondary" href="">등록하기</a>
-                <a class="btn btn-secondary" href="">취소하기</a>
-            </div>
+                    <button type="submit" class="btn btn-secondary">등록하기</button>
+                    <a class="btn btn-secondary" href="">취소하기</a>
+                </div>
+            </form>
 
            
         </div>
