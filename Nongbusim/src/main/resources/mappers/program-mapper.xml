@@ -222,6 +222,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			
 		</select>
 		
+		
+		<!-- 신청 회원 증가 -->
 		<update id="headCountIncrease"  parameterType="program" >
 		
 			UPDATE 
@@ -232,6 +234,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				PROGRAM_NO = #{programNo}
 		
 		</update>
+		
+		<!-- 내가 참여한 프로그램 조회 -->
+		<select id="selectMyProgram" parameterType="program" resultMap="programResultSet">
+	 
+		select 
+            p.program_name,
+            p.program_plan,
+            p.program_no
+   		 from 
+            program p, my_program m
+        
+   		 where 
+            p.program_no = m.program_no
+    	 and 
+            m.mem_no = #{memNo}
+			
+		</select>
+		
+		
 		
 		
  

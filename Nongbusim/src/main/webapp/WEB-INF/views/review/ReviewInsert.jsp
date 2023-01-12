@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -162,6 +163,7 @@
             <table id="boardList"  class="table table-hover" align="center">
                 <thead>
                     <tr>
+                        <td>No</td>
                         <th>프로그램명</th>
                         <th>교육기간</th>
                         <th>상세보기</th>
@@ -170,27 +172,14 @@
                 </thead>
                 <tbody>
                     
-                    <c:forEach items="${ list }" var="b">
+                    <c:forEach items="${ myProgramList }" var="p">
                     	<tr>
-                    	   <td>딸기 조아</td>
-                    	   <td>2023.01.12~2023.01.13</td>
+                            <td>${p.programNo}</td>
+                    	   <td>${ p.programName }</td>
+                    	   <td>${p.programPlan}</td>
                     	   <td><button>상세보기</button></td>
-                    	   <td><button onclick="modal('my_modal')">후기작성</button></td>
-                    	</tr>
-
-                        <tr>
-                            <td>딸기 조아</td>
-                            <td>2023.01.12~2023.01.13</td>
-                            <td><button>상세보기</button></td>
-                            <td><button>후기작성</button></td>
-                         </tr>
-
-                         <tr>
-                            <td>딸기 조아</td>
-                            <td>2023.01.12~2023.01.13</td>
-                            <td><button>상세보기</button></td>
-                            <td><button>후기작성</button></td>
-                         </tr>
+                    	   <td><button class="reviewWrite" onclick="modal('my_modal','${p.programName}','${p.programNo}');">후기작성</button></td>
+                        </tr>
                     
                     </c:forEach>
                     
@@ -236,7 +225,9 @@
                <h2 align="center">후기작성</h2>
                 <table style="width: 400px; height:200px;">
                     <tr>
-                       <td>프로그램명 : 딸기 쵝오</td>
+                       <td>프로그램명 : <input id="programName" type="text" value="programName"></td>
+                        
+                        <td><input id="programNo" type="text" value="programNo"></td>
                      
                     </tr>
                     <tr>
@@ -274,7 +265,12 @@
 </body>
 
 <script>
-    function modal(id) {
+    function modal(id, programName,programNo) {
+        console.log(programName);
+        console.log(id);
+        console.log(programNo);
+        $('#programName').val(programName);
+        $('#programNo').val(programNo);
         var zIndex = 9999;
         var modal = document.getElementById(id);
 
@@ -321,6 +317,17 @@
         for (var k in styles) this.style[k] = styles[k];
         return this;
     };
+
+
+    //후기 작성 버튼 클릭시
+   
+    // $('.reviewWrite').click(function(){
+                     
+    //      location.href = 'reviewEnrollForm.re?bno=' + $(this).eq(0).text();
+                        
+                     
+    //  })
+    
 
 
 </script>

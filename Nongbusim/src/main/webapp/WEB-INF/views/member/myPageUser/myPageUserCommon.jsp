@@ -58,7 +58,7 @@
             <a class="menuButton" href="updateUserForm.me">회원정보 수정</a><br>
             <a class="menuButton" href="markProgram.me">찜한 프로그램</a><br>
             <a class="menuButton" href="markMarket.me">찜한 마켓</a><br>
-            <a class="menuButton" href="">참여 프로그램</a><br>   
+            <a class="menuButton" href="myProgramlist.re">참여 프로그램</a><br>   
         </div>
 </body>
 </html>

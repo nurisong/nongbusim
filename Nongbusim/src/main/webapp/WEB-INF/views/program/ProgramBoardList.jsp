@@ -32,7 +32,7 @@
                 width:80%;
                 margin:auto;
             }
-            #searchForm>* {
+            #searchForm {
                 float:left;
                 margin:5px;
             }

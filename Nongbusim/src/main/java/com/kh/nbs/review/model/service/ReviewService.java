@@ -1,5 +1,10 @@
 package com.kh.nbs.review.model.service;
 
-public interface ReviewService {
+import com.kh.nbs.program.model.vo.Program;
 
+public interface ReviewService {
+	
+	Program reviewEnrollForm(int bno);
+	
+	
 }

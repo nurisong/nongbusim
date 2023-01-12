@@ -91,5 +91,10 @@ public class ProgramDao {
 		
 	}
 	
+	public ArrayList<Program> selectMyProgram(SqlSessionTemplate sqlSession, int memNo){
+		
+		return (ArrayList)sqlSession.selectList("programMapper.selectMyProgram",memNo);
+	}
+	
 
 }

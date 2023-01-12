@@ -85,5 +85,12 @@ public class ProgramServiceImpl implements ProgramService {
 		
 		return programDao.headCountIncrease(sqlSession,p);
 	}
+
+
+	@Override
+	public ArrayList<Program> selectMyProgram(int memNo) {
+		
+		return programDao.selectMyProgram(sqlSession,memNo);
+	}
 	
 }

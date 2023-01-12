@@ -29,40 +29,32 @@ public class ProgramController {
 	
 	@Autowired
 	private ProgramService programService;
-
+			
+		//프로그램 리스트 불러오기
 		@RequestMapping("list.pr")
 		public ModelAndView selectList(@RequestParam(value="cpage",defaultValue="1") int currentPage,HttpSession session , ModelAndView mv) {
 			
 			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
-			
 			
 			if(programService.selectMarkNo(memNo) != null ) {
 				
 				mv.addObject("markNoList",programService.selectMarkNo(memNo));
 			}
 			
-			
 			PageInfo pi = Pagination.getPageInfo(programService.selectListCount(), currentPage , 10 , 5);
-			
 			mv.addObject("pi",pi).addObject("programlist",programService.selectList(pi)).setViewName("program/ProgramBoardList");
 			
-			
 			return mv;
-		
 		}
 		
-
 		@RequestMapping("detail.pr")//dd
 		public String programDetailView() {
 				
 			return "program/ProgramDetail";
-			
 		}
-		
 		
 		@RequestMapping("enrollForm.pr")
 		public String enrollForm(Program p, Model model,HttpSession session) {
-			
 			
 			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 			
@@ -71,10 +63,7 @@ public class ProgramController {
 			model.addAttribute("list", list);
 			
 			return "program/ProgramRegister";
-			
 		}
-		
-		
 		
 		@RequestMapping("insert.pr")//dd
 		public String programRegister(Program p, MultipartFile upfile, HttpSession session, Model model) {
@@ -100,16 +89,12 @@ public class ProgramController {
 				// 업로드 시키고자 하는 폴더의 물리적인 경로 알아내기
 				String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
 			
-				
-				
 				p.setOriginName(upfile.getOriginalFilename()); //원본명
 				p.setChangeName("resources/uploadFiles/" + saveFile(upfile, session));
 				
 			}
 			
-			
 			if(programService.programRegister(p)> 0) { //성공 => 게시글 리스트 페이지
-				
 				
 				session.setAttribute("alertMsg", "프로그램이 등록 되었습니다.");
 				return "redirect:list.pr";
@@ -118,12 +103,9 @@ public class ProgramController {
 			} else {
 				model.addAttribute("errorMsg", "게시글 작성 실패..");
 				return "common/errorPage";
-				
 			}
 			
-			
 		}
-		
 		
 		public String saveFile(MultipartFile upfile, HttpSession session) { // 실제 넘어온 파일의 이름을 변경해서 서버에 업로드
 			
@@ -143,13 +125,11 @@ public class ProgramController {
 			// 업로드 시키고자 하는 폴더의 물리적인 경로 알아내기
 			String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
 			
-			
 			try {
 				upfile.transferTo(new File(savePath + changeName));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
 			
 			return changeName;
 			
@@ -169,11 +149,8 @@ public class ProgramController {
 				
 			}
 			
-			
 			if( programService.selectProgram(bno) != null ) { 
 				mv.addObject("p", programService.selectProgram(bno)).addObject("bno",bno).setViewName("program/ProgramDetail");
-				
-				
 				
 			} else {
 				
@@ -185,11 +162,9 @@ public class ProgramController {
 		@RequestMapping("join.pr")
 		public ModelAndView joinProgram(Program p, ModelAndView mv, HttpSession session) {
 			
-			
 			if(programService.joinProgram(p) > 0) {
 				
 				session.setAttribute("alertMsg", "프로그램 신청이 되었습니다.");
-				
 				mv.setViewName("redirect:list.pr");
 				
 			}else {
@@ -200,12 +175,8 @@ public class ProgramController {
 			//현재 신청 회원 증가
 			programService.headCountIncrease(p);
 			
-			
-			
-			
 			return mv;
 		}
-		
 		
 		
 		@ResponseBody
@@ -213,14 +184,7 @@ public class ProgramController {
 		public void wishProgram(Program p) {
 			
 			programService.wishProgram(p);
-			
-			
-			//return "redirect:list.pr?cpage="+programNo;
-			
-			//return "redirect:list.pr?cpage";
 		}
-		
-		
 		
 		
 		@ResponseBody
@@ -231,6 +195,24 @@ public class ProgramController {
 			
 		}
 		
+		//마이페이지에서 여기로 내가 참여한프로그램 조회
+		@RequestMapping("myProgramlist.re")
+		public ModelAndView selectMyProgram (HttpSession session , ModelAndView mv) {
+			
+			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+			
+			
+			
+			if(programService.selectMyProgram(memNo) != null ) {
+				
+				
+				mv.addObject("myProgramList",programService.selectMyProgram(memNo)).setViewName("review/ReviewInsert");
+				System.out.println(programService.selectMyProgram(memNo));
+			}
+			
+			
+			return mv;
+		}
 		
 		
 		

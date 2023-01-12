@@ -28,8 +28,8 @@ public interface ProgramService {
 	
 	ArrayList selectMarkNo(int memNo);
 	
-	
 	// 현재 신청환 회원 증가
 	int headCountIncrease(Program p);
 	
+	ArrayList<Program> selectMyProgram(int memNo);
 }
