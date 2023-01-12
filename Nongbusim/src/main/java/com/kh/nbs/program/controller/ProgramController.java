@@ -210,7 +210,11 @@ public class ProgramController {
 			
 			
 			//return "redirect:list.pr?cpage="+programNo;
+			
+			//return "redirect:list.pr?cpage";
 		}
+		
+		
 		
 		
 		@ResponseBody
@@ -220,7 +224,8 @@ public class ProgramController {
 			programService.wishDelete(p);
 			
 		}
-			
+		
+		
 		
 		
 		

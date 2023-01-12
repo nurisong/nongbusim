@@ -11,6 +11,9 @@
     <title>아이디 찾기</title>
 </head>
 <body>
+
+<!-- 메뉴바 -->
+<jsp:include page="../common/menubar.jsp" />
         <h3>아이디 찾기</h3>
         <hr>
         <form method="post" action="findId.me">

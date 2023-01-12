@@ -238,7 +238,6 @@ public class MemberController {
 		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
 		if(programService.selectMarkNo(mNo) != null ) {
-			
 			// 찜한 게시글 번호 조회
 			mv.addObject("markNoList",programService.selectMarkNo(mNo));
 		}
@@ -250,6 +249,11 @@ public class MemberController {
 	@RequestMapping("markMarket.me")
 	public ModelAndView markMarket(ModelAndView mv, HttpSession session) {
 		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		if(programService.selectMarkNo(mNo) != null ) {
+			// 찜한 게시글 번호 조회
+			mv.addObject("markNoList",programService.selectMarkNo(mNo));
+		}
 		
 		mv.addObject("list", memberService.markMarket(mNo)).setViewName("member/myPageUser/markMarket");
 		return mv;
@@ -270,27 +274,35 @@ public class MemberController {
 //		return mv;
 //	}
 
-	
+//	@RequestMapping("findId.me")
+//	public String findId() {
+//		return "member/findId";
+//	}
 
 	
 //	@RequestMapping("findId.me")
 //	public String findId(String memPwd, HttpSession session, Model model) {
 //		
+//		// memPwd : 회원 탈퇴 요청 시 사용자가 입력한 비밀번호 평문
+//		// session의 loginUser Member객체의 userPwd필드 : DB에 기록된 암호화된 비밀번호
+//				
+//		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();
+//				
 //		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) {
 //		// 비밀번호가 사용자가 입력한 평문으로 만들어진 암호문일 경우
 //		
-	//		if(memberService.finId(memId) > 0) {
-	//			session.setAttribute("alertMsg", findId.getName() + "님의 아이디는 " + findId.getmemId() + "입니다.");
-	//			return "redirect:/";
-	//		} else {
-	//			session.setAttribute("errorMsg", "아이디 찾기 실패");
-	//			return "common/errorPage";
-	//		}
+//			if(memberService.finId(memPwd) > 0) {
+//				session.setAttribute("alertMsg", findId.getName() + "님의 아이디는 " + findId.getmemId() + "입니다.");
+//				return "redirect:/";
+//			} else {
+//				session.setAttribute("errorMsg", "아이디 찾기 실패");
+//				return "common/errorPage";
+//			}
 //		
-	//	} else {
-	//		session.setAttribute("alertMsg", "존재하지 않는 비밀번호입니다.");
-	//		return "redirect:myPageFarmer.me";
-	//	}
+//		} else {
+//			session.setAttribute("alertMsg", "존재하지 않는 비밀번호입니다.");
+//			return "redirect:myPageFarmer.me";
+//		}
 //	}
 	
 	
