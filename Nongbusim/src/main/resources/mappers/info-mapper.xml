@@ -171,6 +171,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			INFO_BOARD
 	 WHERE
 			STATUS = 'Y'
+	<if test="category != 'all'">
+	   AND CATEGORY = #{category}
+	</if>
 	<if test="condition == 'all'">
 	   AND
 			INFO_CONTENT LIKE '%'||#{keyword}||'%'

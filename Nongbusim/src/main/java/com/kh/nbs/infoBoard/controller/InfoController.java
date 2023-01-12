@@ -26,11 +26,11 @@ public class InfoController {
 	private InfoService infoService;
 	
 	@RequestMapping("list.if")
-	public String infoListView(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+	public String infoListView(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+							   Model model) {
 		
 		PageInfo pi = Pagination.getPageInfo(infoService.selectListCount(), currentPage, 10, 5);
 		model.addAttribute("infoList", infoService.selectList(pi));
-		System.out.println(infoService.selectList(pi));
 		return "infoBoard/infoBoardListView";
 	}
 	
@@ -89,9 +89,11 @@ public class InfoController {
 	}
 	
 	@RequestMapping("search.if")
-	public String selectSearchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition, String keyword, Model model) {
-		
+	public String selectSearchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+			   					   @RequestParam(value="ctg", defaultValue="all") String category,
+			   					   String condition, String keyword, Model model) {
 		HashMap<String, String> map = new HashMap();
+		map.put("category", category);
 		map.put("condition", condition);
 		map.put("keyword", keyword);
 		

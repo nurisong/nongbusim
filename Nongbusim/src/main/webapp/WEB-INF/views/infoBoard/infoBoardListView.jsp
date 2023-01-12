@@ -41,10 +41,10 @@
             <h1>정보 게시판</h1>
             
             <div class="info-menu">
-                <a href="">전체</a> | 
-                <a href="">보도자료</a> | 
-                <a href="">농업정보</a> | 
-                <a href="">농촌소식</a>
+                <a href="list.if">전체</a> | 
+                <a href="search.if?ctg=보도자료">보도자료</a> | 
+                <a href="search.if?ctg=농업정보">농업정보</a> | 
+                <a href="search.if?ctg=농촌소식">농촌소식</a>
             </div>
             <br><br>
 
