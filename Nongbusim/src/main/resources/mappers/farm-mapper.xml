@@ -151,5 +151,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   ,#{crop}
 				)
 	</insert>
+	
+	<update id="updateFarm">
+		UPDATE
+		   		FARM
+		   SET
+		   		FARM_NAME = #{farmName},
+		   		ADDRESS = #{address},
+		   		PHONE = #{phone},
+		   		FARM_INTRO = #{farmIntro},
+		   		CROP = #{crop}
+		 WHERE
+		 		FARM_NO = #{farmNo}
+	</update>
+	
+	<select id="deleteAttachment" resultMap="attachmentResultSet">
+		SELECT
+				FILE_NO
+			   ,ORIGIN_NAME
+			   ,CHANGE_NAME
+			   ,UPLOAD_DATE
+			   ,BOARD_NO
+			   ,BOARD_TYPE
+		 FROM
+				ATTACHMENT
+		<foreach collection="list" index="index" item="fileNo">
+		WHERE
+				FILE_NO = #{fileNo}
+		</foreach>
+	</select>
+	
+	<update id="deleteFarm">
+		UPDATE
+				FARM
+		   SET
+		   		STATUS = 'N'
+		 WHERE
+		 		FARM_NO = #{farmNo}
+	</update>
 
 </mapper>

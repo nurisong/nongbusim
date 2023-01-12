@@ -60,7 +60,7 @@
                         <tr>
 	                        <th>대표사진</th>
 	                        <td colspan="3">
-	                           <input type="file" class="form-control-file border" name="upfiles" accept="image/*">
+	                           <input type="file" class="form-control-file border" name="upfiles" accept="image/*" required>
 	                        </td>
 	                    </tr>
 	                    <tr>
