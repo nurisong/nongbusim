@@ -1,6 +1,7 @@
 package com.kh.nbs.infoBoard.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,11 @@ public class InfoServiceImpl implements InfoService {
 	@Override
 	public int updateInfo(Info i) {
 		return 0;
+	}
+	
+	@Override
+	public ArrayList<Info> selectSearchList(HashMap map) {
+		return infoDao.selectSearchList(map, sqlSession);
 	}
 	
 

@@ -1,6 +1,7 @@
 package com.kh.nbs.infoBoard.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
@@ -31,5 +32,8 @@ public interface InfoService {
 	
 	// 5. 게시글 수정(update)
 	int updateInfo(Info i);
+	
+	// 6. 검색 서비스(select)
+	ArrayList<Info> selectSearchList(HashMap map);
 	
 }
