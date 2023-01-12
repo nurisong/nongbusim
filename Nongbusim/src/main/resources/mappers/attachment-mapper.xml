@@ -75,6 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		file_no,
 		  		origin_name,
 		  		change_name,
+				file_level,
 		  		board_type,
 		  		board_no
 		  		)
@@ -83,6 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		SEQ_ANO.NEXTVAL
 		  	   ,#{originName}
 		  	   ,#{changeName}
+		  	   ,#{fileLevel}
 		  	   ,#{boardType}
 		  	   ,SEQ_INO.CURRVAL
 		  		)
