@@ -210,4 +210,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	<insert id="ajaxInsertMarketComment">
+	
+		insert
+				into
+					"COMMENT"
+					(
+					comment_no
+					,comment_content
+					,board_type
+					,board_no
+					,mem_no
+					)
+				values
+					(
+					seq_cno.nextval
+					,#{commentContent}
+					,#{boardType}
+					,#{boardNo}
+					,#{memNo}
+					)
+	
+	
+	</insert>
+	
+	
 </mapper>
