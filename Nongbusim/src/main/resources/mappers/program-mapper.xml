@@ -180,24 +180,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				values
 				
 				(
+					#{memNo},
 					1,
-					1,
-					'T',
+					'P',
 					#{programNo}
 					
 			)
 		</insert>
 		
 		
-		<update id="wishDelete"  parameterType="mark" >
+		<update id="wishDelete"  parameterType="program" >
 			update 
 		        mark
 		    set
 		        status = 0
 		    where 
-		        board_no = #{boardNo}
+		        board_no = #{programNo}
 		    and
-		    	board_type = 'T'
+		    	board_type = 'P'
+		    and 
+		    	mem_no = #{memNo}
 		
 		</update>
 		
@@ -212,7 +214,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and 
 			status = 1
 		and 
-			board_type = 'T'
+			board_type = 'P'
 			
 		</select>
 		

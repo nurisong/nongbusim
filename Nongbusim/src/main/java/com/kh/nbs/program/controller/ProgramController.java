@@ -31,9 +31,9 @@ public class ProgramController {
 	private ProgramService programService;
 
 		@RequestMapping("list.pr")
-		public ModelAndView selectList(@RequestParam(value="cpage",defaultValue="1") int currentPage, ModelAndView mv) {
+		public ModelAndView selectList(@RequestParam(value="cpage",defaultValue="1") int currentPage,HttpSession session , ModelAndView mv) {
 			
-			int memNo = 1;
+			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 			
 			
 			if(programService.selectMarkNo(memNo) != null ) {
@@ -80,7 +80,7 @@ public class ProgramController {
 		@RequestMapping("insert.pr")//dd
 		public String programRegister(Program p, MultipartFile upfile, HttpSession session, Model model) {
 				
-			
+			 int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 			
 			if(!upfile.getOriginalFilename().equals("")) {
 				
@@ -158,9 +158,9 @@ public class ProgramController {
 		}
 		
 		@RequestMapping("detail.pro")
-		public ModelAndView selectBoard(int bno, ModelAndView mv) {
+		public ModelAndView selectBoard(int bno, ModelAndView mv,HttpSession session) {
 			
-			int memNo = 1; //로그인 임시!!!!!!!!!!!!!!!!!!
+			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo(); //로그인 임시!!!!!!!!!!!!!!!!!!
 			
 			
 			if(programService.selectProgramNo(memNo) != null) {
@@ -204,9 +204,9 @@ public class ProgramController {
 		
 		@ResponseBody
 		@RequestMapping("wish.pr")
-		public void wishProgram(int programNo) {
+		public void wishProgram(Program p) {
 			
-			programService.wishProgram(programNo);
+			programService.wishProgram(p);
 			
 			
 			//return "redirect:list.pr?cpage="+programNo;
@@ -215,9 +215,9 @@ public class ProgramController {
 		
 		@ResponseBody
 		@RequestMapping("wishDelete.pr")
-		public void wishDeltete(int programNo) {
+		public void wishDeltete(Program p) {
 			
-			programService.wishDelete(programNo);
+			programService.wishDelete(p);
 			
 		}
 			

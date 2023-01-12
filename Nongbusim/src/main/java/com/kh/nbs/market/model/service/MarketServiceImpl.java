@@ -86,7 +86,7 @@ public class MarketServiceImpl implements MarketService{
 	
 	
 	
-	//게시글 수정v
+	//게시글 수정
 	
 
 	@Override
@@ -98,14 +98,18 @@ public class MarketServiceImpl implements MarketService{
 	
 	
 	
-	//게시글 삭제
 	
+	//게시글 삭제
 	@Override
-	public int marketDelete(int merketNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int marketDeleteAttachment(int marketNo) {
+		return marketdao.marketDeleteAttachment(marketNo, sqlSession);
 	}
 
+	@Override
+	public int marketDelete(int marketNo) {
+		return marketdao.marketDelete(marketNo, sqlSession);
+	}
+	
 	
 	
 	

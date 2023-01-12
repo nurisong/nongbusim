@@ -12,25 +12,27 @@
 <title>Insert title here</title>
 <style>
 
-			#container{
-				padding-left:30%;
-			}
+		#container{
+			padding-left:30%;
+		}
     
-            #boardList {text-align:center;}
-            #boardList>tbody>tr:hover {cursor:pointer;}
+        #boardList {text-align:center;}
+        #boardList>tbody>tr:hover {cursor:pointer;}
     
-            .heart{
+        .heart{
             
-            width: 30px;
+         	width: 30px;
             height: 30px;
          
             top:20px;
             right : 5px;
             }
-        </style>
+</style>
 </head>
 <body>
 <jsp:include page="myPageUserCommon.jsp" />
+    <h3>찜한 마켓</h3>
+	<hr>
     <table id="boardList"  class="table table-hover" align="center">
         <thead>
             <tr>
@@ -50,7 +52,7 @@
 			          			<td>${ m.marketTitle }</td>
 			          			<td>${ m.marketPrice }</td>
 			          			<td>${ m.marketEnrollDate }</td>
-			          			<td class="sorry"><img class="heart" src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
+			          			<td class="sorry"><img class="heart" src="resources/images/deleteheart.png" alt="${ m.marketNo }"></td>
 			          		</tr>
 			          	</c:forEach>
 		        	</c:when>
@@ -62,10 +64,80 @@
 		        			<td></td>
 		        			<td></td>
 		        		</tr>
-		        		
 		        	</c:otherwise>
 		        </c:choose>
         </tbody>
     </table>
+    
+    <script>
+                 
+            $(function(){
+                $('.heart').click(function(){
+                    var $btn1 = $(this);
+                    if($(this).attr("src") == "resources/images/deleteheart.png"){
+							console.log( $(this).attr("alt"));
+                        $.ajax({
+                            url : 'wish.pr',
+                            data :{
+                                programNo : $(this).attr("alt")
+                            },
+                            
+                            success: function() {
+                                console.log($btn1);
+                                $btn1.attr("src", "resources/images/heart2.png");
+                            },
+
+                            error: function(){
+                                        console.log('ajax 통신 실패!');
+                                    }
+                    });
+
+
+                    }else{
+                        $.ajax({
+                            url : 'wishDelete.pr',
+                            data :{
+                                programNo : $(this).attr("alt")
+                            },
+                            success: function() {
+                                console.log($btn1);
+                                $btn1.attr("src", "resources/images/deleteheart.png");
+                            },
+                            error:function(){
+                                        console.log('ajax 통신 실패!');
+                                    }
+                    	});
+
+                    }
+                });
+            })
+
+               $(function(){
+                  $('#boardList>tbody>tr>td').not('.sorry').click(function(){
+                     location.href = 'detail.pro?bno=' + $(this).parent().children().eq(0).text();
+                  })
+                  
+                // mark 테이블에서 조회해서 markNoList에서 borarNo 가져와서 현재 하트 IMG ALT에 있는 programNo랑 비교헤서 하트 바꿔줌,  비교해서 같은 값이 있으면 check값 증가
+                $('.heart').each(function() {
+
+                    var check2 = 0;
+                    
+                    <c:forEach items="${ markNoList }" var="m">
+                        if(${m.boardNo} == $(this).attr("alt")) {check2 = check2 + 1}
+
+                    </c:forEach>
+
+                    console.log(check2);
+                    
+                    if(check2 > 0) {
+                        $(this).attr("src", "resources/images/heart2.png");
+                    }
+                    else {
+                        $(this).attr("src", "resources/images/deleteheart.png");
+                    }
+                });
+                  
+               });
+        </script>
 </body>
 </html>

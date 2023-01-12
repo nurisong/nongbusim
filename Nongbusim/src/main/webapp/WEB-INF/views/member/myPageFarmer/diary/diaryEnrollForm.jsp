@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ include file="../../../common/menubar.jsp" %>
-<%@ include file="../myPageFarmerCommon.jsp" %>
+
+<jsp:include page="../myPageFarmerCommon.jsp" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,9 +93,9 @@
 				<div class="outer" >
 					<table id="diaryEnrollForm">		
 						<tr>
-							<td colpan="3">
+							<td colspan="3">
 								<div>✔등록일</div>
-								<input id="createDate" type="date" disabled>
+								<input id="createDate" type="date">
 							</td>	
 						</tr>
 						<tr>
@@ -113,14 +113,15 @@
 													<option value="noCategory">등록된 카테고리가 없습니다.</option>
 												</c:otherwise>
 											</c:choose>
-											<option id="enrollNew" name="enrollNew" value="enrollNew">카테고리 신규입력</option>									
-											<input type="hidden" id="newCategory" name="newCategory">
+										</select>
+										<option id="enrollNew" name="enrollNew" value="enrollNew">카테고리 신규입력</option>									
+										<input type="hidden" id="newCategory" name="newCategory">
 							</td>	
 						</tr>
 						
 						<tr>
 							<td>
-								<div class="diaryDetail">🎞사진 등록하기<br>
+								<div class="diaryDetail">🎞사진 등록하기<br></div>
 							</td>
 						</tr>
 						<tr>
@@ -141,7 +142,7 @@
 						<tr>
 							<td>		
 								<div class="filebox">
-								    <input class="upload-name"  id="upload-name2"  value="첨부파일" placeholder="첨부파일" ">
+								    <input class="upload-name"  id="upload-name2"  value="첨부파일" placeholder="첨부파일">
 								    <label for="file2">파일찾기</label> 
 								    <input type="file" name="upfiles" id="file2" onchange="loadImg(this,2);">
 								</div>
@@ -163,20 +164,19 @@
 									<div class="img-area">
 									<img src="" class="contentImg" id="contentImg3">
 									</div>
-								</td>	
-							</td>			
+								</td>				
 						</tr>
 					</table>
 					<table>
 							<tr>
 								<td>					
-									<div class="diaryDetail">글 작성하기<br>		
+									<div class="diaryDetail">글 작성하기<br></div>		
 								</td>			
 							</tr>		
 							<tr>
 								<td>
 									<div class="selectText"> 		
-										<textarea id="textContent" name="diaryContent" type="text"></textarea>
+										<textarea id="textContent" name="diaryContent"></textarea>
 									</div>					
 								</td>			
 							</tr>			

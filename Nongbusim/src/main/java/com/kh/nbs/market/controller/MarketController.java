@@ -32,6 +32,9 @@ public class MarketController {
 	private MarketService marketService;
 	
 	
+	
+	
+	
 	//게시판으로 이동
 	@RequestMapping("list.mk")
 	public String marketSelectList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
@@ -50,6 +53,10 @@ public class MarketController {
 		return "market/marketListView";
 		
 	}
+	
+	
+	
+	
 	
 	
 	//게시물상세화면으로 이동
@@ -75,6 +82,12 @@ public class MarketController {
 		return mv;
 		
 	}
+	
+	
+	
+	
+	
+	
 	
 	//게시물 작성화면으로 이동
 	@RequestMapping("insertForm.mk")
@@ -112,6 +125,12 @@ public class MarketController {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
 	//게시물 작성
 	@RequestMapping("insert.mk")
 	public ModelAndView marketInsert(Market market, ModelAndView mv, MultipartFile[] upfiles, RedirectAttributes rttr, HttpSession session, Attachment a) {
@@ -146,18 +165,73 @@ public class MarketController {
 	
 	
 	
+	
+	
+	
 	//게시물 수정화면으로 이동
 	@RequestMapping("updateForm.mk")
-	public String marketUpdateForm() {
-		return "market/marketUpdateForm";
+	public ModelAndView marketUpdateForm(Market market, ModelAndView mv) {
+
+		
+		mv.addObject("market", marketService.marketDetailView(market));
+		mv.addObject("at", marketService.marketDetailAttachment(market));
+		mv.setViewName("market/marketUpdateForm");
+		
+		return mv;
+	
+		
 	}
 	
 	
 	
-	//게시물 수정
+	
+	
+	
+	
+	
+	//게시물 수정 
+	
+
+	
+	
+	
 	
 	
 	
 	//게시물 삭제 
+	@RequestMapping("delete.mk")
+	public ModelAndView marketDelete(int marketNo, ModelAndView mv, RedirectAttributes rttr) {
+		
+		if(marketService.marketDeleteAttachment(marketNo) > 0) {
+			
+			if(marketService.marketDelete(marketNo) > 0) {		
+				
+				//첨부파일 삭제
+				
+				
+				rttr.addFlashAttribute("alertMsg", "게시물이 삭제되었습니다.");
+				mv.setViewName("redirect:list.mk");
+				return mv;
+			}
+			
+		}else {
+			rttr.addFlashAttribute("alertMsg", "게시물 삭제를 실패했습니다.");
+			mv.setViewName("redirect:list.mk");
+			return mv;
+			
+		}
+		return mv;
+
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 }

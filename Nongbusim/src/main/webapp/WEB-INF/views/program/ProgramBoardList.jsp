@@ -75,7 +75,7 @@
             <div class="innerOuter" style="padding:5% 10%;">
 
                 
-			<c:if test="${ not empty loginUser }">
+			<c:if test="${ not empty loginUser.farmerCode}">
             	<a class ="btn btn-secondary" style="float:right;" href="enrollForm.bo">프로그램 등록</a>
             </c:if>
 			
@@ -123,7 +123,7 @@
                         </c:forEach> -->
 
                         <td  class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
-                        
+                     
                      </tr>
                        
                     </c:forEach>
@@ -181,11 +181,13 @@
                     if($(this).attr("src") == "resources/images/deleteheart.png"){
 
                       
-
+                        
                         $.ajax({
                             url : 'wish.pr',
                             data :{
-                                programNo : $(this).attr("alt")
+                                programNo : $(this).attr("alt"),
+                                memNo : ${loginUser.memNo}
+                                
                             },
                             
                             success: function() {
@@ -204,7 +206,8 @@
                         $.ajax({
                             url : 'wishDelete.pr',
                             data :{
-                                programNo : $(this).attr("alt")
+                                programNo : $(this).attr("alt"),
+                                memNo : ${loginUser.memNo}
                             },
                             
                             success: function() {

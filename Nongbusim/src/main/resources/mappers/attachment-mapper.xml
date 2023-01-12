@@ -3,17 +3,6 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="attachmentMapper">
-
-	<resultMap id="attachmentResultSet" type="attachment">
-		<result column="file_no"      property="fileNo" />
-		<result column="origin_name"   property="originName" />
-		<result column="change_name"  property="changeName" />
-		<result column="file_path"  property="filePath" />
-		<result column="file_level"  property="fileLevel" />
-		<result column="upload_date"   property="uploadDate" />
-		<result column="board_no"   property="boardNo" />
-		<result column="board_type"   property="boardType" />
-	</resultMap>
 	
 	<insert id="insertAttachmentFarm" parameterType="attachment">
 		INSERT
@@ -53,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		SEQ_ANO.NEXTVAL
 		  	   ,#{originName}
 		  	   ,#{changeName}
-		  	   ,#{boardType}
+		  	   ,'mk'
 		  	   ,SEQ_MKNO.CURRVAL
 		  		)
 		  		
@@ -82,20 +71,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 
-	<select id="selectAttachmentDetailBoard" parameterType="board" resultMap="attachmentResultSet">
-		SELECT
-			   FILE_NO
-			   ,ORIGIN_NAME
-		       ,CHANGE_NAME
-			   ,FILE_PATH
-			   ,UPLOAD_DATE
-			   ,BOARD_NO
-			   ,BOARD_TYPE
-		  FROM
-			   ATTACHMENT
-		 WHERE 
-		   	   BOARD_NO=#{boardNo} 
-		   AND 
-		       BOARD_TYPE=#{boardType}
-	</select>
+
 </mapper>

@@ -44,9 +44,11 @@
         <!-- 게시글 상세내용 -->
         <div class="main-area">
 
+			<c:if test="${ b.boardType=='S' }"><h1>농작물 자랑 게시판</h1></c:if>
 			<c:if test="${ b.boardType=='M' }"><h1>멘티멘토 게시판</h1></c:if>
 			<c:if test="${ b.boardType=='Q' }"><h1>질문 게시판</h1></c:if>
-			<c:if test="${ b.boardType=='K' }"><h1>노하우 게시판</h1></c:if> 
+			<c:if test="${ b.boardType=='K' }"><h1>노하우 게시판</h1></c:if>
+			 
             <h3>${b.boardTitle}</h3>
 
             <div class="board-header" style="width: 100%; height: 30px;">
@@ -61,20 +63,40 @@
                                 작성일: ${b.createDate} 조회수: ${b.count}
                 </div>
                 <div class="board-updatedelete"style="width: 20%;">
+                	
+                	<!-- 글 수정, 삭제 추가 -->
                 	<c:if test="${ loginUser.nickName==b.boardWriter }">
-	                    <button>수정</button>
-	                    <button class="btn btn-secondary" onclick="delete();">삭제</button>
+	                    <button onclick="location.href='update.bo?btype=${b.boardType}&bno=${b.boardNo}';">수정</button>
+	                    <button class="btn btn-secondary">삭제</button>
                 	</c:if>
+                	
                 </div>
             </div>
 
             <hr>
-
-            <div>
+            <div class="picture-area">
+                ${b.boardContent}
+            </div>
+            <div class="picture-area">
+            	이미지:
+                <c:choose>
+            		<c:when test="${ empty a }">
+            			없어요~
+            		</c:when>
+            		<c:otherwise>
+            		    <c:forEach items="${a}" var="attach">
+            		    	<img alt="" src="${attach.changeName}" width="150" height="100"/>
+                  			<a href="${ attach.changeName }" download="${ attach.originName }">${ attach.originName }</a>
+      					</c:forEach>
+            		</c:otherwise>
+                </c:choose> 	
+            </div>
+            <div class="table-area">
                 ${b.boardContent}
             </div>
             <br>
-            <div>
+            
+            <div class="table-area">
             	첨부파일:
                 <c:choose>
             		<c:when test="${ empty a }">
@@ -85,8 +107,7 @@
                   			<a href="${ attach.changeName }" download="${ attach.originName }">${ attach.originName }</a>
       					</c:forEach>
             		</c:otherwise>
-                </c:choose>
-            	
+                </c:choose> 	
             </div>
 
             <hr>
@@ -172,14 +193,19 @@
             
         </div>
     </div>
-        
-        
-        
-    <script>
-            
-
-    	
-    </script>
+                        
+	<script>
+	    var boardType = '<c:out value="${b.boardType}"/>';
+	    $(document).ready(function(){
+	        if(boardType == 'S') {
+	            $(".picture-area").show();
+	            $(".table-area").hide();
+	        }  else {
+	            $(".picture-area").hide();
+	            $(".table-area").show();
+	        }    		
+	    });
+	</script>
     
 </body>
 </html>

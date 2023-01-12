@@ -37,7 +37,8 @@ public interface MarketService {
 	int marketUpdate(Market market);
 	
 	//게시물 삭제 메소드
-	int marketDelete(int merketNo);
+	int marketDeleteAttachment(int marketNo);
+	int marketDelete(int marketNo);
 	
 	//댓글 리스트 조회 메소드
 	ArrayList<Comment> selectCommentList(int marketNo);

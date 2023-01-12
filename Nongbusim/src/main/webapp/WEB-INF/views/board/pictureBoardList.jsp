@@ -60,6 +60,13 @@
     display: inline-block;
     text-align: center;
   }
+  
+  /*페이징 가운데 정렬*/
+  #pagingArea>ul {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 </style>
 </head>
@@ -120,67 +127,34 @@
           <br><br>
          
           <!--썸네일 리스트-->
-          <div class="list-area">
+        <div class="list-area">
           
-	            <div class="thumbnail" align="center">
-	              <input type="hidden" value="boardNo">
-	              <img src="https://cdn.britannica.com/90/94190-050-C0BA6A58/Cereal-crops-wheat-reproduction.jpg?w=400&h=300&c=crop">
-	              <p>
-	                boardTitle <br>
-	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-	                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-	                </svg> like수 &nbsp;
-	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-eye-fill" viewBox="0 0 16 16">
-	                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-	                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-	                </svg> count수
-	              </p>
-	            </div>
-	
-	            <div class="thumbnail" align="center">
-	              <input type="hidden" value="boardNo">
-	              <img src="https://cdn.britannica.com/90/94190-050-C0BA6A58/Cereal-crops-wheat-reproduction.jpg?w=400&h=300&c=crop">
-	              <p>
-	                boardTitle <br>
-	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-	                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-	                </svg> like수 &nbsp;
-	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-eye-fill" viewBox="0 0 16 16">
-	                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-	                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-	                </svg> count수
-	              </p>
-	            </div>
-	
-	            <div class="thumbnail" align="center">
-	              <input type="hidden" value="boardNo">
-	              <img src="https://cdn.britannica.com/90/94190-050-C0BA6A58/Cereal-crops-wheat-reproduction.jpg?w=400&h=300&c=crop">
-	              <p>
-	                boardTitle <br>
-	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-	                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-	                </svg> like수 &nbsp;
-	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-eye-fill" viewBox="0 0 16 16">
-	                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-	                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-	                </svg> count수
-	              </p>
-	            </div>
-	
-	            <div class="thumbnail" align="center">
-	              <input type="hidden" value="boardNo">
-	              <img src="https://cdn.britannica.com/90/94190-050-C0BA6A58/Cereal-crops-wheat-reproduction.jpg?w=400&h=300&c=crop">
-	              <p>
-	                boardTitle <br>
-	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-	                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-	                </svg> like수 &nbsp;
-	                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-eye-fill" viewBox="0 0 16 16">
-	                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-	                  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-	                </svg> count수
-	              </p>
-	            </div>
+	        <div class="thumbnails" align="center">
+	            
+                    <c:forEach items="${ list }" var="b">
+
+                            <div class="thumbnail" onclick="location.href='detail.bo?bno=${b.boardNo}';">
+                                <c:if test="${ not empty at }">
+                                    <c:forEach items="${ at }" var="at">
+                                        <c:if test="${ b.boardNo == at.boardNo}">
+                                             <a href="detail.bo?bno=${b.boardNo}" >
+                                                 <img class="card-img-top" src="${ at.changeName }" alt="">
+                                             </a>
+                                        </c:if>
+                                    </c:forEach>
+                                </c:if>
+                            
+                                <div class="card-body">
+                                    <h6 class="card-title">
+                                        <a href="">${ b.boardTitle }</a>
+                                    </h6>
+                                    <p>${ b.boardLike }<br>
+                                    	${ b.count }
+                                    </p>
+                                </div>
+                            </div>
+
+                    </c:forEach>
         	</div>
     	</div>
     	
@@ -193,12 +167,12 @@
 		        		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 		        	</c:when>
 		        	<c:otherwise>
-		        		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }&type=${btype}">Previous</a></li>
+		        		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }&type=S">Previous</a></li>
 		        	</c:otherwise>
 		        </c:choose>
 		        
 				<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-		        	<li class="page-item"><a class="page-link" href="list.bo?cpage=${p}">${ p }</a></li>
+		        	<li class="page-item"><a class="page-link" href="list.bo?cpage=${p}&type=S">${ p }</a></li>
 		        </c:forEach>
 		
 				<c:choose>
@@ -206,7 +180,7 @@
 		        		<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
 		        	</c:when>
 		        	<c:otherwise>
-		        		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }&type=${btype}">Next</a></li>
+		        		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }&type=S">Next</a></li>
 		        	</c:otherwise>
 		        </c:choose>
 		          
@@ -214,20 +188,6 @@
 		</div>
 		
     </div>
-
-  <script>
-    $(function(){
-      
-      $('.thumbnail').click(function(){
-      
-        
-      });
-      
-    })
-  
-  </script>
-  
-
 
 </body>
 </html>
