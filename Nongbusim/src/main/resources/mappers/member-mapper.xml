@@ -17,7 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="MEM_STATUS" property="memStatus"/>
 		<result column="FARMER_CODE" property="farmerCode"/>
 		<result column="CAREER" property="career"/>
-		<result column="MODIFY_DATE" property="modifyDate"/>		
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="UPDATE_PWD" property="updatePwd"/>			
 	</resultMap>
 	
 	<resultMap id="boardResultSet" type="board">
@@ -178,6 +179,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE MEMBER
 		SET MEM_PWD = #{updatePwd}, MODIFY_DATE = SYSDATE
 		WHERE MEM_PWD = #{memPwd}
+		AND MEM_NO = #{memNo}
 		AND MEM_STATUS = 'Y'
 	</update>	
 </mapper>
