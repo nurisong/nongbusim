@@ -31,6 +31,7 @@
 
     #market_wrap a{
 
+        color: black;
         text-decoration: none;
 
     }
@@ -117,10 +118,35 @@
                                 <div class="card-body">
                                     <h6 class="card-title">
                                         <a href="">${ m.marketTitle }</a>
-                                        <a href="">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
-                                        </a>
+
+                                        <!--로그인시 찜하기 누른 상품에 찜을 표시해주기 / 비회원일시 찜한 마크는 전부 칠해져있지 않게-->
+                                        <c:choose>
+                                            <c:when test="${ empty loginUser }">
+                                                <a id="marketMark" href="javascript:notMember();">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                                </a>
+                                            </c:when>
+
+                                            <c:otherwise>
+                                                <c:choose>
+                                                    <c:when test="${ mark.status == null || mark.status == 0 }">
+                                                        <a id="marketMarkNotFill" href="javascript:clickMark(${ m.marketNo }, ${ loginUser.memNo });">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                                        </a>
+                                                        <a style="display:none" id="marketMarkFill" href="javascript:clickunMark();">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16"><path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg>
+                                                        </a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a id="marketMarkFill" href="javascript:clickunMark();">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16"><path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg>
+                                                        </a>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:otherwise>    
+                                        </c:choose>
                                     </h6>
+
                                     <p>${ m.marketPrice } 원<br>
                                     ${ m.marketEnrollDate } <br>
                                     ${ m.marketCount }</p>
@@ -178,6 +204,52 @@
         <!-- /.container -->
 
     </div>
+
+
+    <script>
+
+            //비회원 찜하기 클릭시 알럿창 띄워주는 함수
+            function notMember(){
+
+                alert('로그인 후 이용하실 수 있습니다');
+
+            }
+
+
+            //로그인한 회원이 찜하기 버튼 클릭시 
+            function clickMark(marketNo, markMemNo){
+
+                $.ajax({
+
+                    url : "mark.mk",
+
+                    data : {
+
+                        boardNo : marketNo, 
+                        memNo : markMemNo
+
+                    },
+                    success : function(status){
+
+                        const mark = $(this);
+
+                        $('#marketMarkNotFill').css('display', 'none');
+                        $('#marketMarkFill').css('display', '');
+                        
+
+                    },
+
+                    error : function(){
+                        console.log('찜하기실패');
+                    }
+
+
+                    
+                });
+
+            }
+
+    </script>
 
 
 

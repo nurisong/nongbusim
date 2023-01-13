@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.Comment;
+import com.kh.nbs.common.model.vo.Mark;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.market.model.vo.Market;
 
@@ -104,5 +105,10 @@ public class MarketDao {
   
   
   
+  public int ajaxMarkMarket(Mark mark, SqlSessionTemplate sqlSession) {
+	  
+	  return sqlSession.insert("marketMapper.ajaxMarkMarket", mark);
+  
+  }
   
 }
