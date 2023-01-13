@@ -96,5 +96,6 @@ public class ProgramDao {
 		return (ArrayList)sqlSession.selectList("programMapper.selectMyProgram",memNo);
 	}
 	
+	
 
 }

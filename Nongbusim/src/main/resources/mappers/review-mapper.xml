@@ -4,34 +4,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="reviewMapper">
 
-	<resultMap id="programResultSet" type="program">
-		<result column="PROGRAM_NO" property="programNo"/>
-		<result column="FARM_NO" property="programNo"/>
-		<result column="PROGRAM_NAME" property="programName"/>
-		<result column="PROGRAM_PLAN" property="programPlan"/>
-		<result column="PROGRAM_HOUR" property="programHour"/>
-		<result column="PROGRAM_LECTURE" property="programLecture"/>
-		<result column="HEADCOUNT" property="headcount"/>
-		<result column="PROGRAM_DETAIL" property="programDetail"/>
-		<result column="MEM_NO" property="memNo"/>
-		<result column="SIGN_UP" property="signUp"/>
-		<result column="STATUS" property="status"/>
-		<result column="PROGRAM_LOCATION" property="programLocation"/>
-		<result column="ORIGIN_NAME" property="originName"/>
-		<result column="CHANGE_NAME" property="changeName"/>
-		<result column="NOW_HEADCOUNT" property="nowHeadCount"/>
-	</resultMap>
 	
 	<resultMap id="reviewResultSet" type="review">
 		<result column="REVIEW_NO" property="reviewNo"/>
-		<result column="REVIEW_COUNT" property="reviewCount"/>
 		<result column="REVIEW_CONTENT" property="reviewContent"/>
 		<result column="REVIEW_STATUS" property="reviewStatus"/>
 		<result column="REVIEW_ENROLLDATE" property="reviewEnrollDate"/>
-		<result column="REVIEW_NO" property="reviewNo"/>
-		<result column="REVIEW_NO" property="reviewNo"/>
-
+		<result column="PROGRAM_NO" property="programNo"/>
+		<result column="MEM_NO" property="memNo"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="RATING" property="rating"/>
 	</resultMap>
+	
+	<insert id="reviewInsert" parameterType="review">
+		insert
+				into
+					review
+					(
+						review_no,
+						review_content,
+						review_status,
+						review_enrolldate,
+						program_no,
+						mem_no,
+						origin_name,
+						change_name,
+						rating
+					)
+			values
+					(
+						seq_rvno.nextval,
+						#{reviewContent},
+						'Y',
+						SYSDATE,
+						#{programNo},
+						#{memNo},
+						#{originName},
+						#{changeName},
+						#{rating}
+					) 
+	</insert>
 	
 	
 	
