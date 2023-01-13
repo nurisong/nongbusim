@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.nbs.review.model.service.ReviewService;
+import com.kh.nbs.review.model.vo.Review;
 
 @Controller
 public class ReviewController {
@@ -23,19 +24,18 @@ public class ReviewController {
 	
 	
 	@RequestMapping("reviewInsert.re")
-	public String reviewInsertView() {
+	public String reviewInsertView(Review r) {
 		
-		return "review/ReviewInsert";
+		System.out.println(r);
+		
+		return "redirect:myProgramlist.re";
 	
 	}
 	
 	
-	@RequestMapping("reviewEnrollForm.re")
-	public ModelAndView reviewEnrollForm(int bno, ModelAndView mv) {
-		
-		reviewService.reviewEnrollForm(bno);
-		
-		return mv;
-		
-	}
+	
+	
+	
+	
+	
 }
