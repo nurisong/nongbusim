@@ -30,12 +30,14 @@ public class FarmController {
 	private FarmService farmService;
 	
 	@RequestMapping("list.fm")
-	public ModelAndView selectFarmList(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv) {
+	public ModelAndView selectFarmList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+									   @RequestParam(value="lco", defaultValue="all") String localCode,
+										ModelAndView mv) {
 		
-		PageInfo pi = Pagination.getPageInfo(farmService.selectFarmCount(), currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(farmService.selectFarmCount(localCode), currentPage, 10, 5);
 		// 프로그램 조회
-		mv.addObject("atList", farmService.selectAttachmentList()); // 첨부파일
-		mv.addObject("farmList", farmService.selectFarmList(pi)).setViewName("farm/farmListView");
+		mv.addObject("atList", farmService.selectAttachmentList(localCode)); // 첨부파일
+		mv.addObject("farmList", farmService.selectFarmList(pi, localCode)).setViewName("farm/farmListView");
 		
 		return mv;
 	}
@@ -43,6 +45,7 @@ public class FarmController {
 	@RequestMapping("detail.fm")
 	public String selectFarm(int fno, Model model) {
 		model.addAttribute("farm", farmService.selectFarm(fno));
+		model.addAttribute("programList", farmService.selectProgram(fno));
 		model.addAttribute("atList", farmService.selectAttachment(fno));
 		return "farm/farmDetailView";
 	}

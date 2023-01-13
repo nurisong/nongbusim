@@ -99,29 +99,18 @@
             <h1 id="farm-list-title">농장리스트</h1>
 
             <div class="local-area">
-                <button class="btn btn-secondary" id="all-select-btn">전체보기</button>
+                <a href="list.fm" class="btn btn-secondary" id="all-select-btn">전체보기</a>
                 
                 <div class="area-selection-list">
                     <ul>
-                        <li>서울</li>
-                        <li>경기</li>
-                        <li>충청</li>
-                        <li>강원</li>
-                        
-                        <li>서울</li>
-                        <li>경기</li>
-                        <li>충청</li>
-                        <li>강원</li>
-
-                        <li>서울</li>
-                        <li>경기</li>
-                        <li>충청</li>
-                        <li>강원</li>
-
-                        <li>서울</li>
-                        <li>경기</li>
-                        <li>충청</li>
-                        <li>강원</li>
+                        <li><a href="list.fm?lco=su">서울</a></li>
+                        <li><a href="list.fm?lco=gg">경기</a></li>
+                        <li><a href="list.fm?lco=ic">인천</a></li>
+                        <li><a href="list.fm?lco=gw">강원</a></li>
+                        <li><a href="list.fm?lco=cc">충청</a></li>
+                        <li><a href="list.fm?lco=gs">경상</a></li>
+                        <li><a href="list.fm?lco=jl">전라</a></li>
+                        <li><a href="list.fm?lco=jj">제주</a></li>
                     </ul>
                 </div>
             </div>

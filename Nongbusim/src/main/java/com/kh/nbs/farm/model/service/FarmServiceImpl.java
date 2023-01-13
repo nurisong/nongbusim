@@ -10,6 +10,7 @@ import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.farm.model.dao.FarmDao;
 import com.kh.nbs.farm.model.vo.Farm;
+import com.kh.nbs.program.model.vo.Program;
 
 @Service
 public class FarmServiceImpl implements FarmService {
@@ -24,15 +25,25 @@ public class FarmServiceImpl implements FarmService {
 	public int selectFarmCount() {
 		return farmDao.selectFarmCount(sqlSession);
 	}
+	
+	@Override
+	public int selectFarmCount(String localCode) {
+		return farmDao.selectFarmCount(localCode, sqlSession);
+	}
 
 	@Override
-	public ArrayList<Farm> selectFarmList(PageInfo pi) {
-		return farmDao.selectFarmList(pi, sqlSession);
+	public ArrayList<Farm> selectFarmList(PageInfo pi, String localCode) {
+		return farmDao.selectFarmList(pi, localCode, sqlSession);
 	}
 	
 	@Override
-	public ArrayList<Attachment> selectAttachmentList() {
-		return farmDao.selectAttachmentList(sqlSession);
+	public ArrayList<Attachment> selectAttachmentList(String localCode) {
+		return farmDao.selectAttachmentList(localCode, sqlSession);
+	}
+	
+	@Override
+	public ArrayList<Program> selectProgram(int farmNo){
+		return farmDao.selectProgram(farmNo, sqlSession);
 	}
 	
 	@Override
