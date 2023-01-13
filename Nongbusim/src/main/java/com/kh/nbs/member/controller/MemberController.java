@@ -259,7 +259,6 @@ public class MemberController {
 		return mv;
 	}
 	
-	
 	@RequestMapping("findIdForm.me")
 	public String findIdForm() {
 		return "member/findId";

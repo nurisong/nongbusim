@@ -231,7 +231,7 @@
                         <tr>
                            <td>프로그램명 : <input id="programName" type="text" value="programName"></td>
                             
-                            <td><input name="programNo"  id="programNo" type="text" value="programNo"></td>
+                            <td><input name="programNo"  id="programNo" type="text" value="programNo" hidden></td>
                          
                         </tr>
                         <tr>

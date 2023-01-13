@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ORIGIN_NAME" property="originName"/>
 		<result column="CHANGE_NAME" property="changeName"/>
 		<result column="RATING" property="rating"/>
+		<result column="PROGRAM_NAME" property="programName"/>
 	</resultMap>
 	
 	<insert id="reviewInsert" parameterType="review">
@@ -45,6 +46,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						#{rating}
 					) 
 	</insert>
+	
+	<select id="selectReviewList" resultMap="reviewResultSet">
+			select 
+				r.review_no,
+				r.review_content,
+				r.review_status,
+				r.review_enrolldate,
+				r.program_no,
+				r.mem_no,
+				r.origin_name,
+				r.change_name,
+                r.rating,
+                p.program_name
+			from
+				review r, program p
+			where
+                p.program_no = r.program_no
+            and
+				review_status = 'Y'
+			order
+				by
+					review_no desc
+	</select>
 	
 	
 	

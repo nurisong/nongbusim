@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,49 +86,17 @@
             </thead>
             <tbody>
                 
-                <c:forEach items="${ list }" var="b">
+                <c:forEach items="${ reviewList }" var="r">
                     <tr  onclick="modal('my_modal')" >
-                        <td style="width:10px;"><img class="thumbnail" src="resources/images/딸기1.jpg" alt=""></td>
+                        <td style="width:10px;"><img class="thumbnail" src="${r.changeName}" alt=""></td>
                         <td>
-                            프로그램명 : 딸기 쵝오<br>
-                            노잼!<br>
-                            2023-01-10
+                            프로그램명 : ${r.programName}<br>
+                             ${r.reviewContent}<br>
+                             ${r.reviewEnrollDate}
                         </td> 
                     </tr>
 
-                    <tr onclick="modal('my_modal')">
-                        <td style="width:10px;"><img class="thumbnail" src="resources/images/딸기1.jpg" alt=""></td>
-                        <td>
-                            프로그램명 : 딸기 쵝오<br>
-                            노잼!<br>
-                            2023-01-10
-                        </td> 
-                    </tr>
-
-                    <tr onclick="modal('my_modal')">
-                        <td style="width:10px;"><img class="thumbnail" src="resources/images/딸기1.jpg" alt=""></td>
-                        <td>
-                            프로그램명 : 딸기 쵝오<br>
-                            노잼!<br>
-                            2023-01-10
-                        </td> 
-                    </tr>
-                    <tr onclick="modal('my_modal')">
-                        <td style="width:10px;"><img class="thumbnail" src="resources/images/딸기1.jpg" alt=""></td>
-                        <td>
-                            프로그램명 : 딸기 쵝오<br>
-                            노잼!<br>
-                            2023-01-10
-                        </td> 
-                    </tr>
-                    <tr onclick="modal('my_modal')">
-                        <td style="width:10px;"><img class="thumbnail" src="resources/images/딸기1.jpg" alt=""></td>
-                        <td>
-                            프로그램명 : 딸기 쵝오<br>
-                            노잼!<br>
-                            2023-01-10
-                        </td> 
-                    </tr>
+                
 
                 </c:forEach>
                 
@@ -135,17 +104,35 @@
         </table>
 
         <!-- 페이지처리하는 영역-->
-        <div id="market_page">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <div id="pagingArea">
+            <ul class="pagination">
+            
+               <c:choose>
+                  <c:when test="${pi.currentPage eq 1 }">
+                         <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                  </c:when>
+                  <c:otherwise>
+                   <li class="page-item "><a class="page-link" href="list.re?cpage=${ pi.currentPage - 1 }" >Previous</a></li>
+                  </c:otherwise>   
+                </c:choose>
+                
+               <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+                   <li class="page-item "><a class="page-link" href="list.re?cpage=${p}" >${ p }</a></li>
+               
+               </c:forEach>
+               
+               <c:choose>
+                  <c:when test="${ pi.currentPage eq pi.maxPage }">
+                     <li class="page-item disabled"><a class="page-link" href="#" >Next</a></li>
+                  
+                  </c:when>
+                  <c:otherwise>
+                  
+                     <li class ="page-item"><a class="page-link" href="list.re?cpage=${pi.currentPage + 1 }">NEXT</a>
+                  </c:otherwise>
+                  
+               </c:choose>
             </ul>
-        </div>
         </div>
     </div>
 

@@ -1,5 +1,7 @@
 package com.kh.nbs.review.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int reviewInsert(Review r) {
 		return reviewDao.reviewInsert(sqlSession,r);
+	}
+
+	@Override
+	public ArrayList<Review> selectReviewList() {
+		return reviewDao.selectReviewList(sqlSession);
 	}
 
 	

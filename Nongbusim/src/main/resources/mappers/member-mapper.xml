@@ -121,6 +121,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE MEM_ID = #{memId}
+		AND MEM_STATUS = 'Y'
 	</select>
 	
 	<!-- 내가 작성한 게시글 조회 -->

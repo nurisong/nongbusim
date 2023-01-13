@@ -27,12 +27,11 @@
 
 
     #modal {
-     
       display: none;
       position:relative;
       width:100%;
       height:100%;
-      z-index:1;
+      z-index:100;
 
     }
     
@@ -41,13 +40,14 @@
     }
     
     #modal button {
-      display:inline-block;
-      width:100px;
-      margin-left:calc(100% - 100px - 10px);
+      border: none;
+      display: inline-block;
+      width: 100px;
+      
     }
     
-    #modal .modal_content {
-      transform: translate(0%, -400%);
+    #modal .modal_content{
+      transform: translate(0%, -300%);
       width: 500px;
       margin-top: 100px;
       margin:100px auto;
@@ -65,6 +65,14 @@
       background:rgba(0, 0, 0, 0.5);
       z-index:-1;
     }   
+
+    #modal #updateCommentContent{
+
+        margin-left: 20px;
+
+    }
+
+
     </style>
 
 
@@ -193,11 +201,39 @@
                 </tbody>
             </table>
 
+            <br>
+            <br>
+            <br>
 
             
+            <!-- 댓글용 모달창 -->
+            <div id="modal">
+            
+                <div class="modal_content">
+                    
+                    <h6 id="memId"></h6>
+
+                    <br>
+                    
+                    <textarea  id="updateCommentContent" cols="50" rows="5" style="resize:none;"></textarea>
+
+                    <br>
+                    <button type="submit" class="btn btn-sm">수정</button>
+                    <button type="button" class="btn btn-sm" id="modal_close_btn">취소</button>
+                
+                </div>
+            
+                <div class="modal_layer"></div>
+
+            </div>
+
+
+        </div>
+
+
             
             <!-- 댓글 작성용 모달창 -->
-            <script>
+        <script>
                 
                 
                 $(function(){
@@ -325,7 +361,7 @@
                         success : function(status){
 
                             if(status == 'success'){
-                                    selectCommentList(); 
+                                selectCommentList(); 
                             }
                             
 
@@ -345,12 +381,28 @@
                 //댓글 수정용 ajax
 
                 function updateComment(commentNo, memNo, content){
-                       
+                    
+                    secretComment(commentNo, memNo, content);
 
+                    <!-- 댓글 모달창 나타나는 스크립트 -->
+                    function secretComment(commentNo, memNo, content){
+            
+                        $('#modal').css('display', 'block');
+
+                        $('#updateCommentContent').text(content);
+                        
+                        
+
+                        $('#modal_close_btn').click(function(){
+    
+                            $('#modal').css('display', 'none');
+    
+                        });
                 }
 
 
-            </script>
+            }
+        </script>
 
 
 
@@ -368,55 +420,6 @@
             </div>
             -->
 
-
-
-            <!-- 댓글용 모달창 -->
-            <div id="modal">
-   
-                <div class="modal_content">
-                    <h2>모달 창</h2>
-                   
-                    <p>모달 창 입니다.</p>
-                   
-                    <button type="button" id="modal_close_btn">X</button>
-                   
-                </div>
-               
-                <div class="modal_layer"></div>
-            
-            </div>
-
-
-
-        </div>
-
-    <!-- 댓글 모달창 나타나는 스크립트 -->
-    <script>
-
-        $(function(){
-
-            secretComment();
-
-        });
-
-        function secretComment(){
-                
-
-                $('#updateCommentbtn').click(function(){
-
-                    $('#modal').css('display', 'block');
-
-                });
-
-                $('#modal_close_btn').click(function(){
-
-                    $('#modal').css('display', 'none');
-
-                });
-
-            }
-
-    </script>
 
 </body>
 </html>
