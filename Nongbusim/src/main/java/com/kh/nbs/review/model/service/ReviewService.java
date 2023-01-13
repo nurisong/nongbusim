@@ -1,9 +1,14 @@
 package com.kh.nbs.review.model.service;
 
-import com.kh.nbs.program.model.vo.Program;
+import java.util.ArrayList;
+
+import com.kh.nbs.review.model.vo.Review;
 
 public interface ReviewService {
 	
+	//리뷰 작성
+	int reviewInsert(Review r);
 	
+	ArrayList<Review> selectReviewList();
 	
 }

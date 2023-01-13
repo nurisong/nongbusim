@@ -26,6 +26,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <result column="board_type" property="boardType"/>
 	</resultMap>
 	
+	<resultMap id="programResultSet" type="program">
+		<result column="PROGRAM_NO" property="programNo"/>
+		<result column="FARM_NO" property="programNo"/>
+		<result column="PROGRAM_NAME" property="programName"/>
+		<result column="PROGRAM_PLAN" property="programPlan"/>
+		<result column="PROGRAM_HOUR" property="programHour"/>
+		<result column="PROGRAM_LECTURE" property="programLecture"/>
+		<result column="HEADCOUNT" property="headcount"/>
+		<result column="PROGRAM_DETAIL" property="programDetail"/>
+		<result column="MEM_NO" property="memNo"/>
+		<result column="SIGN_UP" property="signUp"/>
+		<result column="STATUS" property="status"/>
+		<result column="PROGRAM_LOCATION" property="programLocation"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="NOW_HEADCOUNT" property="nowHeadCount"/>
+	</resultMap>
+	
 	<select id="selectFarmCount" resultType="_int">
 		SELECT
 				COUNT(*)
@@ -33,6 +51,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		FARM
 		 WHERE
 		 		STATUS = 'Y'
+		 <if test="lco != 'all'">
+		   AND
+		   		local_code = #{localCode}
+		 </if>
 	</select>
 
 	<select id="selectMyFarmList" resultMap="farmResultSet">
@@ -69,6 +91,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 		FARM
 		 WHERE 
 		  		STATUS = 'Y'
+		  <if test="lco != 'all'">
+		   AND
+		   		local_code = #{localCode}
+		 </if>
 	</select>
 	
 	<select id="selectAttachmentList" resultMap="attachmentResultSet">
@@ -86,6 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		            ATTACHMENT) a
 		WHERE 
 				a.RN = 1
+
 	</select>
 		
 	<select id="selectFarm" resultMap="farmResultSet">
@@ -127,6 +154,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				FILE_NO
 	</select>
 	
+	<select id="selectProgram" resultMap="programResultSet">
+		select
+				program_no,
+				farm_no,
+				program_name,
+				program_plan,
+				program_hour,
+				program_lecture,
+				headcount,
+				program_detail,
+				sign_up,
+				mem_no,
+				status
+
+			from
+				program
+			where
+				status = 'Y'
+			and
+				farm_no = #{farmNo}
+	</select>
+	
 	<insert id="insertFarm" parameterType="farm">
 		INSERT
 		  INTO
@@ -136,6 +185,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   ,FARMER
 			   ,FARM_NAME
 			   ,FARM_INTRO
+			   ,LOCAL_CODE
 			   ,ADDRESS
 			   ,PHONE
 			   ,CROP
@@ -146,6 +196,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   ,#{farmer}
 			   ,#{farmName}
 			   ,#{farmIntro}
+			   ,#{localCode}
 			   ,#{address}
 			   ,#{phone}
 			   ,#{crop}

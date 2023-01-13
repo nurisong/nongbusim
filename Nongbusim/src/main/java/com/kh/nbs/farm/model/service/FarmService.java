@@ -12,11 +12,12 @@ public interface FarmService {
 	// 1. 농장 리스트 조회 서비스 + 페이징 처리(select)
 	// 1-1) 농장 총 개수 조회
 	int selectFarmCount();
+	int selectFarmCount(String localCode); // lco있는 경우
 	// 1-2) 농장 리스트 조회
 	// **프로그램, 판매품목 연결
-	ArrayList<Farm> selectFarmList(PageInfo pi);
+	ArrayList<Farm> selectFarmList(PageInfo pi, String localCode);
+	ArrayList<Attachment> selectAttachmentList(String localCode); // 첨부파일
 	// 1-3) 농장 프로그램 조회
-	ArrayList<Attachment> selectAttachmentList();
 	
 	// 2. 농장 등록 서비스(insert)
 	// 첨부파일 등록
@@ -30,6 +31,7 @@ public interface FarmService {
 	// **지도 API 연결?
 	Farm selectFarm(int farmNo);
 	ArrayList<Attachment> selectAttachment(int farmNo);
+	ArrayList<Program> selectProgram(int farmNo);
 	
 	// 5. 농장 삭제 서비스(update)
 	int deleteFarm(int farmNo);

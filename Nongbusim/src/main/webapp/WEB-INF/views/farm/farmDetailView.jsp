@@ -135,18 +135,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>딸기 체험</td>
-                                <td>2023/01/02~2023/02/28</td>
-                            </tr>
-                            <tr>
-                                <td>딸기 체험</td>
-                                <td>2023/01/02~2023/02/28</td>
-                            </tr>
-                            <tr>
-                                <td>딸기 체험</td>
-                                <td>2023/01/02~2023/02/28</td>
-                            </tr>
+                            <c:forEach var="pg" items="${programList}">
+                                <tr>
+                                    <td>${pg.programName}</td>
+                                    <td>${pg.programPlan}</td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>

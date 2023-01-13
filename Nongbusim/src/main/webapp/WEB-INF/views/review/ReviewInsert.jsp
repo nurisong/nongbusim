@@ -225,13 +225,13 @@
 
             <div id="my_modal">
 
-                <form action="reviewInsert.re" method="post">
+                <form action="reviewInsert.re" method="post" enctype="multipart/form-data">
                     <h2 align="center">후기작성</h2>
                     <table style="width: 400px; height:200px;">
                         <tr>
                            <td>프로그램명 : <input id="programName" type="text" value="programName"></td>
                             
-                            <td><input name="programNo"  id="programNo" type="text" value="programNo"></td>
+                            <td><input name="programNo"  id="programNo" type="text" value="programNo" hidden></td>
                          
                         </tr>
                         <tr>

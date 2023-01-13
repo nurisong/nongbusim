@@ -15,6 +15,8 @@ public class Review {
 		private String originName;
 		private String changeName;
 		
+		private String programName;
+		
 		
 	
 				
