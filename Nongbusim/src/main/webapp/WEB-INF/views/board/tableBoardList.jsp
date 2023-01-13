@@ -58,7 +58,9 @@ text-align: center;
 			<c:if test="${ type=='Q' }"><h1>질문 게시판</h1></c:if>
 			<c:if test="${ type=='K' }"><h1>노하우 게시판</h1></c:if>           
             
+            <c:if test="${loginUser !=null }">
             <button type="button" onclick="location.href='write.bo?type=${type}';" class="btn btn-secondary" id="insert-btn" >글작성</button>
+            </c:if>
             <br><br>
             
 
@@ -66,11 +68,10 @@ text-align: center;
             <div style="background-color:rgb(223, 223, 223); height: 60px; width:70%; text-align: center;">
 
                 <div id=sform>
-                <form id="searchForm" action="" method="get" style="padding-top:10px;">
+                <form id="searchForm" action="search.bo" method="get" style="padding-top:10px;">
                     <div class="select">
                     <select class="custom-select" name="condition">
                         <option value="all">전체</option>
-                        <option value="writer">작성자</option>
                         <option value="title">제목</option>
                         <option value="content">내용</option>
                     </select>
@@ -79,6 +80,7 @@ text-align: center;
                     <input type="text" class="form-control" name="keyword">
                     </div>
                     <div class="searchbutton">
+                    <input type="hidden" value="${ type }" name="boardType">
                     <button type="submit" class="searchBtn btn btn-secondary">검색</button>
                     </div>
                 </form>              
@@ -88,10 +90,10 @@ text-align: center;
             
 			<!--해당순으로 정렬-->
 			<div class="img-select">
-			  <select name="img-condition">
-			    <option value="recent">최신순</option>
-			    <option value="popular">좋아요순</option>
-			    <option value="create">조회수순</option>
+			  <select id="img-select" name="img-condition">
+			    <option value="recent" selected>최신순</option>
+			    <option value="like">좋아요순</option>
+			    <option value="count">조회수순</option>
 			  </select>
 			</div>
 			<br><br>            
@@ -106,8 +108,8 @@ text-align: center;
                     <th>조회수</th>
                     <th>좋아요</th>
                 </thead>
-                <tbody align="center">
-					<c:forEach items="${ list }" var="b">
+                <tbody align="center" id="boardContent">
+					<c:forEach items="${list}" var="b">
 						<tr>
 							<td class="bno">${ b.boardNo }</td>
 							<td>${ b.boardTitle  }</td>
@@ -164,6 +166,57 @@ text-align: center;
             
         </div>
     </div>
+    <script>
+    <!--
+    $('#img-select').change(function(){
+    	   var selectedOption = $(this).val();
+
+    	   var pi= ${pi};
+    	   console.log(selectedOption);
+    	   console.log(boardType);
+    	   console.log(pi);
+    	   
+        $.ajax({
+            url: "selectListAjax.bo",
+            data: {
+                selectedOption: selectedOption,
+  				
+                pi: pi
+            },
+            success: function(list) {
+         	   
+         	   var result='';
+         	   
+         	   for(var i in list) {
+                    result += 
+
+					'<tr><td class="bno">'
+					+list[i].boardNo+'</td><td>'
+					+list[i].boardTitle+'</td><td>'
+					+list[i].boardWriter+'</td><td>'
+					+list[i].createDate+'</td><td>'
+					+list[i].count+'</td><td>'
+					+list[i].boardLike+'</td></tr>'
+
+         	   }
+         	   
+                $('#boardContent').html(result);
+         	   
+
+            },
+            error: function() {
+                console.log('ajax communication failed');
+            }
+       });
+    });
+    -->
+
+        
+        
+
+
+
+    </script>
     
 
 

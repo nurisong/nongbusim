@@ -1,6 +1,7 @@
 package com.kh.nbs.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.Comment;
 import com.kh.nbs.common.model.vo.PageInfo;
 
 @Repository
@@ -65,4 +67,29 @@ public class BoardDao {
 	public int selectLike(SqlSessionTemplate sqlSession,Board b) {
 		return sqlSession.selectOne("boardMapper.selectLike",b);
 	}
+	
+	public ArrayList<Board> selectListOrder(SqlSessionTemplate sqlSession,Board b,PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.selectListOrder",b,rowBounds);
+	}
+	
+	public int selectSearchListCount(HashMap map, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMapper.selectSearchListCount", map);
+	}
+	public ArrayList<Board> selectSearchList(PageInfo pi, HashMap map, SqlSessionTemplate sqlSession) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.selectSearchList", map, rowBounds);
+	}
+	
+	public ArrayList<Comment> selectReplyList(SqlSessionTemplate sqlSession, int boardNo){
+		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", boardNo);
+	}
+	
+	public int insertReply(SqlSessionTemplate sqlSession, Comment c) {
+		return sqlSession.insert("boardMapper.insertReply", c);
+	}
+	
+
 }
