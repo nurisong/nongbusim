@@ -23,7 +23,7 @@
 <br>
 <h3>회원가입</h3>
   <hr>
-  <p>약관 동의</p>
+	<p>약관 동의</p>
     <p>회원가입을 위해서 아래 내용 약관을 읽고 동의해 주세요.</p>
     
     <div class="chk_group">
@@ -52,8 +52,8 @@
             <li>수집에 동의하지 않으시는 경우 서비스에 제한이 있을 수 있습니다.</li>
         </ul>
     </ol>
-    
     <hr>
+    
     <form action="userInsert.me" id="form-div" method="post">
       <h4>기본정보</h4>
         <div class="form-group">
@@ -95,7 +95,7 @@
           <input type="text" class="form-control" placeholder="-도 입력하세요" name="phone">
       </div>
       <div id="btns">
-        <button type="submit" class="btn btn-success" onclick="return validate(); return validate2();" disabled>회원가입</button>
+        <button type="submit" class="btn btn-success">회원가입</button>
         <button type="button" class="btn btn-secondary">취소</button>
        </div>
       </form>
