@@ -81,41 +81,45 @@
             </div>
 
             <hr>
-            <div class="picture-area">
-                ${b.boardContent}
-            </div>
-            <div class="picture-area">
-            	이미지:
-                <c:choose>
-            		<c:when test="${ empty a }">
-            			없어요~
-            		</c:when>
-            		<c:otherwise>
-            		    <c:forEach items="${a}" var="attach">
-            		    	<img alt="" src="${attach.changeName}" width="150" height="100"/>
-                  			<a href="${ attach.changeName }" download="${ attach.originName }">${ attach.originName }</a>
-      					</c:forEach>
-            		</c:otherwise>
-                </c:choose> 	
-            </div>
-            <div class="table-area">
-                ${b.boardContent}
-            </div>
-            <br>
-            
-            <div class="table-area">
-            	첨부파일:
-                <c:choose>
-            		<c:when test="${ empty a }">
-            			없어요~
-            		</c:when>
-            		<c:otherwise>
-            		    <c:forEach items="${a}" var="attach">
-                  			<a href="${ attach.changeName }" download="${ attach.originName }">${ attach.originName }</a>
-      					</c:forEach>
-            		</c:otherwise>
-                </c:choose> 	
-            </div>
+            <c:if test="${ b.boardType=='S' }">
+	            <div class="picture-area">
+	                ${b.boardContent}
+	            </div>
+	            <div class="picture-area">
+	            	이미지:
+	                <c:choose>
+	            		<c:when test="${ empty a }">
+	            			없어요~
+	            		</c:when>
+	            		<c:otherwise>
+	            		    <c:forEach items="${a}" var="attach">
+	            		    	<img alt="" src="${attach.changeName}" width="150" height="100"/>
+	                  			<a href="${ attach.changeName }" download="${ attach.originName }">${ attach.originName }</a>
+	      					</c:forEach>
+	            		</c:otherwise>
+	                </c:choose> 	
+	            </div>
+            </c:if>
+            <c:if test="${b.boardType!='S'}">
+	            <div class="table-area">
+	                ${b.boardContent}
+	            </div>
+	            <br>
+	            
+	            <div class="table-area">
+	            	첨부파일:
+	                <c:choose>
+	            		<c:when test="${ empty a }">
+	            			없어요~
+	            		</c:when>
+	            		<c:otherwise>
+	            		    <c:forEach items="${a}" var="attach">
+	                  			<a href="${ attach.changeName }" download="${ attach.originName }">${ attach.originName }</a>
+	      					</c:forEach>
+	            		</c:otherwise>
+	                </c:choose> 	
+	            </div>
+            </c:if>
 
             <hr>
             <div class="board-footer" style="width: 100%; height: 25px;">
@@ -176,23 +180,13 @@
 		                    </tr>
 	                    </c:otherwise>
                     </c:choose>
+                    
+                    <tr>
+                        <td colspan="3">댓글(<span id="rcount">3</span>)</td>
+                    </tr>
                 </thead>
                 <tbody>            	
-                    <tr>
-                        <th>user02</th>
-                        <td>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ꿀잼</td>
-                        <td>2020-03-12</td>
-                    </tr>
-                    <tr>
-                        <th>user01</th>
-                        <td>재밌어요</td>
-                        <td>2020-03-11</td>
-                    </tr>
-                    <tr>
-                        <th>admin</th>
-                        <td>댓글입니다!!</td>
-                        <td>2020-03-10</td>
-                    </tr>
+
                 	
                 </tbody>
             </table>
@@ -225,16 +219,6 @@
 
                         
 	<script>
-	    var boardType = '<c:out value="${b.boardType}"/>';
-	    $(document).ready(function(){
-	        if(boardType == 'S') {
-	            $(".picture-area").show();
-	            $(".table-area").hide();
-	        }  else {
-	            $(".picture-area").hide();
-	            $(".table-area").show();
-	        }    		
-	    });
 	    
 	    $(document).ready(function() {
 	        $("#heartLike").click(function() {
@@ -246,8 +230,7 @@
 		                url: "insert.lk",  // fix url
 		                data: {
 		                    boardType: '${b.boardType}',
-		                    boardNo: ${b.boardNo},
-		                    memNo: ${loginUser.memNo}
+		                    boardNo: ${b.boardNo}
 		                },
 		                success: function() {
 
@@ -285,6 +268,71 @@
 	        });
 	    });
 	    
+	    
+       	$(function(){
+       		selectReplyList();
+       	});
+       	
+    	
+    	function addReply(){ // 댓글 작성용 ajax
+    		
+    		if($('#content').val().trim() != ''){
+    			$.ajax({
+					url : 'rinsert.bo',
+					data :{
+						boardNo : ${b.boardNo},
+						boardType : '${b.boardType}',
+						commentContent : $('#content').val(),
+						memNo : '${loginUser.memNo}'
+					},
+					success : function(status){
+						console.log(status);
+						
+						if(status == 'success'){
+							selectReplyList();
+							$('#content').val('');
+						}
+						
+					},
+					error:function(){
+						console.log('실패 ~');						
+					}
+    				
+    			})
+    		}
+    		else{
+    			alertify.alert('정상적인 댓글을 작성해주세요 ~ ');
+    		}
+    	}
+    
+    	function selectReplyList(){
+    		$.ajax({
+    			url : 'rlist.bo', // 전체 조회 아님 X, 게시글에 달린 댓글만 조회해야함(현재 보고있는 게시글 번호를 넘겨야함)
+    			data : {bno : ${b.boardNo}},
+				success : function(list){
+					console.log(list);
+					
+					let value = '';
+					for(let i in list){
+						value += '<tr>'
+							   + '<th>' + list[i].memId + '</th>'
+							   + '<td>' + list[i].commentContent      + '</td>'
+							   + '<td>' + list[i].commentEnrollDate   + '</td>'
+							   + '</tr>';
+					}
+					
+					$('#replyArea tbody').html(value);
+					$('#rcount').text(list.length);
+					
+				},
+				error : function(){
+					console.log('댓글목록조회 실패!');					
+				}
+    		});
+    		
+    	}
+       	
+       	
 	    
 	    
 	    
