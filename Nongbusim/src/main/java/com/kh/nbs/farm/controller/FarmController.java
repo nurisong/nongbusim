@@ -36,8 +36,11 @@ public class FarmController {
 		
 		PageInfo pi = Pagination.getPageInfo(farmService.selectFarmCount(localCode), currentPage, 10, 5);
 		// 프로그램 조회
-		mv.addObject("atList", farmService.selectAttachmentList(localCode)); // 첨부파일
+		mv.addObject("atList", farmService.selectAttachmentList()); // 첨부파일
+		mv.addObject("programList", farmService.selectProgramList());
 		mv.addObject("farmList", farmService.selectFarmList(pi, localCode)).setViewName("farm/farmListView");
+		
+		System.out.println(farmService.selectProgramList());
 		
 		return mv;
 	}

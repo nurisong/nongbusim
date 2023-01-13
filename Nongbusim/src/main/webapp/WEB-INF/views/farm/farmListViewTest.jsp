@@ -87,17 +87,6 @@
     .farm-info a{
         color: black;
     }
-    #search-input{
-        width: 300px;
-        display: inline-block;
-    }
-    .local-filedset{
-        background-color: rgb(248, 248, 248);
-        border-radius: 5px;
-    }
-    .area-selection-list a{
-        color: black;
-    }
 </style>
 </head>
 <body>
@@ -110,34 +99,19 @@
             <h1 id="farm-list-title">농장리스트</h1>
 
             <div class="local-area">
+                <a href="list.fm" class="btn btn-secondary" id="all-select-btn">전체보기</a>
                 
-                <br>
-                <form action="">
-                    <input type="text" class="form-control" name="keyword" id="search-input" placeholder="농장 이름으로 검색">
-                    <button type="submit" class="btn btn-secondary">검색</button>
-                </form>
-                
-                <!-- <a href="list.fm" class="btn btn-secondary" id="all-select-btn">전체보기</a> -->
-                
-                <br><br>
-                <h4>지역별 조회</h4>
-                <div class="local-filedset">
-                    <br>
-                    <div class="area-selection-list">
-                        <ul> 
-                            <li style="width: 100%;"><a href="list.fm">전체</a></li>
-                            <li><a href="list.fm?lco=su">서울</a></li>
-                            <li><a href="list.fm?lco=gg">경기</a></li>
-                            <li><a href="list.fm?lco=ic">인천</a></li>
-                            <li><a href="list.fm?lco=gw">강원</a></li>
-                            <li><a href="list.fm?lco=cc">충청</a></li>
-                            <li><a href="list.fm?lco=gs">경상</a></li>
-                            <li><a href="list.fm?lco=jl">전라</a></li>
-                            <li><a href="list.fm?lco=jj">제주</a></li>
-                            <li> </li>
-                        </ul>
-                    </div>
-                    <br>
+                <div class="area-selection-list">
+                    <ul>
+                        <li><a href="chat.fm?lco=su">서울</a></li>
+                        <li><a href="list.fm?lco=gg">경기</a></li>
+                        <li><a href="list.fm?lco=ic">인천</a></li>
+                        <li><a href="list.fm?lco=gw">강원</a></li>
+                        <li><a href="list.fm?lco=cc">충청</a></li>
+                        <li><a href="list.fm?lco=gs">경상</a></li>
+                        <li><a href="list.fm?lco=jl">전라</a></li>
+                        <li><a href="list.fm?lco=jj">제주</a></li>
+                    </ul>
                 </div>
             </div>
 
@@ -175,16 +149,14 @@
                                         </dd>
 
                                         <!-- 프로그램이 있을 경우 -->
-                                        <c:if test="${not empty programList}">
-                                            <dt>진행중인 프로그램</dt>
-                                            <c:forEach var="program" items="${programList}">
-                                                <dd>
-                                                    <div><a href="">${program.programName}</a></div>
-                                                </dd>
-                                            </c:forEach>
-                                                <br>
+                                        <c:if test="${not empty farm.programName}">
                                         </c:if>
 
+                                        <dt>진행중인 프로그램</dt>
+                                        <dd>
+                                            <div><a href="">${f.programName}</a></div>
+                                            <br>
+                                        </dd>
 
                                         <!-- <dt>판매중인 작물<br></dt>
                                         <dd>

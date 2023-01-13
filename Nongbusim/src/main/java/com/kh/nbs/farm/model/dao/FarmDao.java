@@ -30,8 +30,12 @@ public class FarmDao {
 		return (ArrayList)sqlSession.selectList("farmMapper.selectFarmList", localCode, rowBounds);
 	}
 	
-	public ArrayList<Attachment> selectAttachmentList(String localCode, SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("farmMapper.selectAttachmentList", localCode);
+	public ArrayList<Attachment> selectAttachmentList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("farmMapper.selectAttachmentList");
+	}
+	
+	public ArrayList<Program> selectProgramList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("farmMapper.selectProgramList");
 	}
 	
 	public int insertAttachment(Attachment a, SqlSessionTemplate sqlSession) {

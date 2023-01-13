@@ -37,8 +37,13 @@ public class FarmServiceImpl implements FarmService {
 	}
 	
 	@Override
-	public ArrayList<Attachment> selectAttachmentList(String localCode) {
-		return farmDao.selectAttachmentList(localCode, sqlSession);
+	public ArrayList<Attachment> selectAttachmentList() {
+		return farmDao.selectAttachmentList(sqlSession);
+	}
+	
+	@Override
+	public ArrayList<Program> selectProgramList() {
+		return farmDao.selectProgramList(sqlSession);
 	}
 	
 	@Override

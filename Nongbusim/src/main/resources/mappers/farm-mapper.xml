@@ -114,6 +114,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				a.RN = 1
 
 	</select>
+	
+	<select id="selectProgramList" resultMap="programResultSet">
+		SELECT *
+		   FROM (
+		        SELECT 
+		            	 PROGRAM_NAME
+		            	,PROGRAM_PLAN
+		          FROM
+		          		 PROGRAM
+		         ORDER
+		         	BY
+		         		PROGRAM_PLAN
+		        )
+		 WHERE
+		 <![CDATA[
+		 		ROWNUM <= 2
+		 ]]>
+	</select>
 		
 	<select id="selectFarm" resultMap="farmResultSet">
 		SELECT 
