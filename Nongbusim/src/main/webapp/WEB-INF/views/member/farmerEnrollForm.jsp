@@ -67,15 +67,15 @@
         </div>
         <div class="form-group">
             <label for="pwd">* 비밀번호 :</label>
-            <input type="password" class="form-control" id="memPwd" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." name="memPwd" minlength="6" maxlength="18" required>
+            <input type="password" class="form-control" id="memPwd" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." onchange="check_pwd();" name="memPwd" minlength="6" maxlength="18" required>
         </div>
           <div class="form-group">
             <label for="password">* 비밀번호 확인 :</label>
-            <input type="password" class="form-control" id="chkPwd" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." name="memPwdChk" minlength="6" maxlength="18">
+            <input type="password" class="form-control" id="chkPwd" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." onchange="check_pwd();" name="chkPwd" minlength="6" maxlength="18" required>
         </div>
         
-        <span class="checkResult1" style="color: green; display: none">비밀번호가 일치합니다.</span>
-        <span class="checkResult2" style="color: red; display: none">비밀번호가 일치하지 않습니다.</span>
+        <div id="checkPwdResult"></div>
+        <br>
         
         <div class="form-group">
           <label for="pwd"> 성별 :</label>
@@ -130,7 +130,17 @@
 	    	}
     	
     	// 비밀번호 확인
-    	
+		function check_pwd(){
+   			if(document.getElementById('memPwd').value != '' && document.getElementById('chkPwd').value != ''){
+   				if(document.getElementById('memPwd').value == document.getElementById('chkPwd').value){
+	   				document.getElementById('checkPwdResult').innerHTML = '비밀번호가 일치합니다.'
+	   				document.getElementById('checkPwdResult').style.color = 'green';
+   				} else{
+   					document.getElementById('checkPwdResult').innerHTML = '비밀번호가 일치하지 않습니다.'
+   					document.getElementById('checkPwdResult').style.color = 'red';
+   				}
+   			} 
+   		}
     	
 	    			
 	   		// 체크박스 전체 선택
