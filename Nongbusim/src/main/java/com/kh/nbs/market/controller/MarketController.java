@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.Comment;
+import com.kh.nbs.common.model.vo.Mark;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.template.Pagination;
 import com.kh.nbs.market.model.service.MarketService;
@@ -183,22 +184,7 @@ public class MarketController {
 		return mv;
 	
 		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	//게시물 수정 
-	
-
-	
-	
-	
-	
+	}	
 	
 	
 	//게시물 삭제 
@@ -229,7 +215,7 @@ public class MarketController {
 	}
 	
 	
-	
+
 	
 	
 	//댓글 작성
@@ -265,6 +251,18 @@ public class MarketController {
 	
 	//댓글 수정
 	
+	
+	
+	
+	//찜하기
+	
+	@ResponseBody
+	@RequestMapping("mark.mk")
+	public String ajaxMarkMarket(Mark mark) {
+		
+		return marketService.ajaxMarkMarket(mark) > 0 ? "success" : "fail";
+		
+	}
 	
 	
 

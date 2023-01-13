@@ -229,9 +229,9 @@
                     <h2 align="center">후기작성</h2>
                     <table style="width: 400px; height:200px;">
                         <tr>
-                           <td>프로그램명 : <input id="programName" type="text" value="programName"></td>
+                           <td>프로그램명 : <input id="programName" type="text" value=""></td>
                             
-                            <td><input name="programNo"  id="programNo" type="text" value="programNo" hidden></td>
+                            <td><input name="programNo"  id="programNo" type="text" value="" hidden></td>
                          
                         </tr>
                         <tr>

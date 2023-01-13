@@ -74,12 +74,12 @@
                         <br>
                             <label for="userPwd" class="mr-sm-2">현재 비밀번호 : </label>
                             <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="memPwd" name="memPwd"> <br>
-                            <input type="hidden" name="memId" value="${ loginUser.memId }"> <br>
-                            
                             <label for="userPwd" class="mr-sm-2">새 비밀번호 : </label>
                             <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="updatePwd" name="updatePwd"> <br>
                             <label for="userPwd" class="mr-sm-2">새 비밀번호 확인 : </label>
                             <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="updatePwdChk" name="updatePwdChk"> <br>
+                            <input type="hidden" name="memNo" value="${ loginUser.memNo }">
+                            <div class="mr-sm-2" id="checkPwdResult"></div>
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer" align="center">
@@ -121,5 +121,7 @@
             </div>
         </div>
     </div>
+    
+    
 </body>
 </html>

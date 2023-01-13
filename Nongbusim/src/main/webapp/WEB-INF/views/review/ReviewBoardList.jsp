@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>후기</title>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
 
@@ -51,7 +52,7 @@
 /* 모달 영역 스타일 시작 */
             #my_modal {
                 display: none;
-                width: 500px;
+                width: 800px;
                 padding: 20px 60px;
                 background-color: #fefefe;
                 border: 1px solid #888;
@@ -87,74 +88,100 @@
             <tbody>
                 
                 <c:forEach items="${ reviewList }" var="r">
-                    <tr  onclick="modal('my_modal')" >
+                    <tr  onclick="modal('my_modal','${r.programName}','${r.reviewContent}','${r.changeName}','${r.reviewEnrollDate}')" >
                         <td style="width:10px;"><img class="thumbnail" src="${r.changeName}" alt=""></td>
-                        <td>
+                        <td style="width: 480px;">
                             프로그램명 : ${r.programName}<br>
                              ${r.reviewContent}<br>
                              ${r.reviewEnrollDate}
+
+                        </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${r.rating eq 5}">
+                                    ⭐⭐⭐⭐⭐ 😁
+                                </c:when>
+
+                                <c:when test="${r.rating eq 4}">
+                                    ⭐⭐⭐⭐☆ 😊
+                                </c:when>
+
+                                <c:when test="${r.rating eq 3}">
+                                    ⭐⭐⭐☆☆ 🙂
+                                </c:when>
+
+                                <c:when test="${r.rating eq 2}">
+                                    ⭐⭐☆☆☆ 😐
+                                </c:when>
+
+                                <c:otherwise>
+                                    ⭐☆☆☆☆ 😤
+                                </c:otherwise>
+                            </c:choose>
                         </td> 
+
                     </tr>
-
-                
-
                 </c:forEach>
                 
             </tbody>
         </table>
 
-        <!-- 페이지처리하는 영역-->
-        <div id="pagingArea">
-            <ul class="pagination">
+        
+       
+    </div>
+
+    <!-- 페이지처리하는 영역-->
+    <div id="pagingArea">
+        <ul class="pagination">
+        
+           <c:choose>
+              <c:when test="${pi.currentPage eq 1 }">
+                     <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+              </c:when>
+              <c:otherwise>
+               <li class="page-item "><a class="page-link" href="list.re?cpage=${ pi.currentPage - 1 }" >Previous</a></li>
+              </c:otherwise>   
+            </c:choose>
             
-               <c:choose>
-                  <c:when test="${pi.currentPage eq 1 }">
-                         <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                  </c:when>
-                  <c:otherwise>
-                   <li class="page-item "><a class="page-link" href="list.re?cpage=${ pi.currentPage - 1 }" >Previous</a></li>
-                  </c:otherwise>   
-                </c:choose>
-                
-               <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-                   <li class="page-item "><a class="page-link" href="list.re?cpage=${p}" >${ p }</a></li>
-               
-               </c:forEach>
-               
-               <c:choose>
-                  <c:when test="${ pi.currentPage eq pi.maxPage }">
-                     <li class="page-item disabled"><a class="page-link" href="#" >Next</a></li>
-                  
-                  </c:when>
-                  <c:otherwise>
-                  
-                     <li class ="page-item"><a class="page-link" href="list.re?cpage=${pi.currentPage + 1 }">NEXT</a>
-                  </c:otherwise>
-                  
-               </c:choose>
-            </ul>
-        </div>
+           <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+               <li class="page-item "><a class="page-link" href="list.re?cpage=${p}" >${ p }</a></li>
+           
+           </c:forEach>
+           
+           <c:choose>
+              <c:when test="${ pi.currentPage eq pi.maxPage }">
+                 <li class="page-item disabled"><a class="page-link" href="#" >Next</a></li>
+              
+              </c:when>
+              <c:otherwise>
+              
+                 <li class ="page-item"><a class="page-link" href="list.re?cpage=${pi.currentPage + 1 }">NEXT</a>
+              </c:otherwise>
+              
+           </c:choose>
+        </ul>
     </div>
 
     <div id="my_modal">
-        <table style="width: 400px; height:200px;">
+        <table style="width: 700px; height:200px;">
             <tr>
-               <td>작성자 : user01</td>
-               <td>2023-01-10</td>
+                <td style="width:50px;">작성자 : user01</td>
+                <td style="width: 200px;" id="reviewEnrollDate"></td>
+             
+              
             </tr>
             <tr>
-                <td>프로그램명 : 딸기 쵝오</td>
-            </tr><br>
+                <td style="width: 500px;">프로그램명 : <input type="text" id="programName" name="programName" value="" readonly>  </td>
+            </tr>
+            <br>
             <tr>
-                <td>딸기 시러</td>
+                <td><input style="width:600px; height:200px;" type="text" id="reviewContent" name="reviewContent" value=""  readonly></td>
             </tr><br>
-            <tr>
-                <td>내용: 하지만 맛있어</td>
-            </tr><br>
+         <br>
         </table>
 
         <div align="center">
-            <img class="thumbnail" src="resources/images/딸기1.jpg" style="width: 300px; height: 200px;">
+            <img class="thumbnail" id="image" src="resources/images/딸기1.jpg" style="width: 300px; height: 200px;">
 
         </div>
 
@@ -173,9 +200,19 @@
  
 
     <script>
-        function modal(id) {
+        function modal(id,programName,reviewContent,image,reviewEnrollDate) {
+
+
+            console.log(programName);
+            console.log(reviewContent);
+            
             var zIndex = 9999;
             var modal = document.getElementById(id);
+
+             $('#programName').val(programName);
+             $('#reviewContent').val(reviewContent);
+             $('#image').attr("src",image);
+             $('#reviewEnrollDate').html(reviewEnrollDate);
 
             // 모달 div 뒤에 희끄무레한 레이어
             var bg = document.createElement('div');

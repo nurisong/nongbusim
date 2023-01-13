@@ -19,5 +19,6 @@ public class Board {
 	
 	private String boardWriter;
 	private int boardLike;
+	
 
 }

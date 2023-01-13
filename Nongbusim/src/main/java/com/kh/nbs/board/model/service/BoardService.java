@@ -1,9 +1,11 @@
 package com.kh.nbs.board.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.Comment;
 import com.kh.nbs.common.model.vo.PageInfo;
 
 public interface BoardService {
@@ -38,5 +40,17 @@ public interface BoardService {
 	int selectLikeCount(Board b);
 	//좋아요 조회
 	int selectLike(Board b);
+	
+	ArrayList<Board> selectListOrder(Board b,PageInfo pi);
+	
+	int selectSearchListCount(HashMap map);
+	ArrayList<Board> selectSearchList(PageInfo pi, HashMap map);
+	
+	// 댓글 리스트 조회서비스(Ajax)(select)
+	ArrayList<Comment> selectReplyList(int boardNo);
+	// 댓글 작성 서비스 (Ajax)(insert)
+	int insertReply(Comment c);
+
+	
 	
 }

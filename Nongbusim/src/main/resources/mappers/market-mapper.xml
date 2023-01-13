@@ -297,6 +297,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
+	<insert id="ajaxMarkMarket">
+	
+		insert
+			into
+			  	mark
+		values
+			   (
+			   #{ memNo }
+			   ,1
+			   ,'mk'
+			   ,#{boardNo}
+			   )
+
+	</insert>
+	
 	
 	
 	

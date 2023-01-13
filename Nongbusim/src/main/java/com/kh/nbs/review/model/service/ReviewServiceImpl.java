@@ -33,6 +33,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.selectReviewList(sqlSession);
 	}
 
+	@Override
+	public int selectReviewCount() {
+		return reviewDao.selectReviewCount(sqlSession);
+	}
+
 	
 	
 	

@@ -20,10 +20,12 @@ public class ReviewDao {
 	public ArrayList<Review> selectReviewList(SqlSessionTemplate sqlSession){
 		
 		
-		
 		return (ArrayList)sqlSession.selectList("reviewMapper.selectReviewList");
 		
 	}
 	
+	public int selectReviewCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("reviewMapper.selectReviewCount");
+	}
 
 }
