@@ -71,6 +71,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	<select id="selectReviewCount" resultType="_int">
+		select
+				count(*)
+	      from
+	      		review
+	      where
+	      		review_status= 'Y'
+	
+	</select>
+	
+	
 	
 	
 
