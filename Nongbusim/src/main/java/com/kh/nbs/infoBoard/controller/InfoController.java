@@ -99,6 +99,7 @@ public class InfoController {
 		
 		PageInfo pi = Pagination.getPageInfo(infoService.selectSearchListCount(map), currentPage, 10, 5);
 		model.addAttribute("infoList", infoService.selectSearchList(pi, map));
+		model.addAttribute("map", map);
 		
 		return "infoBoard/infoBoardListView";
 	}

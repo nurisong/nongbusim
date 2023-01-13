@@ -49,6 +49,21 @@
 	                        <th>농장이름</th>
 	                        <td colspan="3"><input type="text" class="form-control" required name="farmName"></td>
 	                    </tr>
+                        <tr>
+                            <th>지역</th>
+                            <td>
+                                <select name="localCode" style="width: 80px;">
+                                    <option value="su">서울</option>
+                                    <option value="gg">경기</option>
+                                    <option value="ic">인천</option>
+                                    <option value="gw">강원</option>
+                                    <option value="cc">충청</option>
+                                    <option value="gs">경상</option>
+                                    <option value="jl">전라</option>
+                                    <option value="jj">제주</option>
+                                </select>
+                            </td>
+                        </tr>
 	                    <tr>
 	                        <th>주소</th>
 	                        <td colspan="3"><input type="text" class="form-control" required name="address"></td>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.farm.model.vo.Farm;
+import com.kh.nbs.program.model.vo.Program;
 
 @Repository
 public class FarmDao {
@@ -19,14 +20,18 @@ public class FarmDao {
 		return sqlSession.selectOne("farmMapper.selectFarmCount");
 	}
 	
-	public ArrayList<Farm> selectFarmList(PageInfo pi, SqlSessionTemplate sqlSession) {
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("farmMapper.selectFarmList", null, rowBounds);
+	public int selectFarmCount(String localCode, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("farmMapper.selectFarmCount", localCode);
 	}
 	
-	public ArrayList<Attachment> selectAttachmentList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("farmMapper.selectAttachmentList");
+	public ArrayList<Farm> selectFarmList(PageInfo pi, String localCode, SqlSessionTemplate sqlSession) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("farmMapper.selectFarmList", localCode, rowBounds);
+	}
+	
+	public ArrayList<Attachment> selectAttachmentList(String localCode, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("farmMapper.selectAttachmentList", localCode);
 	}
 	
 	public int insertAttachment(Attachment a, SqlSessionTemplate sqlSession) {
@@ -48,6 +53,10 @@ public class FarmDao {
 	public ArrayList<Attachment> selectAttachment(int farmNo, SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("farmMapper.selectAttachment", farmNo);
 	}
+	
+	public ArrayList<Program> selectProgram(int farmNo, SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("farmMapper.selectProgram", farmNo);
+	}
 
 	public int updateFarm(Farm f, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("farmMapper.updateFarm", f);
@@ -62,6 +71,8 @@ public class FarmDao {
 	public int deleteFarm(int farmNo, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("farmMapper.deleteFarm", farmNo);
 	}
+
+
 
 	
 	
