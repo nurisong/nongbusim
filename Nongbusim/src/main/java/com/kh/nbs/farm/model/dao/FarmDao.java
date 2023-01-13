@@ -2,6 +2,7 @@ package com.kh.nbs.farm.model.dao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -74,6 +75,16 @@ public class FarmDao {
 
 	public int deleteFarm(int farmNo, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("farmMapper.deleteFarm", farmNo);
+	}
+
+	public int selectSearchListCount(HashMap map, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("farmMapper.selectSearchListCount", map);
+	}
+
+	public ArrayList<Farm> selectSearchList(PageInfo pi, HashMap map, SqlSessionTemplate sqlSession) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("farmMapper.selectSearchList", map, rowBounds);
 	}
 
 

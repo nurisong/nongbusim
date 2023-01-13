@@ -42,14 +42,15 @@
             
             <div class="info-menu">
                 <a href="list.if">전체</a> | 
-                <a href="search.if?ctg=보도자료">보도자료</a> | 
-                <a href="search.if?ctg=농업정보">농업정보</a> | 
-                <a href="search.if?ctg=농촌소식">농촌소식</a>
+                <a href="search.if?ctg=nr">보도자료</a> | 
+                <a href="search.if?ctg=fn">농촌소식</a> |
+                <a href="search.if?ctg=fi">농업정보</a> 
             </div>
             <br><br>
 
             <form id="searchForm" action="search.if" method="get" align="center">
                 <div class="select">
+                    <input type="hidden" name="ctg" value="${ctg}">
                     <select class="custom-select" name="condition">
                         <option value="all">전체</option>
                         <option value="title">제목</option>

@@ -23,8 +23,9 @@
         margin-right: 500px;
         margin-bottom: 50px;
     }
-    .local-area{
+    .search-area{
         background-color: rgb(235, 235, 235);
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.05);
         width: 800px;
         padding: 30px;
         border-radius: 5px;
@@ -43,7 +44,7 @@
         width: 23%;
     }
     #all-select-btn{
-        margin-right: 600px;
+        margin-right: 500px;
         margin-bottom: 20px;
     }
     .farm-main-title>h3{
@@ -91,12 +92,20 @@
         width: 300px;
         display: inline-block;
     }
-    .local-filedset{
+    .local-area{
         background-color: rgb(248, 248, 248);
         border-radius: 5px;
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.05);
     }
     .area-selection-list a{
         color: black;
+    }
+    .search-title{
+        font-size: 23px;
+        margin-right: 550px;
+    }
+    .custom-select{
+        width: 100px;
     }
 </style>
 </head>
@@ -109,23 +118,28 @@
         <div class="farm-list-area">
             <h1 id="farm-list-title">농장리스트</h1>
 
-            <div class="local-area">
+            <div class="search-area">
                 
                 <br>
-                <form action="">
-                    <input type="text" class="form-control" name="keyword" id="search-input" placeholder="농장 이름으로 검색">
+                <form action="search.fm" method="get">
+                    <input type="hidden" name="lco" value="${lco}">
+                    <select class="custom-select" name="condition">
+                        <option value="all">전체</option>
+                        <option value="farmName">농장 이름</option>
+                        <option value="crop">작물</option>
+                    </select>
+                    <input type="text" class="form-control" name="keyword" id="search-input">
                     <button type="submit" class="btn btn-secondary">검색</button>
                 </form>
                 
-                <!-- <a href="list.fm" class="btn btn-secondary" id="all-select-btn">전체보기</a> -->
                 
                 <br><br>
-                <h4>지역별 조회</h4>
-                <div class="local-filedset">
+                <div class="search-title">지역별 조회</div>
+                <div class="local-area">
                     <br>
+                    <a href="list.fm" class="btn btn-secondary" id="all-select-btn">전체보기</a>
                     <div class="area-selection-list">
                         <ul> 
-                            <li style="width: 100%;"><a href="list.fm">전체</a></li>
                             <li><a href="list.fm?lco=su">서울</a></li>
                             <li><a href="list.fm?lco=gg">경기</a></li>
                             <li><a href="list.fm?lco=ic">인천</a></li>
@@ -134,11 +148,12 @@
                             <li><a href="list.fm?lco=gs">경상</a></li>
                             <li><a href="list.fm?lco=jl">전라</a></li>
                             <li><a href="list.fm?lco=jj">제주</a></li>
-                            <li> </li>
                         </ul>
+                        <br>
                     </div>
                     <br>
                 </div>
+                <br>
             </div>
 
             <div class="farm-main-area">

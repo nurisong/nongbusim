@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -32,15 +33,14 @@ public class FarmController {
 	@RequestMapping("list.fm")
 	public ModelAndView selectFarmList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
 									   @RequestParam(value="lco", defaultValue="all") String localCode,
-										ModelAndView mv) {
+									   ModelAndView mv) {
 		
 		PageInfo pi = Pagination.getPageInfo(farmService.selectFarmCount(localCode), currentPage, 10, 5);
 		// 프로그램 조회
 		mv.addObject("atList", farmService.selectAttachmentList()); // 첨부파일
 		mv.addObject("programList", farmService.selectProgramList());
 		mv.addObject("farmList", farmService.selectFarmList(pi, localCode)).setViewName("farm/farmListView");
-		
-		System.out.println(farmService.selectProgramList());
+		mv.addObject("lco", localCode);
 		
 		return mv;
 	}
@@ -152,6 +152,22 @@ public class FarmController {
 		} else {
 			return "common/errorPage";
 		}
+	}
+	
+	@RequestMapping("search.fm")
+	public String selectSearchList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+								   @RequestParam(value="lco", defaultValue="all") String localCode, 
+								   String condition, String keyword, Model model) {
+		HashMap<String, String> map = new HashMap();
+		map.put("localCode", localCode);
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		System.out.println(map);
+		PageInfo pi = Pagination.getPageInfo(farmService.selectSearchListCount(map), currentPage, 10, 5);
+		
+		model.addAttribute("farmList", farmService.selectSearchList(pi, map));
+		
+		return "farm/farmListView";
 	}
 	
 	

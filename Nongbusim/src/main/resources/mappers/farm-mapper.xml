@@ -258,5 +258,70 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE
 		 		FARM_NO = #{farmNo}
 	</update>
+	
+	<select id="selectSearchListCount" resultType="_int">
+		SELECT
+				COUNT(*)
+	 	  FROM
+	 	  		FARM
+	 	 WHERE
+	 	 		STATUS = 'Y'
+	 	 <if test="localCode != 'all'">
+	 	   AND
+	 	   		LOCAL_CODE = #{localCode}
+	 	 </if>
+	 	 <if test="condition == 'all'">
+	 	   AND
+	 	 		FARM_NAME LIKE '%'||#{keyword}||'%'
+	 	 	OR
+	 	 		CROP LIKE '%'||#{keyword}||'%'
+	 	 </if> 
+	 	 <if test="condition == 'farmName'">
+	 	   AND
+	 	   		FARM_NAME LIKE '%'||#{keyword}||'%'
+	 	 </if>
+	 	 <if test="condition == 'crop'">
+	 	   AND
+	 	   		CROP LIKE '%'||#{keyword}||'%'
+	 	 </if>	 	   		
+	 	   		
+	</select>
+	
+	<select id="selectSearchList" resultMap="farmResultSet">
+		SELECT
+				 FARM_NO
+		    	,FARMER
+		    	,FARM_NAME
+		    	,LOCAL_CODE
+		    	,ADDRESS
+		    	,PHONE
+		    	,CREATE_DATE
+		    	,STATUS
+		    	,CROP
+	 	  FROM
+	 	  		FARM
+	 	 WHERE
+	 	 		STATUS = 'Y'
+	 	 <if test="localCode != 'all'">
+	 	   AND
+	 	   		LOCAL_CODE = #{localCode}
+	 	   		
+		 	 <if test="condition == 'all'">
+		 	   AND
+		 	 		FARM_NAME LIKE '%'||#{keyword}||'%'
+		 	 	OR
+		 	 		CROP LIKE '%'||#{keyword}||'%'
+		 	 </if> 
+		 	 <if test="condition == 'farmName'">
+		 	   AND
+		 	   		FARM_NAME LIKE '%'||#{keyword}||'%'
+		 	 </if>
+		 	 <if test="condition == 'crop'">
+		 	   AND
+		 	   		CROP LIKE '%'||#{keyword}||'%'
+		 	 </if>	 	   		
+	 	   		
+	 	 </if>
+	</select>
 
 </mapper>
