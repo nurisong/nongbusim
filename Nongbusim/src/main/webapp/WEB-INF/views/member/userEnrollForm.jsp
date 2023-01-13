@@ -23,7 +23,8 @@
 <br>
 <h3>회원가입</h3>
   <hr>
-	<p>약관 동의</p>
+  
+    <p>약관 동의</p>
     <p>회원가입을 위해서 아래 내용 약관을 읽고 동의해 주세요.</p>
     
     <div class="chk_group">
@@ -62,20 +63,20 @@
         </div>
         <div class="form-group">
             <label for="id">* 아이디 :</label>
-            <input type="text" class="form-control" id="memId" placeholder="아이디는 특수문자 제외 5자 이상 15자리 이하로 입력하여 주세요." name="memId" required>
+            <input type="text" class="form-control" placeholder="아이디는 특수문자 제외 5자 이상 12자리 이하로 입력하여 주세요." name="memId">
             <button type="button" class="btn btn-success" onclick="idCheck();">중복확인</button>
         </div>
         <div class="form-group">
             <label for="pwd">* 비밀번호 :</label>
-            <input type="password" class="form-control" id="memPwd" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." name="memPwd" minlength="6" maxlength="18" required>
+            <input type="password" class="form-control" id="memPwd" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." onchange="check_pwd();" name="memPwd" minlength="6" maxlength="18" required>
         </div>
           <div class="form-group">
             <label for="password">* 비밀번호 확인 :</label>
-            <input type="password" class="form-control" id="chkPwd" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." name="memPwdChk" minlength="6" maxlength="18">
+            <input type="password" class="form-control" id="chkPwd" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." onchange="check_pwd();" name="chkPwd" minlength="6" maxlength="18" required>
         </div>
         
-        <span class="checkResult1" style="color: green; display: none">비밀번호가 일치합니다.</span>
-        <span class="checkResult2" style="color: red; display: none">비밀번호가 일치하지 않습니다.</span>
+        <div id="checkPwdResult"></div>
+        <br>
         
         <div class="form-group">
           <label for="pwd"> 성별 :</label>
@@ -83,8 +84,8 @@
           <input type="radio" id="Male" value="M" name="gender">남자
         </div>
         <div class="form-group">
-            <label for="email">이메일 :</label>
-            <input type="email" class="form-control" name="email">
+            <label for="email">* 이메일 :</label>
+            <input type="email" class="form-control" name="email" required>
         </div>
         <div class="form-group">
             <label for="nickName">닉네임 :</label>
@@ -101,51 +102,9 @@
       </form>
       
       
-      <script>
+     <script>
       
-      <!--
-      	function validate(){
-      		var memId = document.getElemetById('memId');
-      		var memPwd = document.getElemetById('memPwd');
-      		var chkPwd = document.getElemetById('chkPwd');
-      		
-      		// 아이디 유효성
-      		var regExp = /^[a-zA-Z0-9]{5,15}$/;
-            if(!regExp.test(memId.value)){
-                alert('적합하지 않은 아이디입니다. 다시 입력해주세요.');
-                memId.select();
-                return false;
-            }
-            
-            // 비밀번호 유효성
-            regExp = /^[a-zA-z0-9]{6,18}$/;
-            if(!regExp.test(memPwd.value)){
-                alert('적합하지 않은 비밀번호입니다. 다시 입력해주세요.');
-               	memPwd.select();
-                return false;
-            }
-            
-      	}
-      	
-      	// 비밀번호 일치
-      	function checkResult(){
-			var memPwd = document.getElementById('memPwd');
-			var chkPwd = document.getElementById('chkPwd');
-			var checkResult = document.getElemetById('checkResult');
-			
-			if(memPwd.value != chkPwd.value){
-				$('#checkResult').show();
-				$('#checkResult').css('color', 'red').text('비밀번호가 일치하지 않습니다.');
-				$('#btns :submit').attr('disabled', true);
-			} else {
-				$('#checkResult').show();
-				$('#checkResult').css('color', 'red').text('비밀번호가 일치합니다.');
-				$('#btns :submit').removeAttr('disabled');
-			}
-      	}-->
-      	
-      
-      	// 아이디 중복체크
+   		// 아이디 중복체크
 	    function idCheck(){
 			$.ajax({
 			          url : 'idCheck.me',
@@ -158,11 +117,23 @@
 				       }
 			        }
 			     })
+			         
 	    	}
-      	
-      	// 비밀번호 확인
-      	
-      	
+    	
+   		// 비밀번호 확인
+		function check_pwd(){
+   			if(document.getElementById('memPwd').value != '' && document.getElementById('chkPwd').value != ''){
+   				if(document.getElementById('memPwd').value == document.getElementById('chkPwd').value){
+	   				document.getElementById('checkPwdResult').innerHTML = '비밀번호가 일치합니다.'
+	   				document.getElementById('checkPwdResult').style.color = 'green';
+   				} else{
+   					document.getElementById('checkPwdResult').innerHTML = '비밀번호가 일치하지 않습니다.'
+   					document.getElementById('checkPwdResult').style.color = 'red';
+   				}
+   			} 
+   		}
+   		
+    	
 	    			
 	   		// 체크박스 전체 선택
 	    	$(".chk_group").on("click", "#chk_all", function(){

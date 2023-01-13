@@ -1,10 +1,10 @@
 package com.kh.nbs.review.model.service;
 
-import com.kh.nbs.program.model.vo.Program;
+import com.kh.nbs.review.model.vo.Review;
 
 public interface ReviewService {
 	
-	Program reviewEnrollForm(int bno);
-	
+	//리뷰 작성
+	int reviewInsert(Review r);
 	
 }

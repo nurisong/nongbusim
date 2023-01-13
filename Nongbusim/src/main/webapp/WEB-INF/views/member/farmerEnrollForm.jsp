@@ -52,14 +52,13 @@
             <li>수집에 동의하지 않으시는 경우 서비스에 제한이 있을 수 있습니다.</li>
         </ul>
     </ol>
-    
     <hr>
     
     <form action="farmerInsert.me" id="form-div" method="post">
       <h4>기본정보</h4>
         <div class="form-group">
           <label for="name">* 성명 :</label>
-          <input type="text" class="form-control" name="name">
+          <input type="text" class="form-control" name="name" required>
         </div>
         <div class="form-group">
             <label for="id">* 아이디 :</label>
@@ -68,20 +67,24 @@
         </div>
         <div class="form-group">
             <label for="pwd">* 비밀번호 :</label>
-            <input type="password" class="form-control" placeholder="비밀번호는 8~18자리의 영문, 숫자, 특수문자 3종류 이상 혼합해야 합니다." name="memPwd">
+            <input type="password" class="form-control" id="memPwd" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." onchange="check_pwd();" name="memPwd" minlength="6" maxlength="18" required>
         </div>
           <div class="form-group">
-            <label for="pwdChk">* 비밀번호 확인 :</label>
-            <input type="password" class="form-control" placeholder="비밀번호는 8~18자리의 영문, 숫자, 특수문자 3종류 이상 혼합해야 합니다." name="memPwdChk">
+            <label for="password">* 비밀번호 확인 :</label>
+            <input type="password" class="form-control" id="chkPwd" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." onchange="check_pwd();" name="chkPwd" minlength="6" maxlength="18" required>
         </div>
+        
+        <div id="checkPwdResult"></div>
+        <br>
+        
         <div class="form-group">
-          <label for="gender">* 성별 :</label>
+          <label for="pwd"> 성별 :</label>
           <input type="radio" id="Female" value="F" name="gender">여자
           <input type="radio" id="Male" value="M" name="gender">남자
         </div>
         <div class="form-group">
-            <label for="email">이메일 :</label>
-            <input type="email" class="form-control" name="email">
+            <label for="email">* 이메일 :</label>
+            <input type="email" class="form-control" name="email" required>
         </div>
         <div class="form-group">
             <label for="nickName">닉네임 :</label>
@@ -102,8 +105,10 @@
         <label for="career">* 영농경력  :</label>
         <input type="text" class="form-control" placeholder="년월일을 적어주세요" name="career">
       </div>
-        <button type="submit" class="btn btn-success">확인</button>
+      <div id="btns">
+        <button type="submit" class="btn btn-success">회원가입</button>
         <button type="button" class="btn btn-secondary">취소</button>
+       </div>
       </form>
       
       
@@ -125,7 +130,17 @@
 	    	}
     	
     	// 비밀번호 확인
-    	
+		function check_pwd(){
+   			if(document.getElementById('memPwd').value != '' && document.getElementById('chkPwd').value != ''){
+   				if(document.getElementById('memPwd').value == document.getElementById('chkPwd').value){
+	   				document.getElementById('checkPwdResult').innerHTML = '비밀번호가 일치합니다.'
+	   				document.getElementById('checkPwdResult').style.color = 'green';
+   				} else{
+   					document.getElementById('checkPwdResult').innerHTML = '비밀번호가 일치하지 않습니다.'
+   					document.getElementById('checkPwdResult').style.color = 'red';
+   				}
+   			} 
+   		}
     	
 	    			
 	   		// 체크박스 전체 선택
