@@ -9,6 +9,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- <link rel="stylesheet" href="http://api.nongsaro.go.kr/css/api.css"> -->
+<!-- <script scr="http://api.nongsaro.go.kr/js/framework.js"></script> -->
+<!-- <script scr="http://api.nongsaro.go.kr/js/openapi_nongsaro.js"></script> -->
+
+<script></script>
+
 <style>
 .outer{font-family: 'Pretendard-Regular';}
 .main-area{
@@ -77,7 +84,7 @@
                         <th>조회수</th>
                     </thead>
                     <tbody align="center">
-                        <c:forEach var="info" items="${infoList}">
+                        <c:forEach var="info" items="${}">
                             <tr>
                                 <td class="ino">${info.infoNo}</td>
                                 <td>${info.category}</td>
@@ -122,6 +129,19 @@
             location.href="detail.if?ino=" + $(this).children('.ino').text();
 
         });
+
+        $.ajax({
+            url: 'monthTech.if',
+            data: {cpage: num},
+            suceess: function(data){
+                console.log(data);
+                let itemArr = $(data).find('item');
+                console.log(itemArr);
+            },
+            error: function(){
+                console.log('실패');
+            }
+        })
 
     </script>
 
