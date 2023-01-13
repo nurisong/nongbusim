@@ -18,4 +18,5 @@ public class Member {
 	private String farmerCode;
 	private String career;
 	private String modifyDate;
+	private String updatePwd;
 }

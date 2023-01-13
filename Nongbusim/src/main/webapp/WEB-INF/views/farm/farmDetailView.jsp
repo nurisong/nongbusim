@@ -79,6 +79,9 @@
         background-color: green;
         display: inline-block;
     }
+    .program-table{
+        text-align: center;
+    }
 </style>
 </head>
 <body>
@@ -87,8 +90,10 @@
 
 	<div class="outer" align="center">
 
-        <a class="btn btn-secondary" id="update-btn" onclick="postFormSubmit(1);">농장 정보 수정하기</a>
-        <a class="btn btn-secondary" id="del-btn" onclick="postFormSubmit(2);">삭제하기</a>
+        <c:if test="${loginUser.memNo == farm.farmer}">
+            <a class="btn btn-secondary" id="update-btn" onclick="postFormSubmit(1);">농장 정보 수정하기</a>
+            <a class="btn btn-secondary" id="del-btn" onclick="postFormSubmit(2);">삭제하기</a>
+        </c:if>
 
         <div class="main-area">
             <div class="name-info">
@@ -127,7 +132,7 @@
 
                     <h4>진행중인 프로그램</h4>
                     <br>
-                    <table class="table">
+                    <table class="table program-table">
                         <thead class="thead-light">
                             <tr>
                                 <th style="width: 490px;">프로그램명</th>

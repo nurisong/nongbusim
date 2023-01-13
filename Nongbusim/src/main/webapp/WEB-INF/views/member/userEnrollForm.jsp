@@ -63,7 +63,7 @@
         </div>
         <div class="form-group">
             <label for="id">* 아이디 :</label>
-            <input type="text" class="form-control" placeholder="아이디는 특수문자 제외 5자 이상 12자리 이하로 입력하여 주세요." name="memId">
+            <input type="text" class="form-control" placeholder="아이디는 특수문자 제외 5자 이상 12자리 이하로 입력하여 주세요." name="memId" id="memId">
             <button type="button" class="btn btn-success" onclick="idCheck();">중복확인</button>
         </div>
         <div class="form-group">
@@ -96,14 +96,12 @@
           <input type="text" class="form-control" placeholder="-도 입력하세요" name="phone">
       </div>
       <div id="btns">
-        <button type="submit" class="btn btn-success">회원가입</button>
-        <button type="button" class="btn btn-secondary">취소</button>
+        <button type="submit" class="btn btn-success" onclick="return validate();">회원가입</button>
+        <button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
        </div>
       </form>
       
-      
      <script>
-      
    		// 아이디 중복체크
 	    function idCheck(){
 			$.ajax({
@@ -117,10 +115,9 @@
 				       }
 			        }
 			     })
-			         
 	    	}
     	
-   		// 비밀번호 확인
+   		// 비밀번호 확인 javascript
 		function check_pwd(){
    			if(document.getElementById('memPwd').value != '' && document.getElementById('chkPwd').value != ''){
    				if(document.getElementById('memPwd').value == document.getElementById('chkPwd').value){
@@ -133,7 +130,28 @@
    			} 
    		}
    		
-    	
+   		// 유효성 검사 -영어와 숫자 혼합으로 5-12사이
+   		function validate(){
+   			
+   			var memId = document.getElementById("memId");
+   			var memPwd = document.getElementById("memPwd");
+      		
+      		// 아이디 유효성
+      		var regExp = /^[a-zA-Z0-9]{5,12}$/;
+            if(!regExp.test(memId.value)){
+                alert('적합하지 않은 아이디입니다. 다시 입력해주세요.');
+                memId.select();
+                return false;
+            }
+            
+            // 비밀번호 유효성
+            regExp = /^[a-zA-z0-9]{6,18}$/;
+            if(!regExp.test(memPwd.value)){
+                alert('적합하지 않은 비밀번호입니다. 다시 입력해주세요.');
+                memPwd.select();
+                return false;
+            }
+      	}
 	    			
 	   		// 체크박스 전체 선택
 	    	$(".chk_group").on("click", "#chk_all", function(){

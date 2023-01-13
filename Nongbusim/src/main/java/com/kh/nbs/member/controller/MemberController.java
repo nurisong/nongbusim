@@ -151,7 +151,7 @@ public class MemberController {
 	@RequestMapping("deleteUser.me")
 	public String deleteUser(String memId, String memPwd, HttpSession session) {
 		
-		// userPwd : 회원 탈퇴 요청 시 사용자가 입력한 비밀번호 평문
+		// memPwd : 회원 탈퇴 요청 시 사용자가 입력한 비밀번호 평문
 		// session의 loginUser Member객체의 userPwd필드 : DB에 기록된 암호화된 비밀번호
 		
 		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();
@@ -178,7 +178,6 @@ public class MemberController {
 		
 		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();
 		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) {
-			// 비밀번호가 사용자가 입력한 평문으로 만들어진 암호문일 경우
 			
 			if(memberService.deleteFarmer(memId) > 0) {
 				session.removeAttribute("loginUser");
@@ -259,7 +258,6 @@ public class MemberController {
 		return mv;
 	}
 	
-	
 	@RequestMapping("findIdForm.me")
 	public String findIdForm() {
 		return "member/findId";
@@ -279,24 +277,34 @@ public class MemberController {
 	}
 
 	@RequestMapping("updatePwd.me")
-	public String updatePwd(HttpSession session, Member m, Model model) {
+	public String updatePwd(HttpSession session, Member m, String memPwd, Model model) {
 		
-		String encPwd = bcryptPasswordEncoder.encode(m.getMemPwd());
-		System.out.println(encPwd);
+		System.out.println("평문 :" + m.getUpdatePwd() );
 		
-		m.setMemPwd(encPwd);
+		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();
 		
-		int updatePwdMem = memberService.updatePwd(m);
-		
-		if(updatePwdMem > 0) {	// 성공
-			session.setAttribute("alertMsg", "비밀번호 변경 성공");
-			session.setAttribute("loginUser", updatePwdMem);
+		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) {
 			
-			return "redirect:/";
-		} else {	// 실패
-			model.addAttribute("errorMsg", "비밀번호 변경 실패");
-			return "common/errorPage";
+			String updatePwd = bcryptPasswordEncoder.encode(m.getUpdatePwd());
+			System.out.println(m);
+			
+			m.setMemPwd(updatePwd);
+			
+			if( memberService.updatePwd(m) > 0 ) {	// 성공
+				System.out.println("controller 성공");
+				session.setAttribute("alertMsg", "비밀번호 변경 성공");
+				session.setAttribute("loginUser", memberService.loginMember(m));
+				return "redirect:updateUserForm.me";
+			} else {	// 실패
+				model.addAttribute("errorMsg", "비밀번호 변경 실패");
+				return "common/errorPage";
+			}
+			
+		} else {
+			session.setAttribute("alertMsg", "존재하지 않는 비밀번호 입니다.");
+			return "member/myPageUser/updateUser";
 		}
+		
 	}
 	
 	
