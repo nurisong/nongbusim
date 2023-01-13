@@ -221,44 +221,64 @@
             </div>
 
             <!-- 모달 영역 -->
-            <div id="my_modal">
-               <h2 align="center">후기작성</h2>
-                <table style="width: 400px; height:200px;">
-                    <tr>
-                       <td>프로그램명 : <input id="programName" type="text" value="programName"></td>
-                        
-                        <td><input id="programNo" type="text" value="programNo"></td>
-                     
-                    </tr>
-                    <tr>
-                        <td><input type="text" style="width: 400px; height: 100px;"></td>
-                        
-                    </tr><br>
-                   
-                    <tr>
-                        <td><input type="file"></td>
-                    </tr><br>
-                </table>
 
-                <!-- 별점 -->
-                <div class="star-rating space-x-4 mx-auto">
-                    <input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-                    <label for="5-stars" class="star pr-4">★</label>
-                    <input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-                    <label for="4-stars" class="star">★</label>
-                    <input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-                    <label for="3-stars" class="star">★</label>
-                    <input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-                    <label for="2-stars" class="star">★</label>
-                    <input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-                    <label for="1-star" class="star">★</label>
-                </div>
-        
-                <a class="modal_close_btn">  <img  src="resources/images/close.png" style="width: 30px; height: 30px;"></a>
-                <br>
-                <div align="center">
-                    <button>작성</button>
-                </div>
+
+            <div id="my_modal">
+
+                <form action="reviewInsert.re" method="post">
+                    <h2 align="center">후기작성</h2>
+                    <table style="width: 400px; height:200px;">
+                        <tr>
+                           <td>프로그램명 : <input id="programName" type="text" value="programName"></td>
+                            
+                            <td><input name="programNo"  id="programNo" type="text" value="programNo"></td>
+                         
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="reviewContent"style="width: 400px; height: 100px;"></td>
+                            
+                        </tr><br>
+                       
+                        <tr>
+                            <td><input type="file" name="upfile"></td>
+                        </tr><br>
+                    </table>
+    
+                    <!-- 별점 -->
+                    <div class="star-rating space-x-4 mx-auto">
+                        <input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
+                        <label for="5-stars" class="star pr-4">★</label>
+    
+    
+                        <input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
+                        <label for="4-stars" class="star">★</label>
+    
+    
+                        <input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
+                        <label for="3-stars" class="star">★</label>
+    
+    
+                        <input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
+                        <label for="2-stars" class="star">★</label>
+    
+    
+                        <input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
+                        <label for="1-star" class="star">★</label>
+                    </div>
+            
+                    <a class="modal_close_btn">  <img  src="resources/images/close.png" style="width: 30px; height: 30px;"></a>
+                    <br>
+                    <div align="center">
+                  
+                        <button type="submit">작성</button>
+    
+                    </div>
+
+
+
+
+                </form>
+              
                 
             </div>
 

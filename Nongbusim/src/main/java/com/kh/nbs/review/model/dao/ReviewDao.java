@@ -13,13 +13,6 @@ public class ReviewDao {
 	
 	
 	
-public Program reviewEnrollForm(SqlSessionTemplate sqlSession, int bno) {
-		
-		return sqlSession.selectOne("programMapper.selectMarkNo",bno);
-		
-		
-		
-	}
 	
 	
 

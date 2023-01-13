@@ -19,12 +19,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	@Override
-	public Program reviewEnrollForm(int bno) {
-		
-		return reviewDao.reviewEnrollForm(sqlSession,bno);
-		
-	}
+	
 	
 	
 
