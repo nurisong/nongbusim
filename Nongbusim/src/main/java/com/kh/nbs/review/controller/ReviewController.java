@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.nbs.member.model.vo.Member;
 import com.kh.nbs.review.model.service.ReviewService;
@@ -25,12 +27,18 @@ public class ReviewController {
 	private ReviewService reviewService;
 	
 	@RequestMapping("list.re")
-	public String reviewListView() {
+	public ModelAndView selectReviewList(@RequestParam(value="cpage",defaultValue="1") int currentPage,ModelAndView mv) {
 		
-		return "review/ReviewBoardList";
+//		reviewService.selectReviewList();
+		System.out.println(reviewService.selectReviewList());
+		
+		mv.addObject("reviewList",reviewService.selectReviewList()).setViewName("review/ReviewBoardList");
+		
+		
+		
+		return mv;
 	
 	}
-	
 	
 	@RequestMapping("reviewInsert.re")
 	public String reviewInsert(Review r, MultipartFile upfile, HttpSession session, Model model) {
@@ -76,10 +84,7 @@ public class ReviewController {
 			model.addAttribute("errorMsg", "리뷰 작성을 실패하였습니다.");
 			return "common/errorPage";
 		}
-		
-	
 	}
-	
 	
 	//파일 첨부 관련 메소드
 	public String saveFile(MultipartFile upfile, HttpSession session) { // 실제 넘어온 파일의 이름을 변경해서 서버에 업로드
@@ -109,6 +114,8 @@ public class ReviewController {
 		return changeName;
 		
 	}
+	
+ 
 	
 	
 	
