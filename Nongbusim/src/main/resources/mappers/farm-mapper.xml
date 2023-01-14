@@ -59,41 +59,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectMyFarmList" resultMap="farmResultSet">
 		SELECT 
-		    	FARM_NO,
-		    	FARMER,
-		    	FARM_NAME,
-		    	LOCAL_CODE,
-		    	ADDRESS,
-		    	PHONE,
-		    	CREATE_DATE,
-		    	STATUS,
-		    	CROP
+		    	 FARM_NO
+		    	,FARMER
+		    	,FARM_NAME
+		    	,LOCAL_CODE
+		    	,ADDRESS
+		    	,PHONE
+		    	,CREATE_DATE
+		    	,STATUS
+		    	,CROP
 		  FROM
-		 		FARM
+		 		 FARM
 		 WHERE 
-		    	FARMER = #{memNo}
+		    	 FARMER = #{memNo}
 		   AND
-		  		STATUS = 'Y'
+		  		 STATUS = 'Y'
 	</select>
 	
 	<select id="selectFarmList" resultMap="farmResultSet">
 		SELECT 
-		    	FARM_NO,
-		    	FARMER,
-		    	FARM_NAME,
-		    	LOCAL_CODE,
-		    	ADDRESS,
-		    	PHONE,
-		    	CREATE_DATE,
-		    	STATUS,
-		    	CROP
+		    	 FARM_NO
+		    	,FARMER
+		    	,FARM_NAME
+		    	,LOCAL_CODE
+		    	,ADDRESS
+		    	,PHONE
+		    	,CREATE_DATE
+		    	,STATUS
+		    	,CROP
 		  FROM
-		 		FARM
+		 		 FARM
 		 WHERE 
-		  		STATUS = 'Y'
+		  		 STATUS = 'Y'
 		  <if test="lco != 'all'">
 		   AND
-		   		local_code = #{localCode}
+		   		 LOCAL_CODE = #{localCode}
 		 </if>
 	</select>
 	
@@ -121,11 +121,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        SELECT 
 		            	 PROGRAM_NAME
 		            	,PROGRAM_PLAN
+		            	,FARM_NO
 		          FROM
 		          		 PROGRAM
 		         ORDER
 		         	BY
-		         		PROGRAM_PLAN
+		         		 PROGRAM_PLAN
 		        )
 		 WHERE
 		 <![CDATA[
@@ -135,41 +136,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	<select id="selectFarm" resultMap="farmResultSet">
 		SELECT 
-		    	FARM_NO
-		       ,FARMER
-		       ,FARM_NAME
-		       ,FARM_INTRO
-		       ,LOCAL_CODE
-		       ,ADDRESS
-		       ,PHONE
-		       ,CREATE_DATE
-		       ,STATUS
-		       ,CROP
+		    	 FARM_NO
+		        ,FARMER
+		        ,FARM_NAME
+		        ,FARM_INTRO
+		        ,LOCAL_CODE
+		        ,ADDRESS
+		        ,PHONE
+		        ,CREATE_DATE
+		        ,STATUS
+		        ,CROP
 		  FROM
-		 		FARM
+		 		 FARM
 		 WHERE 
-		    	FARM_NO = #{farmNo}
+		    	 FARM_NO = #{farmNo}
 		   AND
-		  		STATUS = 'Y'
+		  		 STATUS = 'Y'
 	</select>
 	
 	<select id="selectAttachment" resultMap="attachmentResultSet">
 		SELECT
-				FILE_NO
-			   ,ORIGIN_NAME
-			   ,CHANGE_NAME
-			   ,UPLOAD_DATE
-			   ,BOARD_NO
-			   ,BOARD_TYPE
+				 FILE_NO
+			    ,ORIGIN_NAME
+			    ,CHANGE_NAME
+			    ,UPLOAD_DATE
+			    ,BOARD_NO
+			    ,BOARD_TYPE
 		 FROM
-				ATTACHMENT
+				 ATTACHMENT
 		WHERE
-				BOARD_NO = #{farmNo}
+				 BOARD_NO = #{farmNo}
 		  AND
-				BOARD_TYPE = 'F'
+				 BOARD_TYPE = 'F'
 		ORDER
 		   BY
-				FILE_NO
+				 FILE_NO
 	</select>
 	
 	<select id="selectProgram" resultMap="programResultSet">
@@ -197,27 +198,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertFarm" parameterType="farm">
 		INSERT
 		  INTO
-				FARM
-				(
-				FARM_NO
-			   ,FARMER
-			   ,FARM_NAME
-			   ,FARM_INTRO
-			   ,LOCAL_CODE
-			   ,ADDRESS
-			   ,PHONE
-			   ,CROP
+				 FARM
+				 (
+				 FARM_NO
+			    ,FARMER
+			    ,FARM_NAME
+			    ,FARM_INTRO
+			    ,LOCAL_CODE
+			    ,ADDRESS
+			    ,PHONE
+			    ,CROP
 				)
 		VALUES
 				(
-				SEQ_FNO.NEXTVAL
-			   ,#{farmer}
-			   ,#{farmName}
-			   ,#{farmIntro}
-			   ,#{localCode}
-			   ,#{address}
-			   ,#{phone}
-			   ,#{crop}
+				 SEQ_FNO.NEXTVAL
+			    ,#{farmer}
+			    ,#{farmName}
+			    ,#{farmIntro}
+			    ,#{localCode}
+			    ,#{address}
+			    ,#{phone}
+			    ,#{crop}
 				)
 	</insert>
 	
@@ -225,11 +226,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE
 		   		FARM
 		   SET
-		   		FARM_NAME = #{farmName},
-		   		ADDRESS = #{address},
-		   		PHONE = #{phone},
-		   		FARM_INTRO = #{farmIntro},
-		   		CROP = #{crop}
+		   		 FARM_NAME = #{farmName}
+		   		,ADDRESS = #{address}
+		   		,PHONE = #{phone}
+		   		,FARM_INTRO = #{farmIntro}
+		   		,CROP = #{crop}
 		 WHERE
 		 		FARM_NO = #{farmNo}
 	</update>
@@ -305,23 +306,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	 <if test="localCode != 'all'">
 	 	   AND
 	 	   		LOCAL_CODE = #{localCode}
-	 	   		
-		 	 <if test="condition == 'all'">
-		 	   AND
-		 	 		FARM_NAME LIKE '%'||#{keyword}||'%'
-		 	 	OR
-		 	 		CROP LIKE '%'||#{keyword}||'%'
-		 	 </if> 
-		 	 <if test="condition == 'farmName'">
-		 	   AND
-		 	   		FARM_NAME LIKE '%'||#{keyword}||'%'
-		 	 </if>
-		 	 <if test="condition == 'crop'">
-		 	   AND
-		 	   		CROP LIKE '%'||#{keyword}||'%'
-		 	 </if>	 	   		
-	 	   		
 	 	 </if>
+	 	 <if test="condition == 'all'">
+	 	   AND
+	 	 		FARM_NAME LIKE '%'||#{keyword}||'%'
+	 	 	OR
+	 	 		CROP LIKE '%'||#{keyword}||'%'
+	 	 </if> 
+	 	 <if test="condition == 'farmName'">
+	 	   AND
+	 	   		FARM_NAME LIKE '%'||#{keyword}||'%'
+	 	 </if>
+	 	 <if test="condition == 'crop'">
+	 	   AND
+	 	   		CROP LIKE '%'||#{keyword}||'%'
+	 	 </if>	
 	</select>
 
 </mapper>

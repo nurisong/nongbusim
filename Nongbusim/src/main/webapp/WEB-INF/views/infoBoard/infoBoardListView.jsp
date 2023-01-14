@@ -89,6 +89,11 @@
                         </c:forEach>
                     </tbody>
                 </table>
+
+                <c:if test="${empty infoList}">
+                    <div><br><br><br>
+                        일치하는 검색 결과가 없습니다.</div>
+                </c:if>
             </div>
 
             <form action="">
