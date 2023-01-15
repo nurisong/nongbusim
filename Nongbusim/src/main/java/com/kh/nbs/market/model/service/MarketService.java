@@ -71,8 +71,10 @@ public interface MarketService {
 	
 	
 	
-	//좋아요 메소드
-	int ajaxMarkMarket(Mark mark);
+	//찜하기 불러오기 메소드
+	ArrayList<Mark> ajaxMarkMarket(int memNo);
 	
+	//찜하기 메소드
+	int ajaxClickMarkMarket(Mark mark);
 	
 }

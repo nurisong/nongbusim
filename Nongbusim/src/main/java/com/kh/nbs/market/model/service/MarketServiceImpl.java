@@ -137,12 +137,19 @@ public class MarketServiceImpl implements MarketService{
 	
 	
 	
-	// 좋아요 
+	// 찜하기 불러오기 
 	@Override
-	public int ajaxMarkMarket(Mark mark) {
-		return marketdao.ajaxMarkMarket(mark, sqlSession);
+	public ArrayList<Mark> ajaxMarkMarket(int memNo) {
+		return marketdao.ajaxMarkMarket(memNo, sqlSession);
 	}
 	
+	
+	//찜하기
+	@Override
+	public int ajaxClickMarkMarket(Mark mark) {
+		return marketdao.ajaxClickMarkMarket(mark, sqlSession);
+	}
+
 	
 	
 	

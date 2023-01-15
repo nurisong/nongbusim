@@ -105,10 +105,15 @@ public class MarketDao {
   
   
   
-  public int ajaxMarkMarket(Mark mark, SqlSessionTemplate sqlSession) {
+  public ArrayList<Mark> ajaxMarkMarket(int memNo, SqlSessionTemplate sqlSession) {
 	  
-	  return sqlSession.insert("marketMapper.ajaxMarkMarket", mark);
+	  return (ArrayList)sqlSession.selectList("marketMapper.ajaxMarkMarket", memNo);
   
+  }
+  
+  public int ajaxClickMarkMarket(Mark mark, SqlSessionTemplate sqlSession) {
+	  
+	  return sqlSession.insert("marketMapper.ajaxClickMarkMarket", mark);
   }
   
 }

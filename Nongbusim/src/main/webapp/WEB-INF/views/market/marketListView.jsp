@@ -126,26 +126,27 @@
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
                                                 </a>
                                             </c:when>
-
+                                            
                                             <c:otherwise>
-                                                <c:choose>
-                                                    <c:when test="${ mark.status == null || mark.status == 0 }">
-                                                        <a id="marketMarkNotFill" href="javascript:clickMark(${ m.marketNo }, ${ loginUser.memNo });">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
-                                                        </a>
-                                                        <a style="display:none" id="marketMarkFill" href="javascript:clickunMark();">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16"><path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg>
-                                                        </a>
-                                                    </c:when>
-                                                    <c:otherwise>
+                                                <c:set var="check" value="0" />
+                                                <c:forEach items="${ mark }" var="mark">
+                                                    <c:if test="${ m.marketNo == mark.boardNo}">
+                                                        <c:set var="check" value="1" />
                                                         <a id="marketMarkFill" href="javascript:clickunMark();">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16"><path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg>
-                                                        </a>
-                                                    </c:otherwise>
-                                                </c:choose>
+                                                        </a>    
+                                                    </c:if>
+                                                </c:forEach>
+                                                <c:if test="${ check != 1}">
+                                                    <a id="marketMarkNotFill" href="javascript:clickMark(${ m.marketNo }, ${ loginUser.memNo });">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+                                                    </a>
+                                                </c:if>
                                             </c:otherwise>    
                                         </c:choose>
                                     </h6>
+
+                                    <!-- 자바스크립트 부분에서 함수로 따로 만든다음 호출 시키는 방법 -->
 
                                     <p>${ m.marketPrice } 원<br>
                                     ${ m.marketEnrollDate } <br>
@@ -208,6 +209,14 @@
 
     <script>
 
+            $(function(){
+
+
+
+
+
+            });
+
             //비회원 찜하기 클릭시 알럿창 띄워주는 함수
             function notMember(){
 
@@ -218,6 +227,10 @@
 
             //로그인한 회원이 찜하기 버튼 클릭시 
             function clickMark(marketNo, markMemNo){
+
+                console.log(marketNo, markMemNo);
+
+
 
                 $.ajax({
 
@@ -231,10 +244,9 @@
                     },
                     success : function(status){
 
-                        const mark = $(this);
-
-                        $('#marketMarkNotFill').css('display', 'none');
-                        $('#marketMarkFill').css('display', '');
+                        if(status == "success"){
+                            
+                        }
                         
 
                     },

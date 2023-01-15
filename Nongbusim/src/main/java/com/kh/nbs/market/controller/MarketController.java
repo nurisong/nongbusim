@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,20 +40,31 @@ public class MarketController {
 	
 	//게시판으로 이동
 	@RequestMapping("list.mk")
-	public String marketSelectList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
-								   Model model) {
+	public ModelAndView marketSelectList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+										ModelAndView mv, HttpSession session) {
 		
 		PageInfo pi = Pagination.getPageInfo(marketService.selectListCount(), currentPage, 5, 9);
 		
-
-		model.addAttribute("pi", pi);
-		model.addAttribute("list", marketService.marketSelectList(pi));
-		model.addAttribute("at", marketService.attachmentSelectList());
+		if((Member)session.getAttribute("loginUser") != null) {
+			
+			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+			
+			if(marketService.ajaxMarkMarket(memNo) != null) {//비회원일 경우의 널처리
+				
+				mv.addObject("mark", marketService.ajaxMarkMarket(memNo));
+				
+			}
+		}
+		
+		mv.addObject("pi", pi);
+		mv.addObject("list", marketService.marketSelectList(pi));
+		mv.addObject("at", marketService.attachmentSelectList());
+		
+		mv.setViewName("market/marketListView");
+		
+		return mv;
 		
 		
-		ArrayList<Market> list = marketService.marketSelectList(pi);
-		
-		return "market/marketListView";
 		
 	}
 	
@@ -253,17 +263,15 @@ public class MarketController {
 	
 	
 	
-	
-	//찜하기
-	
+	//찜하기 버튼 클릭
 	@ResponseBody
 	@RequestMapping("mark.mk")
-	public String ajaxMarkMarket(Mark mark) {
+	public String ajaxClickMarkMarket(Mark mark) {
 		
-		return marketService.ajaxMarkMarket(mark) > 0 ? "success" : "fail";
-		
+		return marketService.ajaxClickMarkMarket(mark) > 0? "success" : "fail";
 	}
 	
+
 	
 
 	
