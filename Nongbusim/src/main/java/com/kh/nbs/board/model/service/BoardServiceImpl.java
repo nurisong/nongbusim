@@ -82,9 +82,18 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.selectLikeCount(sqlSession,b);
 	}
 	@Override
-	public int selectLike(Board b) {
-		return boardDao.selectLike(sqlSession, b);
+	public int selectLike(HashMap map) {
+		return boardDao.selectLike(sqlSession, map);
 	}
+	@Override
+	public int increaseLike(Board b) {
+		return boardDao.increaseLike(sqlSession,b);
+	}
+	@Override
+	public int decreaseLike(Board b) {
+		return boardDao.decreaseLike(sqlSession,b);
+	}
+	
 	
 	@Override
 	public ArrayList<Board> selectListOrder(Board b,PageInfo pi){

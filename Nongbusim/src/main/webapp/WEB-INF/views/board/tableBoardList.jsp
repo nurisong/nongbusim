@@ -126,7 +126,7 @@ text-align: center;
             
             	$(function(){
 					$('#boardList>tbody>tr').click(function(){
-						location.href = 'detail.bo?bno=' + $(this).children('.bno').text();
+						location.href = 'detail.bo?type=${type}&bno=' + $(this).children('.bno').text();
 					})
             	})
             

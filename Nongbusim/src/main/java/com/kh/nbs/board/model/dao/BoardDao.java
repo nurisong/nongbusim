@@ -64,9 +64,17 @@ public class BoardDao {
 	public int selectLikeCount(SqlSessionTemplate sqlSession,Board b) {
 		return sqlSession.selectOne("boardMapper.selectLikeCount",b);
 	}
-	public int selectLike(SqlSessionTemplate sqlSession,Board b) {
-		return sqlSession.selectOne("boardMapper.selectLike",b);
+	public int selectLike(SqlSessionTemplate sqlSession,HashMap map) {
+		return sqlSession.selectOne("boardMapper.selectLike",map);
 	}
+	public int increaseLike(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.increaseLike",b);
+	}
+	public int decreaseLike(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.decreaseLike",b);
+	}
+	
+	
 	
 	public ArrayList<Board> selectListOrder(SqlSessionTemplate sqlSession,Board b,PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();

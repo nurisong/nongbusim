@@ -74,7 +74,7 @@
 									</div> 
                                 </td>
                             </tr>
-                            <!-- 주말에 완성할 듯 -->
+
                             <tr>
                                 <th><label for="content">내용</label></th>
                                 
@@ -83,6 +83,7 @@
                             <tr>
                             	<th><label for="images">이미지추가</label></th>
                             	<td>
+                            		<button type="button" class="add-file">추가</button>
 									<input type="file" name="upfiles" />
 									<input type="file" name="upfiles" />
 									<input type="file" name="upfiles" />
@@ -94,7 +95,7 @@
                         
                         <br>
 
-                        <input type="hidden" name="boardType" value="${type}">
+                        <input id="boardType-pic" type="hidden" name="boardType" value="${type}">
                         <input type="hidden" name="memNo" value="${loginUser.memNo}">
                         <input type="hidden" name="boardWriter" value="${loginUser.nickName}">
                         
@@ -128,7 +129,7 @@
                     
                         </table>
                         <br>
-                        <input type="hidden" name="boardType" value="${type}">
+                        <input id="boardType-table" type="hidden" name="boardType" value="${type}">
                         <input type="hidden" name="memNo" value="${loginUser.memNo}">
                         <input type="hidden" name="boardWriter" value="${loginUser.nickName}">
                         
@@ -173,9 +174,11 @@
             if(value_str.options[value_str.selectedIndex].value=='S') {
                 $(".picture-area").show();
                 $(".table-area").hide();
+                $('#boardType-pic').val(value_str.options[value_str.selectedIndex].value);
             }  else {
                 $(".picture-area").hide();
                 $(".table-area").show();
+                $('#boardType-table').val(value_str.options[value_str.selectedIndex].value);
             }
 
         }

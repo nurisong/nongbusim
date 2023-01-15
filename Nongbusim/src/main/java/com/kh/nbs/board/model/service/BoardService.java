@@ -39,7 +39,12 @@ public interface BoardService {
 	//좋아요 수 조회
 	int selectLikeCount(Board b);
 	//좋아요 조회
-	int selectLike(Board b);
+	int selectLike(HashMap map);
+	//좋아요 증가
+	int increaseLike(Board b);
+	//좋아요 갑소
+	int decreaseLike(Board b);
+	
 	
 	ArrayList<Board> selectListOrder(Board b,PageInfo pi);
 	
@@ -50,6 +55,8 @@ public interface BoardService {
 	ArrayList<Comment> selectReplyList(int boardNo);
 	// 댓글 작성 서비스 (Ajax)(insert)
 	int insertReply(Comment c);
+	
+	
 
 	
 	

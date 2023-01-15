@@ -24,6 +24,7 @@ import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.Comment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.template.Pagination;
+import com.kh.nbs.member.model.vo.Member;
 
 @Controller
 public class BoardController {
@@ -63,8 +64,25 @@ public class BoardController {
 
 	//게시글 조회
 	@RequestMapping("detail.bo")
-	public ModelAndView selectBoard(ModelAndView mv,@RequestParam(value="bno") int boardNo) { // 키값과 똑같은 이름의 매개변수, int형으로 쓰면 알아서 파싱
+	public ModelAndView selectBoard(ModelAndView mv,@RequestParam(value="bno") int boardNo, @RequestParam(value="type") String boardType, HttpSession session) { // 키값과 똑같은 이름의 매개변수, int형으로 쓰면 알아서 파싱
 
+
+		
+		if(((Member)session.getAttribute("loginUser"))!=null) {
+			int memNo=((Member)session.getAttribute("loginUser")).getMemNo();
+
+			HashMap map = new HashMap();
+			
+			map.put("boardNo", boardNo);
+			map.put("memNo", memNo);
+			map.put("boardType", boardType);
+
+			int result=boardService.selectLike(map);
+
+			
+			mv.addObject("result",result);
+		}
+		
 		if(boardService.increaseCount(boardNo) > 0) {
 			
 			Board b=boardService.selectBoard(boardNo);
@@ -85,6 +103,9 @@ public class BoardController {
 	@RequestMapping("insert.bo")
 	public ModelAndView insertBoard(Board b, MultipartFile[] upfiles, HttpSession session, ModelAndView mv, Attachment a) {
 		
+		System.out.println(b.getBoardType());
+		System.out.println(b.getBoardNo());
+		
 		if(boardService.insertBoard(b) > 0) {
 			
 			int boardNo = b.getBoardNo();
@@ -97,16 +118,13 @@ public class BoardController {
 					a.setOriginName(upfile.getOriginalFilename()); // 원본명
 					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
 					
-					if(boardService.insertAttachment(a) > 0) {
-						mv.addObject("type", b.getBoardType()).setViewName("redirect:list.bo");
-					} else {
-						mv.setViewName("common/errorPage");
-					}
+					boardService.insertAttachment(a);
+
 						
 				}
 			}
 		
-			mv.setViewName("redirect:/");
+			mv.addObject("type", b.getBoardType()).setViewName("redirect:list.bo");
 			
 		} else {
 			// 첨부파일 삭제
@@ -186,18 +204,20 @@ public class BoardController {
 	
 		
 		boardService.insertLike(b);
-		
+		boardService.increaseLike(b);
 		
 	}
 	
 	//좋아요 삭제
 	@ResponseBody
 	@RequestMapping("delete.lk")
-	public void deleteLike(int boardNo, int memNo) {
+	public void deleteLike(String boardType, int boardNo, int memNo) {
 		Board b= new Board();
 		b.setBoardNo(boardNo);
 		b.setMemNo(memNo);
+		b.setBoardType(boardType);
 		
+		boardService.decreaseLike(b);
 		boardService.deleteLike(b);
 		
 	};

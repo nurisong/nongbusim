@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                ,to_char(create_date, 'YYYY-MM-DD') as "CREATE_DATE"
                ,count
                ,board_writer
-               ,(select count(*) from board b join "LIKE" l on b.board_no=l.board_no and b.board_type=l.board_type) as board_like
+               ,board_like
 		  from
 		       board b
          where
@@ -240,18 +240,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   	   board_type=#{boardType}
 	</select>
 	
-	<select id="selectLike" parameterType="board" resultMap="likeResultSet">
+	<select id="selectLike" parameterType="hashmap" resultType="_int">
 		select
 			   count(*)
 		  from
 		  	   "LIKE"
-		 where
+		 where 	
 		 	   mem_no=#{memNo}
 		   and
 		   	   board_no=#{boardNo}
 		   and
 		   	   board_type=#{boardType}
+		   and
+		   	   status=1
 	</select>
+	
+	<update id="increaseLike" parameterType="board">
+		update
+			   BOARD
+		   set
+		   	   board_like=board_like+1
+		 where
+		 	   board_no=#{boardNo}
+		   and
+		   	   board_type=#{boardType}
+	</update>
+	<update id="decreaseLike" parameterType="board">
+		update
+			   BOARD
+		   set
+		   	   board_like=board_like-1
+		 where
+		 	   board_no=#{boardNo}
+		   and
+		   	   board_type=#{boardType}
+	</update>
+	
 	
 	<select id="selectListOrder" parameterType="board" resultMap="boardResultSet">
 		select 
@@ -267,13 +291,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            	   board_type=#{boardType}
          order
             by
-         <if test=" ${thumbnail}=='recent' ">         
+         <if test=" thumbnail=='recent' ">         
                board_no desc
          </if>
-         <if test=" ${thumbnail}=='like' ">
+         <if test=" thumbnail=='like' ">
          	   board_like desc
          </if>
-         <if test=" ${thumbnail}=='count' ">
+         <if test=" thumbnail=='count' ">
 			   count desc         
          </if>
 	</select>

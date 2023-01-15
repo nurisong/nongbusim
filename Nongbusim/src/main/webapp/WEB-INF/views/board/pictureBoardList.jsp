@@ -135,11 +135,11 @@
 	            
                     <c:forEach items="${ list }" var="b">
 
-                            <div class="thumbnail" onclick="location.href='detail.bo?bno=${b.boardNo}';">
+                            <div class="thumbnail" onclick="location.href='detail.bo?type=S&bno=${b.boardNo}';">
                                 <c:if test="${ not empty at }">
                                     <c:forEach items="${ at }" var="at">
                                         <c:if test="${ b.boardNo == at.boardNo}">
-                                             <a href="detail.bo?bno=${b.boardNo}" >
+                                             <a href="detail.bo?type=S&bno=${b.boardNo}" >
                                                  <img class="card-img-top" src="${ at.changeName }" alt="">
                                              </a>
                                         </c:if>
