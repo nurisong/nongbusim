@@ -63,7 +63,7 @@ public class InfoServiceImpl implements InfoService {
 
 	@Override
 	public int deleteInfo(int infoNo) {
-		return 0;
+		return infoDao.deleteInfo(infoNo, sqlSession);
 	}
 
 	@Override

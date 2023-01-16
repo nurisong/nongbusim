@@ -140,11 +140,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE
 				 INFO_BOARD
 		   SET
-		   		 CATEGRY = #{category}
+		   		 CATEGORY = #{category}
 		   		,INFO_TITLE = #{infoTitle}
 		   		,INFO_CONTENT = #{infoContent}
 		 WHERE
 		 		 INFO_NO = #{infoNo}
+	</update>
+	
+	<update id="deleteInfo">
+		UPDATE
+				INFO_BOARD
+		   SET
+		   		STATUS = 'N'
+		 WHERE
+		 		INFO_NO = #{infoNo}
 	</update>
 	
 	<select id="selectSearchListCount" resultType="_int" parameterType="hashmap">

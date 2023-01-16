@@ -51,6 +51,10 @@ public class InfoDao {
 	public int updateInfo(Info info, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("infoMapper.updateInfo", info);
 	}
+	
+	public int deleteInfo(int infoNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("infoMapper.deleteInfo", infoNo);
+	}
 
 	public int selectSearchListCount(HashMap map, SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("infoMapper.selectSearchListCount", map);
@@ -61,6 +65,8 @@ public class InfoDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("infoMapper.selectSearchList", map, rowBounds);
 	}
+
+
 
 
 

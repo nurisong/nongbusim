@@ -75,7 +75,7 @@
                     </table>
 
                     <button type="submit" class="btn btn-secondary">등록하기</button>
-                    <a class="btn btn-secondary" href="">취소하기</a>
+                    <a class="btn btn-secondary" href="list.if">취소하기</a>
                 </div>
             </form>
 
