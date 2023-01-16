@@ -16,6 +16,6 @@ public class Account {
 	private String accountContent;
 	private String status;
 	private int memNo;
-
+	private String nickName;
 	
 }

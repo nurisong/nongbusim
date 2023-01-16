@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +22,7 @@ import com.google.gson.Gson;
 import com.kh.nbs.account.model.service.AccountService;
 import com.kh.nbs.account.model.vo.Account;
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.account.model.vo.Account;
 import com.kh.nbs.member.model.vo.Member;
 
 @Controller
@@ -35,7 +38,7 @@ public class AccountController {
 		int memNo=((Member)session.getAttribute("loginUser")).getMemNo();
 		
 		// category와 goods를  각 key(categoryList, goodsList)에 담은
-		// haspmap을 반환하는 selectCatAndGoods
+		// list을 반환
 		mv.addObject("catAndGoods", (ArrayList<HashMap>)accountService.selectCatAndGoods(memNo))
           .setViewName("member/myPageFarmer/account/accountListView");
 		
@@ -43,7 +46,7 @@ public class AccountController {
 	}
 	
 	
-	// list.di 페이지에서 사용자가 검색조건 설정 후 "검색" 버튼 클릭시 이를 만족하는 accountList(table표)를 뿌려주기 위한 메소드 (ajax)
+	// list.ac 페이지에서 사용자가 검색조건 설정 후 "검색" 버튼 클릭시 이를 만족하는 accountList(table표)를 뿌려주기 위한 메소드 (ajax)
 	@ResponseBody
 	@RequestMapping(value="selectAccountList.ac", produces="application/json; charset=UTF-8")
 	public String selectAccountList(Account account, HttpSession session) {
@@ -133,7 +136,7 @@ public class AccountController {
 		
 		if(insertAccountResult>0) {			
 			session.setAttribute("alertMsg", "영농일지 작성성공");
-			return "redirect:list.di";
+			return "redirect:list.ac";
 		} else {			
 			session.setAttribute("alertMsg", "영농일지 작성 실패");
 			return "common/errorPage";
@@ -141,6 +144,108 @@ public class AccountController {
 		
 	}	
 	
+	
+	@RequestMapping("calView.ac")
+	public String accountCalView() {
+		return "member/myPageFarmer/account/accountCalView" ;
 		
+	}
+	
+	//영농일지 상세페이지
+	@RequestMapping("detail.ac")
+	public ModelAndView selectAccount(@RequestParam(value="ano") int accountNo, ModelAndView mv) {
+		mv.addObject("account", accountService.selectAccount(accountNo)).addObject("aAtList", accountService.selectAttachmentList(accountNo)).setViewName("member/myPageFarmer/account/accountDetailView");;
+		return mv;
+	}
+	
+	
+	// 영농일지 상세페이지에서 "수정" 버튼 누를시 수정 폼을 띄워주는 메소드
+	@RequestMapping("updateForm.ac")
+	public ModelAndView updateaccountForm(String ano, String memNo, ModelAndView mv) {		
+		//update할때 필요한 정보들은 accountDetailView에서 필요한 Service메소드  + categoryList Serviec메소드 
+		// 동일 메소드로 재활용하기		
+		int accountNo= Integer.parseInt(ano);
+		int memberNo= Integer.parseInt(memNo);
+				
+		mv.addObject("account", accountService.selectAccount(accountNo)).addObject("aAtList", accountService.selectAttachmentList(accountNo));
+		mv.addObject("catAndGoods", accountService.selectCatAndGoods(memberNo));		
+		mv.setViewName("member/myPageFarmer/account/accountUpdateForm");
+		return mv;	
+	
+	} 
+	
+	// 영농일지 수정하기에서 "확인" 버튼 누를 시, DB에 수정된 내용을 저장하기 위한 메소드
+	@RequestMapping("update.ac")
+	public ModelAndView updateaccount(Account account, String newCategory, MultipartFile[] reUpfiles, HttpServletRequest request, HttpSession session, Attachment at, ModelAndView mv) {
+		// 만약 신규등록한 카테고리가 있다면
+		/// account의 accountCategory필드 값을 신규등록값으로 변경
+
+		if(!newCategory.equals("")) {
+			account.setAccountCategory(newCategory);
+		}
+		
+		for(int i=0; i<3; i++) {
+			
+			System.out.println("updateAccount reUpfiles"+reUpfiles[i]);
+				//0번째 인덱스에 올려진 파일이 있고
+			
+			String which = "";
+			
+			if(!reUpfiles[i].getOriginalFilename().equals("")) {					
+
+				if(i==0) {	
+						// for문 내에서 insert문은 단 한 번만 실행되어야하므로 i==0 블럭에서 실행
+					System.out.println(account);
+					accountService.updateAccount(account);
+				}
+			
+				
+				at.setBoardType("D");
+				//attachment vo에 새로 들어온 파일의 값을 담고
+				at.setOriginName(reUpfiles[i].getOriginalFilename());
+				at.setChangeName("resources/uploadFiles/" + saveFile(reUpfiles[i], session)); 
+	
+				
+				if(request.getParameter("beforeFileNo"+(i+1)) != null) {			
+					// 기존 에 파일이 존재했던 인덱스라면 
+					// DB에서 기존 파일의 fileNo에 덮어쓰기
+					at.setFileNo(Integer.parseInt(request.getParameter("beforeFileNo"+(i+1))));
+					// 기존 파일은 삭제
+					System.out.println(request.getParameter("beforeFileChangeName"+(i+1)));
+					System.out.println(new File(request.getParameter("beforeFileChangeName"+(i+1))));
+					new File("/"+request.getParameter("beforeFileChangeName"+(i+1))).delete();
+					// 실행할 SQL문은  attachment - UPDATE
+					accountService.updateAttachment(at);
+					
+				} else {
+					// 기존파일이 존재하지 않을 경우
+					// 다이어리 no를 boardNo에 세팅
+					at.setBoardNo(account.getAccountNo());
+					// 실행할 SQL문은   attachment - insert
+					accountService.insertAttachment(at);					
+				}
+			} else {
+				accountService.updateAccount(account);
+			}
+		}
+				mv.setViewName("member/myPageFarmer/account/accountListView");
+				return mv;
+	}	
+	
+	
+	@RequestMapping("delete.ac")
+	public ModelAndView deleteaccount(int accountNo, ModelAndView mv, HttpSession session) {	
+		if( accountService.deleteAccount(accountNo)*accountService.deleteAttachment(accountNo)>0) {
+			session.setAttribute("alertMsg", "영농일지가 삭제되었습니다");
+			mv.setViewName("redirect:list.ac");
+		} else {
+			session.setAttribute("alertMsg", "영농일지 삭제에 실패하였습니다.");
+			mv.setViewName("common/errorPage");			
+		}
+		return mv;	
+	
+	} 
+	
+	
 	
 }

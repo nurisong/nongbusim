@@ -120,13 +120,20 @@
 						</tr>
 						<tr>
 							<td colpan="3">
+								<div>✔구분</div>
+										<select id="type" name="type">
+											<option id="type" name="type" value="I">수입</option>									
+											<option id="type" name="type" value="O">지출</option>									
+										</select>
+							</td>	
+							<td colpan="3">
 								<div>✔품목</div>
 										<select id="goods" name="goods">		
 											<c:choose>
 												<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
 												<c:when test="${ not empty catAndGoods }">
 													<c:forEach var="item" items="${catAndGoods }">
-														<option>${ item.get("ACCOUNT_CATEGORY") }</option>
+														<option>${ item.get("GOODS") }</option>
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
@@ -138,26 +145,7 @@
 										<input type="hidden" id="newCategory" name="newCategory">
 							</td>	
 						</tr>
-						<tr>
-							<td colpan="3">
-								<div>✔카테고리</div>
-										<select id="goods" name="goods">		
-											<c:choose>
-												<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
-												<c:when test="${ not empty catAndGoods }">
-													<c:forEach var="goods" items="${catAndGoods }">
-														<option>${ item.get("GOODS") }</option>
-													</c:forEach>
-												</c:when>
-												<c:otherwise>
-													<option value="noGoods">등록된 품목이 없습니다.</option>
-												</c:otherwise>
-											</c:choose>
-										<option id="enrollNewGoods" name="enrollGoods" value="enrollNew">품목 신규입력</option>									
-										</select>
-										<input type="hidden" id="newGoods" name="newGoods">
-							</td>	
-						</tr>
+					
 						
 						
 						<tr>
