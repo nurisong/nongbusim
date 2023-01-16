@@ -42,10 +42,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="MEM_NO" property="memNo" />
 		<result column="STATUS" property="status" />
 		<result column="MEM_ID" property="memId" />
+		<result column="SECRET" property="secret" />
 	
 	</resultMap>
 
 	<resultMap id="markResultSet" type="mark">
+	
 		<result column="MEM_NO" property="memNo"/>
 		<result column="STATUS" property="status"/>
 		<result column="BOARD_TYPE" property="boardType"/>
@@ -269,6 +271,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 ,to_char(c.enroll_date, 'YYYY-MM-DD') as "enroll_date"
 			 ,c.mem_no
 			 ,m.mem_id
+			 ,c.secret
 		from
 			"COMMENT" c
 		join

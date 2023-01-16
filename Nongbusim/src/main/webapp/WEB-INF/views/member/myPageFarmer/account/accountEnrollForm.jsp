@@ -91,7 +91,7 @@
 		<h1>🗓영농일지 등록</h1>
 			<form action="insert.di" id="enroll-form" method="post" enctype="multipart/form-data">
 				<div class="outer" >
-					<table id="diaryEnrollForm">		
+					<table id="accountEnrollForm">		
 						<tr>
 							<td colspan="3">
 								<div>✔등록일</div>
@@ -101,12 +101,12 @@
 						<tr>
 							<td colpan="3">
 								<div>✔카테고리</div>
-										<select id="diaryCategory" name="diaryCategory">		
+										<select id="accountCategory" name="accountCategory">		
 											<c:choose>
 												<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
-												<c:when test="${ not empty categoryList }">
-													<c:forEach var="category" items="${categoryList }">
-														<option>${ category.diaryCategory }</option>
+												<c:when test="${ not empty catAndGoods }">
+													<c:forEach var="item" items="${catAndGoods }">
+														<option>${ item.get("ACCOUNT_CATEGORY") }</option>
 													</c:forEach>
 												</c:when>
 												<c:otherwise>
@@ -118,10 +118,51 @@
 										<input type="hidden" id="newCategory" name="newCategory">
 							</td>	
 						</tr>
+						<tr>
+							<td colpan="3">
+								<div>✔품목</div>
+										<select id="goods" name="goods">		
+											<c:choose>
+												<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
+												<c:when test="${ not empty catAndGoods }">
+													<c:forEach var="item" items="${catAndGoods }">
+														<option>${ item.get("ACCOUNT_CATEGORY") }</option>
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+													<option value="noCategory">등록된 카테고리가 없습니다.</option>
+												</c:otherwise>
+											</c:choose>
+										<option id="enrollNew" name="enrollNewCategory" value="enrollNewCategory">카테고리 신규입력</option>									
+										</select>
+										<input type="hidden" id="newCategory" name="newCategory">
+							</td>	
+						</tr>
+						<tr>
+							<td colpan="3">
+								<div>✔카테고리</div>
+										<select id="goods" name="goods">		
+											<c:choose>
+												<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
+												<c:when test="${ not empty catAndGoods }">
+													<c:forEach var="goods" items="${catAndGoods }">
+														<option>${ item.get("GOODS") }</option>
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+													<option value="noGoods">등록된 품목이 없습니다.</option>
+												</c:otherwise>
+											</c:choose>
+										<option id="enrollNewGoods" name="enrollGoods" value="enrollNew">품목 신규입력</option>									
+										</select>
+										<input type="hidden" id="newGoods" name="newGoods">
+							</td>	
+						</tr>
+						
 						
 						<tr>
 							<td>
-								<div class="diaryDetail">🎞사진 등록하기<br></div>
+								<div class="accountDetail">🎞사진 등록하기<br></div>
 							</td>
 						</tr>
 						<tr>
@@ -170,13 +211,13 @@
 					<table>
 							<tr>
 								<td>					
-									<div class="diaryDetail">글 작성하기<br></div>		
+									<div class="accountDetail">글 작성하기<br></div>		
 								</td>			
 							</tr>		
 							<tr>
 								<td>
 									<div class="selectText"> 		
-										<textarea id="textContent" name="diaryContent"></textarea>
+										<textarea id="textContent" name="accountContent"></textarea>
 									</div>					
 								</td>			
 							</tr>			
@@ -271,12 +312,25 @@
 
 	$(function(){
 	
-		$('#diaryCategory').change(function(){
+		$('#accountCategory').change(function(){
 			if($(this).val()=="enrollNew"){
 				$("#newCategory").attr("type", "text");
 							
 			} else {
 				$("#newCategory").attr("type", "hidden");
+					
+			}
+		})		
+	}); 
+	
+	$(function(){
+	
+		$('#goods').change(function(){
+			if($(this).val()=="enrollNew"){
+				$("#newGoods").attr("type", "text");
+							
+			} else {
+				$("#newGoods").attr("type", "hidden");
 					
 			}
 		})		
