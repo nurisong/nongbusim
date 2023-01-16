@@ -53,7 +53,7 @@
                         <tr>
                             <th>지역</th>
                             <td>
-                                <select name="localCode" style="width: 80px;">
+                                <select name="localCode" id="localCode" class="form-control" style="width: 80px;">
                                     <option value="su">서울</option>
                                     <option value="gg">경기</option>
                                     <option value="ic">인천</option>
@@ -108,6 +108,10 @@
 	                <button type="submit" class="btn btn-secondary">수정하기</button>
 	                <a class="btn btn-secondary" href="">취소하기</a>
 	            </div>
+
+
+
+
             </form>
 
            
@@ -116,9 +120,11 @@
 
     <script> 
         $(function(){
-            $('#del-img-btn').on('click', function(){
-                $('#file')
-            })
+
+            $('#localCode').val('${farm.localCode}').attr('selected', selected);
+            // $('#del-img-btn').on('click', function(){
+            //     $('#file')
+            // })
 
         })
         // 버튼 클릭시 input 추가
@@ -132,6 +138,7 @@
                 $('.sub-img-area').append('<div><input type="file" name="upfiles" class="form-control-file border" accept="image/*"> <button type="button" onclick="delInput(this);">삭제</button></div>'); 
                 maxAppend ++;
             }
+        })
 
 
 

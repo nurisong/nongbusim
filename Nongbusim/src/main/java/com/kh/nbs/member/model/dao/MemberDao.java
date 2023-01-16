@@ -19,7 +19,6 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
 	
-	
 	// 일반 사용자 회원가입
 	public int userInsertMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.insert("memberMapper.userInsertMember", m);
@@ -63,6 +62,11 @@ public class MemberDao {
 	// 농부가 작성한 게시글 조회
 	public ArrayList<Board> farmerMyBoardList(SqlSessionTemplate sqlSession, int memNo){
 		return (ArrayList)sqlSession.selectList("memberMapper.farmerMyBoardList", memNo);
+	}
+	
+	// 농부가 작성한 프로그램 조회
+	public ArrayList<Program> farmerMyProgramList(SqlSessionTemplate sqlSession, int memNo){
+		return (ArrayList)sqlSession.selectList("memberMapper.farmerMyProgramList", memNo);
 	}
 	
 	// 찜한 프로그램

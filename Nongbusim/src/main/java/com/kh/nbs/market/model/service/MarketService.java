@@ -54,7 +54,7 @@ public interface MarketService {
 	
 	//댓글 수정 메소드
 	
-	
+	int ajaxUpdateMarketComment(Comment comment);
 	
 	
 	//대댓글 리스트 조회 메소드
@@ -71,10 +71,16 @@ public interface MarketService {
 	
 	
 	
-	//찜하기 불러오기 메소드
+	//찜하기 리스트 불러오기 메소드
 	ArrayList<Mark> ajaxMarkMarket(int memNo);
 	
 	//찜하기 메소드
 	int ajaxClickMarkMarket(Mark mark);
+	
+	//찜하기 해제 메소드
+	int ajaxClickUnmarkMarket(Mark mark);
+	
+	//찜하기 불러오기 메소드
+	Mark markMarket(Market market);
 	
 }

@@ -76,10 +76,8 @@ public class BoardDao {
 	
 	
 	
-	public ArrayList<Board> selectListOrder(SqlSessionTemplate sqlSession,Board b,PageInfo pi) {
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("boardMapper.selectListOrder",b,rowBounds);
+	public ArrayList<Board> selectListOrder(SqlSessionTemplate sqlSession,HashMap map) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectListOrder",map);
 	}
 	
 	public int selectSearchListCount(HashMap map, SqlSessionTemplate sqlSession) {

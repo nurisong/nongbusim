@@ -35,9 +35,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				,TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') as "CREATE_DATE"
 				,COUNT
 		  FROM
-				INFO_BOARD
+				 INFO_BOARD
 		 WHERE
-				STATUS = 'Y'
+				 STATUS = 'Y'
+		 ORDER
+		    BY
+		    	INFO_NO DESC
 	</select>
 	
 	<select id="selectListCount" resultType="_int">
@@ -122,7 +125,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				,CATEGORY
 				,INFO_TITLE
 				,INFO_CONTENT
-				,SOURCE
 				)
 		VALUES
 				(
@@ -131,29 +133,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				,#{category}
 				,#{infoTitle}
 				,#{infoContent}
-				,#{source}
 				)
 	</insert>
+	
+	<update id="updateInfo">
+		UPDATE
+				 INFO_BOARD
+		   SET
+		   		 CATEGRY = #{category}
+		   		,INFO_TITLE = #{infoTitle}
+		   		,INFO_CONTENT = #{infoContent}
+		 WHERE
+		 		 INFO_NO = #{infoNo}
+	</update>
 	
 	<select id="selectSearchListCount" resultType="_int" parameterType="hashmap">
 		SELECT
 				COUNT(*)
-		  FROM
-				INFO_BOARD
-		 WHERE
-				STATUS = 'Y'
+		  FROM 
+		  		(
+		  		SELECT 
+						 INFO_TITLE
+						,INFO_CONTENT
+				  FROM
+						 INFO_BOARD
+				 WHERE
+				 		 STATUS = 'Y'
+				<if test="category != 'all'">
+				   AND
+		   				 CATEGORY = #{category}
+				</if>
+				)
 		<if test="condition == 'all'">
-		   AND
+		 WHERE
 				INFO_CONTENT LIKE '%'||#{keyword}||'%'
 			OR
 				INFO_TITLE LIKE '%'||#{keyword}||'%'
 		</if>
 		<if test="condition == 'title'">
-		   AND
+		 WHERE
 				INFO_TITLE LIKE '%'||#{keyword}||'%'
 		</if>
 		<if test="condition == 'content'">
-		   AND
+		 WHERE
 				INFO_CONTENT LIKE '%'||#{keyword}||'%'
 		</if>
 	
@@ -161,31 +183,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectSearchList" resultMap="infoResultSet" parameterType="hashmap">
 		SELECT
-				 INFO_NO
-				,CATEGORY
-				,INFO_TITLE
-				,INFO_CONTENT
-				,TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') as "CREATE_DATE"
-				,COUNT
+				*
 		  FROM
-				INFO_BOARD
-		 WHERE
-				STATUS = 'Y'
-		<if test="category != 'all'">
-		   AND CATEGORY = #{category}
-		</if>
+		  		(
+				 SELECT
+						 INFO_NO
+						,CATEGORY
+						,INFO_TITLE
+						,INFO_CONTENT
+						,TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') as "CREATE_DATE"
+						,COUNT
+				  FROM
+						INFO_BOARD
+				 WHERE
+						STATUS = 'Y'
+				<if test="category != null">
+				   AND 
+				   		CATEGORY = #{category}
+				</if>
+				)
 		<if test="condition == 'all'">
-		   AND
+		  WHERE
 				INFO_CONTENT LIKE '%'||#{keyword}||'%'
 			OR
 				INFO_TITLE LIKE '%'||#{keyword}||'%'
 		</if>
 		<if test="condition == 'title'">
-		   AND
+		  WHERE 
 				INFO_TITLE LIKE '%'||#{keyword}||'%'
 		</if>
 		<if test="condition == 'content'">
-		   AND
+		  WHERE
 				INFO_CONTENT LIKE '%'||#{keyword}||'%'
 		</if>
 	

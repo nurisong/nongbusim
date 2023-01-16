@@ -18,7 +18,6 @@
 .main-area>h1{float: left;}
 #list-btn{float: right;}
 #list-btn:hover{cursor: pointer;}
-.board-area{height: 350px;}
 </style>
 </head>
 <body>
@@ -45,6 +44,17 @@
                         <td>${ info.createDate }</td>
                     </tr>
                     <tr>
+                        <th>내용</th>
+                        <td colspan="3">
+                            <c:if test="${not empty imgList}">
+                                <c:forEach var="i" items="${imgList}">
+                                    <img width="500" src="${i.changeName}">
+                                </c:forEach>
+                            </c:if>
+                            <div style="min-height:150px; white-space:pre-line;">${ info.infoContent }</div>
+                        </td>
+                    </tr>
+                    <tr>
                         <th>첨부파일</th>
                         <td colspan="3">
                             <!-- 첨부파일이 있을 경우/없을 경우 -->
@@ -61,26 +71,38 @@
                             </c:choose>
                         </td>
                     </tr>
-                    <tr>
-                        <th>내용</th>
-                        <td colspan="3">
-                            <c:if test="${not empty imgList}">
-                                <c:forEach var="i" items="${imgList}">
-                                    <img width="500" src="${i.changeName}">
-                                </c:forEach>
-                            </c:if>
-                            <p style="height:150px;">${ info.infoContent }</p>
-                        </td>
-                    </tr>
                 </table>
 
-                <a class="btn btn-secondary" href="updateForm.if">수정하기</a>
-                <a class="btn btn-secondary" href="">삭제하기</a>
-            </div>
+                <br><br>
+                
+                <form action="" id="postForm">
+                    <input type="hidden" name="ino" value="${info.infoNo}">
+                </form>
 
-           
+                
+            </div>
+            
+            <div id="btn-area">
+                <c:if test="${loginUser.memNo eq info.writer}">
+                        <a class="btn btn-secondary" id="update-btn" onclick="postFormSubmit(1)">수정하기</a>
+                        <a class="btn btn-secondary" id="del-btn" onclick="postFormSubmit(2)">삭제하기</a>
+                </c:if>
+            </div>
         </div>
     </div>
+
+    <script>
+        function postFormSubmit(num){
+            if(num == 1){
+                $('#postForm').attr('action', 'updateForm.if').submit();
+            }
+            else{
+                if(confirm('삭제하시겠습니까?')){
+                    $('#postForm').attr('action', 'delete.if').submit();
+                }
+            }
+        }
+    </script>
 
 
 </body>

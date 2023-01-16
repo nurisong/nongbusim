@@ -42,10 +42,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="MEM_NO" property="memNo" />
 		<result column="STATUS" property="status" />
 		<result column="MEM_ID" property="memId" />
+		<result column="SECRET" property="secret" />
 	
 	</resultMap>
 
 	<resultMap id="markResultSet" type="mark">
+	
 		<result column="MEM_NO" property="memNo"/>
 		<result column="STATUS" property="status"/>
 		<result column="BOARD_TYPE" property="boardType"/>
@@ -247,6 +249,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					,board_type
 					,board_no
 					,mem_no
+					,secret
 					)
 				values
 					(
@@ -255,6 +258,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					,#{boardType}
 					,#{boardNo}
 					,#{memNo}
+					,#{secret}
 					)
 	
 	
@@ -269,6 +273,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			 ,to_char(c.enroll_date, 'YYYY-MM-DD') as "enroll_date"
 			 ,c.mem_no
 			 ,m.mem_id
+			 ,c.secret
 		from
 			"COMMENT" c
 		join
@@ -323,22 +328,79 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="ajaxClickMarkMarket">
 	
-		insert
-			into
-				mark
-			values
-			(
-			#{memNo}
-			,1
-			,'mk'
-			,#{boardNo}
-			)
-	
-	
+		 <if test="status != 1">
+		 
+			insert
+				into
+					mark
+				values
+				(
+				#{memNo}
+				,1
+				,'mk'
+				,#{boardNo}
+				)
+		</if>
 	
 	</insert>
 	
 	
+	
+	<delete id="ajaxClickUnmarkMarket">
+		
+		<if test="status != 0">
+		 
+			delete
+				from
+				 mark
+			where
+				mem_no = #{ memNo}
+			and
+				board_no = #{boardNo}
+			and
+				board_type = 'mk'
+		</if>
+	
+	
+	
+	</delete>
+	
+	
+	<select id="markMarket" resultMap="markResultSet">
+	
+		select
+			mem_no
+			,status
+			,board_no
+		from	
+			mark
+		where
+			mem_no = #{memNo}
+		and
+			board_type = 'mk'
+		and
+			board_no = #{marketNo}
+	
+	
+	</select>
+	
+	
+	<update id="ajaxUpdateMarketComment">
+	
+		update 
+			"COMMENT"
+		set
+			comment_content = #{content}
+			enroll_date = SYSDATE
+		where
+			mem_no = #{memNo}
+		and
+			board_no = #{boardNo}
+		and
+			board_type = 'mk'
+	
+	
+	</update>
 	
 	
 </mapper>

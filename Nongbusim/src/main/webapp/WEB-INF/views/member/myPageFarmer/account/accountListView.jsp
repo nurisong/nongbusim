@@ -57,11 +57,11 @@
 		color: rgb(49, 81, 179); 
 	}
 
-	.form-check-label input[type=radio] {
+	.form-check-label input[type=checkbox] {
         display: none;
     }
 
-    .form-check-label input[type="radio"] + span {
+    .form-check-label input[type="checkbox"] + span {
         display: inline-block;
         padding: 10px 10px;
         border: 1px solid #dfdfdf;
@@ -72,7 +72,7 @@
         border-radius: 10%;
     }
 
-    .form-check-label input[type="radio"]:checked + span {
+    .form-check-label input[type="checkbox"]:checked + span {
         background-color: #007bff;
         color: #ffffff;
     }
@@ -207,11 +207,11 @@
 		분류 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select id="enrolledCategory">		
 			<c:choose>
-			<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
+			<%-- db에서 select해온 items(카테고리&품목이 담긴 hashmap)가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
 				<c:when test="${ not empty catAndGoods}">
 					<option value="selectAll" selected>전체</option>				
-					<c:forEach var="catAndGood" items="${catAndGoods}">
-						<option>${ catAndGood.get("ACCOUNT_CATEGORY") }</option>
+					<c:forEach var="item" items="${catAndGoods}">
+						<option>${ item.get("ACCOUNT_CATEGORY") }</option>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
@@ -224,11 +224,11 @@
 		품목 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select id="enrolledGoods">		
 			<c:choose>
-			<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
+			<%-- db에서 select해온 items(카테고리&품목이 담긴 hashmap)가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
 				<c:when test="${ not empty catAndGoods}">
 					<option value="selectAll" selected>전체</option>				
-					<c:forEach var="catAndGood" items="${catAndGoods}">
-						<option>${ catAndGood.get("GOODS") }</option>
+					<c:forEach var="item" items="${catAndGoods}">
+						<option>${ item.get("GOODS") }</option>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
@@ -252,7 +252,7 @@
 	</div>
 	
 </div>
-]
+
 <script>
 
 	function selectPeriod(period){
@@ -298,7 +298,7 @@
 	}
 	
 	
-		//기간, 구분, 분류, 품목 지정 후 "검색" 버튼 누를 시 시행되는 함수 (ajax)
+	//기간, 구분, 분류, 품목 지정 후 "검색" 버튼 누를 시 시행되는 함수 (ajax)
 	function selectAccountList(){		
 		// yyyy-mm-dd형식
 		var startDate = $('#startDate').val();
@@ -309,13 +309,7 @@
 		var accountCategory = $('#enrolledCategory').val();
 		var goods = $('#enrolledGoods').val();
 		// type (selectAll, income, outcome)중 체크된 라디오버튼
-		
-		
 		var type=$("input[name=type]:checked").val();
-		
-		
-		
-
 		// ajax로 해당 조건을 만족하는 accountList받아오기
 		$.ajax({
 			url: 'selectAccountList.di',
@@ -327,14 +321,16 @@
 				type: type				
 			},
 			success: function(list){
-				var result = '';
+				var result = '<div class="item-area">'
+					+'<tr><th><input type="checkbox" id="checkAll"></th><th>날짜</th><th>구분</th><th>분류</th><th>품목</th><th>내용</th></tr>';
+				
 				if(!list.empty){
 
 					for(var i=0; i<list.length ; i++) {                
 					result 
 						+='<div class="item-area">'
 						+ '<tr onclick="selectAccount('+list[i].accountNo+');">'
-						+'<td><input type="radio" name="accountNo" value="'+list[i].accountNo+'"></td>'
+						+'<td><input type="checkbox" class="check" name="accountNo" value="'+list[i].accountNo+'"></td>'
 						+'<td><p>' + list[i].createDate + '</p></td>';
 						
 					if(list[i].type=='I'){
@@ -364,8 +360,8 @@
 	}
 
 		
-	function selectaccount(accountNo){
-		$(location).attr('href', '${pageContext.request.contextPath}/detail.di?dno='+accountNo);
+	function selectAccount(accountNo){
+		$(location).attr('href', '${pageContext.request.contextPath}/detail.ac?ano='+accountNo);
 		
 	}
 	
@@ -380,6 +376,35 @@
 	
 
 	
+	
+    $("#checkAll").change(function(){
+	    if($(this).attr("checked", true)){
+	       	$(".check").attr("checked", true);
+	   } else {
+	       	$(".check").attr("checked", false);
+	   }
+    });
+	
+    
+	// 체크박스 
+	$("#checkAll").change(function() {
+		if($("#checkAll").attr("checked", true)){
+			$("input[name=accountNo]").attr("checked", true);	
+		} else{
+			$("input[name=accountNo]").attr("checked", false);
+		}
+	});
+
+	$(".check").click(function() {
+		var total = $(".check").length;
+		var checked = $("input[name=accountNo]:checked").length;
+
+		if(total != checked) $("#checkAll").attr("checked", false);
+		else $("#check").attr("checked", true); 
+	});
+      
+	
+ 
 </script>
 
 

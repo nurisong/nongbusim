@@ -104,11 +104,6 @@
                                 <textarea cols="100" rows="10" name="marketContent" style="resize:none;" placeholder="상품을 자세히 소개해주세요!"></textarea>
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="2">
-                                <input type="file" name="file5" id="upfile5" class="form-control-file border" onchange="loadImg(this, 5);" accept="image/*">
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
                 <br>

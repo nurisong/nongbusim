@@ -66,7 +66,7 @@ public class DiaryController {
 	}
 	
 	
-	// diary등록 메소드
+	// diary등록 form을 띄워주 메소드
 	@RequestMapping("enrollForm.di")
 	public ModelAndView diaryEnrollForm(ModelAndView mv, HttpSession session) {
 		int memNo= ((Member)session.getAttribute("loginUser")).getMemNo();

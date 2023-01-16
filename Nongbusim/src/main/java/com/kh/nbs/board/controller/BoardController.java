@@ -49,6 +49,8 @@ public class BoardController {
 			mv.setViewName("board/tableBoardList");	
 		}
 		
+		
+		
 		mv.addObject("pi", pi).addObject("list", boardService.selectList(boardType,pi)).addObject("type",boardType);
 		
 		return mv;
@@ -105,6 +107,11 @@ public class BoardController {
 		
 		System.out.println(b.getBoardType());
 		System.out.println(b.getBoardNo());
+		System.out.println(b.getBoardContent());
+		
+		String str1=b.getBoardContent().replace("\r\n","<br>");
+		System.out.println(b.getBoardContent());
+		b.setBoardContent(str1);
 		
 		if(boardService.insertBoard(b) > 0) {
 			
@@ -225,13 +232,13 @@ public class BoardController {
 	//리스트 정렬하기
 	@ResponseBody
 	@RequestMapping("selectListAjax.bo")
-	public ArrayList<Board> selectListAjax(String selectedOption, String boardType,PageInfo pi) {
+	public ArrayList<Board> selectListAjax(String selectedOption, String boardType) {
 		
-		Board b=new Board();
-		b.setThumbnail(selectedOption);
-		b.setBoardType(boardType);
+		HashMap<String, String> map = new HashMap();
+		map.put("selectedOption", selectedOption);
+		map.put("boardType", boardType);
 		
-		ArrayList list=boardService.selectListOrder(b,pi);
+		ArrayList list=boardService.selectListOrder(map);
 		
 		return list;
 	}

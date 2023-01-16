@@ -103,7 +103,7 @@
       </div>
       <div class="form-group">
         <label for="career">* 영농경력  :</label>
-        <input type="text" class="form-control" placeholder="년월일을 적어주세요" name="career">
+        <input type="date" class="form-control" placeholder="년월일을 적어주세요" name="career">
       </div>
       <div id="btns">
         <button type="submit" class="btn btn-success" onclick="return validate();">회원가입</button>
