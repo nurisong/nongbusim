@@ -231,13 +231,26 @@ public class MemberController {
 		return mv;
 	}
 	
+	@RequestMapping("farmerMyProgramList.me")
+	public ModelAndView farmerMyProgramList(HttpSession session, ModelAndView mv) {
+		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		mv.addObject("list", memberService.farmerMyProgramList(mNo)).setViewName("member/myPageFarmer/farmerMyProgramList");
+		return mv;
+	}
+	
+
+	
+	
+	
+	
 	@RequestMapping("markProgram.me")
 	public ModelAndView markProgram(ModelAndView mv, HttpSession session) {
 		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 		
 		if(programService.selectMarkNo(mNo) != null ) {
 			// 찜한 게시글 번호 조회
-			mv.addObject("markNoList",programService.selectMarkNo(mNo));
+			mv.addObject("markNoList", programService.selectMarkNo(mNo));
 		}
 		
 		mv.addObject("list", memberService.markProgram(mNo)).setViewName("member/myPageUser/markProgram");
@@ -295,6 +308,8 @@ public class MemberController {
 		}
 		
 	}
+	
+
 	
 	
 	

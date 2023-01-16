@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<resultMap id="programResultSet" type="program">
 		<result column="PROGRAM_NO" property="programNo"/>
-		<result column="FARM_NO" property="programNo"/>
+		<result column="FARM_NO" property="farmNo"/>
 		<result column="PROGRAM_NAME" property="programName"/>
 		<result column="PROGRAM_PLAN" property="programPlan"/>
 		<result column="PROGRAM_HOUR" property="programHour"/>
@@ -52,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="PROGRAM_LOCATION" property="programLocation"/>
 		<result column="ORIGIN_NAME" property="originName"/>
 		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="NOW_HEADCOUNT" property="nowHeadCount"/>
 	</resultMap>
 	
 	<resultMap id="marketResultSet" type="market">
@@ -142,13 +143,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND STATUS = 'Y'
 	</select>
 	
-	<!-- 농부가 작성한 프로그램 -->
-	<!-- <select id="farmerMyProgram" resultMap="" parameterType="">
+	<!-- 농부가 작성한 프로그램 조회 -->
+	<select id="farmerMyProgramList" resultMap="programResultSet" parameterType="program">
 		SELECT PROGRAM_NO, FARM_NO, PROGRAM_NAME, PROGRAM_PLAN, PROGRAM_HOUR, PROGRAM_LECTURE, HEADCOUNT, PROGRAM_DETAIL, SIGN_UP, STATUS, MEM_NO, ORIGIN_NAME, CHANGE_NAME, PROGRAM_LOCATION, NOW_HEADCOUNT
 		FROM PROGRAM
-		WHERE MEM_NO = 2
-		AND PROGRAM.STATUS = 'Y';
-	</select> -->
+		WHERE MEM_NO = #{memNo}
+		AND PROGRAM.STATUS = 'Y'
+	</select>
 	
 	<!-- 찜한 프로그램 -->
 	<select id="markProgram" resultMap="programResultSet" parameterType="program">
