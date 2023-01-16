@@ -39,6 +39,9 @@ public interface MemberService {
 	// 농부가 작성한 게시글 조회(select)
 	ArrayList<Board> farmerMyBoardList(int memNo);
 	
+	// 농부가 작성한 프로그램 리스트 조회(select)
+	ArrayList<Program> farmerMyProgramList(int memNo);
+	
 	// 찜한 프로그램(select)
 	ArrayList<Program> markProgram(int memNo);
 	
@@ -50,5 +53,6 @@ public interface MemberService {
 	
 	// 비밀번호 변경(update)
 	int updatePwd(Member m);
+	
 	
 }

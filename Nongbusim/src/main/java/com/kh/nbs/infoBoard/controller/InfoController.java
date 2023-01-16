@@ -118,6 +118,17 @@ public class InfoController {
 		}
 	}
 	
+	@RequestMapping("delete.if")
+	public String deleteInfo(int ino, RedirectAttributes rttr) {
+		if(infoService.deleteInfo(ino) > 0) {
+			rttr.addFlashAttribute("alertMag", "삭제되었습니다.");
+			return "redirect:/list.if";
+		} else {
+			rttr.addFlashAttribute("alertMag", "삭제에 실패했습니다.");
+			return "redirect:detail.if?ino=" + ino;
+		}
+	}
+	
 	@RequestMapping("search.if")
 	public String selectSearchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
 			   					   @RequestParam(value="ctg", defaultValue="all") String category,

@@ -64,6 +64,11 @@ public class MemberDao {
 		return (ArrayList)sqlSession.selectList("memberMapper.farmerMyBoardList", memNo);
 	}
 	
+	// 농부가 작성한 프로그램 조회
+	public ArrayList<Program> farmerMyProgramList(SqlSessionTemplate sqlSession, int memNo){
+		return (ArrayList)sqlSession.selectList("memberMapper.farmerMyProgramList", memNo);
+	}
+	
 	// 찜한 프로그램
 	public ArrayList<Program> markProgram(SqlSessionTemplate sqlSession, int memNo){
 		return (ArrayList)sqlSession.selectList("memberMapper.markProgram", memNo);

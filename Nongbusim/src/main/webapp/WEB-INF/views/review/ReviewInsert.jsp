@@ -42,9 +42,9 @@
     
         .menubutton:active {
         
-          background-color: #3e8e41;	
-          box-shadow: 0 5px #666;	
-          transform: translateY(4px);	
+          background-color: #3e8e41;   
+          box-shadow: 0 5px #666;   
+          transform: translateY(4px);   
         }
 
 
@@ -172,13 +172,15 @@
                 </thead>
                 <tbody>
                     
-                    <c:forEach items="${ myProgramList }" var="p">
-                    	<tr>
+
+
+                    <c:forEach var="p" items="${myProgramList}" varStatus="status" >
+                       <tr>
                             <td>${p.programNo}</td>
-                    	   <td>${ p.programName }</td>
-                    	   <td>${p.programPlan}</td>
-                    	   <td><button>상세보기</button></td>
-                    	   <td><button class="reviewWrite" onclick="modal('my_modal','${p.programName}','${p.programNo}');">후기작성</button></td>
+                            <td>${ p.programName }</td>
+                            <td>${p.programPlan}</td>
+                            <td><button>상세보기</button></td>
+                            <td class="reviewStatus"><button>리뷰작성</button></td> 
                         </tr>
                     
                     </c:forEach>
@@ -192,7 +194,6 @@
         
 
             <!-- 모달 영역 -->
-
 
             <div id="my_modal">
 
@@ -290,6 +291,43 @@
 
 
 <script>
+
+    $(function() {
+        test();
+
+    });
+
+        
+        function test() {
+  
+            var testCount = 0;
+
+            <c:forEach var="p" items="${myProgramList}" >
+            
+            <c:forEach var="m" items="${myProgramNo}" varStatus="status" >
+            console.log('${p.programNo eq m.programNo}');
+            var count = 0;
+                        <c:if test="${p.programNo eq m.programNo}">
+                            count++;
+                        </c:if>
+                    
+                        if(count > 0) {
+                            console.log($('.reviewStatus').eq(testCount));
+                            $('.reviewStatus').eq(testCount).html('<button>리뷰수정</button>');
+                        } 
+                    
+                        count = 0;
+                        </c:forEach>      
+                        testCount++;  
+            </c:forEach>
+
+            
+            console.log(count);
+
+
+        }
+
+
     function modal(id, programName,programNo) {
         console.log(programName);
         console.log(id);
@@ -349,8 +387,7 @@
     // $('.reviewWrite').click(function(){
                      
     //      location.href = 'reviewEnrollForm.re?bno=' + $(this).eq(0).text();
-                        
-                     
+                      
     //  })
     
 

@@ -2,6 +2,7 @@ package com.kh.nbs.farm.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
@@ -40,7 +41,9 @@ public interface FarmService {
 	
 	// 6. 농장 정보 수정 서비스(update)
 	int updateFarm(Farm f);
-	ArrayList<Attachment> deleteAttachment(int[] fileNo);
+	List selectFileNo(int farmNo);
+	int deleteAttachment(List delList);
+	int insertAttachment(List upfileList);
 	
 	// 7. 검색 서비스(select)
 	int selectSearchListCount(HashMap map);

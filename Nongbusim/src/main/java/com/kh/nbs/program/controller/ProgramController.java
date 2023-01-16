@@ -23,12 +23,16 @@ import com.kh.nbs.farm.model.vo.Farm;
 import com.kh.nbs.member.model.vo.Member;
 import com.kh.nbs.program.model.service.ProgramService;
 import com.kh.nbs.program.model.vo.Program;
+import com.kh.nbs.review.model.service.ReviewService;
 
 @Controller
 public class ProgramController {
 	
 	@Autowired
 	private ProgramService programService;
+	
+	@Autowired
+	private ReviewService reviewService;
 			
 		//프로그램 리스트 불러오기
 		@RequestMapping("list.pr")
@@ -47,7 +51,7 @@ public class ProgramController {
 			return mv;
 		}
 		
-		@RequestMapping("detail.pr")//dd
+		@RequestMapping("detail.pr")
 		public String programDetailView() {
 				
 			return "program/ProgramDetail";
@@ -146,7 +150,6 @@ public class ProgramController {
 				
 				
 				mv.addObject("programList", programService.selectProgramNo(memNo));
-				
 			}
 			
 			if( programService.selectProgram(bno) != null ) { 
@@ -201,9 +204,11 @@ public class ProgramController {
 			
 			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 			
+			PageInfo pi = Pagination.getPageInfo(programService.selectListCount(), currentPage , 10 , 10);
 			
-			PageInfo pi = Pagination.getPageInfo(programService.selectListCount(), currentPage , 10 , 5);
 			
+			System.out.println(reviewService.selectMyReview(memNo));
+			mv.addObject("myProgramNo",reviewService.selectMyReview(memNo));
 			
 			if(programService.selectMyProgram(memNo,pi) != null ) {
 				
@@ -215,10 +220,5 @@ public class ProgramController {
 			return mv;
 		}
 		
-		
-		
-		
-
-	
 	
 }

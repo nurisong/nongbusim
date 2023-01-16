@@ -54,7 +54,7 @@ public interface MarketService {
 	
 	//댓글 수정 메소드
 	
-	
+	int ajaxUpdateMarketComment(Comment comment);
 	
 	
 	//대댓글 리스트 조회 메소드

@@ -2,6 +2,7 @@ package com.kh.nbs.farm.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,15 +82,25 @@ public class FarmServiceImpl implements FarmService {
 	public int deleteFarm(int farmNo) {
 		return farmDao.deleteFarm(farmNo, sqlSession);
 	}
-
+	
 	@Override
 	public int updateFarm(Farm f) {
 		return farmDao.updateFarm(f, sqlSession);
 	}
+	
+	@Override
+	public List selectFileNo(int farmNo) {
+		return farmDao.selectFileNo(farmNo, sqlSession);
+	}
 
 	@Override
-	public ArrayList<Attachment> deleteAttachment(int[] fileNo) {
-		return farmDao.deleteAttachment(fileNo, sqlSession);
+	public int deleteAttachment(List delList) {
+		return farmDao.deleteAttachment(delList, sqlSession);
+	}
+	
+	@Override
+	public int insertAttachment(List upfileList) {
+		return farmDao.insertAttachment(upfileList, sqlSession);
 	}
 
 	@Override

@@ -46,7 +46,7 @@ public interface BoardService {
 	int decreaseLike(Board b);
 	
 	
-	ArrayList<Board> selectListOrder(Board b,PageInfo pi);
+	ArrayList<Board> selectListOrder(HashMap map);
 	
 	int selectSearchListCount(HashMap map);
 	ArrayList<Board> selectSearchList(PageInfo pi, HashMap map);

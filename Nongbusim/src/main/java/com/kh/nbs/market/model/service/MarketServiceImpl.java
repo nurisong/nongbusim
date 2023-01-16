@@ -137,8 +137,13 @@ public class MarketServiceImpl implements MarketService{
 		return marketdao.ajaxDeleteMarketComment(comment, sqlSession);
 	}
 
+	//댓글 수정
 	
-	
+	@Override
+	public int ajaxUpdateMarketComment(Comment comment) {
+		return marketdao.ajaxUpdateMarketComment(comment, sqlSession);
+	}
+
 	
 	
 	
@@ -201,6 +206,7 @@ public class MarketServiceImpl implements MarketService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 
 	

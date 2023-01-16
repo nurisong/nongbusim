@@ -76,21 +76,35 @@
                         <tr>
 	                        <th>대표사진</th>
 	                        <td colspan="3">
-                                <img width="200" src="${atList[0].changeName}">
+                                <c:forEach var="at" items="${atList}">
+                                    <c:if test="${at.fileLevel eq 1}">
+                                        <div>
+                                            <img width="150" src="${at.changeName}"><br>
+                                            <input type="hidden" name="originFileNo " value="${at.fileNo}">
+                                            <span class="originName">${at.originName} </span>
+                                            <button type="button" id="del-img-btn">삭제</button>
+                                        </div>
+                                    </c:if>
+                                </c:forEach>
+                                <!-- <img width="200" src="${atList[0].changeName}">
                                 <span>${atList[0].originName}</span><button>수정</button>
-                                <input type="file" class="form-control-file border" name="upfiles" accept="image/*">
+                                <input type="file" class="form-control-file border" name="upfiles" accept="image/*"> -->
 	                        </td>
 	                    </tr>
 	                    <tr>
-                            <th>첨부파일</th>
+                            <th>상세사진</th>
 	                        <td colspan="3" class="sub-img-area">
+                                <button type="button" class="add-btn">추가</button><label style="display: none;" id="max-label"> 상세 사진 첨부는 최대 3장까지 가능합니다.</label><br><br>
                                 <c:forEach var="at" items="${atList}">
-                                    <img width="150" src="${at.changeName}">
-                                    <input type="hidden" name="originFileNo " value="${at.fileNo}">
-                                    <span>${at.originName}</span><button id="del-img-btn">삭제</button><br>
+                                    <c:if test="${at.fileLevel ne 1}">
+                                        <div>
+                                            <img width="150" src="${at.changeName}">
+                                            <input type="hidden" name="originFileNo" value="${at.fileNo}">
+                                            <span class="originName">${at.originName} </span>
+                                            <button type="button" class="del-img-btn">삭제</button><br><br>
+                                        </div>
+                                    </c:if>
                                 </c:forEach>
-                                <button type="button" class="add-btn">추가</button><label style="display: none;" id="max-label">사진 첨부는 최대 4장까지 가능합니다.</label><br> 
-                                <input type="file" class="form-control-file border" name="upfiles" accept="image/*">
                             </td>
 	                    </tr>
 	                    <tr>
@@ -120,16 +134,30 @@
 
     <script> 
         $(function(){
-
             $('#localCode').val('${farm.localCode}').attr('selected', selected);
-            // $('#del-img-btn').on('click', function(){
-            //     $('#file')
-            // })
-
         })
-        // 버튼 클릭시 input 추가
+
+        // 삭제 버튼 클릭시
+        $('#del-img-btn').on('click', function(){
+            console.log($(this).parents().children());
+            $(this).parent().children().eq(2).remove();
+            $(this).parent().children().eq(0).remove();
+            $(this).parent().children().eq(0).remove();
+            $(this).parent().children().eq(0).remove();
+            $(this).parent().append('<input type="file" class="form-control-file border" name="upfiles" accept="image/*" required>');
+            $(this).remove();
+        })
+        
         var maxAppend = '${atList.size()}';
 
+        $('.del-img-btn').on('click', function(){
+            console.log($(this).parents().children());
+            $(this).parent().empty();
+            //$('.sub-img-area').append('<input type="file" class="form-control-file border" name="upfiles" accept="image/*" required>');
+            maxAppend --;
+        })
+
+        // 버튼 클릭시 input 추가
         $('.add-btn').on('click', function(){
             if(maxAppend >= 4){
                 $('#max-label').css('display', '');
@@ -139,6 +167,12 @@
                 maxAppend ++;
             }
         })
+
+        // 버튼 클릭시 input 삭제
+        function delInput(e){
+            $(e).parent().empty();
+            maxAppend --;
+        }
 
 
 
