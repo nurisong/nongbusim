@@ -52,8 +52,8 @@ public class InfoServiceImpl implements InfoService {
 	}
 
 	@Override
-	public int insertInfo(Info i) {
-		return infoDao.insertInfo(i, sqlSession);
+	public int insertInfo(Info info) {
+		return infoDao.insertInfo(info, sqlSession);
 	}
 	
 	@Override
@@ -67,8 +67,8 @@ public class InfoServiceImpl implements InfoService {
 	}
 
 	@Override
-	public int updateInfo(Info i) {
-		return 0;
+	public int updateInfo(Info info) {
+		return infoDao.updateInfo(info, sqlSession);
 	}
 	
 	@Override

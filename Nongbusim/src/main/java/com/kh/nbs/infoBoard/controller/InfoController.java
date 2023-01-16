@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -64,9 +64,9 @@ public class InfoController {
 	}
 	
 	@RequestMapping("insert.if")
-	public String insertInfo(Info i, Attachment a, MultipartFile[] upfilesImg, MultipartFile[] upfiles, HttpSession session, RedirectAttributes rttr) {
+	public String insertInfo(Info info, Attachment a, MultipartFile[] upfilesImg, MultipartFile[] upfiles, HttpSession session, RedirectAttributes rttr) {
 		
-		if(infoService.insertInfo(i) > 0) {
+		if(infoService.insertInfo(info) > 0) {
 			
 			for(MultipartFile upfile: upfilesImg) {
 				
@@ -100,6 +100,24 @@ public class InfoController {
 		}
 	}
 	
+	@RequestMapping("updateForm.if")
+	public String updateFormInfo(int ino, Model model) {
+		model.addAttribute("info", infoService.selecetInfo(ino));
+		return "infoBoard/infoBoardUpdateForm";
+		
+	}
+	
+	@RequestMapping("update.if")
+	public String updateInfo(Info info, RedirectAttributes rttr) {
+		if(infoService.updateInfo(info) > 0) {
+			rttr.addFlashAttribute("alertMsg", "수정되었습니다.");
+			return "redirect:/detail.if?ino=" + info.getInfoNo();
+		} else {
+			rttr.addFlashAttribute("alertMsg", "수정에 실패했습니다.");
+			return "redirect:detail.if?ino=" +info.getInfoNo();
+		}
+	}
+	
 	@RequestMapping("search.if")
 	public String selectSearchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
 			   					   @RequestParam(value="ctg", defaultValue="all") String category,
@@ -115,10 +133,14 @@ public class InfoController {
 		model.addAttribute("pi", pi);
 		model.addAttribute("infoList", infoService.selectSearchList(pi, map));
 		model.addAttribute("map", map);
-		model.addAttribute("ctg", category);
 		
 		return "infoBoard/infoBoardListView";
 	}
+	
+	
+	
+	
+	
 	
 	@ResponseBody
 	@RequestMapping(value="monthTech.if", produces="text/xml; charset=UTF-8")

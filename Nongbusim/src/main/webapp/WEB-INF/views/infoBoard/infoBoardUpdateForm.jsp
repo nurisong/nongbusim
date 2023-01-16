@@ -28,18 +28,17 @@
     <div class="outer" align="center">
         <div class="main-area">
 
-            <h1>정보게시판 글 작성</h1>
+            <h1>정보게시판 글 수정</h1>
             <br><br>
 
             <br><br><br>
-            <form action="insert.if" method="post" enctype="multipart/form-data">
+            <form action="update.if" method="post" enctype="multipart/form-data">
                 <div class="board-area">
                     <table class="table info-table">
-                        <input type="hidden" name="writer" value="${loginUser.memNo}">
                         <tr>
                             <th width="100">카테고리</th>
                             <td colspan="3">
-                                <select name="category" id="" class="form-control" style="width: 120px;">
+                                <select name="category" id="category" class="form-control" style="width: 120px;">
                                     <option value="nr">보도자료</option>
                                     <option value="fn">농촌소식</option>
                                     <option value="fi">농업정보</option>
@@ -48,7 +47,7 @@
                         </tr>
                         <tr>
                             <th>제목</th>
-                            <td colspan="3"><input type="text" class="form-control" required name="infoTitle"></td>
+                            <td colspan="3"><input type="text" class="form-control" required name="infoTitle" value="${info.infoTitle}"></td>
                         </tr>
                         <tr>
                             <th>사진파일</th>
@@ -65,7 +64,7 @@
                         <tr>
                             <th>내용</th>
                             <td colspan="3">
-                                <textarea name="infoContent" id="" class="form-control" style="resize: none;" rows="10"></textarea>
+                                <textarea name="infoContent" class="form-control" style="resize: none;" rows="10">${info.infoContent}</textarea>
                             </td>
                         </tr>
                         <!-- <tr>
@@ -75,10 +74,15 @@
                     </table>
 
                     <button type="submit" class="btn btn-secondary">등록하기</button>
-                    <a class="btn btn-secondary" href="">취소하기</a>
+                    <a class="btn btn-secondary" href="detail.if?ino=${info.infoNo}">취소하기</a>
                 </div>
             </form>
 
+            <script>
+                $(function(){
+                    $('#category').val('${info.category}').attr("selected", selected);
+                })
+            </script>
            
         </div>
     </div>

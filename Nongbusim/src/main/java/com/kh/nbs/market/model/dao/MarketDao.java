@@ -116,4 +116,22 @@ public class MarketDao {
 	  return sqlSession.insert("marketMapper.ajaxClickMarkMarket", mark);
   }
   
+  
+  
+  public int ajaxClickUnmarkMarket(Mark mark, SqlSessionTemplate sqlSession) {
+
+  
+  	return sqlSession.delete("marketMapper.ajaxClickUnmarkMarket", mark);
+  
+	}
+ 
+  public Mark markMarket(Market market, SqlSessionTemplate sqlSession) {
+	  
+	  return sqlSession.selectOne("marketMapper.markMarket", market);
+	  
+  }
+  
+  
+  
+  
 }

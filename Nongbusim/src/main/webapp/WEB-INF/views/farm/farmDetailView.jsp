@@ -11,6 +11,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1d40107f1ef7cb9b23f17d054938c10e&libraries=services"></script>
+
 <style>
     .outer{
         padding: 50px;
@@ -57,7 +60,7 @@
         text-align: left;
         padding: 30px;
     }
-    .program-area, .sale-area{
+    .program-area, .sale-area, .map-area{
         padding: 20px;
     }
     .crop-img{
@@ -81,6 +84,16 @@
     }
     .program-table{
         text-align: center;
+    }
+    .map-area>div{
+        display: inline-block;
+    }
+    #map-text-area{
+        float: right;
+        padding-top: 50px;
+        padding-left: 30px;
+        height: 350px;
+        width: 50%;
     }
 </style>
 </head>
@@ -161,7 +174,19 @@
                             <td><img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"></td>
                         </tr>
                     </table>
+                </div><br>
+
+                <div class="map-area">
+                    <h4>찾아오는 길</h4>
+                    <br>
+                    <div id="map" style="width:50%;height:350px;"></div>
+                    <div id="map-text-area">
+                        <div><span><img class="farm-info-icon" src="resources/images/marker-icon.png"></span> ${farm.address}</div><br>
+                        <a class="btn btn-secondary" id="link-kakaomap">길찾기</a>
+                    </div>
+
                 </div>
+
             </div>
         </div>
     </div>
@@ -182,6 +207,57 @@
                 }        
             }
         }
+
+        var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+        var options = { //지도를 생성할 때 필요한 기본 옵션
+            center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+            level: 3 //지도의 레벨(확대, 축소 정도)
+        };
+
+        // 지도를 생성합니다
+        var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch('${farm.address}', function (result, status) {
+
+            // 정상적으로 검색이 완료됐으면 
+            if (status === kakao.maps.services.Status.OK) {
+
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+
+                var iwContent = '<div style="padding:5px;">${farm.farmName}</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                    iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+
+                // 인포윈도우를 생성합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    position : iwPosition, 
+                    content : iwContent 
+                });
+                
+                // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+                infowindow.open(map, marker); 
+
+                $('#link-kakaomap').click(function(){
+                    console.log('https://map.kakao.com/link/to/' + '${farm.farmName},' + coords.Ma + "," + coords.La);
+                    $(this).attr('href', 'https://map.kakao.com/link/to/' + '${farm.farmName},' + coords.La + ',' + coords.Ma );
+                    
+                })
+            }
+        });   
+
+        
     </script>
 </body>
 </html>

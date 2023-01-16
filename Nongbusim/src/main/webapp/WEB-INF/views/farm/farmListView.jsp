@@ -226,15 +226,19 @@
 
             <br>
             <!-- 페이지처리하는 영역-->
-            <div id="market_page">
+            <div id="page-area">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    <c:if test="${pi.currentPage ne 1}">
+                        <li class="page-item"><a class="page-link" href="list.fm?cpage=${pi.currentPage - 1}&lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}">이전</a></li>
+                    </c:if>
+
+                    <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+                        <li class="page-item"><a class="page-link" href="list.fm?cpage=${p}&lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}">${p}</a></li>
+                    </c:forEach>    
+                    
+                    <c:if test="${pi.maxPage ne pi.currentPage}">
+                        <li class="page-item"><a class="page-link" href="list.fm?cpage=${pi.currentPage + 1}&lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}">다음</a></li>
+                    </c:if>
                 </ul>
             </div>
 

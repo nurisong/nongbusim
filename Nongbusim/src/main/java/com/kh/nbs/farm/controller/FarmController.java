@@ -160,6 +160,7 @@ public class FarmController {
 		
 		model.addAttribute("pi", pi);
 		model.addAttribute("farmList", farmService.selectSearchList(pi, map));
+		model.addAttribute("map", map);
 		model.addAttribute("atList", farmService.selectAttachmentList());
 		
 		return "farm/farmListView";
