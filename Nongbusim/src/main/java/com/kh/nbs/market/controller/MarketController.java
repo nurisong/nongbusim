@@ -75,8 +75,9 @@ public class MarketController {
 	
 	//게시물상세화면으로 이동
 	@RequestMapping("detail.mk")
-	public ModelAndView marketDetailView(Market market, ModelAndView mv) {
+	public ModelAndView marketDetailView(Market market, ModelAndView mv, HttpSession session) {
 		
+			
 		if(marketService.increaseCount(market) > 0) {
 			
 			if(marketService.marketDetailView(market) != null) {
@@ -86,11 +87,18 @@ public class MarketController {
 				if(marketService.marketDetailAttachment(market) != null) {
 						
 					mv.addObject("at", marketService.marketDetailAttachment(market));
+					
+					if((Member)session.getAttribute("loginUser") != null) { //회원일 경우 북마크 불러오기
+						
+						market.setMemNo(((Member)session.getAttribute("loginUser")).getMemNo());
+						mv.addObject("mark", marketService.markMarket(market));
+					
+					}
+					
 					mv.setViewName("market/marketDetailView");
 					
 				}
 			}
-			
 		}
 		
 		return mv;
@@ -272,6 +280,13 @@ public class MarketController {
 	}
 	
 
+	//찜하기 해제 버튼 클릭
+	@ResponseBody
+	@RequestMapping("unMark.mk")
+	public String ajaxClickUnmarkMarket(Mark mark) {
+		
+		return marketService.ajaxClickUnmarkMarket(mark) > 0? "success" : "fail";
+	}
 	
 
 	
