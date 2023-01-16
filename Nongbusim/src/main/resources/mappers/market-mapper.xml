@@ -249,6 +249,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					,board_type
 					,board_no
 					,mem_no
+					,secret
 					)
 				values
 					(
@@ -257,6 +258,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					,#{boardType}
 					,#{boardNo}
 					,#{memNo}
+					,#{secret}
 					)
 	
 	
