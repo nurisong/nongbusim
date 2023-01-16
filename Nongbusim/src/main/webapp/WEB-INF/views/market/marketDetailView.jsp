@@ -298,7 +298,7 @@
                                     <!--<a onclick="secretComment();">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>
                                     </a>-->
-                                    <checkbox>비밀댓글</checkbox>
+                                    <input type="checkbox" name="notMembersecret" disabled><label for="notMembersecret">&nbsp;&nbsp;비밀</label>
                                 </td>
                                 <th>
                                     <textarea class="form-control" id="content" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
@@ -314,9 +314,11 @@
                         <c:otherwise>
                             <tr>
                                 <td>
-                                    <a href="">
+                                    
+                                    <input type="checkbox" id="secretStatus"><label for="secretStatus">&nbsp;&nbsp;비밀</label>
+                                    <!--<a href="">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>
-                                    </a>
+                                    </a>-->
                                 </td>
                                 <th>
                                     <textarea class="form-control" cols="55" rows="2" style="resize:none; width:100%;" readonly>로그인 후 이용해주세요.</textarea>
@@ -388,16 +390,6 @@
 
                 });
 
-
-                //비밀댓글 작성용 ajax
-                function secretComment(){
-
-                    var secret = 'true';
-                    //console.log(secret);
-
-
-                }
-
                 //댓글 작성용 ajax
                 function addComment(){
                     
@@ -435,8 +427,9 @@
 
                 //댓글 조회용 ajax
                 function selectCommentList(){
-
      
+                    console.log('${list.memNo}');
+
                     $.ajax({
                         
                         url : 'listComment.mk',
@@ -448,11 +441,41 @@
 
                             let value = '';
 
-                            if(cList.length != 0) {
+                            if(cList.length != 0) { //댓글 리스트가 조회된 경우
                             
                                 for(let i in cList){
 
-                                    if()
+                                    if(cList[i].secret==1){ //비밀글로 설정한 경우 
+
+                                        if(cList[i].memId=='${loginUser.memId}' || '${list.memNo}'=='${loginUser.memNo}'){ 
+
+                                            //비밀글이면서 댓글작성자이거나 게시글작성자인 경우
+                                            value += '<tr>'
+                                            + '<th>' + cList[i].memId + '</th>'
+                                            + '<th>' + cList[i].commentContent + '</th>'
+                                            + '<th>' + cList[i].commentEnrollDate + '</th>';
+                                            
+                                            if(cList[i].memId=='${loginUser.memId}') {
+                                                value +=  '<th>'
+                                                    +   '<button class="btn btn-sm" onclick="deleteComment(' + cList[i].commentNo + ')"> X </button>'
+                                                    +   '</th>'
+                                                    +   '<th>'
+                                                    +   '<button class="btn btn-sm" onclick="updateComment(' + cList[i].commentNo + ',' + cList[i].memNo + ',' + "'" + cList[i].commentContent + "'" + ')"> 수정 </button>'
+                                                    +   '</th>'
+
+                                            }
+
+                                        }else{//비밀글인데 게시글작성자 / 댓글작성자가 아닌 경우
+
+                                            value += '<tr>'
+                                                   + '<th>'
+                                                   + '</th>'
+                                                   + '<th colspan="4">' + '비밀댓글입니다.' + '</th>'
+                                                   + '</th>'
+                                                   + '</tr>';
+                                        }
+
+                                    }else{ //비밀글로 설정하지 않은 경우
 
                                         value += '<tr>'
                                             + '<th>' + cList[i].memId + '</th>'
@@ -470,9 +493,10 @@
                                             }
 
                                         value += '</tr>';
+                                    }
                                 }
 
-                            } else {
+                            } else { // 등록된 댓글이 없는 경우
 
                                 value += '<tr>'
                                        + '<th colspan="3">' + '등록된 댓글이 없습니다.' + '</th>'
@@ -505,34 +529,40 @@
                 //댓글 삭제용 ajax
                 function deleteComment(num){ 
 
-                    $.ajax({
+                    var result = confirm('댓글을 삭제하시겠습니까?');
 
-                        url : 'deleteComment.mk',
+                    if(result){
 
-                        data : { 
-                            commentNo : num,
-                            boardType : 'mk'
-                        },
-
-                        type : 'POST',
-
-                        success : function(status){
-
-                            if(status == 'success'){
-                                selectCommentList(); 
+                        $.ajax({
+    
+                            url : 'deleteComment.mk',
+    
+                            data : { 
+                                commentNo : num,
+                                boardType : 'mk'
+                            },
+    
+                            type : 'POST',
+    
+                            success : function(status){
+    
+                                if(status == 'success'){
+                                    selectCommentList(); 
+                                }
+                                
+    
+                            },
+                            error : function(){
+    
+                                console.log('실패');
+    
                             }
-                            
+    
+    
+                        });
+                        
+                    }
 
-                        },
-                        error : function(){
-
-                            console.log('실패');
-
-                        }
-
-
-                    });
-                    
                 }
 
                 
