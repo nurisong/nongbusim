@@ -277,14 +277,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	
-	<select id="selectListOrder" parameterType="board" resultMap="boardResultSet">
+	<select id="selectListOrder" parameterType="hashmap" resultMap="boardResultSet">
 		select 
                board_no
                ,board_title
                ,to_char(create_date, 'YYYY-MM-DD') as "CREATE_DATE"
                ,count
                ,board_writer
-               ,(select count(*) from board b join "LIKE" l on b.board_no=l.board_no and b.board_type=l.board_type) as board_like
+               ,board_like
 		  from
 		       board b
          where
@@ -300,6 +300,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          <if test=" thumbnail=='count' ">
 			   count desc         
          </if>
+         
+        select
+		       board_no
+		      ,board_title
+		      ,board_content
+		      ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
+		      ,count
+		      ,board_writer
+		      ,board_like
+		  from
+		       board
+		 where
+		       status = 'Y'
+		   and
+		       board_no = #{boardNo}
 	</select>
 	
 	<select id="selectSearchListCount" resultType="_int" parameterType="hashmap">

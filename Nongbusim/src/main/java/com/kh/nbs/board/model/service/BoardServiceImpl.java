@@ -96,8 +96,8 @@ public class BoardServiceImpl implements BoardService{
 	
 	
 	@Override
-	public ArrayList<Board> selectListOrder(Board b,PageInfo pi){
-		return boardDao.selectListOrder(sqlSession,b,pi);
+	public ArrayList<Board> selectListOrder(HashMap map){
+		return boardDao.selectListOrder(sqlSession,map);
 	}
 	
 	@Override

@@ -167,21 +167,23 @@ text-align: center;
         </div>
     </div>
     <script>
+    
     <!--
     $('#img-select').change(function(){
     	   var selectedOption = $(this).val();
+    	   var boardType='${type}';
 
-    	   var pi= ${pi};
+
+
+    	   
     	   console.log(selectedOption);
     	   console.log(boardType);
-    	   console.log(pi);
     	   
         $.ajax({
             url: "selectListAjax.bo",
             data: {
                 selectedOption: selectedOption,
-  				
-                pi: pi
+                boardType: boardType
             },
             success: function(list) {
          	   
@@ -208,6 +210,10 @@ text-align: center;
                 console.log('ajax communication failed');
             }
        });
+    });
+    
+    $('#img-select').change(function(){
+    	
     });
     -->
 
