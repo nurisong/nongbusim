@@ -3,8 +3,6 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="reviewMapper">
-
-	
 	<resultMap id="reviewResultSet" type="review">
 		<result column="REVIEW_NO" property="reviewNo"/>
 		<result column="REVIEW_CONTENT" property="reviewContent"/>
@@ -81,11 +79,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</select>
 	
+	<select id="selectMyReview" resultMap="reviewResultSet">
+		select
+			  program_no
+		from   
+ 			   review
+		where
+    		   mem_no = #{memNo}
+	</select>
 	
 	
-	
-
-
 
 
 

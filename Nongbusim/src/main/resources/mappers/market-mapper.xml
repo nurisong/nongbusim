@@ -249,6 +249,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					,board_type
 					,board_no
 					,mem_no
+					,secret
 					)
 				values
 					(
@@ -257,6 +258,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					,#{boardType}
 					,#{boardNo}
 					,#{memNo}
+					,#{secret}
 					)
 	
 	
@@ -382,6 +384,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</select>
 	
+	
+	<update id="ajaxUpdateMarketComment">
+	
+		update 
+			"COMMENT"
+		set
+			comment_content = #{content}
+			enroll_date = SYSDATE
+		where
+			mem_no = #{memNo}
+		and
+			board_no = #{boardNo}
+		and
+			board_type = 'mk'
+	
+	
+	</update>
 	
 	
 </mapper>

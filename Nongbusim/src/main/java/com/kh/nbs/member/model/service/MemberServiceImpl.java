@@ -72,6 +72,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public ArrayList<Program> farmerMyProgramList(int memNo) {
+		return memberDao.farmerMyProgramList(sqlSession, memNo);
+	}
+	
+	@Override
 	public ArrayList<Program> markProgram(int memNo) {
 		return memberDao.markProgram(sqlSession, memNo);
 	}
@@ -90,6 +95,7 @@ public class MemberServiceImpl implements MemberService {
 	public int updatePwd(Member m) {
 		return memberDao.updatePwd(sqlSession,m);
 	}
+
 
 
 	

@@ -241,10 +241,8 @@ public class MarketController {
 	@RequestMapping(value="listComment.mk", produces="application/json; charset=UTF-8")
 	public String ajaxSelectListMarketComment(Comment comment) {
 		
-		
 		return new Gson().toJson(marketService.ajaxSelectListMarketComment(comment));
-		
-		
+	
 	}
 	
 	
@@ -269,6 +267,14 @@ public class MarketController {
 		
 	
 	//댓글 수정
+	@ResponseBody
+	@RequestMapping("updateComment.mk")
+	public String ajaxUpdateMarketComment(Comment comment) {
+		
+		return marketService.ajaxUpdateMarketComment(comment) > 0? "success" : "fail";
+	}
+	
+	
 	
 	
 	

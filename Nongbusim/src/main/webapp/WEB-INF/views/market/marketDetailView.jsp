@@ -295,10 +295,7 @@
                         <c:when test="${ not empty loginUser }">
                             <tr>
                                 <td>
-                                    <!--<a onclick="secretComment();">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>
-                                    </a>-->
-                                    <input type="checkbox" name="notMembersecret" disabled><label for="notMembersecret">&nbsp;&nbsp;비밀</label>
+                                    <input type="checkbox" id="secretStatus"><label for="secretStatus">&nbsp;&nbsp;비밀</label>
                                 </td>
                                 <th>
                                     <textarea class="form-control" id="content" cols="55" rows="2" style="resize:none; width:100%;"></textarea>
@@ -309,13 +306,12 @@
                             </tr>
                         </c:when>
 
-
-
+                        
+                        
                         <c:otherwise>
                             <tr>
                                 <td>
-                                    
-                                    <input type="checkbox" id="secretStatus"><label for="secretStatus">&nbsp;&nbsp;비밀</label>
+                                    <input type="checkbox" name="notMembersecret" disabled><label for="notMembersecret">&nbsp;&nbsp;비밀</label>
                                     <!--<a href="">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>
                                     </a>-->
@@ -363,7 +359,7 @@
                     <textarea  id="updateCommentContent" cols="50" rows="5" style="resize:none;"></textarea>
 
                     <br>
-                    <button type="submit" class="btn btn-sm">수정</button>
+                    <button type="button" class="btn btn-sm" id="modal_submit_btn">수정</button>
                     <button type="button" class="btn btn-sm" id="modal_close_btn">취소</button>
                 
                 </div>
@@ -379,8 +375,6 @@
             
         <!-- 댓글 관련 스크립트 -->
         <script>
-
-            var secret = 'false';
                 
                 //댓글 리스트 불러오기 함수 -> 이 문서가 다 로딩되면 실행되어야 함
 
@@ -394,6 +388,15 @@
                 function addComment(){
                     
                     if($('#content').val().trim() != ''){
+                        
+                        var secretStatus = 0;
+                        
+                        if($('#secretStatus').prop('checked')){ //비밀댓글 체크박스에 체크하면 secret값을 1로 변경
+                                
+                            var secretStatus = 1;
+                            
+                        };
+
                         $.ajax({
 
                             url : 'insertComment.mk',
@@ -402,19 +405,24 @@
                                 memNo : '${ loginUser.memNo }',
                                 boardNo : ${ list.marketNo },
                                 boardType : 'mk',
-                                commentContent : $('#content').val()
+                                commentContent : $('#content').val(),
+                                secret : secretStatus
 
                             },
 
                             success : function(status){
+
                                 if(status == 'success'){
+
                                     selectCommentList();
                                     $('#content').val('');
 
                                 }
 
                             },
+
                             error : function(){
+
                                 console.log('실패');
                             }
                             
@@ -427,8 +435,7 @@
 
                 //댓글 조회용 ajax
                 function selectCommentList(){
-     
-                    console.log('${list.memNo}');
+    
 
                     $.ajax({
                         
@@ -568,22 +575,66 @@
                 
                 //댓글 수정용 ajax
 
-                function updateComment(commentNo, memNo, content){
+                function updateComment(newCommentNo, newMemNo, newContent){
                     
-                    secretComment(commentNo, memNo, content);
-
-                    <!-- 댓글 모달창 나타나는 스크립트 -->
-                    function secretComment(commentNo, memNo, content){
+                    popComment(newCommentNo, newMemNo, newContent);
+                    
+                    function popComment(newCommentNo, newMemNo, newContent){// 댓글 모달창 나타나는 스크립트
             
                         $('#modal').css('display', 'block');
 
-                        $('#updateCommentContent').text(content);
-                        
+                        $('#updateCommentContent').text(newContent);
+
+                        $('#modal_submit_btn').click(function(){
+
+                            if(content == $('#updateCommentContent').text(newContent)){
+    
+                                console.log('번호는 찍힘');
+    
+                                $.ajax({
+    
+                                    url : "updateComment.mk",
+    
+                                    data : {
+    
+                                        memNo : newMemNo,
+                                        commentNo : newCommentNo,
+                                        content : $('#updateCommentContent').text(newContent)
+    
+                                    },
+    
+                                    success : function(status) {
+    
+                                        if(status == 'success') {
+    
+                                            selectCommentList();
+    
+                                        }else{
+                                            
+                                            alert('댓글등록에 실패하였습니다.');
+    
+                                        }
+    
+                                    },
+                                    error : function(){
+                                        
+                                        console.log('댓글 수정 실패');
+    
+                                    }
+    
+    
+                                });
+                            }
+                        });
                         
 
-                        $('#modal_close_btn').click(function(){
+                        $('#modal_close_btn').click(function(){ //댓글 수정창에서 취소를 누르면
     
+                            $('#updateCommentContent').text();
+                            
                             $('#modal').css('display', 'none');
+                                
+                            
     
                         });
                 }

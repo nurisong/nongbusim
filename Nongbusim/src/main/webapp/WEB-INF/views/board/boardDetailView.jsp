@@ -91,22 +91,19 @@
 
             <hr>
             <c:if test="${ b.boardType=='S' }">
+
 	            <div class="picture-area">
-	                ${b.boardContent}
-	            </div>
-	            <div class="picture-area">
-	            	이미지:
-	                <c:choose>
-	            		<c:when test="${ empty a }">
-	            			없어요~
-	            		</c:when>
-	            		<c:otherwise>
-	            		    <c:forEach items="${a}" var="attach">
-	            		    	<img alt="" src="${attach.changeName}" width="150" height="100"/>
-	                  			<a href="${ attach.changeName }" download="${ attach.originName }">${ attach.originName }</a>
-	      					</c:forEach>
-	            		</c:otherwise>
-	                </c:choose> 	
+		            <c:forEach var="c" items="${b.boardContent}" varStatus="status">
+					  <div>
+
+						  <c:if test="${ status.index<a.size()}">
+					        <div><img alt="" src="${a.get(status.index).changeName}" width="300" height="200"/></div>
+						  </c:if>
+
+					      <div>${c}</div>
+					  </div>
+					</c:forEach>
+		
 	            </div>
             </c:if>
             <c:if test="${b.boardType!='S'}">
@@ -141,11 +138,13 @@
 					</button>
                 </div>
                 <div class="board-comment" style="width: 12.5%; height: 25px;">
-                    
+                    <button id="commentShow">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
                         <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                         <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
-                    </svg> 댓글
+                    </svg> 댓글 
+                    <span id="rcount">3</span>
+                    </button>
                 </div>
                 <div class="report-board"style="width: 75%;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
@@ -190,9 +189,6 @@
 	                    </c:otherwise>
                     </c:choose>
                     
-                    <tr>
-                        <td colspan="3">댓글(<span id="rcount">3</span>)</td>
-                    </tr>
                 </thead>
                 <tbody>            	
 
@@ -230,6 +226,19 @@
 	<script>
 	
 	$(function(){
+		$('#commentShow').click(function(){
+			if($('#replyArea').css("display") == "none") {
+				$('#replyArea').show();
+			} else {
+				$('#replyArea').hide();
+			}
+		})
+		
+	})
+	
+	$(function(){
+
+		
 		if(${result}!=0) {
 			$('.heart').attr("src", "resources/images/heart2.png");
 		}
@@ -238,7 +247,7 @@
 
 	    
     $(function() {
-        $('.heart').click(function() {
+        $('#heartLike').click(function() {
         	
         	var result=${result};
         	var boardLike=${b.boardLike};
