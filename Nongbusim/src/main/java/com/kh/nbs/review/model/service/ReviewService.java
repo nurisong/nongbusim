@@ -16,4 +16,6 @@ public interface ReviewService {
 	//리뷰 리스트
 	int selectReviewCount();
 	
+	ArrayList<Review> selectMyReview(int memNo);
+	
 }

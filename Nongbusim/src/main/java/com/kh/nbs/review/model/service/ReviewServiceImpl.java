@@ -16,7 +16,6 @@ import com.kh.nbs.review.model.vo.Review;
 public class ReviewServiceImpl implements ReviewService {
 
 	
-	
 	@Autowired
 	private ReviewDao reviewDao;
 	
@@ -37,6 +36,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int selectReviewCount() {
 		return reviewDao.selectReviewCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Review> selectMyReview(int memNo) {
+		return reviewDao.selectMyReview(sqlSession,memNo);
 	}
 
 	

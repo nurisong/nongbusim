@@ -31,5 +31,9 @@ public interface ProgramService {
 	// 현재 신청환 회원 증가
 	int headCountIncrease(Program p);
 	
+	//마이페이지에서 후기 작성을 위한 그동안 신청한 목록 조회
 	ArrayList<Program> selectMyProgram(int memNo,PageInfo pi);
+	
+	
+	
 }

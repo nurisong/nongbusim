@@ -222,24 +222,14 @@
                 });
             })
 
-
-              
                $(function(){
                   $('#boardList>tbody>tr>td').not('.sorry').click(function(){
                      
                      //console.log($(this).parent().children());
                      
-                     location.href = 'detail.pro?bno=' + $(this).parent().children().eq(0).text();
-                        
-                     
+                     location.href = 'detail.pro?bno=' + $(this).parent().children().eq(0).text();          
                   })
-                  
-
-                  
-                  
-
-                 
-                  
+           
                 // mark 테이블에서 조회해서 markNoList에서 borarNo 가져와서 현재 하트 IMG ALT에 있는 programNo랑 비교헤서 하트 바꿔줌,  비교해서 같은 값이 있으면 check값 증가
                 $('.heart').each(function() {
 
@@ -261,11 +251,7 @@
                     else {
                         $(this).attr("src", "resources/images/deleteheart.png");
                     }
-                });
-                
-
-
-
+                });   
 
                });
 
@@ -286,9 +272,7 @@
             //             }
             //         });
             
-            
-            
-            
+     
             // 찜하기 클릭/해제
                 // $(function() {
     
@@ -304,11 +288,7 @@
                 //      }
                 // });
        
-                // });
-       
-       
+                // });   
           </script>
-       
-
 </body>
 </html>
