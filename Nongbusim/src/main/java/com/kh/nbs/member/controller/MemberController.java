@@ -39,7 +39,6 @@ public class MemberController {
 		//System.out.println(loginUser);
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {
-			
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("redirect:/");
 			
@@ -279,14 +278,19 @@ public class MemberController {
 	@RequestMapping("updatePwd.me")
 	public String updatePwd(HttpSession session, Member m, String memPwd, Model model) {
 		
-		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();
+		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();	//암호화된 현재 비번
 		
 		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) {
-			String updatePwd = bcryptPasswordEncoder.encode(m.getUpdatePwd());
-			m.setMemPwd(updatePwd);
+			
+			m.setUpdatePwd(bcryptPasswordEncoder.encode(m.getUpdatePwd()));			// 변경할 비밀번호를 암호화
+//			System.out.println(m.getMemPwd());
+//			System.out.println(m);
+			memberService.updatePwd(m);
+			session.setAttribute("loginUser", memberService.loginMember(m));
+			model.addAttribute("alertMsg", "비밀번호가 변경되었습니다. 로그인 해주세요.");
 			return "redirect:/";
 		} else {
-			model.addAttribute("alertMsg", "존재하지 않는 비밀번호 입니다.");
+			model.addAttribute("alertMsg", "비밀번호를 다시 입력해주세요.");
 			return "member/myPageUser/updateUser";
 		}
 		

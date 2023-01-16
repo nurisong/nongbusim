@@ -72,6 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT MEM_NO, MEM_ID, MEM_PWD, NAME, NICKNAME, PHONE, GENDER, EMAIL, ENROLL_DATE, MEM_STATUS, FARMER_CODE, CAREER
 		FROM MEMBER
 		WHERE MEM_ID = #{memId}
+		OR MEM_STATUS = 'A'
 		AND MEM_STATUS = 'Y'
 	</select>
 
@@ -186,8 +187,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updatePwd" parameterType="member">
 		UPDATE MEMBER
 		SET MEM_PWD = #{updatePwd}, MODIFY_DATE = SYSDATE
-		WHERE MEM_PWD = #{memPwd}
-		AND MEM_NO = #{memNo}
+		WHERE MEM_NO = #{memNo}
 		AND MEM_STATUS = 'Y'
-	</update>	
+	</update>
 </mapper>

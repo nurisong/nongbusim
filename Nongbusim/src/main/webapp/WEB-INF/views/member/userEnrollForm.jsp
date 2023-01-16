@@ -127,7 +127,7 @@
    					document.getElementById('checkPwdResult').innerHTML = '비밀번호가 일치하지 않습니다.'
    					document.getElementById('checkPwdResult').style.color = 'red';
    				}
-   			} 
+   			}
    		}
    		
    		// 유효성 검사 -영어와 숫자 혼합으로 5-12사이

@@ -88,9 +88,9 @@ public class ProgramServiceImpl implements ProgramService {
 
 
 	@Override
-	public ArrayList<Program> selectMyProgram(int memNo) {
+	public ArrayList<Program> selectMyProgram(int memNo,PageInfo pi) {
 		
-		return programDao.selectMyProgram(sqlSession,memNo);
+		return programDao.selectMyProgram(sqlSession,memNo,pi);
 	}
 	
 }

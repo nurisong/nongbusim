@@ -19,7 +19,6 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
 	
-	
 	// 일반 사용자 회원가입
 	public int userInsertMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.insert("memberMapper.userInsertMember", m);

@@ -40,6 +40,8 @@ public class ProgramDao {
 	
 	public ArrayList<Farm> selectMyFarmList(SqlSessionTemplate sqlSession,int memNo){
 		
+		
+		
 		return (ArrayList)sqlSession.selectList("farmMapper.selectMyFarmList",memNo);
 	}
 	
@@ -91,9 +93,13 @@ public class ProgramDao {
 		
 	}
 	
-	public ArrayList<Program> selectMyProgram(SqlSessionTemplate sqlSession, int memNo){
+	public ArrayList<Program> selectMyProgram(SqlSessionTemplate sqlSession, int memNo, PageInfo pi){
 		
-		return (ArrayList)sqlSession.selectList("programMapper.selectMyProgram",memNo);
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("programMapper.selectMyProgram",memNo, rowBounds);
 	}
 	
 	

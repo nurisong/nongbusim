@@ -31,13 +31,9 @@ public class ReviewController {
 	@RequestMapping("list.re")
 	public ModelAndView selectReviewList(@RequestParam(value="cpage",defaultValue="1") int currentPage,ModelAndView mv) {
 		
-//		reviewService.selectReviewList();
-		System.out.println(reviewService.selectReviewList());
 		
-		
-		PageInfo pi = Pagination.getPageInfo(reviewService.selectReviewCount(), currentPage , 5 , 3);
-		mv.addObject("pi", pi).addObject("reviewList",reviewService.selectReviewList()).setViewName("review/ReviewBoardList");
-	   
+		PageInfo pi = Pagination.getPageInfo(reviewService.selectReviewCount(), currentPage , 10 , 5);
+		mv.addObject("pi", pi).addObject("reviewList",reviewService.selectReviewList(pi)).setViewName("review/ReviewBoardList");
 		
 		return mv;
 	

@@ -197,17 +197,18 @@ public class ProgramController {
 		
 		//마이페이지에서 여기로 내가 참여한프로그램 조회
 		@RequestMapping("myProgramlist.re")
-		public ModelAndView selectMyProgram (HttpSession session , ModelAndView mv) {
+		public ModelAndView selectMyProgram (@RequestParam(value="cpage",defaultValue="1") int currentPage,HttpSession session , ModelAndView mv) {
 			
 			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 			
 			
+			PageInfo pi = Pagination.getPageInfo(programService.selectListCount(), currentPage , 10 , 5);
 			
-			if(programService.selectMyProgram(memNo) != null ) {
+			
+			if(programService.selectMyProgram(memNo,pi) != null ) {
 				
-				
-				mv.addObject("myProgramList",programService.selectMyProgram(memNo)).setViewName("review/ReviewInsert");
-				System.out.println(programService.selectMyProgram(memNo));
+				mv.addObject("pi", pi).addObject("myProgramList",programService.selectMyProgram(memNo,pi)).setViewName("review/ReviewInsert");
+				//System.out.println(programService.selectMyProgram(memNo));
 			}
 			
 			
