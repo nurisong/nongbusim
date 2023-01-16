@@ -45,7 +45,7 @@ public class AccountController {
 	
 	// list.di 페이지에서 사용자가 검색조건 설정 후 "검색" 버튼 클릭시 이를 만족하는 accountList(table표)를 뿌려주기 위한 메소드 (ajax)
 	@ResponseBody
-	@RequestMapping(value="selectAccountList.di", produces="application/json; charset=UTF-8")
+	@RequestMapping(value="selectAccountList.ac", produces="application/json; charset=UTF-8")
 	public String selectAccountList(Account account, HttpSession session) {
 		
 		int memNo= ((Member)session.getAttribute("loginUser")).getMemNo();
@@ -57,7 +57,7 @@ public class AccountController {
 	
 	
 	// 가계부 등록form을 띄워주는 메소드
-	@RequestMapping("enrollForm.di")
+	@RequestMapping("enrollForm.ac")
 	public ModelAndView accountEnrollForm(ModelAndView mv, HttpSession session) {
 		int memNo= ((Member)session.getAttribute("loginUser")).getMemNo();
 		
