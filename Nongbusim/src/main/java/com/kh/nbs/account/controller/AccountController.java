@@ -67,7 +67,7 @@ public class AccountController {
 		mv.addObject("catAndGoods", accountService.selectCatAndGoods(memNo)).setViewName("member/myPageFarmer/account/accountEnrollForm");
 		return mv ;
 		
-		}
+	}
 	
 	
 			
