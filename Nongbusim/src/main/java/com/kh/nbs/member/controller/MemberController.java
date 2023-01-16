@@ -279,29 +279,14 @@ public class MemberController {
 	@RequestMapping("updatePwd.me")
 	public String updatePwd(HttpSession session, Member m, String memPwd, Model model) {
 		
-		System.out.println("평문 :" + m.getUpdatePwd() );
-		
 		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();
 		
 		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) {
-			
 			String updatePwd = bcryptPasswordEncoder.encode(m.getUpdatePwd());
-			System.out.println(m);
-			
 			m.setMemPwd(updatePwd);
-			
-			if( memberService.updatePwd(m) > 0 ) {	// 성공
-				System.out.println("controller 성공");
-				session.setAttribute("alertMsg", "비밀번호 변경 성공");
-				session.setAttribute("loginUser", memberService.loginMember(m));
-				return "redirect:updateUserForm.me";
-			} else {	// 실패
-				model.addAttribute("errorMsg", "비밀번호 변경 실패");
-				return "common/errorPage";
-			}
-			
+			return "redirect:/";
 		} else {
-			session.setAttribute("alertMsg", "존재하지 않는 비밀번호 입니다.");
+			model.addAttribute("alertMsg", "존재하지 않는 비밀번호 입니다.");
 			return "member/myPageUser/updateUser";
 		}
 		
