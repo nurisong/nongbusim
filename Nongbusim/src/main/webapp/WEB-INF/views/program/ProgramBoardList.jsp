@@ -95,11 +95,9 @@
                 <tbody>
                     
                     <c:forEach items="${ programlist }" var="p">
-                       
-                       
-                    <tr>
-                    	
                   
+                    <tr>
+                
                         <td class="bno" hidden>${ p.programNo }</td>
                         <td class="test">${ p.programLocation }</td>
                         <td class="test">${ p.programName }</td>
@@ -121,24 +119,6 @@
 
                         </c:choose>
 
-
-                        <!-- <td class="test">${ p.signUp }</td> -->
-
-                        <!-- <c:forEach items="${ markNoList }" var="m">
-                            <c:choose>
-                                <c:when test="${p.programNo eq m.boardNo }">
-                                    <td class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
-                                </c:when>
-
-                                <c:otherwise>
-                                    <td class="sorry"><img class="heart"  src="resources/images/heart2.png" alt="${ p.programNo }"></td>
-                                </c:otherwise>
-
-                            </c:choose>
-
-
-                        </c:forEach> -->
-
                         <td  class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
                      
                      </tr>
@@ -159,7 +139,7 @@
                              <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                       </c:when>
                       <c:otherwise>
-                       <li class="page-item "><a class="page-link" href="list.pr?cpage=${ pi.currentPage - 1 }" >Previous</a></li>
+                       <li class="page-item"><a class="page-link" href="list.pr?cpage=${ pi.currentPage - 1 }" >Previous</a></li>
                       </c:otherwise>   
                     </c:choose>
                     

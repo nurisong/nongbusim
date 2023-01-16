@@ -1,6 +1,7 @@
 package com.kh.nbs.board.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.nbs.board.model.dao.BoardDao;
 import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.Comment;
 import com.kh.nbs.common.model.vo.PageInfo;
 
 @Service
@@ -80,7 +82,43 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.selectLikeCount(sqlSession,b);
 	}
 	@Override
-	public int selectLike(Board b) {
-		return boardDao.selectLike(sqlSession, b);
+	public int selectLike(HashMap map) {
+		return boardDao.selectLike(sqlSession, map);
 	}
+	@Override
+	public int increaseLike(Board b) {
+		return boardDao.increaseLike(sqlSession,b);
+	}
+	@Override
+	public int decreaseLike(Board b) {
+		return boardDao.decreaseLike(sqlSession,b);
+	}
+	
+	
+	@Override
+	public ArrayList<Board> selectListOrder(Board b,PageInfo pi){
+		return boardDao.selectListOrder(sqlSession,b,pi);
+	}
+	
+	@Override
+	public int selectSearchListCount(HashMap map) {
+		return boardDao.selectSearchListCount(map, sqlSession);
+	}
+	
+	@Override
+	public ArrayList<Board> selectSearchList(PageInfo pi, HashMap map) {
+		return boardDao.selectSearchList(pi, map, sqlSession);
+	}
+	
+	@Override
+	public ArrayList<Comment> selectReplyList(int boardNo) {
+		return boardDao.selectReplyList(sqlSession, boardNo);
+	}
+
+	@Override
+	public int insertReply(Comment c) {
+		return boardDao.insertReply(sqlSession, c);
+	}
+	
+
 }

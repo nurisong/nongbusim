@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       status = 'Y'
 	</select>
 
-	<!--테스트x-->
+
 	<select id="selectList" resultMap="boardResultSet">
 		select 
                board_no
@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                ,to_char(create_date, 'YYYY-MM-DD') as "CREATE_DATE"
                ,count
                ,board_writer
-               ,(select count(*) from board b join "LIKE" l on b.board_no=l.board_no and b.board_type=l.board_type) as board_like
+               ,board_like
 		  from
 		       board b
          where
@@ -240,20 +240,179 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   	   board_type=#{boardType}
 	</select>
 	
-	<select id="selectLike" parameterType="board" resultMap="likeResultSet">
+	<select id="selectLike" parameterType="hashmap" resultType="_int">
 		select
 			   count(*)
 		  from
 		  	   "LIKE"
-		 where
+		 where 	
 		 	   mem_no=#{memNo}
 		   and
 		   	   board_no=#{boardNo}
 		   and
 		   	   board_type=#{boardType}
+		   and
+		   	   status=1
 	</select>
 	
+	<update id="increaseLike" parameterType="board">
+		update
+			   BOARD
+		   set
+		   	   board_like=board_like+1
+		 where
+		 	   board_no=#{boardNo}
+		   and
+		   	   board_type=#{boardType}
+	</update>
+	<update id="decreaseLike" parameterType="board">
+		update
+			   BOARD
+		   set
+		   	   board_like=board_like-1
+		 where
+		 	   board_no=#{boardNo}
+		   and
+		   	   board_type=#{boardType}
+	</update>
 	
+	
+	<select id="selectListOrder" parameterType="board" resultMap="boardResultSet">
+		select 
+               board_no
+               ,board_title
+               ,to_char(create_date, 'YYYY-MM-DD') as "CREATE_DATE"
+               ,count
+               ,board_writer
+               ,(select count(*) from board b join "LIKE" l on b.board_no=l.board_no and b.board_type=l.board_type) as board_like
+		  from
+		       board b
+         where
+           	   board_type=#{boardType}
+         order
+            by
+         <if test=" thumbnail=='recent' ">         
+               board_no desc
+         </if>
+         <if test=" thumbnail=='like' ">
+         	   board_like desc
+         </if>
+         <if test=" thumbnail=='count' ">
+			   count desc         
+         </if>
+	</select>
+	
+	<select id="selectSearchListCount" resultType="_int" parameterType="hashmap">
+	SELECT
+			COUNT(*)
+	  FROM
+			BOARD
+	 WHERE
+			STATUS = 'Y'
+	   AND 
+	   		BOARD_TYPE= #{boardType}
+	<if test="condition == 'all'">
+	   AND
+			BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+		OR
+			BOARD_TITLE LIKE '%'||#{keyword}||'%'
+	</if>
+	<if test="condition == 'title'">
+	   AND
+			BOARD_TITLE LIKE '%'||#{keyword}||'%'
+	</if>
+	<if test="condition == 'content'">
+	   AND
+			BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+	</if>
+
+</select>
+
+<select id="selectSearchList" resultMap="boardResultSet" parameterType="hashmap">
+	SELECT
+		       board_no
+		      ,board_title
+		      ,board_content
+		      ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
+		      ,count
+		      ,board_type
+		      ,board_writer
+		      ,board_like
+	  FROM
+			BOARD
+	 WHERE
+			STATUS = 'Y'
+	   AND 
+	   		BOARD_TYPE= #{boardType}
+	<if test="category != 'all'">
+	   AND  CATEGORY = #{category}
+	</if>
+	<if test="condition == 'all'">
+	   AND
+			BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+		OR
+			BOARD_TITLE LIKE '%'||#{keyword}||'%'
+	</if>
+	<if test="condition == 'title'">
+	   AND
+			BOARD_TITLE LIKE '%'||#{keyword}||'%'
+	</if>
+	<if test="condition == 'content'">
+	   AND
+			BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+	</if>
+
+</select>
+	<!-- 미완성 -->
+	<select id="selectReplyList" resultType="comment">
+		select 
+			   COMMENT_NO commentNo,
+			   COMMENT_CONTENT commentContent,
+			   c.ENROLL_DATE commentEnrollDate,
+			   BOARD_TYPE boardType,
+			   BOARD_NO boardNo,
+			   m.MEM_ID memId
+		  from
+		       "COMMENT" c
+		  join
+		  		Member m
+		    on
+		       m.MEM_NO=c.MEM_NO	
+		 where
+		       status = 'Y'
+		   and
+		       board_no = #{boardNo}
+		 order
+		    by
+		       comment_no desc
+	</select>
+	
+	<insert id="insertReply" parameterType="comment">
+		insert
+		  into
+		       "COMMENT"
+		       (
+				COMMENT_NO
+				,COMMENT_CONTENT
+				,ENROLL_DATE
+				,BOARD_TYPE
+				,BOARD_NO
+				,MEM_NO
+				,STATUS
+		       )
+		values
+		       (
+		       SEQ_CNO.nextval
+		       ,#{commentContent}
+		       ,sysdate
+		       ,#{boardType}
+		       ,#{boardNo}
+		       ,#{memNo}
+		       ,'Y'
+		       )
+	</insert>
+
+
 
 
 </mapper>

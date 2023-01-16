@@ -40,9 +40,9 @@
                             <th width="100">카테고리</th>
                             <td colspan="3">
                                 <select name="category" id="" class="form-control" style="width: 120px;">
-                                    <option value="보도자료">보도자료</option>
-                                    <option value="농촌소식">농촌소식</option>
-                                    <option value="농업정보">농업정보</option>
+                                    <option value="nr">보도자료</option>
+                                    <option value="fn">농촌소식</option>
+                                    <option value="fi">농업정보</option>
                                 </select>
                             </td>
                         </tr>

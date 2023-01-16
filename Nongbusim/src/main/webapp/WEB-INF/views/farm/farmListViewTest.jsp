@@ -15,9 +15,6 @@
         width: 100%;
         font-family: 'Pretendard-Regular';
     }
-    .farm-area{
-        min-height: 300px;
-    }
     .farm-list-area{
         width: 900px;
     }
@@ -26,9 +23,8 @@
         margin-right: 500px;
         margin-bottom: 50px;
     }
-    .search-area{
+    .local-area{
         background-color: rgb(235, 235, 235);
-        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.05);
         width: 800px;
         padding: 30px;
         border-radius: 5px;
@@ -44,10 +40,10 @@
     }
     .area-selection-list li{
         display: inline-block;
-        width: 20%;
+        width: 23%;
     }
     #all-select-btn{
-        margin-right: 400px;
+        margin-right: 600px;
         margin-bottom: 20px;
     }
     .farm-main-title>h3{
@@ -91,26 +87,6 @@
     .farm-info a{
         color: black;
     }
-    #search-input{
-        width: 300px;
-        display: inline-block;
-    }
-    .local-area{
-        background-color: rgb(248, 248, 248);
-        border-radius: 5px;
-        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.05);
-        width: 680px;
-    }
-    .area-selection-list a{
-        color: black;
-    }
-    .search-title{
-        font-size: 23px;
-        margin-right: 500px;
-    }
-    .custom-select{
-        width: 100px;
-    }
 </style>
 </head>
 <body>
@@ -122,59 +98,38 @@
         <div class="farm-list-area">
             <h1 id="farm-list-title">농장리스트</h1>
 
-            <div class="search-area">
+            <div class="local-area">
+                <a href="list.fm" class="btn btn-secondary" id="all-select-btn">전체보기</a>
                 
-                <br>
-                <form action="search.fm" method="get">
-                    <input type="hidden" name="lco" value="${lco}">
-                    <select class="custom-select" name="condition">
-                        <option value="all">전체</option>
-                        <option value="farmName">농장 이름</option>
-                        <option value="crop">작물</option>
-                    </select>
-                    <input type="text" class="form-control" name="keyword" id="search-input">
-                    <button type="submit" class="btn btn-secondary">검색</button>
-                </form>
-                
-                
-                <br><br>
-                <div class="search-title">지역별 조회</div>
-                <div class="local-area">
-                    <br>
-                    <a href="list.fm" class="btn btn-secondary" id="all-select-btn">전체보기</a>
-                    <div class="area-selection-list">
-                        <ul> 
-                            <li><a href="list.fm?lco=su">서울</a></li>
-                            <li><a href="list.fm?lco=gg">경기</a></li>
-                            <li><a href="list.fm?lco=ic">인천</a></li>
-                            <li><a href="list.fm?lco=gw">강원</a></li><br>
-                            <li><a href="list.fm?lco=cc">충청</a></li>
-                            <li><a href="list.fm?lco=gs">경상</a></li>
-                            <li><a href="list.fm?lco=jl">전라</a></li>
-                            <li><a href="list.fm?lco=jj">제주</a></li>
-                        </ul>
-                        <br>
-                    </div>
-                    <br>
+                <div class="area-selection-list">
+                    <ul>
+                        <li><a href="chat.fm?lco=su">서울</a></li>
+                        <li><a href="list.fm?lco=gg">경기</a></li>
+                        <li><a href="list.fm?lco=ic">인천</a></li>
+                        <li><a href="list.fm?lco=gw">강원</a></li>
+                        <li><a href="list.fm?lco=cc">충청</a></li>
+                        <li><a href="list.fm?lco=gs">경상</a></li>
+                        <li><a href="list.fm?lco=jl">전라</a></li>
+                        <li><a href="list.fm?lco=jj">제주</a></li>
+                    </ul>
                 </div>
-                <br>
             </div>
 
             <div class="farm-main-area">
                 <div class="farm-main-title">
-                    <h3>농장 조회</h3>
+                    <h3>농장 전체 조회</h3>
                     <span>(총 ${farmList.size()}개)</span>
                 </div>
                 <hr style="width: 800px;">
     
                 <div class="farm-area">
                     <table class="farm-info-table">
-                        <c:forEach var="farm" items="${farmList}">
+                        <c:forEach var="f" items="${farmList}">
                             <tr>
                                 <td>
                                     <c:forEach var="at" items="${atList}">
-                                        <c:if test="${farm.farmNo eq at.boardNo}">
-                                            <a href="detail.fm?fno=${farm.farmNo}">
+                                        <c:if test="${f.farmNo eq at.boardNo}">
+                                            <a href="detail.fm?fno=${f.farmNo}">
                                                 <img class="farm-img" src="${at.changeName}">
                                             </a>
                                         </c:if>
@@ -182,28 +137,26 @@
                                 </td>
                                 <td class="farm-info">
                                     <dl>
-                                        <a href="detail.fm?fno=${farm.farmNo}"><h4>${farm.farmName}</h4></a><br>
+                                        <a href="detail.fm?fno=${f.farmNo}"><h4>${f.farmName}</h4></a><br>
                                         <dt><img class="farm-info-icon" src="resources/images/marker-icon.png"></dt>
-                                        <dd>${farm.address}<br></dd>
+                                        <dd>${f.address}<br></dd>
                                         <dt><img class="farm-info-icon" src="resources/images/phone-icon.png"></dt>
-                                        <dd>${farm.phone}<br><br></dd>
+                                        <dd>${f.phone}<br><br></dd>
                                         <dt>대표 작물</dt>
                                         <dd>
-                                            <div><a href="">${farm.crop}</a></div>
+                                            <div><a href="">${f.crop}</a></div>
                                             <br>
                                         </dd>
 
                                         <!-- 프로그램이 있을 경우 -->
-                                        <dt>진행중인 프로그램</dt>
-                                        <c:forEach var="program" items="${programList}">
-                                            <c:if test="${program.farmNo eq farm.farmNo}">
-                                                <dd>
-                                                    <div><a href="">${program.programName}</a></div>
-                                                </dd>
-                                            </c:if>
-                                        </c:forEach>
-                                        <br>
+                                        <c:if test="${not empty farm.programName}">
+                                        </c:if>
 
+                                        <dt>진행중인 프로그램</dt>
+                                        <dd>
+                                            <div><a href="">${f.programName}</a></div>
+                                            <br>
+                                        </dd>
 
                                         <!-- <dt>판매중인 작물<br></dt>
                                         <dd>
@@ -217,12 +170,8 @@
                             </tr>
                         </c:forEach>
                     </table>
-                    <c:if test="${empty farmList}">
-                        <div><br><br><br>
-                            일치하는 검색 결과가 없습니다.</div>
-                        </c:if>
-                    </div>
                 </div>
+            </div>
 
             <br>
             <!-- 페이지처리하는 영역-->

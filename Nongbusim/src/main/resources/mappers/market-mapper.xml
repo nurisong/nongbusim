@@ -45,6 +45,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</resultMap>
 
+	<resultMap id="markResultSet" type="mark">
+		<result column="MEM_NO" property="memNo"/>
+		<result column="STATUS" property="status"/>
+		<result column="BOARD_TYPE" property="boardType"/>
+		<result column="BOARD_NO" property="boardNo"/>
+	
+	</resultMap>
 	
 
 
@@ -296,6 +303,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	
+	
+	<select id="ajaxMarkMarket" resultMap="markResultSet">
+	
+		select
+			board_no
+		from
+			mark
+		where
+			mem_no = #{memNo}
+		and 
+			status = 1
+		and 
+			board_type = 'mk'
+			
+	</select>
+	
+	
+	
+	<insert id="ajaxClickMarkMarket">
+	
+		insert
+			into
+				mark
+			values
+			(
+			#{memNo}
+			,1
+			,'mk'
+			,#{boardNo}
+			)
+	
+	
+	
+	</insert>
 	
 	
 	

@@ -85,7 +85,9 @@
           
           <!--글 작성-->
           <div>
+          	  <c:if test="${loginUser !=null }">
               <button type="button" onclick="location.href='write.bo?type=${type}';" class="btn btn-secondary" id="insert-btn" >글작성</button>
+          	  </c:if>
           </div>
           <br>
           <br>
@@ -94,22 +96,22 @@
           <div style="background-color:rgb(223, 223, 223); height: 60px; width:70%; text-align: center;">
 
             <div id=sform>
-              <form id="searchForm" action="" method="get" style="padding-top:10px;">
-                <div class="select">
-                  <select class="custom-select" name="condition">
-                    <option value="all">전체</option>
-                    <option value="writer">작성자</option>
-                    <option value="title">제목</option>
-                    <option value="content">내용</option>
-                  </select>
-                </div>
-                <div class="text">
-                  <input type="text" class="form-control" name="keyword">
-                </div>
-                <div class="searchbutton">
-                  <button type="submit" class="searchBtn btn btn-secondary">검색</button>
-                </div>
-              </form>              
+                <form id="searchForm" action="search.bo" method="get" style="padding-top:10px;">
+                    <div class="select">
+                    <select class="custom-select" name="condition">
+                        <option value="all">전체</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                    </select>
+                    </div>
+                    <div class="text">
+                    <input type="text" class="form-control" name="keyword">
+                    </div>
+                    <div class="searchbutton">
+                    <input type="hidden" value="${ type }" name="boardType">
+                    <button type="submit" class="searchBtn btn btn-secondary">검색</button>
+                    </div>
+                </form>               
             </div>
             
           </div>
@@ -133,11 +135,11 @@
 	            
                     <c:forEach items="${ list }" var="b">
 
-                            <div class="thumbnail" onclick="location.href='detail.bo?bno=${b.boardNo}';">
+                            <div class="thumbnail" onclick="location.href='detail.bo?type=S&bno=${b.boardNo}';">
                                 <c:if test="${ not empty at }">
                                     <c:forEach items="${ at }" var="at">
                                         <c:if test="${ b.boardNo == at.boardNo}">
-                                             <a href="detail.bo?bno=${b.boardNo}" >
+                                             <a href="detail.bo?type=S&bno=${b.boardNo}" >
                                                  <img class="card-img-top" src="${ at.changeName }" alt="">
                                              </a>
                                         </c:if>
@@ -146,10 +148,19 @@
                             
                                 <div class="card-body">
                                     <h6 class="card-title">
-                                        <a href="">${ b.boardTitle }</a>
+                                        <p style="color: black; font-size:20px;">${ b.boardTitle }</p>
                                     </h6>
-                                    <p>${ b.boardLike }<br>
-                                    	${ b.count }
+                                    <p>
+                                    <svg id="heartless" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+									</svg>
+                                    ${ b.boardLike }
+                                    &nbsp;&nbsp;
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+									    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+									    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+									</svg>
+                                    ${ b.count }
                                     </p>
                                 </div>
                             </div>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.Comment;
+import com.kh.nbs.common.model.vo.Mark;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.model.vo.Recomment;
 import com.kh.nbs.market.model.dao.MarketDao;
@@ -136,6 +137,19 @@ public class MarketServiceImpl implements MarketService{
 	
 	
 	
+	// 찜하기 불러오기 
+	@Override
+	public ArrayList<Mark> ajaxMarkMarket(int memNo) {
+		return marketdao.ajaxMarkMarket(memNo, sqlSession);
+	}
+	
+	
+	//찜하기
+	@Override
+	public int ajaxClickMarkMarket(Mark mark) {
+		return marketdao.ajaxClickMarkMarket(mark, sqlSession);
+	}
+
 	
 	
 	

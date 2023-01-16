@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.nbs.common.model.vo.PageInfo;
+import com.kh.nbs.common.template.Pagination;
 import com.kh.nbs.member.model.vo.Member;
 import com.kh.nbs.review.model.service.ReviewService;
 import com.kh.nbs.review.model.vo.Review;
@@ -32,9 +34,10 @@ public class ReviewController {
 //		reviewService.selectReviewList();
 		System.out.println(reviewService.selectReviewList());
 		
-		mv.addObject("reviewList",reviewService.selectReviewList()).setViewName("review/ReviewBoardList");
 		
-		
+		PageInfo pi = Pagination.getPageInfo(reviewService.selectReviewCount(), currentPage , 5 , 3);
+		mv.addObject("pi", pi).addObject("reviewList",reviewService.selectReviewList()).setViewName("review/ReviewBoardList");
+	   
 		
 		return mv;
 	

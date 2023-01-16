@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.nbs.board.model.service.BoardService;
 import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.Comment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.template.Pagination;
+import com.kh.nbs.member.model.vo.Member;
 
 @Controller
 public class BoardController {
@@ -61,8 +64,25 @@ public class BoardController {
 
 	//게시글 조회
 	@RequestMapping("detail.bo")
-	public ModelAndView selectBoard(ModelAndView mv,@RequestParam(value="bno") int boardNo) { // 키값과 똑같은 이름의 매개변수, int형으로 쓰면 알아서 파싱
+	public ModelAndView selectBoard(ModelAndView mv,@RequestParam(value="bno") int boardNo, @RequestParam(value="type") String boardType, HttpSession session) { // 키값과 똑같은 이름의 매개변수, int형으로 쓰면 알아서 파싱
 
+
+		
+		if(((Member)session.getAttribute("loginUser"))!=null) {
+			int memNo=((Member)session.getAttribute("loginUser")).getMemNo();
+
+			HashMap map = new HashMap();
+			
+			map.put("boardNo", boardNo);
+			map.put("memNo", memNo);
+			map.put("boardType", boardType);
+
+			int result=boardService.selectLike(map);
+
+			
+			mv.addObject("result",result);
+		}
+		
 		if(boardService.increaseCount(boardNo) > 0) {
 			
 			Board b=boardService.selectBoard(boardNo);
@@ -83,6 +103,9 @@ public class BoardController {
 	@RequestMapping("insert.bo")
 	public ModelAndView insertBoard(Board b, MultipartFile[] upfiles, HttpSession session, ModelAndView mv, Attachment a) {
 		
+		System.out.println(b.getBoardType());
+		System.out.println(b.getBoardNo());
+		
 		if(boardService.insertBoard(b) > 0) {
 			
 			int boardNo = b.getBoardNo();
@@ -95,16 +118,13 @@ public class BoardController {
 					a.setOriginName(upfile.getOriginalFilename()); // 원본명
 					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
 					
-					if(boardService.insertAttachment(a) > 0) {
-						mv.addObject("type", b.getBoardType()).setViewName("redirect:/");
-					} else {
-						mv.setViewName("common/errorPage");
-					}
+					boardService.insertAttachment(a);
+
 						
 				}
 			}
 		
-			mv.setViewName("redirect:/");
+			mv.addObject("type", b.getBoardType()).setViewName("redirect:list.bo");
 			
 		} else {
 			// 첨부파일 삭제
@@ -162,6 +182,7 @@ public class BoardController {
 			System.out.println("첨부파일 삭제 성공");
 		}
 		
+		
 		if(boardService.deleteBoard(b)>0) {
 			System.out.println("게시글 삭제 성공");
 		}
@@ -183,27 +204,84 @@ public class BoardController {
 	
 		
 		boardService.insertLike(b);
-		
+		boardService.increaseLike(b);
 		
 	}
 	
 	//좋아요 삭제
 	@ResponseBody
 	@RequestMapping("delete.lk")
-	public void deleteLike(int boardNo, int memNo) {
+	public void deleteLike(String boardType, int boardNo, int memNo) {
 		Board b= new Board();
 		b.setBoardNo(boardNo);
 		b.setMemNo(memNo);
+		b.setBoardType(boardType);
 		
+		boardService.decreaseLike(b);
 		boardService.deleteLike(b);
 		
 	};
 	
-	//좋아요 개수 조회
-	@RequestMapping("selectCount.lk")
-	public String selectLikeCount() {
-		return "";
+	//리스트 정렬하기
+	@ResponseBody
+	@RequestMapping("selectListAjax.bo")
+	public ArrayList<Board> selectListAjax(String selectedOption, String boardType,PageInfo pi) {
+		
+		Board b=new Board();
+		b.setThumbnail(selectedOption);
+		b.setBoardType(boardType);
+		
+		ArrayList list=boardService.selectListOrder(b,pi);
+		
+		return list;
 	}
+	
+	@RequestMapping("search.bo")
+	public ModelAndView selectSearchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+			   					   @RequestParam(value="ctg", defaultValue="all") String category,
+			   					   String condition, String keyword, String boardType, ModelAndView mv,HttpSession session) {
+		HashMap<String, String> map = new HashMap();
+		map.put("category", category);
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("boardType", boardType);
+		
+		PageInfo pi= new PageInfo();
+
+		if(boardType.charAt(0)=='S') {
+			
+			pi = Pagination.getPageInfo(boardService.selectSearchListCount(map), currentPage, 10, 8);			
+			mv.addObject("at",boardService.attachmentSelectList()).setViewName("board/pictureBoardList");
+		} else {
+			
+			pi = Pagination.getPageInfo(boardService.selectSearchListCount(map), currentPage, 10, 5);
+			mv.setViewName("board/tableBoardList");	
+		}
+		
+		mv.addObject("pi", pi).addObject("list", boardService.selectSearchList(pi,map)).addObject("type",boardType);
+		
+		
+		
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "rlist.bo", produces="application/json; charset=UTF-8")
+	public String ajaxSelectReplyList(int bno) {
+		return new Gson().toJson(boardService.selectReplyList(bno));
+	}
+	
+	@ResponseBody
+	@RequestMapping("rinsert.bo")
+	public String ajaxInsertReply(Comment c) {
+		return boardService.insertReply(c) > 0 ? "success" : "fail";
+	}
+	
+	
+	
+	
+	
+	
 	
 		
 }

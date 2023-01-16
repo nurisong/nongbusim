@@ -1,6 +1,7 @@
 package com.kh.nbs.farm.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
@@ -16,8 +17,9 @@ public interface FarmService {
 	// 1-2) 농장 리스트 조회
 	// **프로그램, 판매품목 연결
 	ArrayList<Farm> selectFarmList(PageInfo pi, String localCode);
-	ArrayList<Attachment> selectAttachmentList(String localCode); // 첨부파일
+	ArrayList<Attachment> selectAttachmentList(); // 첨부파일
 	// 1-3) 농장 프로그램 조회
+	ArrayList<Program> selectProgramList();
 	
 	// 2. 농장 등록 서비스(insert)
 	// 첨부파일 등록
@@ -39,4 +41,8 @@ public interface FarmService {
 	// 6. 농장 정보 수정 서비스(update)
 	int updateFarm(Farm f);
 	ArrayList<Attachment> deleteAttachment(int[] fileNo);
+	
+	// 7. 검색 서비스(select)
+	int selectSearchListCount(HashMap map);
+	ArrayList<Farm> selectSearchList(PageInfo pi, HashMap map);
 }

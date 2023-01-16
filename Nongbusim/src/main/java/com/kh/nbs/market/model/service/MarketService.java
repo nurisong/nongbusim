@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.Comment;
+import com.kh.nbs.common.model.vo.Mark;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.model.vo.Recomment;
 import com.kh.nbs.market.model.vo.Market;
@@ -68,7 +69,12 @@ public interface MarketService {
 	//대댓글 삭제 메소드
 	int deleteRecomment(int rcno);
 	
-	//좋아요 메소드
 	
+	
+	//찜하기 불러오기 메소드
+	ArrayList<Mark> ajaxMarkMarket(int memNo);
+	
+	//찜하기 메소드
+	int ajaxClickMarkMarket(Mark mark);
 	
 }
