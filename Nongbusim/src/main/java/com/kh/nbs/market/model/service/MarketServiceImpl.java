@@ -85,8 +85,6 @@ public class MarketServiceImpl implements MarketService{
 	
 	
 	
-	
-	
 	//게시글 수정
 	
 
@@ -115,6 +113,11 @@ public class MarketServiceImpl implements MarketService{
 	
 	
 	
+	
+	
+	
+	
+	
 	//댓글 작성
 	@Override
 	public int ajaxInsertMarketComment(Comment comment) {
@@ -137,7 +140,11 @@ public class MarketServiceImpl implements MarketService{
 	
 	
 	
-	// 찜하기 불러오기 
+	
+	
+	
+	
+	// 찜하기 리스트 불러오기 
 	@Override
 	public ArrayList<Mark> ajaxMarkMarket(int memNo) {
 		return marketdao.ajaxMarkMarket(memNo, sqlSession);
@@ -150,6 +157,23 @@ public class MarketServiceImpl implements MarketService{
 		return marketdao.ajaxClickMarkMarket(mark, sqlSession);
 	}
 
+	
+	//찜하기 해제하기
+	@Override
+	public int ajaxClickUnmarkMarket(Mark mark) {
+		return marketdao.ajaxClickUnmarkMarket(mark, sqlSession);
+	}
+	
+	//찜하기 불러오기 
+	@Override
+	public Mark markMarket(Market market) {
+		return marketdao.markMarket(market, sqlSession);
+	}
+	
+	
+	
+	
+	
 	
 	
 	
@@ -177,6 +201,9 @@ public class MarketServiceImpl implements MarketService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+	
 
 
 }

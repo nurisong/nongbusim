@@ -59,6 +59,7 @@
                                 <option value="축산물">축산물</option>
                             </select>
                         </tr>
+
                         <tr>
                             <td rowspan="3">
                                 <img src="${ at[0].changeName }" alt="" id="titleImg" width="250px" height="250px">
