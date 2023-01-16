@@ -29,6 +29,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<mappers>
 		<mapper resource="/mappers/account-mapper.xml" />
+		<mapper resource="/mappers/admin-mapper.xml" />
 		<mapper resource="/mappers/attachment-mapper.xml" />
 		<mapper resource="/mappers/board-mapper.xml" />
 		<mapper resource="/mappers/diary-mapper.xml" />

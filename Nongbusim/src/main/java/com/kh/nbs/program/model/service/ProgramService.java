@@ -31,5 +31,5 @@ public interface ProgramService {
 	// 현재 신청환 회원 증가
 	int headCountIncrease(Program p);
 	
-	ArrayList<Program> selectMyProgram(int memNo);
+	ArrayList<Program> selectMyProgram(int memNo,PageInfo pi);
 }
