@@ -267,7 +267,12 @@ public class MarketController {
 		
 	
 	//댓글 수정
-	
+	@ResponseBody
+	@RequestMapping("updateComment.mk")
+	public String ajaxUpdateMarketComment(Comment comment) {
+		
+		return marketService.ajaxUpdateMarketComment(comment) > 0? "success" : "fail";
+	}
 	
 	
 	
