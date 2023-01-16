@@ -39,7 +39,6 @@ public class MemberController {
 		//System.out.println(loginUser);
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {
-			
 			session.setAttribute("loginUser", loginUser);
 			mv.setViewName("redirect:/");
 			
@@ -64,9 +63,9 @@ public class MemberController {
 	@RequestMapping("userInsert.me")
 	public String userInsertMember(Member m, Model model, HttpSession session) {
 		
-//		System.out.println("평문 : " + m.getMemPwd());
+		System.out.println("평문 : " + m.getMemPwd());
 		String encPwd = bcryptPasswordEncoder.encode(m.getMemPwd());
-//		System.out.println("암호문 : " + encPwd);
+		System.out.println("암호문 : " + encPwd);
 		
 		m.setMemPwd(encPwd);
 		
@@ -282,8 +281,9 @@ public class MemberController {
 		String encPwd = ((Member)session.getAttribute("loginUser")).getMemPwd();
 		
 		if(bcryptPasswordEncoder.matches(memPwd, encPwd)) {
-			String updatePwd = bcryptPasswordEncoder.encode(m.getUpdatePwd());
-			m.setMemPwd(updatePwd);
+			
+			m.setMemPwd(memPwd);
+			session.setAttribute("loginUser", memberService.loginMember(m));
 			return "redirect:/";
 		} else {
 			model.addAttribute("alertMsg", "존재하지 않는 비밀번호 입니다.");

@@ -75,15 +75,15 @@
                             <label for="userPwd" class="mr-sm-2">현재 비밀번호 : </label>
                             <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="memPwd" name="memPwd"> <br>
                             <label for="userPwd" class="mr-sm-2">새 비밀번호 : </label>
-                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="updatePwd" name="updatePwd"> <br>
+                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." id="updatePwd" name="updatePwd"> <br>
                             <label for="userPwd" class="mr-sm-2">새 비밀번호 확인 : </label>
-                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호를 입력하세요" id="updatePwdChk" name="updatePwdChk"> <br>
+                            <input type="password" class="form-control mb-2 mr-sm-2" placeholder="비밀번호는 6~18자리의 영문, 숫자를 혼합해야 합니다." id="updatePwdChk" name="updatePwdChk"> <br>
                             <input type="hidden" name="memNo" value="${ loginUser.memNo }">
                             <div class="mr-sm-2" id="checkPwdResult"></div>
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer" align="center">
-                        <button type="submit" class="btn btn-danger">변경하기</button>
+                        <button type="submit" class="btn btn-danger" onclick="return validate()">변경하기</button>
                     </div>
                 </form>
             </div>
@@ -122,6 +122,33 @@
         </div>
     </div>
     
-    
+    <script>
+		// 비밀번호 확인 javascript
+		function check_pwd(){
+				if(document.getElementById('updatePwd').value != '' && document.getElementById('updatePwdChk').value != ''){
+					if(document.getElementById('updatePwd').value == document.getElementById('updatePwdChk').value){
+	   				document.getElementById('checkPwdResult').innerHTML = '비밀번호가 일치합니다.'
+	   				document.getElementById('checkPwdResult').style.color = 'green';
+					} else{
+						document.getElementById('checkPwdResult').innerHTML = '비밀번호가 일치하지 않습니다.'
+						document.getElementById('checkPwdResult').style.color = 'red';
+					}
+				} 
+			}
+		
+   		// 유효성 검사 -영어와 숫자 혼합으로 5-12사이
+   		function validate(){
+   			
+   			var updatePwd = document.getElementById("updatePwd");
+            
+            // 비밀번호 유효성
+            regExp = /^[a-zA-z0-9]{6,18}$/;
+            if(!regExp.test(updatePwd.value)){
+                alert('적합하지 않은 비밀번호입니다. 다시 입력해주세요.');
+                updatePwd.select();
+                return false;
+            }
+      	}
+    </script>
 </body>
 </html>
