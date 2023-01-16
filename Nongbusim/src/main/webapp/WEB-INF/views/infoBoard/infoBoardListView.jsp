@@ -50,7 +50,7 @@
 
             <form id="searchForm" action="search.if" method="get" align="center">
                 <div class="select">
-                    <input type="hidden" name="ctg" value="${ctg}">
+                    <input type="hidden" name="ctg" value="${map.category}">
                     <select class="custom-select" name="condition">
                         <option value="all">전체</option>
                         <option value="title">제목</option>
@@ -81,7 +81,11 @@
                         <c:forEach var="info" items="${infoList}">
                             <tr>
                                 <td class="ino">${info.infoNo}</td>
-                                <td>${info.category}</td>
+                                <td>
+                                    <c:if test="${info.category eq 'nr' }">보도자료</c:if>
+                                    <c:if test="${info.category eq 'fn' }">농촌소식</c:if>
+                                    <c:if test="${info.category eq 'fi' }">농업정보</c:if>
+                                </td>
                                 <td>${info.infoTitle}</td>
                                 <td>${info.createDate}</td>
                                 <td>${info.count}</td>
@@ -104,20 +108,19 @@
 
             <br><br>
             <!-- 페이지처리하는 영역-->
-            <div id="market_page">
+            <div id="page-area">
                 <ul class="pagination justify-content-center">
                     <c:if test="${pi.currentPage ne 1}">
-                        <li class="page-item"><a class="page-link" href="list.if?cpage=${pi.currentPage - 1}&category=${map.category}&condition=${map.condition}&keyword=${map.keyword}">이전</a></li>
+                        <li class="page-item"><a class="page-link" href="list.if?cpage=${pi.currentPage - 1}&ctg=${map.category}&condition=${map.condition}&keyword=${map.keyword}">이전</a></li>
                     </c:if>
 
                     <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-                        <li class="page-item"><a class="page-link" href="list.if?cpage=${p}&category=${map.category}&condition=${map.condition}&keyword=${map.keyword}">${p}</a></li>
+                        <li class="page-item"><a class="page-link" href="list.if?cpage=${p}&ctg=${map.category}&condition=${map.condition}&keyword=${map.keyword}">${p}</a></li>
                     </c:forEach>    
                     
                     <c:if test="${pi.maxPage ne pi.currentPage}">
-                        <li class="page-item"><a class="page-link" href="list.if?cpage=${pi.currentPage + 1}&category=${map.category}&condition=${map.condition}&keyword=${map.keyword}">다음</a></li>
+                        <li class="page-item"><a class="page-link" href="list.if?cpage=${pi.currentPage + 1}&ctg=${map.category}&condition=${map.condition}&keyword=${map.keyword}">다음</a></li>
                     </c:if>
-                    <!-- <li class="page-item"><a class="page-link" href="#">${p}</a></li> -->
                 </ul>
             </div>
         </div>

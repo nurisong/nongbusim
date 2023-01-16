@@ -139,9 +139,9 @@
                                 <c:if test="${ not empty at }">
                                     <c:forEach items="${ at }" var="at">
                                         <c:if test="${ b.boardNo == at.boardNo}">
-                                             <a href="detail.bo?type=S&bno=${b.boardNo}" >
+  
                                                  <img class="card-img-top" src="${ at.changeName }" alt="">
-                                             </a>
+
                                         </c:if>
                                     </c:forEach>
                                 </c:if>

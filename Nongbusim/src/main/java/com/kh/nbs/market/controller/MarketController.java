@@ -236,23 +236,22 @@ public class MarketController {
 
 	
 	
-	//댓글 작성
-	@ResponseBody
-	@RequestMapping("insertComment.mk")
-	public String ajaxInsertMarketComment(Comment comment) {
-
-		return marketService.ajaxInsertMarketComment(comment) > 0? "success" : "fail";
-	}
-	
-	
 	//댓글 조회
 	@ResponseBody
 	@RequestMapping(value="listComment.mk", produces="application/json; charset=UTF-8")
 	public String ajaxSelectListMarketComment(Comment comment) {
 		
 		return new Gson().toJson(marketService.ajaxSelectListMarketComment(comment));
-		
-		
+	
+	}
+	
+	
+	//댓글 작성
+	@ResponseBody
+	@RequestMapping("insertComment.mk")
+	public String ajaxInsertMarketComment(Comment comment) {
+
+		return marketService.ajaxInsertMarketComment(comment) > 0? "success" : "fail";
 	}
 	
 
@@ -268,6 +267,14 @@ public class MarketController {
 		
 	
 	//댓글 수정
+	@ResponseBody
+	@RequestMapping("updateComment.mk")
+	public String ajaxUpdateMarketComment(Comment comment) {
+		
+		return marketService.ajaxUpdateMarketComment(comment) > 0? "success" : "fail";
+	}
+	
+	
 	
 	
 	

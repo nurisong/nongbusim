@@ -133,7 +133,7 @@
                     memNo: ""// 회원번호 어떻게 가져가지?
                 },
                 success: function(){
-
+                    
                 },
                 error: function(){
                     console.log('농부 승인 실패');

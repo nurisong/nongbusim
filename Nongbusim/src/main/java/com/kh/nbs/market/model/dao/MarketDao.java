@@ -132,6 +132,10 @@ public class MarketDao {
   }
   
   
+  public int ajaxUpdateMarketComment(Comment comment, SqlSessionTemplate sqlSession) {
+	  return sqlSession.update("marketMapper.ajaxUpdateMarketComment", comment);
+  }
+  
   
   
 }

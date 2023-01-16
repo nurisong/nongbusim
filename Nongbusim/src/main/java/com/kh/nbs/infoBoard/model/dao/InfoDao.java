@@ -40,12 +40,16 @@ public class InfoDao {
 		return (ArrayList)sqlSession.selectList("infoMapper.selectImg", infoNo);
 	}
 
-	public int insertInfo(Info i, SqlSessionTemplate sqlSession) {
-		return sqlSession.insert("infoMapper.insertInfo", i);
+	public int insertInfo(Info info, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("infoMapper.insertInfo", info);
 	}
 
 	public int insertAttachment(Attachment a, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("attachmentMapper.insertAttachmentInfo", a);
+	}
+	
+	public int updateInfo(Info info, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("infoMapper.updateInfo", info);
 	}
 
 	public int selectSearchListCount(HashMap map, SqlSessionTemplate sqlSession) {
@@ -57,6 +61,8 @@ public class InfoDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("infoMapper.selectSearchList", map, rowBounds);
 	}
+
+
 
 
 }
