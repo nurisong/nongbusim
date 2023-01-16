@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminMapper">
+
+	<resultMap id="memberResultSet" type="member">
+		<result column="MEM_NO" property="memNo"/>
+		<result column="MEM_ID" property="memId"/>
+		<result column="MEM_PWD" property="memPwd"/>
+		<result column="NAME" property="name"/>
+		<result column="NICKNAME" property="nickName"/>
+		<result column="PHONE" property="phone"/>
+		<result column="GENDER" property="gender"/>
+		<result column="EMAIL" property="email"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="MEM_STATUS" property="memStatus"/>
+		<result column="FARMER_CODE" property="farmerCode"/>
+		<result column="CAREER" property="career"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="UPDATE_PWD" property="updatePwd"/>			
+	</resultMap>
+	
+	<select id="selectMemberList" resultMap="memberResultSet">
+		SELECT
+				 MEM_NO
+				,MEM_ID
+				,NAME
+				,NICKNAME
+				,PHONE
+				,EMAIL
+				,TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') as "ENROLL_DATE"
+				,MEM_STATUS
+				,FARMER_CODE
+		  FROM
+				MEMBER
+	</select>
+	
+</mapper>
