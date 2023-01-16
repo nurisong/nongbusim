@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.program.model.dao.ProgramDao;
 import com.kh.nbs.program.model.vo.Program;
 import com.kh.nbs.review.model.dao.ReviewDao;
@@ -29,8 +30,8 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public ArrayList<Review> selectReviewList() {
-		return reviewDao.selectReviewList(sqlSession);
+	public ArrayList<Review> selectReviewList(PageInfo pi) {
+		return reviewDao.selectReviewList(sqlSession,pi);
 	}
 
 	@Override
