@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>메뉴바</title>
-
-<link rel="stylesheet" type="text/css" href = "${pageContext.request.contextPath}/resources/css/menubar.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js">
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -202,11 +200,11 @@
                     			<c:otherwise>
                     				<c:choose>
 	                    				<c:when test="${ loginUser.farmerCode ne null }">
-		                    				<li class="username"><a href="myPageFarmer.me">${ loginUser.name } 님</a> ></li>
+		                    				<li class="username"><a href="myPageFarmer.me">${ loginUser.name } 님 ></a></li>
 	                    					<li class="logout"><a href="logout.me">로그아웃</a></li>
 	                    				</c:when>
 	                    				<c:otherwise>
-		                    				<li class="username"><a href="myPageUser.me">${ loginUser.name } 님</a> ></li>
+		                    				<li class="username"><a href="myPageUser.me">${ loginUser.name } 님 ></a></li>
 	                    					<li class="logout"><a href="logout.me">로그아웃</a></li>
 	                    				</c:otherwise>
 	                    			</c:choose>
