@@ -41,6 +41,12 @@
 		 top:20px;
 		 right : 5px;
 		 }
+		 
+		 #replyArea{
+		 
+		 width:50%;
+		 
+		 }
 
 
     </style>
@@ -160,7 +166,7 @@
         <!-- 댓글 기능 -->
         <div class="reply-area">
             
-            <table id="replyArea" class="table" align="center" style="width:50%">
+            <table id="replyArea" class="table" align="center">
                 <thead>
                     
                     <tr>
@@ -225,23 +231,13 @@
                         
 	<script>
 	
-	$(function(){
-		$('#commentShow').click(function(){
-			if($('#replyArea').css("display") == "none") {
-				$('#replyArea').show();
-			} else {
-				$('#replyArea').hide();
-			}
-		})
-		
-	});
 	
 	$(function(){
 
 		
 		if(${result}!=0) {
 			$('.heart').attr("src", "resources/images/heart2.png");
-		}
+		};
 	});
 	
 
@@ -275,6 +271,7 @@
 	                error: function() {
 	                    console.log('ajax communication failed');
 	                }
+	                
 	            });            
         	} else {
         		
@@ -298,13 +295,23 @@
 	                error: function() {
 	                    console.log('ajax communication failed');
 	                }
+	                
 	            });
-        		
-        	}
+        	};
         });
         
     });
 	    
+	$(function(){
+		$('#commentShow').click(function(){
+			if($('#replyArea').css("display") == "none") {
+				$('#replyArea').show();
+			} else {
+				$('#replyArea').hide();
+			};
+		});
+		
+	});
 	    
        	$(function(){
        		selectReplyList();
@@ -336,10 +343,9 @@
 					}
     				
     			})
-    		}
-    		else{
+    		} else {
     			alertify.alert('정상적인 댓글을 작성해주세요 ~ ');
-    		}
+    		};
     	};
     
     	function selectReplyList(){
@@ -356,7 +362,7 @@
 							   + '<td>' + list[i].commentContent      + '</td>'
 							   + '<td>' + list[i].commentEnrollDate   + '</td>'
 							   + '</tr>';
-					}
+					};
 					
 					$('#replyArea tbody').html(value);
 					$('#rcount').text(list.length);
