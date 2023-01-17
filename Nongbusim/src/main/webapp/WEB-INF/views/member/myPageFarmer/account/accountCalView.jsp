@@ -89,11 +89,20 @@
          			element.find(".fc-title").append("<br/><b>"+event.Score+"</b>");
          		}
          	},
-             
-           });
+
+			 datesSet: function(info){
+				var start= info.start;
+				var end = info.end;
+				changeMonth(start, end);
+
+			 }
+   		 });
+
+
            calendar.render();
 		   console.log(loadEvents());
-      });
+    
+		});
 
 
 	  	//1. 전체이벤트 데이터를  추츨해서 2. ajax로 서버에 전송하여 db저장
@@ -119,46 +128,40 @@
 		 console.log(return_value);
 		 return return_value;
 	};
-	
-	console.log();
+
 
 	//트리거로 페이지 로딩시 change 시 실행되는 이벤트핸들러 실행되도록
-    $(function(){
-    	$("#fc-dom-1").trigger("change");
-    		
-    });
+    //$(function(){
+    //	$("#fc-dom-1").trigger("change");
+    //    });
     	
   // 사용자가 선택한 년월에 변화가 일어나면 실행되는 함수  	
   // calendar처럼 동적으로 생성된 요소는 document.ready 이벤트가 작동x
   // 로드되었을 때 존재하지 않는 태그에 대해서는 이벤트를 걸 수 없음
   
-  // 이벤트바인딩하기
-  
-   $(document).on("#fc-dom-1","change",function(){	
-	   alert("변화감지");	
-	   $.ajax({
-		type: "post",
-		url: "monthlySummary.ac",
-		data: {
-			month : $("#fc-dom-1").val()
-		},
-		contentType : "application/json",
-		dataType:"json",
-		success: function(result){
-			console.log(result);
-		},
-		error: function(){
-			console.log('실패');
-		}			
-		
-	 });
-	
-	});
+  // 이벤트바인딩하기 -- 안됨 !! 풀켈린더가 시키는대로 해야함
+ //  $(document).on("#fc-dom-1","change",function(){	
 
-    	$("#incomeOfMonth").text($("#fc-dom-1").text());
-    	$("#monthlyIncome").text();
-    	
-    	
+	function changeMonth(start, end){
+
+		$.ajax({
+			type: "post",
+			url: "monthlySummary.ac",
+			data: {
+				start: start,
+				end: end
+			},
+			contentType : "application/json",
+			success: function(result){
+				console.log(result);
+			},
+			error: function(){
+				console.log('실패');
+			}						
+		});
+	
+	}
+
     
     
     </script>
