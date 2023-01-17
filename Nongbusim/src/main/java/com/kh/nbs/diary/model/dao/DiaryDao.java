@@ -18,9 +18,6 @@ public class DiaryDao {
 	}
 
 	
-	public Diary selectCalEventList(int memNo) {
-		return selectCalEventList(memNo);
-	}
 
 
 	public ArrayList<Diary> selectDiaryList(SqlSessionTemplate sqlSession, Diary diary) {
@@ -63,6 +60,11 @@ public class DiaryDao {
 
 	public int deleteAttachment(SqlSessionTemplate sqlSession, int diaryNo) {
 		return sqlSession.update("diaryMapper.deleteAttachment", diaryNo);
+	}
+
+
+	public ArrayList selectCalEvent(SqlSessionTemplate sqlSession, int memNo) {
+		return  (ArrayList)sqlSession.selectList("diaryMapper.selectCalEvent", memNo);
 	}
 
 

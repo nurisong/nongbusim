@@ -24,12 +24,7 @@ public class DiaryServiceImpl implements DiaryService {
 		return diaryDao.selectCategoryList(sqlSession, memNo);
 	}
 	
-	@Override
-	public Diary selectCalEventList(int memNo) {
-		return diaryDao.selectCalEventList(memNo);
-	}
 
-	
 
 	@Override
 	public ArrayList<Diary> selectDiaryList(Diary diary) {
@@ -73,6 +68,11 @@ public class DiaryServiceImpl implements DiaryService {
 	@Override
 	public int deleteAttachment(int diaryNo) {
 		return diaryDao.deleteAttachment(sqlSession, diaryNo);
+	}
+
+	@Override
+	public ArrayList seletCalEvent(int memNo) {
+		return diaryDao.selectCalEvent(sqlSession, memNo);
 	}
 
 	/*

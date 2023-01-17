@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.JsonElement;
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.diary.model.vo.Diary;
 
@@ -15,16 +16,14 @@ public interface DiaryService {
 	ArrayList<Diary> selectCategoryList(int MemNo);
 	// Ajax: 
 	ArrayList<Diary> selectDiaryList(Diary diary);	
-	Diary selectCalEventList(int memNo);
-	
 	Diary selectDiary(int diaryNo);
 	int insertAttachment(Attachment a);
 	int insertDiary(Diary diary);
 	ArrayList<Attachment> selectAttachmentList(int diaryNo);
 	int updateDiary(Diary diary);
 	int updateAttachment(Attachment at);
-	/* int insertNewAttachment(Attachment at); */
 	int deleteDiary(int diaryNo);
 	int deleteAttachment(int diaryNo);
+	ArrayList seletCalEvent(int memNo);
 
 }
