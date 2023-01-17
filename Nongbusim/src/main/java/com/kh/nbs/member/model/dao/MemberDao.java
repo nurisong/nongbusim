@@ -59,6 +59,11 @@ public class MemberDao {
 		return (ArrayList)sqlSession.selectList("memberMapper.userMyBoardList", memNo);
 	}
 	
+	// 일반 사용자가 작성한 마켓글 조회
+	public ArrayList<Market> userMyMarketList(SqlSessionTemplate sqlSession, int memNo){
+		return (ArrayList)sqlSession.selectList("memberMapper.userMyMarketList", memNo);
+	}
+	
 	// 농부가 작성한 게시글 조회
 	public ArrayList<Board> farmerMyBoardList(SqlSessionTemplate sqlSession, int memNo){
 		return (ArrayList)sqlSession.selectList("memberMapper.farmerMyBoardList", memNo);
@@ -67,6 +72,11 @@ public class MemberDao {
 	// 농부가 작성한 프로그램 조회
 	public ArrayList<Program> farmerMyProgramList(SqlSessionTemplate sqlSession, int memNo){
 		return (ArrayList)sqlSession.selectList("memberMapper.farmerMyProgramList", memNo);
+	}
+	
+	// 농부가 작성한 마켓 조회
+	public ArrayList<Market> farmerMyMarketList(SqlSessionTemplate sqlSession, int memNo){
+		return (ArrayList)sqlSession.selectList("memberMapper.farmerMyMarketList", memNo);
 	}
 	
 	// 찜한 프로그램

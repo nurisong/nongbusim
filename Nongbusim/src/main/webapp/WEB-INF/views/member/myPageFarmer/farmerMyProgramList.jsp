@@ -76,7 +76,7 @@
 	                    <tr>
 	                    	
 	                    	
-	                        <td class="bno" >${ p.programNo }</td>
+	                        <td class="bno" hidden>${ p.programNo }</td>
 	                        <td class="test">${ p.programLocation }</td>
 	                        <td class="test">${ p.programName }</td>
 	                        <td class="test">${ p.programPlan }</td>

@@ -31,6 +31,7 @@
 </head>
 <body>
 <jsp:include page="myPageUserCommon.jsp" />
+
     <h3>찜한 마켓</h3>
 	<hr>
     <table id="boardList"  class="table table-hover" align="center">
@@ -58,11 +59,7 @@
 		        	</c:when>
 		        	<c:otherwise>
 		        		<tr>
-		        			<td style="width:200px">찜한 게시글이 없습니다.</td>
-		        			<td></td>
-		        			<td></td>
-		        			<td></td>
-		        			<td></td>
+		        			<td style="width:200px" colspan="5">찜한 게시글이 없습니다.</td>
 		        		</tr>
 		        	</c:otherwise>
 		        </c:choose>

@@ -33,14 +33,23 @@
             </tr>
           </thead>
           <tbody>
-          	<c:forEach var="b" items="${ list }">
-          		<tr style="text-align:center">
-          			<td style="width:150px">${ b.boardType }</td>
-          			<td>${ b.boardTitle }</td>
-          			<td style="width:150px">${ b.boardWriter }</td>
-          			<td style="width:150px">${ b.createDate }</td>
-          		</tr>
-          	</c:forEach>
+          	<c:choose>
+		        	<c:when test="${ not empty list }">
+			            <c:forEach var="b" items="${ list }">
+			          		<tr style="text-align:center">
+			          			<td style="width:150px">${ b.boardType }</td>
+			          			<td>${ b.boardTitle }</td>
+			          			<td style="width:150px">${ b.boardWriter }</td>
+			          			<td style="width:150px">${ b.createDate }</td>
+			          		</tr>
+          				</c:forEach>
+		        	</c:when>
+		        	<c:otherwise>
+		        		<tr>
+		        			<td style="width:200px;" colspan="4";>작성한 게시글이 없습니다.</td>
+		        		</tr>
+		        	</c:otherwise>
+		    </c:choose>
           </tbody>
         </table>
       </div>
