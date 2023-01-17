@@ -123,11 +123,8 @@
 	                <a class="btn btn-secondary" href="">취소하기</a>
 	            </div>
 
-                <div class="delFiles-area">
-                    
-                </div>
-
                 <input type="hidden" name="delFiles" id="delFiles">
+                <input type="hidden" name="delFilesPath" id="delFilesPath">
 
 
 
@@ -144,6 +141,7 @@
         })
 
         var delFiles = [];
+        var delFilesPath = [];
 
         // 삭제 버튼 클릭시
         $('#del-img-btn').on('click', function(){
@@ -167,12 +165,16 @@
         var maxAppend = '${atList.size()}';
 
         $('.del-img-btn').on('click', function(){
-            console.log($(this).parent().children().eq(1).val());
+            // console.log($(this).parent().children().eq(0).attr("src"));
 
             delFiles.push($(this).parent().children().eq(1).val());
+            delFilesPath.push($(this).parent().children().eq(0).attr("src"));
+            console.log(delFilesPath);
             
             $('#delFiles').val(delFiles);
+            $('#delFilesPath').val(delFilesPath);
             console.log($('#delFiles').val());
+            console.log($('#delFilesPath').val());
             //$('.delFiles-area').append('<input type="number" name="delFiles" value="'+ $(this).parent().children().eq(1).val() + '">');
 
             $(this).parent().empty();
