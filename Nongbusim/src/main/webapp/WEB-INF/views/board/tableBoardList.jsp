@@ -67,34 +67,38 @@ text-align: center;
             <!--검색바-->
             <div style="background-color:rgb(223, 223, 223); height: 60px; width:70%; text-align: center;">
 
-                <div id=sform>
-                <form id="searchForm" action="search.bo" method="get" style="padding-top:10px;">
-                    <div class="select">
-                    <select class="custom-select" name="condition">
-                        <option value="all">전체</option>
-                        <option value="title">제목</option>
-                        <option value="content">내용</option>
-                    </select>
-                    </div>
-                    <div class="text">
-                    <input type="text" class="form-control" name="keyword">
-                    </div>
-                    <div class="searchbutton">
-                    <input type="hidden" value="${ type }" name="boardType">
-                    <button type="submit" class="searchBtn btn btn-secondary">검색</button>
-                    </div>
-                </form>              
+                <div id="sform">
+	                <form id="searchForm" action="list.bo" method="get" style="padding-top:10px;">
+	                    <div class="select">
+	                    <select class="custom-select" name="condition">
+	                        <option value="all">전체</option>
+	                        <option value="title">제목</option>
+	                        <option value="content">내용</option>
+	                    </select>
+	                    </div>
+	                    <div class="text">
+	                    	<input type="text" class="form-control" name="keyword" value="${con.keyword}">
+	                    </div>
+	                    <div class="searchbutton">
+	                    	<input type="hidden" value="${ type }" name="type">
+	                    	<button type="submit" class="searchBtn btn btn-secondary">검색</button>
+	                    </div>
+	                </form>              
                 </div>
             </div>
             <br><br>
             
 			<!--해당순으로 정렬-->
 			<div class="img-select">
-			  <select id="img-select" name="img-condition">
-			    <option value="recent" selected>최신순</option>
-			    <option value="like">좋아요순</option>
-			    <option value="count">조회수순</option>
-			  </select>
+				<div id="oform">
+				
+				  <select name="jump" onchange="location.href=this.value">
+				    <option value="list.bo?cpage=1&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=recent" selected>최신순</option>
+				    <option value="list.bo?cpage=1&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=like">좋아요순</option>
+				    <option value="list.bo?cpage=1&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=count">조회수순</option>
+				  </select>
+				</div>
+			
 			</div>
 			<br><br>            
             
@@ -141,12 +145,12 @@ text-align: center;
                     		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                     	</c:when>
                     	<c:otherwise>
-                    		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }&type=${type}">Previous</a></li>
+                    		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=${con.order}">Previous</a></li>
                     	</c:otherwise>
                     </c:choose>
                     
 					<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-                    	<li class="page-item"><a class="page-link" href="list.bo?cpage=${p}&type=${type}">${ p }</a></li>
+                    	<li class="page-item"><a class="page-link" href="list.bo?cpage=${p}&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=${con.order}">${ p }</a></li>
                     </c:forEach>
 
 					<c:choose>
@@ -154,7 +158,7 @@ text-align: center;
                     		<li class="page-item disabled"><a class="page-link" href="#"&type=${type}>Next</a></li>
                     	</c:when>
                     	<c:otherwise>
-                    		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }&type=${type}">Next</a></li>
+                    		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=${con.order}">Next</a></li>
                     	</c:otherwise>
                     </c:choose>
                     
@@ -168,54 +172,6 @@ text-align: center;
     </div>
     <script>
     
-    <!--
-    $('#img-select').change(function(){
-    	   var selectedOption = $(this).val();
-    	   var boardType='${type}';
-
-
-
-    	   
-    	   console.log(selectedOption);
-    	   console.log(boardType);
-    	   
-        $.ajax({
-            url: "selectListAjax.bo",
-            data: {
-                selectedOption: selectedOption,
-                boardType: boardType
-            },
-            success: function(list) {
-         	   
-         	   var result='';
-         	   
-         	   for(var i in list) {
-                    result += 
-
-					'<tr><td class="bno">'
-					+list[i].boardNo+'</td><td>'
-					+list[i].boardTitle+'</td><td>'
-					+list[i].boardWriter+'</td><td>'
-					+list[i].createDate+'</td><td>'
-					+list[i].count+'</td><td>'
-					+list[i].boardLike+'</td></tr>'
-
-         	   }
-         	   
-                $('#boardContent').html(result);
-         	   
-
-            },
-            error: function() {
-                console.log('ajax communication failed');
-            }
-       });
-    });
-    
-    $('#img-select').change(function(){
-    	
-    });
-    -->
 
         
         
