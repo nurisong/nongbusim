@@ -18,17 +18,11 @@ public class BoardDao {
 	public int selectListCount(SqlSessionTemplate sqlSession, HashMap map) {
 		return sqlSession.selectOne("boardMapper.selectListCount",map);
 	}
-	
-	
 	public ArrayList<Board> selectList(SqlSessionTemplate sqlSession, HashMap map, PageInfo pi){
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("boardMapper.selectList", map, rowBounds);
 	}
-	public ArrayList<Attachment> attachmentSelectList(SqlSessionTemplate sqlSession){	
-		return (ArrayList)sqlSession.selectList("boardMapper.attachmentSelectList");
-	}
-	
 	
 	public Board selectBoard(SqlSessionTemplate sqlSession, int boardNo) {
 		return (Board)sqlSession.selectOne("boardMapper.selectBoard",boardNo);
@@ -41,19 +35,15 @@ public class BoardDao {
 	}
 	
 	
-	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.update("boardMapper.updateBoard",b);
-	}
-	public int updateAttachment(SqlSessionTemplate sqlSession, Attachment a) {
-		return sqlSession.update("boardMapper.updateAttachment",a);
-	}
-	
-	
-	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {		  
+	public int insertBoard(Board b, SqlSessionTemplate sqlSession) {		  
 		return sqlSession.insert("boardMapper.insertBoard", b);		  
 	}  
-	public int insertAttachmentBoard(SqlSessionTemplate sqlSession, Attachment a) {		  
+	public int insertAttachmentBoard(Attachment a, SqlSessionTemplate sqlSession) {		  
 		return sqlSession.insert("attachmentMapper.insertAttachmentBoard", a);				  				  
+	}
+	
+	public ArrayList<Attachment> attachmentSelectList(SqlSessionTemplate sqlSession){	
+		return (ArrayList)sqlSession.selectList("boardMapper.attachmentSelectList");
 	}
 	
 	
@@ -84,10 +74,10 @@ public class BoardDao {
 		return sqlSession.update("boardMapper.decreaseLike",b);
 	}
 	
-	
 	public ArrayList<Comment> selectReplyList(SqlSessionTemplate sqlSession, int boardNo){
 		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", boardNo);
 	}
+	
 	public int insertReply(SqlSessionTemplate sqlSession, Comment c) {
 		return sqlSession.insert("boardMapper.insertReply", c);
 	}

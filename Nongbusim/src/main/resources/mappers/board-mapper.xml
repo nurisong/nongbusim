@@ -36,121 +36,96 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="BOARD_NO" property="boardNo"/>
 	</resultMap>
 	
+	
 
 	<select id="selectListCount" resultType="_int" parameterType="hashmap">
 		SELECT
-			   COUNT(*)
+				COUNT(*)
 		  FROM
-		  	   (
-		  	   SELECT
-			          board_no
-				     ,board_title
-				     ,board_content
-				     ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
-				     ,count
-				     ,board_type
-				     ,board_writer
-				     ,board_like
-				FROM
-				  	 board
-			   WHERE
-					 status='Y'
-		   		 AND 
-		   			 board_type= #{boardType}
-		  	   )
+		  		(
+		  		 SELECT
+			  		   board_no
+				      ,board_title
+				      ,board_content
+				      ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
+				      ,count
+				      ,board_type
+				      ,board_writer
+				      ,board_like
+				  FROM
+				  	  board
+				 WHERE
+					  STATUS = 'Y'
+		   		   AND 
+		   			  BOARD_TYPE= #{boardType}
+		  		)
 		<if test="condition == 'all'">
 		 WHERE	
-			   board_content LIKE '%'||#{keyword}||'%'
+				BOARD_CONTENT LIKE '%'||#{keyword}||'%'
 			OR
-			   board_title LIKE '%'||#{keyword}||'%'
+				BOARD_TITLE LIKE '%'||#{keyword}||'%'
 		</if>
 		<if test="condition == 'title'">
 		 WHERE
-			   board_title LIKE '%'||#{keyword}||'%'
+				BOARD_TITLE LIKE '%'||#{keyword}||'%'
 		</if>
 		<if test="condition == 'content'">
 		 WHERE
-			   board_content LIKE '%'||#{keyword}||'%'
+				BOARD_CONTENT LIKE '%'||#{keyword}||'%'
 		</if>
 	</select>
 
 
 	<select id="selectList" resultMap="boardResultSet" parameterType="hashmap">
 		SELECT
-			   *
+				*
 		  FROM
-		  	   (
-		  	   SELECT 
-			  		  board_no
-				     ,board_title
-				     ,board_content
-				     ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
-				     ,count
-				     ,board_type
-				     ,board_writer
-				     ,board_like
-				 FROM
+		  		(
+		  		 SELECT
+			  		   board_no
+				      ,board_title
+				      ,board_content
+				      ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
+				      ,count
+				      ,board_type
+				      ,board_writer
+				      ,board_like
+				  FROM
 				  	  board
-				WHERE
-					  status='Y'
-		   		  AND 
-		   			  board_type=#{boardType}
-		  	   )
+				 WHERE
+					  STATUS = 'Y'
+		   		   AND 
+		   			  BOARD_TYPE= #{boardType}
+		  		)
 		<if test="condition == 'all'">
 		 WHERE
-			   board_content LIKE '%'||#{keyword}||'%'
+				BOARD_CONTENT LIKE '%'||#{keyword}||'%'
 			OR
-			   board_title LIKE '%'||#{keyword}||'%'
+				BOARD_TITLE LIKE '%'||#{keyword}||'%'
 		</if>
 		<if test="condition == 'title'">
 		 WHERE
-			   board_title LIKE '%'||#{keyword}||'%'
+				BOARD_TITLE LIKE '%'||#{keyword}||'%'
 		</if>
 		<if test="condition == 'content'">
 		 WHERE
-			   board_content LIKE '%'||#{keyword}||'%'
+				BOARD_CONTENT LIKE '%'||#{keyword}||'%'
 		</if>
 		 ORDER
 		    BY
 		<if test="order == 'recent'">
-		       board_no DESC
+		    	BOARD_NO DESC
 		</if>
 		<if test="order == 'like'">
-			   board_like DESC
+				BOARD_LIKE DESC
 		</if>
 		<if test="order == 'count'">
-			   count DESC
+				COUNT DESC
 		</if>
 	</select>
-		
-	<select id="attachmentSelectList" resultMap="attachmentResultSet">
-		SELECT 
-		       board_no
-		      ,file_no
-		      ,origin_name
-		      ,change_name
-		      ,upload_date
-		  FROM 
-		  	   (
-		       SELECT 
-		              board_no
-		             ,file_no
-		             ,origin_name
-		             ,change_name
-		             ,upload_date
-		             ,board_type
-		             ,ROW_NUMBER() OVER (PARTITION BY board_no ORDER BY file_no) AS RN
-		         FROM 
-		              attachment) a
-		 WHERE 
-			   a.RN = 1
-		   AND
-		       board_type='S'
-	</select>
-
-
+	
 	<select id="selectBoard" resultMap="boardResultSet">
-		SELECT
+		select
 		       board_no
 		      ,board_title
 		      ,board_content
@@ -159,49 +134,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      ,board_type
 		      ,board_writer
 		      ,board_like
-		  FROM
+		  from
 		       board
-		 WHERE
+		 where
 		       status = 'Y'
-		   AND
+		   and
 		       board_no = #{boardNo}
 	</select>
 	
 	<update id="increaseCount">
-		UPDATE
+		update
 		       board
-		   SET
+		   set
 		       count = count + 1
-		 WHERE
+		 where
 		       board_no = #{boardNo}
-		   AND
+		   and
 		       status='Y'	
 	</update>
 	
-	<select id="selectAttachmentDetailBoard" parameterType="board" resultMap="attachmentResultSet">
-		SELECT
-			   file_no
-			  ,origin_name
-		      ,change_name
-			  ,file_path
-			  ,upload_date
-			  ,board_no
-			  ,board_type
-		  FROM
-			   attachment
-		 WHERE 
-		   	   board_no=#{boardNo} 
-		   AND 
-		       board_type=#{boardType}
-	</select>
-
-
 	<insert id="insertBoard" parameterType="board">
-		INSERT
-		  INTO
+		insert
+		  into
 		       board 
-	       	   (
-			 	 BOARD_NO
+		       (
+				 BOARD_NO
 				,BOARD_TYPE
 				,BOARD_TITLE
 				,BOARD_CONTENT
@@ -214,25 +171,76 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				,MEM_NO
 				,BOARD_WRITER
 				,BOARD_LIKE
-	       	   )
-		VALUES
+		       )
+		values
 		       (
-		         seq_bno.nextval
-		        ,#{boardType}
-		        ,#{boardTitle}
-		        ,#{boardContent}
-		        ,sysdate
-		        ,#{modifyDate}
-		        ,#{thumbnail}
-		        ,#{recruitYN}
-		        ,0
-		        ,'Y'
-		        ,#{memNo}
-		        ,#{boardWriter}
-		        ,0
+		       seq_bno.nextval
+		      ,#{boardType}
+		      ,#{boardTitle}
+		      ,#{boardContent}
+		      ,sysdate
+		      ,#{modifyDate}
+		      ,#{thumbnail}
+		      ,#{recruitYN}
+		      ,0
+		      ,'Y'
+		      ,#{memNo}
+		      ,#{boardWriter}
+		      ,0
 		       )
 	</insert>
 	
+	<select id="selectAttachmentDetailBoard" parameterType="board" resultMap="attachmentResultSet">
+		SELECT
+			   FILE_NO
+			   ,ORIGIN_NAME
+		       ,CHANGE_NAME
+			   ,FILE_PATH
+			   ,UPLOAD_DATE
+			   ,BOARD_NO
+			   ,BOARD_TYPE
+		  FROM
+			   ATTACHMENT
+		 WHERE 
+		   	   BOARD_NO=#{boardNo} 
+		   AND 
+		       BOARD_TYPE=#{boardType}
+	</select>
+	
+	<select id="attachmentSelectList" resultMap="attachmentResultSet">
+	
+		SELECT board_no,
+		            file_no,
+		            origin_name,
+		            change_name,
+		            upload_date
+		   FROM (
+		        SELECT 
+		            board_no,
+		            file_no,
+		            origin_name,
+		            change_name,
+		            upload_date,
+		            board_type,
+		            ROW_NUMBER() OVER (PARTITION BY board_no ORDER BY file_no) AS RN
+		        FROM 
+		            ATTACHMENT) a
+		WHERE 
+				a.RN = 1
+		  AND
+		        board_type='S'
+	
+	</select>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBoard" parameterType="board">
+		delete
+		  from	   
+		  	   board
+		 where
+		       board_no=#{boardNo}
+		
+	</delete>
 	
 	<delete id="deleteAttachment" parameterType="board">
 		delete
@@ -243,19 +251,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   and
 		   	   board_type=#{boardType}
 	</delete>
-	<delete id="deleteBoard" parameterType="board">
-		delete
-		  from	   
-		  	   board
-		 where
-		       board_no=#{boardNo}
-		
-	</delete>
-	
 	
 	
 	
 	<insert id="insertLike" parameterType="board">
+	
 		insert 
 		  into
 				"LIKE"
@@ -265,7 +265,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				board_type,
 				board_no
 				)
-		values
+				
+				values
 				(
 				#{memNo},
 				1,
@@ -295,7 +296,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   and
 		   	   board_type=#{boardType}
 	</select>
-		
+	
 	<select id="selectLike" parameterType="hashmap" resultType="_int">
 		select
 			   count(*)
@@ -332,7 +333,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   	   board_type=#{boardType}
 	</update>
 	
-
+	<!-- 미완성 -->
 	<select id="selectReplyList" resultType="comment">
 		select 
 			   COMMENT_NO commentNo,
@@ -380,6 +381,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       ,'Y'
 		       )
 	</insert>
+
+
 
 
 </mapper>

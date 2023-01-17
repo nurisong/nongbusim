@@ -35,12 +35,11 @@ public class BoardController {
 	//게시판으로 이동
 	@RequestMapping("list.bo")
 	public ModelAndView selectList(
-									@RequestParam(value="cpage", defaultValue="1") int currentPage,
-									@RequestParam(value="type") String boardType,
-									@RequestParam(value="keyword", required=false, defaultValue="") String keyword,
-									@RequestParam(value="condition", required=false, defaultValue="all") String condition,
-									@RequestParam(value="order", required=false, defaultValue="recent") String order, 
-									ModelAndView mv) {
+			@RequestParam(value="cpage", defaultValue="1") int currentPage,
+			@RequestParam(value="type") String boardType,
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword,
+			@RequestParam(value="condition", required=false, defaultValue="all") String condition,
+			@RequestParam(value="order", required=false, defaultValue="recent") String order, ModelAndView mv) {
 		/*
 		System.out.println(boardType);
 		System.out.println(condition);
@@ -52,6 +51,7 @@ public class BoardController {
 		map.put("keyword", keyword);
 		map.put("condition", condition);
 		map.put("order", order);
+		
 
 		PageInfo pi= new PageInfo();
 
@@ -65,6 +65,7 @@ public class BoardController {
 			pi = Pagination.getPageInfo(boardService.selectListCount(map), currentPage, 10, 5);
 			mv.setViewName("board/tableBoardList");	
 		}
+		
 		
 		mv.addObject("pi", pi).addObject("list", boardService.selectList(map,pi)).addObject("type",boardType).addObject("con", map);
 		return mv;
@@ -80,7 +81,9 @@ public class BoardController {
 
 	//게시글 조회
 	@RequestMapping("detail.bo")
-	public ModelAndView selectBoard(ModelAndView mv,@RequestParam(value="bno") int boardNo, @RequestParam(value="type") String boardType, HttpSession session) {
+	public ModelAndView selectBoard(ModelAndView mv,@RequestParam(value="bno") int boardNo, @RequestParam(value="type") String boardType, HttpSession session) { // 키값과 똑같은 이름의 매개변수, int형으로 쓰면 알아서 파싱
+
+
 		
 		if(((Member)session.getAttribute("loginUser"))!=null) {
 			int memNo=((Member)session.getAttribute("loginUser")).getMemNo();
@@ -92,6 +95,7 @@ public class BoardController {
 			map.put("boardType", boardType);
 
 			int result=boardService.selectLike(map);
+
 			
 			mv.addObject("result",result);
 		}
@@ -100,10 +104,11 @@ public class BoardController {
 			
 			Board b=boardService.selectBoard(boardNo);
 			ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);
+			
 
 			mv.addObject("a",a).addObject("b", b).setViewName("board/boardDetailView");
-
-		} else {
+			
+		}else {
 			mv.addObject("errorMsg", "상세조회실패~").setViewName("common/errorPage");
 		}
 
@@ -111,7 +116,7 @@ public class BoardController {
 	}
 	
 	
-	//게시판 등록
+	//게시판 등록하기
 	@RequestMapping("insert.bo")
 	public ModelAndView insertBoard(Board b, MultipartFile[] upfiles, HttpSession session, ModelAndView mv, Attachment a) {
 		
@@ -136,47 +141,13 @@ public class BoardController {
 					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
 					
 					boardService.insertAttachment(a);
+
+						
 				}
 			}
 		
 			mv.addObject("type", b.getBoardType()).setViewName("redirect:list.bo");
 			
-		} else {
-			// 첨부파일 삭제
-		}
-		
-		return mv;
-	}
-	
-	//게시판 수정하기
-	@RequestMapping("update.bo")
-	public ModelAndView updateBoard(Board b, MultipartFile[] upfiles, HttpSession session, ModelAndView mv, Attachment a) {
-		
-		System.out.println(b.getBoardType());
-		System.out.println(b.getBoardNo());
-		System.out.println(b.getBoardContent());
-		
-		String str1=b.getBoardContent().replace("\r\n","<br>");
-		System.out.println(b.getBoardContent());
-		b.setBoardContent(str1);
-		
-		if(boardService.updateBoard(b) > 0) {
-			
-			int boardNo = b.getBoardNo();
-			
-			for(MultipartFile upfile : upfiles) {
-				
-				if(!upfile.getOriginalFilename().equals("")) {
-					a.setBoardNo(boardNo);
-					a.setBoardType(b.getBoardType());
-					a.setOriginName(upfile.getOriginalFilename()); // 원본명
-					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
-					
-					boardService.updateAttachment(a);		
-				}
-			}
-		
-			mv.addObject("type", b.getBoardType()).setViewName("redirect:list.bo");			
 		} else {
 			// 첨부파일 삭제
 		}
@@ -242,42 +213,44 @@ public class BoardController {
 		return mv;
 	}
 	
-	
-	//좋아요 입력, 좋아요 삭제
+	//좋아요 입력
 	@ResponseBody
 	@RequestMapping("insert.lk")
 	public void insertLike(String boardType, int boardNo, int memNo) {
-		
 		Board b= new Board();
-		
 		b.setBoardNo(boardNo);
 		b.setBoardType(boardType);
 		b.setMemNo(memNo);
-			
+		
+	
+		
 		boardService.insertLike(b);
 		boardService.increaseLike(b);
-	}	
+		
+	}
+	
+	//좋아요 삭제
 	@ResponseBody
 	@RequestMapping("delete.lk")
 	public void deleteLike(String boardType, int boardNo, int memNo) {
-		
 		Board b= new Board();
-		
 		b.setBoardNo(boardNo);
 		b.setMemNo(memNo);
 		b.setBoardType(boardType);
 		
 		boardService.decreaseLike(b);
 		boardService.deleteLike(b);
+		
 	};
 	
 	
-	//댓글 조회, 입력
+	
 	@ResponseBody
 	@RequestMapping(value = "rlist.bo", produces="application/json; charset=UTF-8")
 	public String ajaxSelectReplyList(int bno) {
 		return new Gson().toJson(boardService.selectReplyList(bno));
 	}
+	
 	@ResponseBody
 	@RequestMapping("rinsert.bo")
 	public String ajaxInsertReply(Comment c) {
