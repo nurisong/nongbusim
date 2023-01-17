@@ -20,9 +20,7 @@
 		border-radius: 5%;
 		align: left;
 		width: 100%;
-		height: 200%;
-
-	
+		height: 200%;	
 	}
 	
 	.filebox .upload-name {
@@ -102,8 +100,8 @@
 						<tr>
 							<td colpan="3">
 								<div>✔구분</div>
-									<input type="radio" name="type" value="I">수입</option>									
-									<input type="radio" name="type" value="O">지출</option>									
+									<input type="radio" name="type" id="income" value="I"><label for="income">수입</label>								
+									<input type="radio" name="type" id="outcome" value="O"><label for="outcome">지출</label>									
 							</td>	
 						</tr>
 						<tr>
@@ -155,7 +153,7 @@
 						<tr>
 							<td colpan="3">
 								<div>✔금액</div>
-								<input name="amount" type="text" maxlength="10" onkeyup="inputNumberFormat(this);" placeholder="숫자만 입력해주세요" />
+								<input id="amount" name="amount" type="text" maxlength="10" onkeyup="inputNumberFormat(this);" placeholder="숫자만 입력해주세요" />
 						</td>						
 						<tr>
 							<td>
@@ -221,7 +219,7 @@
 							<tr>
 								<td>
 									<div align="center">
-									<button class="myButton" type="submit">등록하기</button>	
+									<button class="myButton" id="enroll">등록하기</button>	
 									<a class="myButton" href="javascript:history.back();">돌아가기</a>	
 									</div>
 								</td>			
@@ -359,10 +357,17 @@
 	    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,'$1');
 	}
 	
-
+// 등록하기 버튼을 누를 시, '000,000,000'으로된 amount input요소의 format을 숫자로 바꾼 후 submit 해주는 이벤트 핸들러
+    $('#enroll').click(function(){
+    	
+    	$('#amount').val(Number(uncomma($('#amount').val())));
+    	$('#enroll-form').submit();
+    });
+   
+    
+    
 </script>
 
-	</script>
 </body>
 
 </html>

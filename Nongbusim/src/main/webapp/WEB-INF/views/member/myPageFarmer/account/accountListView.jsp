@@ -339,6 +339,7 @@
 						+'<td><p>'+list[i].type+'</p></td>'
 						+ '<td><p>' + list[i].accountCategory + '</p></td>'
 						+ '<td><p>' + list[i].goods + '</p></td>'
+						+ '<td><p>' + list[i].amount + '</p></td>'						
 						+ '<td><p>' + list[i].accountContent + '</p></td>'                 
 						+ '<input type="hidden" name="accountNo" id="accountNo" value="'+list[i].accountNo+'">'
 						+'</div>'                    

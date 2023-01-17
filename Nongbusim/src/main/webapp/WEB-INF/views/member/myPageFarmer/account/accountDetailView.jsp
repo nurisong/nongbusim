@@ -150,7 +150,7 @@
 <body>
 	<form action="updateForm.ac" method="post">
 		<input type="hidden" name="memNo" value="${ loginUser.memNo }">
-		<input type="hidden" name="dno" value="${ account.accountNo }">				
+		<input type="hidden" name="ano" value="${ account.accountNo }">				
 	<h1 align ="left">&nbsp;&nbsp;🗓영농일지 상세보기</h1>
 	<br>
 	<div class="outer"><br>	

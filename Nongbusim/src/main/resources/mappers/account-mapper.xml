@@ -94,7 +94,7 @@ from
 	where
 			board_no = #{accountNo}
 	and
-			board_type = 'D'					
+			board_type = 'A'					
 			
 	</select>
 	
@@ -125,7 +125,7 @@ from
 				#{boardNo}, 
 			</when>
 			<otherwise>
-			  seq_dno.currval,
+			  seq_accno.currval,
 			</otherwise>
 		</choose>	
 			  #{boardType},
@@ -136,30 +136,29 @@ from
 	<insert id="insertAccount" parameterType="account">
 	insert
 	into
-			account
+			account_book
 	values 
-			( seq_dno.nextval, 			
+			( seq_accno.nextval,
+     		  #{type}, 			
 			  sysdate,
 			  #{accountCategory},
+  			  #{goods},
+  			  #{amount},
 			  #{accountContent},
 			  'Y',
 			  #{memNo}
-		<choose>
-			<when test="accountThumbnail !=null">
-					  , #{accountThumbnail} )
-			</when>
-			<otherwise>
-					, null )
-			</otherwise>
-		</choose>
+			  )
+		
 	</insert>
 		
-	<update id="updateaccount" parameterType="account">
+	<update id="updateAccount" parameterType="account">
 	update
 			account_book
 	set
 			create_date = #{createDate}, 
 			account_category = #{accountCategory},
+			goods = #{goods},
+  			amount = #{amount},
 			account_content = #{accountContent},
 	where
 			account_no  = #{accountNo}	
@@ -175,7 +174,7 @@ from
 	</update>
 	<update id="deleteAccount" parameterType="_int">
 	update
-			account
+			account_book
 	set	
 			status= 'N'
 	where		
@@ -189,7 +188,6 @@ from
 	where
 			board_no = #{accountNo}
 
-	</update>
-	
+	</update>	
 
 </mapper>
