@@ -31,28 +31,43 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
-
 	
 	//게시판으로 이동
 	@RequestMapping("list.bo")
-	public ModelAndView selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage,@RequestParam(value="type") String boardType, ModelAndView mv) {
+	public ModelAndView selectList(
+			@RequestParam(value="cpage", defaultValue="1") int currentPage,
+			@RequestParam(value="type") String boardType,
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword,
+			@RequestParam(value="condition", required=false, defaultValue="all") String condition,
+			@RequestParam(value="order", required=false, defaultValue="recent") String order, ModelAndView mv) {
+		/*
+		System.out.println(boardType);
+		System.out.println(condition);
+		System.out.println(keyword);
+		System.out.println(order);
+		*/
+		HashMap map= new HashMap();
+		map.put("boardType", boardType);
+		map.put("keyword", keyword);
+		map.put("condition", condition);
+		map.put("order", order);
 		
+
 		PageInfo pi= new PageInfo();
 
 		if(boardType.charAt(0)=='S') {
-			
-			pi = Pagination.getPageInfo(boardService.selectListCount(boardType), currentPage, 10, 8);			
+						
+			pi = Pagination.getPageInfo(boardService.selectListCount(map), currentPage, 10, 8);
 			mv.addObject("at",boardService.attachmentSelectList()).setViewName("board/pictureBoardList");
+			
 		} else {
 			
-			pi = Pagination.getPageInfo(boardService.selectListCount(boardType), currentPage, 10, 5);
+			pi = Pagination.getPageInfo(boardService.selectListCount(map), currentPage, 10, 5);
 			mv.setViewName("board/tableBoardList");	
 		}
 		
 		
-		
-		mv.addObject("pi", pi).addObject("list", boardService.selectList(boardType,pi)).addObject("type",boardType);
-		
+		mv.addObject("pi", pi).addObject("list", boardService.selectList(map,pi)).addObject("type",boardType).addObject("con", map);
 		return mv;
 	}
 	
@@ -189,7 +204,6 @@ public class BoardController {
 			System.out.println("첨부파일 삭제 성공");
 		}
 		
-		
 		if(boardService.deleteBoard(b)>0) {
 			System.out.println("게시글 삭제 성공");
 		}
@@ -229,48 +243,7 @@ public class BoardController {
 		
 	};
 	
-	//리스트 정렬하기
-	@ResponseBody
-	@RequestMapping("selectListAjax.bo")
-	public ArrayList<Board> selectListAjax(String selectedOption, String boardType) {
-		
-		HashMap<String, String> map = new HashMap();
-		map.put("selectedOption", selectedOption);
-		map.put("boardType", boardType);
-		
-		ArrayList list=boardService.selectListOrder(map);
-		
-		return list;
-	}
 	
-	@RequestMapping("search.bo")
-	public ModelAndView selectSearchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
-			   					   @RequestParam(value="ctg", defaultValue="all") String category,
-			   					   String condition, String keyword, String boardType, ModelAndView mv,HttpSession session) {
-		HashMap<String, String> map = new HashMap();
-		map.put("category", category);
-		map.put("condition", condition);
-		map.put("keyword", keyword);
-		map.put("boardType", boardType);
-		
-		PageInfo pi= new PageInfo();
-
-		if(boardType.charAt(0)=='S') {
-			
-			pi = Pagination.getPageInfo(boardService.selectSearchListCount(map), currentPage, 10, 8);			
-			mv.addObject("at",boardService.attachmentSelectList()).setViewName("board/pictureBoardList");
-		} else {
-			
-			pi = Pagination.getPageInfo(boardService.selectSearchListCount(map), currentPage, 10, 5);
-			mv.setViewName("board/tableBoardList");	
-		}
-		
-		mv.addObject("pi", pi).addObject("list", boardService.selectSearchList(pi,map)).addObject("type",boardType);
-		
-		
-		
-		return mv;
-	}
 	
 	@ResponseBody
 	@RequestMapping(value = "rlist.bo", produces="application/json; charset=UTF-8")

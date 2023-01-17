@@ -234,7 +234,7 @@
 			}
 		})
 		
-	})
+	});
 	
 	$(function(){
 
@@ -242,7 +242,7 @@
 		if(${result}!=0) {
 			$('.heart').attr("src", "resources/images/heart2.png");
 		}
-	})
+	});
 	
 
 	    
@@ -252,8 +252,7 @@
         	var result=${result};
         	var boardLike=${b.boardLike};
         	
-        	if($(".heart").attr('src') == "resources/images/deleteheart.png")
-        	{
+        	if($(".heart").attr('src') == "resources/images/deleteheart.png") {
         	
 	            $.ajax({
 
@@ -271,15 +270,13 @@
 	                        	$('#likeNumber').text(<c:out value="${b.boardLike}"/>);
 	                        } else {
 	                    		$('#likeNumber').text(<c:out value="${b.boardLike+1}"/>);
-	                        }
+	                        };
 	                },
 	                error: function() {
 	                    console.log('ajax communication failed');
 	                }
-	            });
-	            
-        	}
-        	else{
+	            });            
+        	} else {
         		
 	            $.ajax({
 	            	
@@ -343,7 +340,7 @@
     		else{
     			alertify.alert('정상적인 댓글을 작성해주세요 ~ ');
     		}
-    	}
+    	};
     
     	function selectReplyList(){
     		$.ajax({
@@ -370,7 +367,7 @@
 				}
     		});
     		
-    	}
+    	};
        	
        	
 	    

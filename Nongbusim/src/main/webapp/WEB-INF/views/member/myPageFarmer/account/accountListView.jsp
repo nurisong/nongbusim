@@ -230,7 +230,7 @@
 				<c:when test="${ not empty catAndGoods}">
 					<option value="selectAll" selected>전체</option>				
 					<c:forEach var="account" items="${catAndGoods}">
-						<c:if test="${not empty account.goods }">
+						<c:if test="${account.goods ne ' '}">
 							<option>${account.goods }</option>
 						</c:if>
 					</c:forEach>
