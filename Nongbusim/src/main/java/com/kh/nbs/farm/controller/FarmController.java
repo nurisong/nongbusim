@@ -1,9 +1,11 @@
 package com.kh.nbs.farm.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,8 +112,9 @@ public class FarmController {
 	
 	@RequestMapping("update.fm")
 	public String updateFarm(Farm farm, 
-							int[] delFiles, MultipartFile[] upfiles,  
-			                 Model model, HttpSession session, RedirectAttributes rttr) {
+							 int[] delFiles, String[] delFilesPath,
+							 MultipartFile[] upfiles,  
+			                 Model model, HttpSession session, RedirectAttributes rttr, HttpServletRequest request) {
 		
 		// System.out.println("처음 출력" + delFiles);
 		
@@ -128,6 +131,19 @@ public class FarmController {
 		// 기존 첨부파일 삭제
 		if(delList.size()>0) {
 			if(farmService.deleteAttachment(delList) > 0) {
+				
+				String cp = "C:/nbs-workspace/Nongbusim/src/main/webapp/";
+				
+				for(int i = 0; i < delFilesPath.length; i++) {
+					//Fath realFath = 
+					System.out.println(delFilesPath[i]);
+					if(new File(cp + delFilesPath[i]).delete()) {
+						System.out.println("서버에서 삭제 완" + i);
+						
+					} else {
+						System.out.println("서버에서 삭제 실패ㅎ");
+					}
+				}
 				System.out.println("삭제 성공");
 			} else {
 				System.out.println("삭제 실패");
