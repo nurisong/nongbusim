@@ -27,13 +27,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 <select id="selectCatAndGoods" parameterType="_int" resultType="account">	
-SELECT 
-        (CASE WHEN RANK = 1 THEN account_category ELSE ' ' END ) AS accountCategory , 
-        goods
+select
+        (case when RANK1 = 1 then account_category else ' ' end ) accountCategory, 
+        (case when RANK2 = 1 then goods else ' ' end ) goods
 from
         (    
-        SELECT account_category, goods, ROW_NUMBER() OVER(PARTITION BY account_category ORDER BY account_category DESC) rank
-           from account_book where mem_no =#{memNo})
+         select account_category, goods, 
+         row_number() over(partition by account_category order by account_category desc) rank1,
+         row_number() over(partition by  goods order by goods desc) rank2
+from 
+        account_book where mem_no=4)
+order 
+by
+        account_category desc, goods desc
 
   
 </select>
@@ -159,7 +165,7 @@ from
 			account_category = #{accountCategory},
 			goods = #{goods},
   			amount = #{amount},
-			account_content = #{accountContent},
+			account_content = #{accountContent}
 	where
 			account_no  = #{accountNo}	
 	</update>

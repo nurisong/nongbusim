@@ -86,7 +86,7 @@
 </style>
 <body>
 	<div class="boardArea" style="width:1000px; height:1000px; border:1px solid green; float:left"  >	
-		<h1>🗓영농일지 등록</h1>
+		<h1>가계부 등록</h1>
 			<form action="insert.ac" id="enroll-form" method="post" enctype="multipart/form-data">
 				<div class="outer" >
 					<table id="accountEnrollForm">		
@@ -154,7 +154,8 @@
 							<td colpan="3">
 								<div>✔금액</div>
 								<input id="amount" name="amount" type="text" maxlength="10" onkeyup="inputNumberFormat(this);" placeholder="숫자만 입력해주세요" />
-						</td>						
+							</td>			
+						</tr>			
 						<tr>
 							<td>
 								<div class="accountDetail">🎞사진 등록하기<br></div>
