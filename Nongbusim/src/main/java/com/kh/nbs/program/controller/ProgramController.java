@@ -208,7 +208,7 @@ public class ProgramController {
 			mv.addObject("myReviewlist",reviewService.selectMyReview(memNo));
 			
 			if(programService.selectMyProgram(memNo,pi) != null ) {
-				
+				//내가참여한 프로그램
 				mv.addObject("pi", pi).addObject("myProgramList",programService.selectMyProgram(memNo,pi)).setViewName("review/ReviewInsert");
 				//System.out.println(programService.selectMyProgram(memNo));
 			}

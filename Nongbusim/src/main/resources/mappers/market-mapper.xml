@@ -93,7 +93,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			       market
 		 where
 			       mk_status = 'Y'
-
+		<if test="marketCategory != null">
+		
+			and	
+				mk_category = #{marketCategory}
+		</if>
 	
 	</select>
 	
@@ -102,6 +106,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 		select 
 			   market_no
+			  ,mk_category
 			  ,mk_title
 			  ,mk_price
 			  ,mk_count
@@ -111,6 +116,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       market
 		 where
 		       mk_status = 'Y'
+		<if test="marketCategory != null">
+			and	
+				mk_category = #{marketCategory}
+		</if>
 		 order
 		    by
 		       mk_enrolldate desc

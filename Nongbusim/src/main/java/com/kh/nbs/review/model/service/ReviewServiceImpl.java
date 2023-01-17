@@ -1,14 +1,13 @@
 package com.kh.nbs.review.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.nbs.common.model.vo.PageInfo;
-import com.kh.nbs.program.model.dao.ProgramDao;
-import com.kh.nbs.program.model.vo.Program;
 import com.kh.nbs.review.model.dao.ReviewDao;
 import com.kh.nbs.review.model.vo.Review;
 
@@ -44,7 +43,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public ArrayList<Review> reviewUpdate(Review r) {
+	public List<Review> reviewUpdate(Review r) {
 		return reviewDao.reviewUpdate(sqlSession,r);
 	}
 

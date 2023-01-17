@@ -347,16 +347,16 @@
             <br>
 
             
-            <!-- 댓글용 모달창 -->
+            <!-- 댓글용 모달창
             <div id="modal">
             
                 <div class="modal_content">
                     
-                    <h6 id="memId"></h6>
+                    <h6></h6>
 
                     <br>
                     
-                    <textarea  id="updateCommentContent" cols="50" rows="5" style="resize:none;"></textarea>
+                    <textarea id="updateCommentContent" cols="50" rows="5" style="resize:none;"></textarea>
 
                     <br>
                     <button type="button" class="btn btn-sm" id="modal_submit_btn">수정</button>
@@ -367,6 +367,7 @@
                 <div class="modal_layer"></div>
 
             </div>
+            -->
 
 
         </div>
@@ -381,8 +382,186 @@
                 $(function(){
 
                     selectCommentList();
+                       
+                    /*$(document).on('click', '#popupUpdate', function(){
+
+                        var cno = $(this).data('cno');
+                        var content = $(this).data('content');
+
+                        
+                        
+                        /*$('#updateCommentContent').keyup(function(){
+
+                            var newContent = $('#updateCommentContent').text();
+
+                        });
+
+                        update({cno:cno, content:content});
+
+
+                    });*/
 
                 });
+
+
+
+                    //댓글 조회용 ajax
+                    function selectCommentList(){
+
+
+                            $.ajax({
+                                
+                                url : 'listComment.mk',
+                                data : {
+                                    boardNo : ${list.marketNo},
+                                    boardType : 'mk'
+                                },
+                                success : function(cList){
+
+                                    let value = '';
+
+                                    if(cList.length != 0) { //댓글 리스트가 조회된 경우
+                                    
+                                        for(let i in cList){
+
+                                            if(cList[i].secret==1){ //비밀글로 설정한 경우 
+
+                                                if(cList[i].memId=='${loginUser.memId}' || '${list.memNo}'=='${loginUser.memNo}'){ 
+
+                                                    //비밀글이면서 댓글작성자이거나 게시글작성자인 경우
+                                                    value += '<tr>'
+                                                    + '<th>' + cList[i].memId + '</th>'
+                                                    + '<th>' + cList[i].commentContent + '</th>'
+                                                    + '<th>' + cList[i].commentEnrollDate + '</th>';
+                                                    
+                                                    if(cList[i].memId=='${loginUser.memId}') {//댓글작성자인 경우
+                                                        value +=  '<th>'
+                                                            +   '<button class="btn btn-sm" onclick="deleteComment(' + cList[i].commentNo + ')"> X </button>'
+                                                            +   '</th>'
+                                                            +   '<th>'
+                                                            +   '<button class="btn btn-sm" onclick="updateComment(' + cList[i].commentNo + ',' + cList[i].memNo + ',' + "'" + cList[i].commentContent + "'" + ')"> 수정 </button>'
+                                                            +   '</th>'
+
+                                                    }
+
+                                                }else{//비밀글인데 게시글작성자 / 댓글작성자가 아닌 경우
+
+                                                    value += '<tr>'
+                                                        + '<th>'
+                                                        + '</th>'
+                                                        + '<th colspan="4">' + '비밀댓글입니다.' + '</th>'
+                                                        + '</th>'
+                                                        + '</tr>';
+                                                }
+
+                                                
+                                            }else{ //비밀글로 설정하지 않은 경우
+
+                                                value += '<tr>'
+                                                    + '<th>' + cList[i].memId + '</th>'
+                                                    + '<th>' + cList[i].commentContent + '</th>'
+                                                    + '<th>' + cList[i].commentEnrollDate + '</th>';
+                                                    
+                                                    if(cList[i].memId=='${loginUser.memId}') {
+
+                                                        value +=  '<th>'
+                                                            +   '<button class="btn btn-sm" onclick="deleteComment(' + cList[i].commentNo + ')"> X </button>'
+                                                            +   '</th>'
+                                                            +   '<th>'
+                                                            +   '<button class="btn btn-sm" onclick="updateComment(' + cList[i].commentNo + ',' + cList[i].memNo + ',' + "'" + cList[i].commentContent + "'" + ')"> 수정 </button>'
+                                                            +   '</th>'
+
+
+                                                    }
+
+                                                value += '</tr>';
+                                            }
+                                        }
+
+                                    } else { // 등록된 댓글이 없는 경우
+
+                                        value += '<tr>'
+                                            + '<th colspan="3">' + '등록된 댓글이 없습니다.' + '</th>'
+                                            + '</tr>';
+
+
+                                    }
+
+                                    
+                                    $('#replyArea tbody').html(value);
+                                    $('#rcount').text(cList.length);
+
+
+                                },
+                                error : function(){
+
+                                    console.log('댓글목록조회실패');
+                                
+                                }
+
+                            });
+
+                    };
+
+
+
+                    /*function updateFormComment(cno, comment){
+                    
+                        
+                    
+
+                            $.ajax({
+
+                                url : "updateComment.mk",
+
+                                data : {
+
+                                    memNo : '${ loginUser.memNo }',
+                                    commentNo : comment.cno,
+                                    content : 
+
+                                },
+
+                                success : function(status) {
+
+                                    if(status == 'success') {
+
+                                        selectCommentList();
+
+                                    }else{
+                                        
+                                        alert('댓글등록에 실패하였습니다.');
+
+                                    }
+
+                                },
+                                error : function(){
+                                    
+                                    console.log('댓글 수정 실패');
+
+                                }
+
+
+                            });
+
+                        });
+
+                        $('#modal_close_btn').click(function(){ //댓글 수정창에서 취소를 누르면 
+                            
+                            $('#modal').css('display', 'none');
+
+                            $('#updateCommentContent').text("");
+                            
+                            
+                        
+                    });
+
+                };*/
+                 
+                        
+
+
+
 
                 //댓글 작성용 ajax
                 function addComment(){
@@ -433,101 +612,7 @@
 
                 };
 
-                //댓글 조회용 ajax
-                function selectCommentList(){
     
-
-                    $.ajax({
-                        
-                        url : 'listComment.mk',
-                        data : {
-                            boardNo : ${list.marketNo},
-                            boardType : 'mk'
-                        },
-                        success : function(cList){
-
-                            let value = '';
-
-                            if(cList.length != 0) { //댓글 리스트가 조회된 경우
-                            
-                                for(let i in cList){
-
-                                    if(cList[i].secret==1){ //비밀글로 설정한 경우 
-
-                                        if(cList[i].memId=='${loginUser.memId}' || '${list.memNo}'=='${loginUser.memNo}'){ 
-
-                                            //비밀글이면서 댓글작성자이거나 게시글작성자인 경우
-                                            value += '<tr>'
-                                            + '<th>' + cList[i].memId + '</th>'
-                                            + '<th>' + cList[i].commentContent + '</th>'
-                                            + '<th>' + cList[i].commentEnrollDate + '</th>';
-                                            
-                                            if(cList[i].memId=='${loginUser.memId}') {
-                                                value +=  '<th>'
-                                                    +   '<button class="btn btn-sm" onclick="deleteComment(' + cList[i].commentNo + ')"> X </button>'
-                                                    +   '</th>'
-                                                    +   '<th>'
-                                                    +   '<button class="btn btn-sm" onclick="updateComment(' + cList[i].commentNo + ',' + cList[i].memNo + ',' + "'" + cList[i].commentContent + "'" + ')"> 수정 </button>'
-                                                    +   '</th>'
-
-                                            }
-
-                                        }else{//비밀글인데 게시글작성자 / 댓글작성자가 아닌 경우
-
-                                            value += '<tr>'
-                                                   + '<th>'
-                                                   + '</th>'
-                                                   + '<th colspan="4">' + '비밀댓글입니다.' + '</th>'
-                                                   + '</th>'
-                                                   + '</tr>';
-                                        }
-
-                                    }else{ //비밀글로 설정하지 않은 경우
-
-                                        value += '<tr>'
-                                            + '<th>' + cList[i].memId + '</th>'
-                                            + '<th>' + cList[i].commentContent + '</th>'
-                                            + '<th>' + cList[i].commentEnrollDate + '</th>';
-                                            
-                                            if(cList[i].memId=='${loginUser.memId}') {
-                                            value +=  '<th>'
-                                                +   '<button class="btn btn-sm" onclick="deleteComment(' + cList[i].commentNo + ')"> X </button>'
-                                                +   '</th>'
-                                                +   '<th>'
-                                                +   '<button class="btn btn-sm" onclick="updateComment(' + cList[i].commentNo + ',' + cList[i].memNo + ',' + "'" + cList[i].commentContent + "'" + ')"> 수정 </button>'
-                                                +   '</th>'
-
-                                            }
-
-                                        value += '</tr>';
-                                    }
-                                }
-
-                            } else { // 등록된 댓글이 없는 경우
-
-                                value += '<tr>'
-                                       + '<th colspan="3">' + '등록된 댓글이 없습니다.' + '</th>'
-                                       + '</tr>';
-
-
-                            }
-
-                            
-
-                            $('#replyArea tbody').html(value);
-                            $('#rcount').text(cList.length);
-
-
-                        },
-                        error : function(){
-
-                            console.log('댓글목록조회실패');
-                        
-                        }
-
-                    });
-
-                };
 
 
 
@@ -572,10 +657,11 @@
 
                 }
 
+
                 
                 //댓글 수정용 ajax
 
-                function updateComment(newCommentNo, newMemNo, newContent){
+                /*function updateComment(newCommentNo, newMemNo, newContent){
                     
                     popComment(newCommentNo, newMemNo, newContent);
                     
@@ -638,7 +724,7 @@
     
                         });
                 }
-            }
+            }*/
 
         </script>
 

@@ -33,7 +33,7 @@ public class MarketServiceImpl implements MarketService{
 	public int selectListCount() {
 		return marketdao.selectListCount(sqlSession);
 	}
-
+	
 	@Override
 	public ArrayList<Market> marketSelectList(PageInfo pi) {
 		return marketdao.marketSelectList(pi, sqlSession);
@@ -45,6 +45,27 @@ public class MarketServiceImpl implements MarketService{
 		return marketdao.attachmentSelectList(sqlSession);
 	}
 	
+	
+	//카테고리 설정시 게시판 조회
+	
+	@Override
+	public int selectListCount(String marketCategory) {
+		return marketdao.selectListCount(sqlSession, marketCategory);
+	}
+
+	
+	@Override
+	public ArrayList<Market> marketSelectListCategory(PageInfo pi, String marketCategory) {
+		return marketdao.marketSelectListCategory(pi, sqlSession, marketCategory);
+	}
+
+	@Override
+	public ArrayList<Attachment> attachmentSelectListCategory(String marketCategory) {
+		return marketdao.attachmentSelectListCategory(sqlSession, marketCategory);
+	}
+
+
+
 	
 	
 	//게시글 작성
@@ -206,6 +227,7 @@ public class MarketServiceImpl implements MarketService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 
 

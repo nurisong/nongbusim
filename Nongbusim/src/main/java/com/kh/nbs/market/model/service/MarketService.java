@@ -19,6 +19,11 @@ public interface MarketService {
 	ArrayList<Market> marketSelectList(PageInfo pi);
 	ArrayList<Attachment> attachmentSelectList();
 	
+	//카테고리 설정시 게시판 조회 총갯수 조회 메소드
+	int selectListCount(String marketCategory);
+	ArrayList<Market> marketSelectListCategory(PageInfo pi, String marketCategory);
+	ArrayList<Attachment> attachmentSelectListCategory(String marketCategory);
+	
 	
 	//게시물 조회수 증가 메소드
 	//게시물 상세조회 메소드
