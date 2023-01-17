@@ -25,13 +25,15 @@
     <div class="container">
         <h3>내가 작성한 게시글</h3>
         <hr>
-        <table class="table table-bordered table-sm">
-          <thead>
+        <table id="boardList" class="table table-bordered table-sm">
+          <thead align="center">
             <tr>
               <th>게시판</th>
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
+              <th>조회수</th>
+              <th>좋아요</th>
             </tr>
           </thead>
           <tbody>
@@ -43,17 +45,27 @@
 			          			<td>${ b.boardTitle }</td>
 			          			<td style="width:150px">${ b.boardWriter }</td>
 			          			<td style="width:150px">${ b.createDate }</td>
+			          			<td>${ b.count }</td>
+			          			<td>${ b.boardLike }</td>	
 			          		</tr>
           				</c:forEach>
 		        	</c:when>
 		        	<c:otherwise>
 		        		<tr>
-		        			<td style="width:200px;" colspan="4";>작성한 게시글이 없습니다.</td>
+		        			<td style="width:200px;" colspan="6";>작성한 게시글이 없습니다.</td>
 		        		</tr>
 		        	</c:otherwise>
 		    </c:choose>
           </tbody>
         </table>
       </div>
+      
+            <script>
+	        	$(function(){
+					$('#boardList>tbody>tr').click(function(){
+						location.href = 'detail.bo?type=${type}&bno=' + $(this).children('.bno').text();
+					})
+	        	});
+      </script>
 </body>
 </html>
