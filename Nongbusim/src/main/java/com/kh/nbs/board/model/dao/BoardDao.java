@@ -15,13 +15,13 @@ import com.kh.nbs.common.model.vo.PageInfo;
 @Repository
 public class BoardDao {
 
-	public int selectListCount(SqlSessionTemplate sqlSession, String boardType) {
-		return sqlSession.selectOne("boardMapper.selectListCount",boardType);
+	public int selectListCount(SqlSessionTemplate sqlSession, HashMap map) {
+		return sqlSession.selectOne("boardMapper.selectListCount",map);
 	}
-	public ArrayList<Board> selectList(SqlSessionTemplate sqlSession, String boardType, PageInfo pi){
+	public ArrayList<Board> selectList(SqlSessionTemplate sqlSession, HashMap map, PageInfo pi){
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("boardMapper.selectList", boardType, rowBounds);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectList", map, rowBounds);
 	}
 	
 	public Board selectBoard(SqlSessionTemplate sqlSession, int boardNo) {
@@ -72,21 +72,6 @@ public class BoardDao {
 	}
 	public int decreaseLike(SqlSessionTemplate sqlSession, Board b) {
 		return sqlSession.update("boardMapper.decreaseLike",b);
-	}
-	
-	
-	
-	public ArrayList<Board> selectListOrder(SqlSessionTemplate sqlSession,HashMap map) {
-		return (ArrayList)sqlSession.selectList("boardMapper.selectListOrder",map);
-	}
-	
-	public int selectSearchListCount(HashMap map, SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("boardMapper.selectSearchListCount", map);
-	}
-	public ArrayList<Board> selectSearchList(PageInfo pi, HashMap map, SqlSessionTemplate sqlSession) {
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("boardMapper.selectSearchList", map, rowBounds);
 	}
 	
 	public ArrayList<Comment> selectReplyList(SqlSessionTemplate sqlSession, int boardNo){

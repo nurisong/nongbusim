@@ -68,14 +68,19 @@ public class FarmServiceImpl implements FarmService {
 		return farmDao.selectAttachment(farmNo, sqlSession);
 	}
 
-	@Override
-	public int insertAttachment(Attachment a) {
-		return farmDao.insertAttachment(a, sqlSession);
-	}
+//	@Override
+//	public int insertAttachment(Attachment a) {
+//		return farmDao.insertAttachment(a, sqlSession);
+//	}
 
 	@Override
 	public int insertFarm(Farm f) {
 		return farmDao.insertFarm(f, sqlSession);
+	}
+	
+	@Override
+	public int insertAttachment(List upfileList) {
+		return farmDao.insertAttachment(upfileList, sqlSession);
 	}
 
 	@Override
@@ -99,9 +104,10 @@ public class FarmServiceImpl implements FarmService {
 	}
 	
 	@Override
-	public int insertAttachment(List upfileList) {
-		return farmDao.insertAttachment(upfileList, sqlSession);
+	public int updateInsertAttachment(List upfileList) {
+		return farmDao.updateInsertAttachment(upfileList, sqlSession);
 	}
+	
 
 	@Override
 	public int selectSearchListCount(HashMap map) {
@@ -112,6 +118,8 @@ public class FarmServiceImpl implements FarmService {
 	public ArrayList<Farm> selectSearchList(PageInfo pi, HashMap map) {
 		return farmDao.selectSearchList(pi, map, sqlSession);
 	}
+
+
 
 
 

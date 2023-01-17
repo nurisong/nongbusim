@@ -99,8 +99,7 @@ public class AccountController {
 		if(!newGoods.equals("")) {
 			account.setGoods(newGoods);
 		} 
-		
-		System.out.println(account);
+
 		
 		// account테이블 insert 성공여부 저장을 위한 변수선언
 		int insertAccountResult = 0;
@@ -122,7 +121,7 @@ public class AccountController {
 					at.setBoardType("A");
 					at.setOriginName(upfiles[i].getOriginalFilename());
 					at.setChangeName("resources/uploadFiles/" + saveFile(upfiles[i], session)); 
-					System.out.println(at);
+
 					if(accountService.insertAttachment(at)<0) {
 						session.setAttribute("alertMsg", "영농일지 작성 실패");
 						return "common/errorPage";
@@ -179,17 +178,19 @@ public class AccountController {
 	
 	// 영농일지 수정하기에서 "확인" 버튼 누를 시, DB에 수정된 내용을 저장하기 위한 메소드
 	@RequestMapping("update.ac")
-	public ModelAndView updateaccount(Account account, String newCategory, MultipartFile[] reUpfiles, HttpServletRequest request, HttpSession session, Attachment at, ModelAndView mv) {
+	public ModelAndView updateaccount(Account account, String newCategory, String newGoods, MultipartFile[] reUpfiles, HttpServletRequest request, HttpSession session, Attachment at, ModelAndView mv) {
 		// 만약 신규등록한 카테고리가 있다면
 		/// account의 accountCategory필드 값을 신규등록값으로 변경
 
 		if(!newCategory.equals("")) {
 			account.setAccountCategory(newCategory);
 		}
-		
+
+		if(!newCategory.equals("")) {
+			account.setGoods(newGoods);
+		}
 		for(int i=0; i<3; i++) {
 			
-			System.out.println("updateAccount reUpfiles"+reUpfiles[i]);
 				//0번째 인덱스에 올려진 파일이 있고
 			
 			String which = "";
@@ -198,12 +199,11 @@ public class AccountController {
 
 				if(i==0) {	
 						// for문 내에서 insert문은 단 한 번만 실행되어야하므로 i==0 블럭에서 실행
-					System.out.println(account);
 					accountService.updateAccount(account);
 				}
 			
 				
-				at.setBoardType("D");
+				at.setBoardType("A");
 				//attachment vo에 새로 들어온 파일의 값을 담고
 				at.setOriginName(reUpfiles[i].getOriginalFilename());
 				at.setChangeName("resources/uploadFiles/" + saveFile(reUpfiles[i], session)); 
@@ -214,9 +214,7 @@ public class AccountController {
 					// DB에서 기존 파일의 fileNo에 덮어쓰기
 					at.setFileNo(Integer.parseInt(request.getParameter("beforeFileNo"+(i+1))));
 					// 기존 파일은 삭제
-					System.out.println(request.getParameter("beforeFileChangeName"+(i+1)));
-					System.out.println(new File(request.getParameter("beforeFileChangeName"+(i+1))));
-					new File("/"+request.getParameter("beforeFileChangeName"+(i+1))).delete();
+						new File("/"+request.getParameter("beforeFileChangeName"+(i+1))).delete();
 					// 실행할 SQL문은  attachment - UPDATE
 					accountService.updateAttachment(at);
 					
@@ -239,10 +237,10 @@ public class AccountController {
 	@RequestMapping("delete.ac")
 	public ModelAndView deleteaccount(int accountNo, ModelAndView mv, HttpSession session) {	
 		if( accountService.deleteAccount(accountNo)*accountService.deleteAttachment(accountNo)>0) {
-			session.setAttribute("alertMsg", "영농일지가 삭제되었습니다");
+			session.setAttribute("alertMsg", "가계부가 삭제되었습니다");
 			mv.setViewName("redirect:list.ac");
 		} else {
-			session.setAttribute("alertMsg", "영농일지 삭제에 실패하였습니다.");
+			session.setAttribute("alertMsg", "가계부 삭제에 실패하였습니다.");
 			mv.setViewName("common/errorPage");			
 		}
 		return mv;	

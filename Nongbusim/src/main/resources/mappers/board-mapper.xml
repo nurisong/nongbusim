@@ -38,33 +38,90 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 
-	<select id="selectListCount" resultType="_int">
-		select
-		       count(*)
-		  from
-		       board
-		 where
-		 	   board_type=#{boardType}
-		   and
-		       status = 'Y'
+	<select id="selectListCount" resultType="_int" parameterType="hashmap">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		(
+		  		 SELECT
+			  		   board_no
+				      ,board_title
+				      ,board_content
+				      ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
+				      ,count
+				      ,board_type
+				      ,board_writer
+				      ,board_like
+				  FROM
+				  	  board
+				 WHERE
+					  STATUS = 'Y'
+		   		   AND 
+		   			  BOARD_TYPE= #{boardType}
+		  		)
+		<if test="condition == 'all'">
+		 WHERE	
+				BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+			OR
+				BOARD_TITLE LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'title'">
+		 WHERE
+				BOARD_TITLE LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'content'">
+		 WHERE
+				BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+		</if>
 	</select>
 
 
-	<select id="selectList" resultMap="boardResultSet">
-		select 
-               board_no
-               ,board_title
-               ,to_char(create_date, 'YYYY-MM-DD') as "CREATE_DATE"
-               ,count
-               ,board_writer
-               ,board_like
-		  from
-		       board b
-         where
-           	   board_type=#{boardType}
-         order
-            by
-               board_no desc
+	<select id="selectList" resultMap="boardResultSet" parameterType="hashmap">
+		SELECT
+				*
+		  FROM
+		  		(
+		  		 SELECT
+			  		   board_no
+				      ,board_title
+				      ,board_content
+				      ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
+				      ,count
+				      ,board_type
+				      ,board_writer
+				      ,board_like
+				  FROM
+				  	  board
+				 WHERE
+					  STATUS = 'Y'
+		   		   AND 
+		   			  BOARD_TYPE= #{boardType}
+		  		)
+		<if test="condition == 'all'">
+		 WHERE
+				BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+			OR
+				BOARD_TITLE LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'title'">
+		 WHERE
+				BOARD_TITLE LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'content'">
+		 WHERE
+				BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+		</if>
+		 ORDER
+		    BY
+		<if test="order == 'recent'">
+		    	BOARD_NO DESC
+		</if>
+		<if test="order == 'like'">
+				BOARD_LIKE DESC
+		</if>
+		<if test="order == 'count'">
+				COUNT DESC
+		</if>
 	</select>
 	
 	<select id="selectBoard" resultMap="boardResultSet">
@@ -276,108 +333,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   	   board_type=#{boardType}
 	</update>
 	
-	
-	<select id="selectListOrder" parameterType="hashmap" resultMap="boardResultSet">
-		select 
-               board_no
-               ,board_title
-               ,to_char(create_date, 'YYYY-MM-DD') as "CREATE_DATE"
-               ,count
-               ,board_writer
-               ,board_like
-		  from
-		       board b
-         where
-           	   board_type=#{boardType}
-         order
-            by
-         <if test=" thumbnail=='recent' ">         
-               board_no desc
-         </if>
-         <if test=" thumbnail=='like' ">
-         	   board_like desc
-         </if>
-         <if test=" thumbnail=='count' ">
-			   count desc         
-         </if>
-         
-        select
-		       board_no
-		      ,board_title
-		      ,board_content
-		      ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
-		      ,count
-		      ,board_writer
-		      ,board_like
-		  from
-		       board
-		 where
-		       status = 'Y'
-		   and
-		       board_no = #{boardNo}
-	</select>
-	
-	<select id="selectSearchListCount" resultType="_int" parameterType="hashmap">
-	SELECT
-			COUNT(*)
-	  FROM
-			BOARD
-	 WHERE
-			STATUS = 'Y'
-	   AND 
-	   		BOARD_TYPE= #{boardType}
-	<if test="condition == 'all'">
-	   AND
-			BOARD_CONTENT LIKE '%'||#{keyword}||'%'
-		OR
-			BOARD_TITLE LIKE '%'||#{keyword}||'%'
-	</if>
-	<if test="condition == 'title'">
-	   AND
-			BOARD_TITLE LIKE '%'||#{keyword}||'%'
-	</if>
-	<if test="condition == 'content'">
-	   AND
-			BOARD_CONTENT LIKE '%'||#{keyword}||'%'
-	</if>
-
-</select>
-
-<select id="selectSearchList" resultMap="boardResultSet" parameterType="hashmap">
-	SELECT
-		       board_no
-		      ,board_title
-		      ,board_content
-		      ,to_char(create_date, 'YYYY-MM-DD') as "create_date"
-		      ,count
-		      ,board_type
-		      ,board_writer
-		      ,board_like
-	  FROM
-			BOARD
-	 WHERE
-			STATUS = 'Y'
-	   AND 
-	   		BOARD_TYPE= #{boardType}
-	<if test="category != 'all'">
-	   AND  CATEGORY = #{category}
-	</if>
-	<if test="condition == 'all'">
-	   AND
-			BOARD_CONTENT LIKE '%'||#{keyword}||'%'
-		OR
-			BOARD_TITLE LIKE '%'||#{keyword}||'%'
-	</if>
-	<if test="condition == 'title'">
-	   AND
-			BOARD_TITLE LIKE '%'||#{keyword}||'%'
-	</if>
-	<if test="condition == 'content'">
-	   AND
-			BOARD_CONTENT LIKE '%'||#{keyword}||'%'
-	</if>
-
-</select>
 	<!-- 미완성 -->
 	<select id="selectReplyList" resultType="comment">
 		select 

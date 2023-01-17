@@ -23,12 +23,12 @@ public class BoardServiceImpl implements BoardService{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public int selectListCount(String boardType) {
-		return boardDao.selectListCount(sqlSession, boardType);
+	public int selectListCount(HashMap map) {
+		return boardDao.selectListCount(sqlSession, map);
 	}
 	@Override
-	public ArrayList<Board> selectList(String boardType, PageInfo pi){
-		return boardDao.selectList(sqlSession, boardType, pi);
+	public ArrayList<Board> selectList(HashMap map, PageInfo pi){
+		return boardDao.selectList(sqlSession, map, pi);
 	}
 	
 	@Override
@@ -92,22 +92,6 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int decreaseLike(Board b) {
 		return boardDao.decreaseLike(sqlSession,b);
-	}
-	
-	
-	@Override
-	public ArrayList<Board> selectListOrder(HashMap map){
-		return boardDao.selectListOrder(sqlSession,map);
-	}
-	
-	@Override
-	public int selectSearchListCount(HashMap map) {
-		return boardDao.selectSearchListCount(map, sqlSession);
-	}
-	
-	@Override
-	public ArrayList<Board> selectSearchList(PageInfo pi, HashMap map) {
-		return boardDao.selectSearchList(pi, map, sqlSession);
 	}
 	
 	@Override

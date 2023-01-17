@@ -11,10 +11,10 @@ import com.kh.nbs.common.model.vo.PageInfo;
 public interface BoardService {
 	
 	//게시글 총 개수 조회
-	int selectListCount(String boardType);
+	int selectListCount(HashMap map);
 	
 	//게시글 리스트 조회
-	ArrayList<Board> selectList(String boardType, PageInfo pi);
+	ArrayList<Board> selectList(HashMap map, PageInfo pi);
 	
 	//게시글 조회, 조회수 증가, 첨부파일 조회
 	Board selectBoard(int boardNo);
@@ -44,12 +44,6 @@ public interface BoardService {
 	int increaseLike(Board b);
 	//좋아요 갑소
 	int decreaseLike(Board b);
-	
-	
-	ArrayList<Board> selectListOrder(HashMap map);
-	
-	int selectSearchListCount(HashMap map);
-	ArrayList<Board> selectSearchList(PageInfo pi, HashMap map);
 	
 	// 댓글 리스트 조회서비스(Ajax)(select)
 	ArrayList<Comment> selectReplyList(int boardNo);

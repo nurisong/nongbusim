@@ -196,9 +196,9 @@
                 $(".picture-area").hide();
                 $(".table-area").show();
                 $('#boardType-table').val(value_str.options[value_str.selectedIndex].value);
-            }
+            };
 
-        }
+        };
         
         <!-- 업로드되는 썸네일로 src값을 변경-->     
         function onFileSelected(event) {
@@ -213,7 +213,7 @@
         	  };
 
         	  reader.readAsDataURL(selectedFile);
-        }
+        };
 
         <!--text 합치고 content에 넣기-->      
         var content="";
@@ -228,7 +228,7 @@
         	
         	$('#content').val(content);
         	console.log(content);       	
-        }
+        };
         
         <!-- 추가 내용 쓸 수 있는 공간 보이기 -->
         $('.add-content').click(function(){
@@ -236,15 +236,18 @@
         	if($('#upfile-area1').css('display')=='none') {
         		$('#upfile-area1').css('display','block');
         		$('#upfile1').css('display','none');
+        		$('#text2').attr('required',true);
         	} else if($('#upfile-area2').css('display')=='none'){
         		$('#upfile-area2').css('display','block');
         		$('#upfile2').css('display','none');
+        		$('#text3').css('required',true);
         	} else {
         		$('#upfile-area3').css('display','block');
         		$('#upfile3').css('display','none');
-        	}
+        		$('#text4').css('required',true);
+        	};
         	
-        })
+        });
         
         <!-- 이미지 미리보기 -->
         function loadImg(inputFile, num){
@@ -269,8 +272,9 @@
 				 case 1: $('#upimage1').attr('src', 'https://adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg'); break;
 				 case 2: $('#upimage2').attr('src', 'https://adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg'); break;
 				 case 3: $('#upimage3').attr('src', 'https://adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg'); break;
-			 } 
-        }
+			 		}
+            }
+        };
 
     </script>
 

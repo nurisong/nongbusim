@@ -72,18 +72,24 @@ public class FarmDao {
 	}
 	
 	public int insertAttachment(List upfileList, SqlSessionTemplate sqlSession) {
-		return sqlSession.insert("farmMapper.insertAttachment", upfileList);
+		return sqlSession.update("farmMapper.insertAttachment", upfileList);
 	}
 	
 	public int updateFarm(Farm f, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("farmMapper.updateFarm", f);
 	}
 	
+	public int updateInsertAttachment(List upfileList, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("farmMapper.updateInsertAttachment", upfileList);
+	}
+	
+	/*
 	public ArrayList<Attachment> deleteAttachment(int[] fileNo, SqlSessionTemplate sqlSession) {
 		List list = Arrays.asList(fileNo);
 		
 		return (ArrayList)sqlSession.selectList("farmMapper.deleteAttachment", list);
 	}
+	*/
 
 	public int deleteFarm(int farmNo, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("farmMapper.deleteFarm", farmNo);

@@ -96,7 +96,7 @@
           <div style="background-color:rgb(223, 223, 223); height: 60px; width:70%; text-align: center;">
 
             <div id=sform>
-                <form id="searchForm" action="search.bo" method="get" style="padding-top:10px;">
+                <form id="searchForm" action="list.bo" method="get" style="padding-top:10px;">
                     <div class="select">
                     <select class="custom-select" name="condition">
                         <option value="all">전체</option>
@@ -105,10 +105,10 @@
                     </select>
                     </div>
                     <div class="text">
-                    <input type="text" class="form-control" name="keyword">
+                    <input type="text" class="form-control" name="keyword" value="${con.keyword}">
                     </div>
                     <div class="searchbutton">
-                    <input type="hidden" value="${ type }" name="boardType">
+                    <input type="hidden" value="${ type }" name="type">
                     <button type="submit" class="searchBtn btn btn-secondary">검색</button>
                     </div>
                 </form>               
@@ -119,14 +119,18 @@
           <br><br>
           
           <!--해당순으로 정렬-->
-          <div class="img-select">
-            <select name="img-condition">
-              <option value="recent">최신순</option>
-              <option value="popular">좋아요순</option>
-              <option value="create">조회수순</option>
-            </select>
-          </div>
-          <br><br>
+			<div class="img-select">
+				<div id="oform">
+				
+				  <select name="jump" onchange="location.href=this.value">
+				    <option value="list.bo?cpage=1&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=recent" selected>최신순</option>
+				    <option value="list.bo?cpage=1&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=like">좋아요순</option>
+				    <option value="list.bo?cpage=1&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=count">조회수순</option>
+				  </select>
+				</div>
+			
+			</div>
+			<br><br>  
          
           <!--썸네일 리스트-->
         <div class="list-area">
@@ -178,12 +182,12 @@
 		        		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
 		        	</c:when>
 		        	<c:otherwise>
-		        		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }&type=S">Previous</a></li>
+		        		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }&type=S&condition=${con.condition}&keyword=${con.keyword}&order=${con.order}">Previous</a></li>
 		        	</c:otherwise>
 		        </c:choose>
 		        
 				<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-		        	<li class="page-item"><a class="page-link" href="list.bo?cpage=${p}&type=S">${ p }</a></li>
+		        	<li class="page-item"><a class="page-link" href="list.bo?cpage=${p}&type=S&condition=${con.condition}&keyword=${con.keyword}&order=${con.order}">${ p }</a></li>
 		        </c:forEach>
 		
 				<c:choose>
@@ -191,7 +195,7 @@
 		        		<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
 		        	</c:when>
 		        	<c:otherwise>
-		        		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }&type=S">Next</a></li>
+		        		<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }&type=S&condition=${con.condition}&keyword=${con.keyword}&order=${con.order}">Next</a></li>
 		        	</c:otherwise>
 		        </c:choose>
 		          
