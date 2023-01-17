@@ -16,6 +16,11 @@ public interface ReviewService {
 	//리뷰 리스트
 	int selectReviewCount();
 	
+	//내가 쓴 리뷰 조회
 	ArrayList<Review> selectMyReview(int memNo);
+	
+	
+	//작성된 리뷰 수정
+	ArrayList<Review> reviewUpdate(Review r);
 	
 }

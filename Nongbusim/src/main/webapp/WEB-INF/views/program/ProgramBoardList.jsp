@@ -173,11 +173,9 @@
 
                     //console.log($(this).attr("src"));
 
-               
 
                     if($(this).attr("src") == "resources/images/deleteheart.png"){
 
-                      
                         
                         $.ajax({
                             url : 'wish.pr',
@@ -196,7 +194,6 @@
                                         console.log('ajax 통신 실패!');
                                     }
                     });
-
 
                     }else{
 
@@ -221,6 +218,14 @@
                     }
                 });
             })
+
+
+                
+
+
+
+
+
 
                $(function(){
                   $('#boardList>tbody>tr>td').not('.sorry').click(function(){

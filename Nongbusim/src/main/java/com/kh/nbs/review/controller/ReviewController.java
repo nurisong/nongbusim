@@ -3,6 +3,7 @@ package com.kh.nbs.review.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -71,7 +72,6 @@ public class ReviewController {
 			
 		}
 		
-		System.out.println(r);
 		
 		if(reviewService.reviewInsert(r)> 0) { //성공 => 게시글 리스트 페이지
 			
@@ -112,6 +112,19 @@ public class ReviewController {
 		
 		return changeName;
 		
+	}
+	
+	
+	@RequestMapping("reviewUpdate.re")
+	public ModelAndView reviewUpdate( Review r,ModelAndView mv) {
+		
+	
+		
+		
+		System.out.println(reviewService.reviewUpdate(r));
+		mv.addObject("reviewUpdate",reviewService.reviewUpdate(r)).setViewName("redirect:myProgramlist.re");
+		
+		return mv;
 	}
 	
  
