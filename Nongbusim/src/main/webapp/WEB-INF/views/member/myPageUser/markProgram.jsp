@@ -55,7 +55,7 @@
 			            <c:forEach var="p" items="${ list }">
 			          		<tr style="text-align:center">
 			          		
-			          			<td class="bno">${p.programNo }</td>
+			          			<td class="bno" hidden>${p.programNo }</td>
 			          			<td>${ p.programLocation }</td>
 			          			<td>${ p.programName }</td>
 			          			<td>${ p.programPlan }</td>
@@ -67,11 +67,7 @@
 		        	</c:when>
 		        	<c:otherwise>
 		        	    <tr>
-		        			<td style="width:200px">찜한 게시글이 없습니다.</td>
-		        			<td></td>
-		        			<td></td>
-		        			<td></td>
-		        			<td></td>
+		        			<td style="width:200px" colspan="6">찜한 게시글이 없습니다.</td>
 		        		</tr>
 		        	</c:otherwise>
 		        </c:choose>

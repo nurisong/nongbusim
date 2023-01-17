@@ -127,12 +127,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND MEM_STATUS = 'Y'
 	</select>
 	
-	<!-- 내가 작성한 게시글 조회 -->
+	<!-- 일반 사용자가 작성한 게시글 조회 -->
 	<select id="userMyBoardList" resultMap="boardResultSet" parameterType="board">
 		SELECT BOARD_NO, BOARD_TYPE, BOARD_TITLE, BOARD_CONTENT, CREATE_DATE, MODIFY_DATE, THUMBNAIL, RECRUIT_YN, COUNT, STATUS, MEM_NO
 		FROM BOARD
 		WHERE MEM_NO = #{memNo}
 		AND STATUS = 'Y'
+	</select>
+	
+	<!-- 일반 사용자가 작성한 마켓글 조회 -->
+	<select id="userMyMarketList" resultMap="marketResultSet" parameterType="market">
+		SELECT MARKET_NO, MK_CATEGORY, MK_TITLE, MK_PRICE, MK_INTRO, MK_CONTENT, to_char(MK_ENROLLDATE, 'YYYY-MM-DD') as "MK_ENROLLDATE", MK_COUNT, MK_STATUS, MEM_NO
+		FROM MARKET
+		WHERE MEM_NO = #{memNo}
+		AND MK_STATUS = 'Y'
 	</select>
 	
 	<!-- 농부가 작성한 게시글 조회 -->
@@ -149,6 +157,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM PROGRAM
 		WHERE MEM_NO = #{memNo}
 		AND PROGRAM.STATUS = 'Y'
+	</select>
+	
+	<!-- 농부가 작성한 마켓글 조회 -->
+	<select id="farmerMyMarketList" resultMap="marketResultSet" parameterType="market">
+		SELECT MARKET_NO, MK_CATEGORY, MK_TITLE, MK_PRICE, MK_INTRO, MK_CONTENT, to_char(MK_ENROLLDATE, 'YYYY-MM-DD') as "MK_ENROLLDATE", MK_COUNT, MK_STATUS, MEM_NO
+		FROM MARKET
+		WHERE MEM_NO = #{memNo}
+		AND MK_STATUS = 'Y'
 	</select>
 	
 	<!-- 찜한 프로그램 -->
