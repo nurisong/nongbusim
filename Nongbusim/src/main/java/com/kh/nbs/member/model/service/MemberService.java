@@ -36,11 +36,17 @@ public interface MemberService {
 	// 일반 사용자가 작성한 게시글 조회(select)
 	ArrayList<Board> userMyBoardList(int memNo);
 	
+	// 일반 사용자가 작성한 마켓글 조회(select)
+	ArrayList<Market> userMyMarketList(int memNo);
+	
 	// 농부가 작성한 게시글 조회(select)
 	ArrayList<Board> farmerMyBoardList(int memNo);
 	
 	// 농부가 작성한 프로그램 리스트 조회(select)
 	ArrayList<Program> farmerMyProgramList(int memNo);
+	
+	// 농부가 작성한 마켓 리스트 조회(select)
+	ArrayList<Market> farmerMyMarketList(int memNo);
 	
 	// 찜한 프로그램(select)
 	ArrayList<Program> markProgram(int memNo);

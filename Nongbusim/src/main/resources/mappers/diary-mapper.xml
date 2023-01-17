@@ -199,4 +199,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			board_no = #{diaryNo}
 
 	</update>
+	
+	
+	
+	
+	<select id="selectCalEvent" parameterType="_int" resultType="diaryCalendar">
+	select 
+			diary_no as "id", 
+			diary_category as "title", 
+			create_date as "start", 
+			create_date as "end",
+			'true' as "allDay" 
+	from diary
+	
+	</select>
 </mapper>

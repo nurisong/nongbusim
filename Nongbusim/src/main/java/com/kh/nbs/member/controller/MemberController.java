@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.nbs.market.model.vo.Market;
 import com.kh.nbs.member.model.service.MemberService;
 import com.kh.nbs.member.model.vo.Member;
 import com.kh.nbs.program.model.service.ProgramService;
@@ -222,6 +223,24 @@ public class MemberController {
 		return mv;
 	}
 	
+	@RequestMapping("userMyMarketList.me")
+	public ModelAndView userMyMarketList(HttpSession session, ModelAndView mv) {
+		
+		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		mv.addObject("list", memberService.userMyMarketList(mNo)).setViewName("member/myPageUser/myMarket");
+		return mv;
+	}
+	
+	@RequestMapping("farmerMyMarketList.me")
+	public ModelAndView farmerMyMarketList(HttpSession session, ModelAndView mv) {
+		
+		int mNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+		
+		mv.addObject("list", memberService.farmerMyMarketList(mNo)).setViewName("member/myPageFarmer/myMarket");
+		return mv;
+	}
+	
 	@RequestMapping("farmerMyBoardList.me")
 	public ModelAndView farmerMyBoardList(ModelAndView mv, HttpSession session) {
 		
@@ -238,11 +257,6 @@ public class MemberController {
 		mv.addObject("list", memberService.farmerMyProgramList(mNo)).setViewName("member/myPageFarmer/farmerMyProgramList");
 		return mv;
 	}
-	
-
-	
-	
-	
 	
 	@RequestMapping("markProgram.me")
 	public ModelAndView markProgram(ModelAndView mv, HttpSession session) {
@@ -306,15 +320,6 @@ public class MemberController {
 			model.addAttribute("alertMsg", "비밀번호를 다시 입력해주세요.");
 			return "member/myPageUser/updateUser";
 		}
-		
 	}
-	
-
-	
-	
-	
-	
-	
-	
 	
 }

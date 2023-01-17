@@ -65,6 +65,11 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Board> userMyBoardList(int memNo) {
 		return memberDao.userMyBoardList(sqlSession, memNo);
 	}
+	
+	@Override
+	public ArrayList<Market> userMyMarketList(int memNo) {
+		return memberDao.userMyMarketList(sqlSession, memNo);
+	}
 
 	@Override
 	public ArrayList<Board> farmerMyBoardList(int memNo) {
@@ -74,6 +79,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ArrayList<Program> farmerMyProgramList(int memNo) {
 		return memberDao.farmerMyProgramList(sqlSession, memNo);
+	}
+	
+	@Override
+	public ArrayList<Market> farmerMyMarketList(int memNo) {
+		return memberDao.farmerMyMarketList(sqlSession, memNo);
 	}
 	
 	@Override
@@ -95,14 +105,5 @@ public class MemberServiceImpl implements MemberService {
 	public int updatePwd(Member m) {
 		return memberDao.updatePwd(sqlSession,m);
 	}
-
-
-
-	
-	
-
-
-
-
 
 }

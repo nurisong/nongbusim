@@ -230,34 +230,76 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE
 		  FROM
 		  		ATTACHMENT
-		<foreach collection="list" item="fileNo">
 		 WHERE
-				FILE_NO = #{fileNo}		
+		 		FILE_NO IN
+		<foreach collection="list" item="fileNo" open="(" separator="," close=")">
+				 #{fileNo}		
 		</foreach>
 	</delete>
 	
-	<insert id="insertAttachment">
-		<foreach collection="list" item="attachment">
-			INSERT
-			  INTO
-			  		ATTACHMENT
-			  		(
-			  		file_no,
-			  		origin_name,
-			  		change_name,
-			  		board_type,
-			  		board_no
-			  		)
-			VALUES
-			  		(
-			  		SEQ_ANO.NEXTVAL
-			  	   ,#{originName}
-			  	   ,#{changeName}
-			  	   ,'F'
-			  	   ,#{boardNo}
-			  		)
-		</foreach>
-	</insert>
+	<update id="insertAttachment">
+		INSERT
+		  INTO
+		  		ATTACHMENT
+		  		(
+		  		file_no,
+		  		board_no,
+		  		origin_name,
+		  		change_name,
+		  		board_type,
+		  		file_level
+		  		)
+		 		SELECT 
+		 				 SEQ_ANO.NEXTVAL as fileNo
+		 				,SEQ_FNO.CURRVAL as farmNo
+		 				,A.*
+				  FROM
+					   (
+						<foreach collection="list" item="attachment" separator="UNION ALL">
+							SELECT
+							  	     #{attachment.originName} as originName
+							  	    ,#{attachment.changeName} as changeName
+							  	    ,'F' as boardType
+							  	    <choose>
+							  	    <when test="#{attachment.fileLevel != null}">
+							  	    ,#{attachment.fileLevel}
+							  	    </when>
+							  	    <otherwise>
+							  	    ,2
+							  	    </otherwise>
+							  	    </choose>
+							  FROM
+							  		 SYS.DUAL
+						</foreach>
+					    ) A
+	</update>
+	
+	<update id="updateInsertAttachment">
+		INSERT
+		  INTO
+		  		ATTACHMENT
+		  		(
+		  		file_no,
+		  		origin_name,
+		  		change_name,
+		  		board_type,
+		  		board_no
+		  		)
+		 		SELECT 
+		 				SEQ_ANO.NEXTVAL as fileNo, A.*
+				  FROM
+					   (
+						<foreach collection="list" item="attachment" separator="UNION ALL">
+							SELECT
+							  	     #{attachment.originName} as originName
+							  	    ,#{attachment.changeName} as changeName
+							  	    ,'F' as boardType
+							  	    ,#{attachment.boardNo} as boardNo
+							  FROM
+							  		 SYS.DUAL
+						</foreach>
+					    ) A
+	</update>
 	
 	<update id="updateFarm">
 		UPDATE
