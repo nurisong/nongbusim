@@ -1,6 +1,7 @@
 package com.kh.nbs.review.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -36,9 +37,9 @@ public class ReviewDao {
 		
 	}
 	
-	public ArrayList<Review> reviewUpdate(SqlSessionTemplate sqlSession,Review r) {
+	public List<Review> reviewUpdate(SqlSessionTemplate sqlSession,Review r) {
 		
-		return (ArrayList)sqlSession.selectList("reviewMapper.reviewUpdate", r);
+		return (List)sqlSession.selectList("reviewMapper.reviewUpdate", r);
 		
 	}
 

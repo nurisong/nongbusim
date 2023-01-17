@@ -103,26 +103,11 @@
                 top: 10px;
                 right: 10px; }
 
-            /*  */
-            
-            #my_modal2 {
-                display: none;
-                width: 500px;
-                padding: 20px 60px;
-                background-color: #fefefe;
-                border: 1px solid #888;
-                border-radius: 3px;
-            }
-
-            #my_modal2 .modal_close_btn {
-                position: absolute;
-                top: 10px;
-                right: 10px; }
-
+          
 
          /* 별점 스타일 */
 
-            .star-rating {
+             .star-rating {
             display: flex;
             flex-direction: row-reverse;
             font-size: 2.25rem;
@@ -138,21 +123,23 @@
             }
             
             .star-rating label {
-            -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+            -webkit-text-fill-color: transparent; 
             -webkit-text-stroke-width: 2.3px;
             -webkit-text-stroke-color: #2b2a29;
             cursor: pointer;
             }
             
-            .star-rating :checked ~ label {
+             .star-rating :checked ~ label {
             -webkit-text-fill-color: gold;
-            }
+            } 
             
             .star-rating label:hover,
             .star-rating label:hover ~ label {
             -webkit-text-fill-color: #fff58c;
-            }
-       
+            } 
+
+
+        
     </style>
     
 </head>
@@ -185,14 +172,15 @@
                         <th>교육기간</th>
                         <th>상세보기</th>
                         <th>후기</th>
+                   
                     </tr>
                 </thead>
                 <tbody>
-                    
 
 
                     <c:forEach var="p" items="${myProgramList}" varStatus="status" >
                        <tr>
+                       		
                             <td>${p.programNo}</td>
                             <td>${ p.programName }</td>
                             <td>${p.programPlan}</td>
@@ -224,7 +212,7 @@
                          
                         </tr>
                         <tr>
-                            <td><input type="text" name="reviewContent"style="width: 400px; height: 100px;"></td>
+                            <td><input type="text" id="test3" name="reviewContent"style="width: 400px; height: 100px;"></td>
                             
                         </tr><br>
                        
@@ -258,7 +246,7 @@
                     <a class="modal_close_btn">  <img  src="resources/images/close.png" style="width: 30px; height: 30px;"></a>
                     <br>
                     <div align="center">
-                  
+                        
                         <button type="submit">작성</button>
     
                     </div>
@@ -266,59 +254,7 @@
              
             </div>
 
-            <!-- 후기 수정 모달 -->
-            <div id="my_modal2">
-
-                <form action="" method="post" enctype="multipart/form-data">
-                    <h2 align="center">후기 수정</h2>
-                    <table style="width: 400px; height:200px;">
-                        <tr>
-                           <td>프로그램명 : <input class="programName" type="text" value=""></td>
-                            
-                            <td><input class="programNo" name="programNo"  type="text" value=""></td>
-                         
-                        </tr>
-                        <tr>
-                            <td><input class="reviewContent" type="text" name="reviewContent"style="width: 400px; height: 100px;" value=""></td>
-                            
-                        </tr><br>
-                       
-                        <tr>
-                            <td><input type="file" name="upfile"></td>
-                        </tr><br>
-                    </table>
-    
-                    <!-- 별점 -->
-                    <div class="star-rating space-x-4 mx-auto">
-                        <input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
-                        <label for="5-stars" class="star pr-4">★</label>
-    
-    
-                        <input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
-                        <label for="4-stars" class="star">★</label>
-    
-    
-                        <input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
-                        <label for="3-stars" class="star">★</label>
-    
-    
-                        <input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
-                        <label for="2-stars" class="star">★</label>
-    
-    
-                        <input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
-                        <label for="1-star" class="star">★</label>
-                    </div>
-            
-                    <a class="modal_close_btn">  <img  src="resources/images/close.png" style="width: 30px; height: 30px;"></a>
-                    <br>
-                    <div align="center">
-                  
-                        <button type="submit">작성</button>
-    
-                    </div>
-                </form>
-            </div>
+           
 
 </body>
 
@@ -367,6 +303,7 @@
         function test() {
   
             var testCount = 0;
+        
 
             <c:forEach var="p" items="${myProgramList}" >
             
@@ -379,7 +316,7 @@
                     
                         if(count > 0) {
                             console.log($('.reviewStatus').eq(testCount));
-                            $('.reviewStatus').eq(testCount).html('후기수정').attr("onclick","modal('my_modal2','${p.programName}','${p.programNo}');");
+                            $('.reviewStatus').eq(testCount).html('후기수정').attr("onclick","modal('my_modal','${p.programName}','${p.programNo}');");
                             
                         }                     
                     
@@ -404,13 +341,41 @@
 					url : 'reviewUpdate.re',
 					data : {
 							programNo : $(this).parent().parent().children().eq(0).text(),
-							memNo : ${loginUser.memNo}
+							memNo : ${loginUser.memNo},
 					},
 					
-					success : function(){
+					success : function(result){
 						
 						console.log('성공');
-						
+						console.log(result)
+						//console.log(result[0].reviewContent);
+						$('#test3').val(result[0].reviewContent);
+						$('#update').text('후기수정');
+
+                        console.log(result[0].reviewContent);
+                        console.log();
+
+                        console.log(result[0].rating);
+                       
+
+                        if(result[0].rating == 5){
+                            $("input:radio[id='5-stars']").prop("checked",true);
+
+                        }else if(result[0].rating == 4) {
+                            $("input:radio[id='4-stars']").prop("checked",true);
+
+                        }else if(result[0].rating == 3) {
+                            $("input:radio[id='3-stars']").prop("checked",true);
+
+                        }else if(result[0].rating == 2) {
+                            $("input:radio[id='2-stars']").prop("checked",true);
+
+                        }else {
+                            $("input:radio[id='1-star']").prop("checked",true);
+
+                        }
+
+
 					},
 					
 					error : function(){
@@ -423,12 +388,13 @@
 			
 		})
 		
+    
 		
 	})
 
     function modal(id, programName,programNo) {
       
-		
+		$('#test3').val(''); //모달창 reviewContent영역 공백으로
 
         $('.programName').val(programName);
         $('.programNo').val(programNo);
@@ -452,6 +418,8 @@
 
         // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
         modal.querySelector('.modal_close_btn').addEventListener('click', function() {
+            
+          
             bg.remove();
             modal.style.display = 'none';
         });
@@ -472,6 +440,12 @@
             webkitTransform: 'translate(-50%, -50%)'
         });
     }
+	
+	
+
+  
+	
+	
 
     // Element 에 style 한번에 오브젝트로 설정하는 함수 추가
     Element.prototype.setStyle = function(styles) {
@@ -480,14 +454,15 @@
     };
 
 
-    //후기 작성 버튼 클릭시
-   
-    // $('.reviewWrite').click(function(){
-                     
-    //      location.href = 'reviewEnrollForm.re?bno=' + $(this).eq(0).text();
-                      
-    //  })
-    
+
+
+
+
+
+
+  
+
+
 
 
 </script>
