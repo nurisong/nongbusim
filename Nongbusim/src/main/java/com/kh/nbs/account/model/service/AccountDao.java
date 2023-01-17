@@ -24,7 +24,7 @@ public class AccountDao {
 
 	
 	public Account selectAccount(SqlSessionTemplate sqlSession, int accountNo) {
-		return sqlSession.selectOne("accountMapper.selectaccount", accountNo);
+		return sqlSession.selectOne("accountMapper.selectAccount", accountNo);
 	}
 	public ArrayList<Attachment> selectAttachmentList(SqlSessionTemplate sqlSession, int accountNo) {
 		return (ArrayList)sqlSession.selectList("accountMapper.selectAttachmentList", accountNo);
@@ -36,12 +36,12 @@ public class AccountDao {
 
 
 	public int insertAccount(SqlSessionTemplate sqlSession, Account account) {
-		return sqlSession.insert("accountMapper.insertaccount", account);
+		return sqlSession.insert("accountMapper.insertAccount", account);
 	}
 
 
 	public int updateaccount(SqlSessionTemplate sqlSession, Account account) {
-		return sqlSession.update("accountMapper.updateaccount", account);
+		return sqlSession.update("accountMapper.updateAccount", account);
 	}
 
 
@@ -51,7 +51,7 @@ public class AccountDao {
 
 
 	public int deleteAccount(SqlSessionTemplate sqlSession, int accountNo) {
-		return sqlSession.update("accountMapper.deleteaccount", accountNo);
+		return sqlSession.update("accountMapper.deleteAccount", accountNo);
 	}
 
 

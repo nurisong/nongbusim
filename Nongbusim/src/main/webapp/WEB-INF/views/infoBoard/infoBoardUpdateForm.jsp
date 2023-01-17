@@ -34,6 +34,7 @@
             <br><br><br>
             <form action="update.if" method="post" enctype="multipart/form-data">
                 <div class="board-area">
+                    <input type="hidden" name="infoNo" value="${info.infoNo}">
                     <table class="table info-table">
                         <tr>
                             <th width="100">카테고리</th>
@@ -73,7 +74,7 @@
                         </tr> -->
                     </table>
 
-                    <button type="submit" class="btn btn-secondary">등록하기</button>
+                    <button type="submit" class="btn btn-secondary">수정하기</button>
                     <a class="btn btn-secondary" href="detail.if?ino=${info.infoNo}">취소하기</a>
                 </div>
             </form>

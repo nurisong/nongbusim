@@ -24,6 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <result column="upload_date" property="uploadDate"/>
 	    <result column="board_no" property="boardNo"/>
 	    <result column="board_type" property="boardType"/>
+	    <result column="file_level" property="fileLevel"/>
 	</resultMap>
 	
 	<resultMap id="programResultSet" type="program">
@@ -152,6 +153,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    ,UPLOAD_DATE
 			    ,BOARD_NO
 			    ,BOARD_TYPE
+			    ,FILE_LEVEL
 		 FROM
 				 ATTACHMENT
 		WHERE
@@ -212,6 +214,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				)
 	</insert>
 	
+	<select id="selectFileNo" resultType="_int">
+		SELECT
+				FILE_NO
+		  FROM
+		  		ATTACHMENT
+		 WHERE
+		 		BOARD_NO = #{farmNo}
+		   AND
+		 		BOARD_TYPE = 'F'
+			
+	</select>
+	
+	<delete id="deleteAttachment">
+		DELETE
+		  FROM
+		  		ATTACHMENT
+		<foreach collection="list" item="fileNo">
+		 WHERE
+				FILE_NO = #{fileNo}		
+		</foreach>
+	</delete>
+	
+	<insert id="insertAttachment">
+		<foreach collection="list" item="attachment">
+			INSERT
+			  INTO
+			  		ATTACHMENT
+			  		(
+			  		file_no,
+			  		origin_name,
+			  		change_name,
+			  		board_type,
+			  		board_no
+			  		)
+			VALUES
+			  		(
+			  		SEQ_ANO.NEXTVAL
+			  	   ,#{originName}
+			  	   ,#{changeName}
+			  	   ,'F'
+			  	   ,#{boardNo}
+			  		)
+		</foreach>
+	</insert>
+	
 	<update id="updateFarm">
 		UPDATE
 		   		FARM
@@ -224,22 +271,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE
 		 		FARM_NO = #{farmNo}
 	</update>
-	
-	<select id="deleteAttachment" resultMap="attachmentResultSet">
-		SELECT
-				FILE_NO
-			   ,ORIGIN_NAME
-			   ,CHANGE_NAME
-			   ,UPLOAD_DATE
-			   ,BOARD_NO
-			   ,BOARD_TYPE
-		 FROM
-				ATTACHMENT
-		<foreach collection="list" index="index" item="fileNo">
-		WHERE
-				FILE_NO = #{fileNo}
-		</foreach>
-	</select>
 	
 	<update id="deleteFarm">
 		UPDATE
