@@ -89,6 +89,8 @@
             .searchBtn {width:20%;}
 
             /* 모달 영역 스타일 시작 */
+
+
             #my_modal {
                 display: none;
                 width: 500px;
@@ -99,6 +101,21 @@
             }
 
             #my_modal .modal_close_btn {
+                position: absolute;
+                top: 10px;
+                right: 10px; }
+
+             /* 수정 모달 시작 */
+             #my_modal2 {
+                display: none;
+                width: 500px;
+                padding: 20px 60px;
+                background-color: #fefefe;
+                border: 1px solid #888;
+                border-radius: 3px;
+            }
+
+            #my_modal2 .modal_close_btn {
                 position: absolute;
                 top: 10px;
                 right: 10px; }
@@ -138,6 +155,39 @@
             -webkit-text-fill-color: #fff58c;
             } 
 
+
+            /* 리뷰 수정 별점 시작 */
+
+            .star-rating2 {
+            display: flex;
+            flex-direction: row-reverse;
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            justify-content: space-around;
+            padding: 0 0.2em;
+            text-align: center;
+            width: 5em;
+            }
+              
+             /* .star-rating2 input {
+            display: none;
+            }     */
+            
+            .star-rating2 label {
+            -webkit-text-fill-color: transparent; 
+            -webkit-text-stroke-width: 2.3px;
+            -webkit-text-stroke-color: #2b2a29;
+            cursor: pointer;
+            }
+            
+             .star-rating2 :checked ~ label {
+            -webkit-text-fill-color: gold;
+            } 
+            
+            .star-rating2 label:hover,
+            .star-rating2 label:hover ~ label {
+            -webkit-text-fill-color: #fff58c;
+            } 
 
         
     </style>
@@ -212,7 +262,7 @@
                          
                         </tr>
                         <tr>
-                            <td><input type="text" id="test3" name="reviewContent"style="width: 400px; height: 100px;"></td>
+                            <td><input type="text" name="reviewContent"style="width: 400px; height: 100px;"></td>
                             
                         </tr><br>
                        
@@ -253,6 +303,71 @@
                 </form>
              
             </div>
+
+
+            <div id="my_modal2">
+
+                <form action="reviewInsert.re" method="post" enctype="multipart/form-data">
+                    <h2 align="center">후기수정</h2>
+                    <table style="width: 400px; height:200px;">
+                        <tr>
+                           <td>프로그램명 : <input class="programName" type="text" value=""></td>
+                            
+                            <td><input name="programNo"  class="programNo" type="text" value="" hidden></td>
+                         
+                        </tr>
+                        <tr>
+                            <td><input type="text" id="test3" name="reviewContent"style="width: 400px; height: 100px;"></td>
+                        </tr><br>
+                       
+                        <tr>
+                            <td><input type="file" name="upfile"></td>
+                        </tr><br>
+                    </table>
+
+                    <div align="center">
+                        <img class="thumbnail" id="image" src="resources/images/딸기1.jpg" style="width: 300px; height: 200px;">
+                    </div>
+
+
+    
+                    <!-- 리뷰 수정 별점 -->
+                    <div class="star-rating2 space-x-4 mx-auto">
+                        <input type="radio" id="5stars" name="rating" value="5" v-model="ratings"/>
+                        <label for="5-stars" class="star pr-4">★</label>
+    
+    
+                        <input type="radio" id="4stars" name="rating" value="4" v-model="ratings"/>
+                        <label for="4-stars" class="star">★</label>
+    
+    
+                        <input type="radio" id="3stars" name="rating" value="3" v-model="ratings"/>
+                        <label for="3-stars" class="star">★</label>
+    
+    
+                        <input type="radio" id="2stars" name="rating" value="2" v-model="ratings"/>
+                        <label for="2-stars" class="star">★</label>
+    
+    
+                        <input type="radio" id="1star" name="rating" value="1" v-model="ratings" />
+                        <label for="1-star" class="star">★</label>
+                    </div>
+            
+                    <a class="modal_close_btn">  <img  src="resources/images/close.png" style="width: 30px; height: 30px;"></a>
+                    <br>
+                    <div align="center">
+                        
+                        <div align="center">
+                            <button style="background-color: rgb(103, 141, 208);">수정</button>
+                            <button style="background-color: rgb(220, 112, 112);">삭제</button>
+                
+                        </div>
+    
+                    </div>
+                </form>
+             
+            </div>
+
 
            
 
@@ -316,7 +431,7 @@
                     
                         if(count > 0) {
                             console.log($('.reviewStatus').eq(testCount));
-                            $('.reviewStatus').eq(testCount).html('후기수정').attr("onclick","modal('my_modal','${p.programName}','${p.programNo}');");
+                            $('.reviewStatus').eq(testCount).html('후기수정').attr("onclick","modal('my_modal2','${p.programName}','${p.programNo}');");
                             
                         }                     
                     
@@ -346,32 +461,27 @@
 					
 					success : function(result){
 						
-						console.log('성공');
-						console.log(result)
+					
 						//console.log(result[0].reviewContent);
 						$('#test3').val(result[0].reviewContent);
 						$('#update').text('후기수정');
-
-                        console.log(result[0].reviewContent);
-                        console.log();
-
-                        console.log(result[0].rating);
+                        $('#image').attr("src",result[0].changeName);
                        
 
                         if(result[0].rating == 5){
-                            $("input:radio[id='5-stars']").prop("checked",true);
+                            $("input:radio[id='5stars']").prop("checked",true);
 
                         }else if(result[0].rating == 4) {
-                            $("input:radio[id='4-stars']").prop("checked",true);
+                            $("input:radio[id='4stars']").prop("checked",true);
 
                         }else if(result[0].rating == 3) {
-                            $("input:radio[id='3-stars']").prop("checked",true);
+                            $("input:radio[id='3stars']").prop("checked",true);
 
                         }else if(result[0].rating == 2) {
-                            $("input:radio[id='2-stars']").prop("checked",true);
+                            $("input:radio[id='2stars']").prop("checked",true);
 
                         }else {
-                            $("input:radio[id='1-star']").prop("checked",true);
+                            $("input:radio[id='1star']").prop("checked",true);
 
                         }
 
@@ -441,28 +551,11 @@
         });
     }
 	
-	
-
-  
-	
-	
-
     // Element 에 style 한번에 오브젝트로 설정하는 함수 추가
     Element.prototype.setStyle = function(styles) {
         for (var k in styles) this.style[k] = styles[k];
         return this;
     };
-
-
-
-
-
-
-
-
-  
-
-
 
 
 </script>
