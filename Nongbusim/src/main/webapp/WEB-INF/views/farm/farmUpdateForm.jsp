@@ -79,7 +79,7 @@
                                 <c:forEach var="at" items="${atList}">
                                     <c:if test="${at.fileLevel eq 1}">
                                         <div>
-                                            <img width="150" src="${at.changeName}"><br>
+                                            <img width="150" src="${at.changeName}">
                                             <input type="hidden" name="originFileNo " value="${at.fileNo}">
                                             <span class="originName">${at.originName} </span>
                                             <button type="button" id="del-img-btn">삭제</button>
@@ -123,6 +123,12 @@
 	                <a class="btn btn-secondary" href="">취소하기</a>
 	            </div>
 
+                <div class="delFiles-area">
+                    
+                </div>
+
+                <input type="hidden" name="delFiles" id="delFiles">
+
 
 
 
@@ -137,21 +143,38 @@
             $('#localCode').val('${farm.localCode}').attr('selected', selected);
         })
 
+        var delFiles = [];
+
         // 삭제 버튼 클릭시
         $('#del-img-btn').on('click', function(){
-            console.log($(this).parents().children());
+            console.log($(this).parent().children().eq(1).val());
+
+            delFiles =+ $(this).parent().children().eq(1).val();
+            console.log(delFiles);
+
+            $('#delFiles').val(delFiles);
+            console.log($('#delFiles').val());
+
+            $(this).parent().children().eq(2);
             $(this).parent().children().eq(2).remove();
             $(this).parent().children().eq(0).remove();
             $(this).parent().children().eq(0).remove();
             $(this).parent().children().eq(0).remove();
-            $(this).parent().append('<input type="file" class="form-control-file border" name="upfiles" accept="image/*" required>');
+            //$(this).parent().append('<input type="file" class="form-control-file border" name="upfiles" accept="image/*" required>');
             $(this).remove();
         })
         
         var maxAppend = '${atList.size()}';
 
         $('.del-img-btn').on('click', function(){
-            console.log($(this).parents().children());
+            console.log($(this).parent().children().eq(1).val());
+
+            delFiles.push($(this).parent().children().eq(1).val());
+            
+            $('#delFiles').val(delFiles);
+            console.log($('#delFiles').val());
+            //$('.delFiles-area').append('<input type="number" name="delFiles" value="'+ $(this).parent().children().eq(1).val() + '">');
+
             $(this).parent().empty();
             //$('.sub-img-area').append('<input type="file" class="form-control-file border" name="upfiles" accept="image/*" required>');
             maxAppend --;
