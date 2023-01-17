@@ -79,6 +79,10 @@ public class FarmDao {
 		return sqlSession.update("farmMapper.updateFarm", f);
 	}
 	
+	public int updateInsertAttachment(List upfileList, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("farmMapper.updateInsertAttachment", upfileList);
+	}
+	
 	/*
 	public ArrayList<Attachment> deleteAttachment(int[] fileNo, SqlSessionTemplate sqlSession) {
 		List list = Arrays.asList(fileNo);

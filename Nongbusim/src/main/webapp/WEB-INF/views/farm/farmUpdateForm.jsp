@@ -94,7 +94,7 @@
 	                    <tr>
                             <th>상세사진</th>
 	                        <td colspan="3" class="sub-img-area">
-                                <button type="button" class="add-btn">추가</button><label style="display: none;" id="max-label"> 상세 사진 첨부는 최대 4장까지 가능합니다.</label><br><br>
+                                <button type="button" class="add-btn">추가</button><label style="display: none;" id="max-label"> 상세 사진 첨부는 최대 3장까지 가능합니다.</label><br><br>
                                 <c:forEach var="at" items="${atList}">
                                     <c:if test="${at.fileLevel ne 1}">
                                         <div>
