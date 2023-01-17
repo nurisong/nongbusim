@@ -9,6 +9,8 @@ public class AccountCalendar {
 	private String start;
 	private String end;
 	private String allDay;
+	private String color; 
+	
 	
 	
 }

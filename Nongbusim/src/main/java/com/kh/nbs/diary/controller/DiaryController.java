@@ -29,22 +29,6 @@ public class DiaryController {
 	private DiaryService diaryService;
 	// dummy memNo
 
-	@RequestMapping("calView.di")
-	public ModelAndView loadDiaryCal(ModelAndView mv) {
-		mv.setViewName("member/myPageFarmer/diary/diaryCalView");
-		return mv;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "calList.di", produces = "application/json; charset=UTF-8")
-	public String selectCalEventList (HttpSession session) {
-		int memNo = ((Member) session.getAttribute("loginUser")).getMemNo();	  
-	    System.out.println(diaryService.seletCalEvent(memNo));
-	    return new Gson().toJson(diaryService.seletCalEvent(memNo));
-
-	
-	}
-
 	// list.di 로딩을 위한 메소드
 	@RequestMapping("list.di")
 	public ModelAndView selectCategoryList(ModelAndView mv, HttpSession session) {
@@ -208,12 +192,11 @@ public class DiaryController {
 					// diary를 insert하기 전 썸네일 필드 세팅(diary의 thumbnail필드엔 첫번쨰 file을 등록)
 					diary.setDiaryThumbnail("resources/uploadFiles/" + saveFile(reUpfiles[i], session));
 					// for문 내에서 insert문은 단 한 번만 실행되어야하므로 i==0 블럭에서 실행
-					System.out.println(diary);
 					diaryService.updateDiary(diary);
 				}
 
 				at.setBoardType("D");
-				// attachment vo에 새로 들어온 파일의 값을 담고
+				// attachment vfo에 새로 들어온 파일의 값을 담고
 				at.setOriginName(reUpfiles[i].getOriginalFilename());
 				at.setChangeName("resources/uploadFiles/" + saveFile(reUpfiles[i], session));
 
@@ -222,8 +205,6 @@ public class DiaryController {
 					// DB에서 기존 파일의 fileNo에 덮어쓰기
 					at.setFileNo(Integer.parseInt(request.getParameter("beforeFileNo" + (i + 1))));
 					// 기존 파일은 삭제
-					System.out.println(request.getParameter("beforeFileChangeName" + (i + 1)));
-					System.out.println(new File(request.getParameter("beforeFileChangeName" + (i + 1))));
 					new File("/" + request.getParameter("beforeFileChangeName" + (i + 1))).delete();
 					// 실행할 SQL문은 attachment - UPDATE
 					diaryService.updateAttachment(at);
@@ -256,4 +237,23 @@ public class DiaryController {
 
 	}
 
+	
+
+	@RequestMapping("calView.di")
+	public ModelAndView loadDiaryCal(ModelAndView mv) {
+		mv.setViewName("member/myPageFarmer/diary/diaryCalView");
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "calList.di", produces = "application/json; charset=UTF-8")
+	public String selectCalEventList (HttpSession session) {
+		int memNo = ((Member) session.getAttribute("loginUser")).getMemNo();	  
+	    System.out.println(diaryService.seletCalEvent(memNo));
+	    return new Gson().toJson(diaryService.seletCalEvent(memNo));
+
+	
+	}
+
+	
 }

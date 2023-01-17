@@ -1,214 +1,189 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ include file="../../../common/menubar.jsp" %>
-<%@ include file="../myPageFarmerCommon.jsp" %>
+<jsp:include page="../myPageFarmerCommon.jsp" />
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<script src="https://kit.fontawesome.com/aa839e973e.js" crossorigin="anonymous"></script>   
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>후기리스트</title>
-<style>
-	body { 
-			width: 1200px;
-			margin: auto;
-		}
-	
-		.outer {
-			margin : auto;
-		}
-	
-	
-	   * {
-	  box-sizing: border-box;
+  <head>
+    <meta charset='utf-8' />
+   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.2/index.global.min.js"></script>
+	<style>
+	/* 일요일 날짜 빨간색 */
+	.fc-day-sun a {
+	  color: red;
+	  text-decoration: none;
 	}
 	
-	.item-area {
-			display: inline-flex;
+	/* 토요일 날짜 파란색 */
+	.fc-day-sat a {
+	  color: blue;
+	  text-decoration: none;
 	}
-	.img-area img {
-		width: 250px;
-		height: 250px;
-		margin-left: 10px;
-		margin-right: 10px;
-		border-radius: 5%;
+	.calArea{
+		width: 60%;
+		border: 30px;
+	
 	}
-
-	.list-text-area {
-		margin-top: 10px;
-	}
-
-	.select-area {
-		margin-right: 80px;
-	}
-
-	.item-area a {
-		text-decoration: none;
-		color: rgb(100, 100, 100);   
-	}
-
-	.item-area:hover a p {
-		color: rgb(10, 10, 10);
-	}
-
-	.item-area h4 {
-		color: rgb(81, 116, 220); 
-	}
-
-	.item-area:hover h4{
-		color: rgb(49, 81, 179); 
-	}
-
-	.form-check-label input[type=radio] {
-        display: none;
-    }
-
-    .form-check-label input[type="radio"] + span {
-        display: inline-block;
-        padding: 10px 10px;
-        border: 1px solid #dfdfdf;
-        background-color: #ffffff;
-        text-align: center;
-        cursor: pointer;
-        margin-right: 20px;
-        border-radius: 10%;
-    }
-
-    .form-check-label input[type="radio"]:checked + span {
-        background-color: #007bff;
-        color: #ffffff;
-    }
-
-    .title-area input {
-        width: 100%;
-    }
-    
-     .myButton{ 
- 		    background-color: #FFA500;
-     		color: maroon;
-     		padding: 5px 10px;
-     		text-align: center;
-     		text-decoration: none;
-     		display: inline-block;
-     		border-radius: 5px;
-     		border: white;
-   	
-    }
-    
-    select{
-         appearance: none;  background-size: 20px;
- 		 padding: 5px 30px 5px 10px;
-  		 border-radius: 4px;
- 		 outline: 0 none;
- 		 background : aliceblue;
-    }
-    
-    
-</style>
-</head>
-<body> 
-	<div class="outer" align="center">
-        <div class="header">
-       		<h1>🙌후기게시판 목록</h1>
-       	</div>
-       	
-    	 <div class="category-area" align="left">     
-	    	<select class="select" name="selectCategory" id="selectCategory" onchange="changeOrder();">
-		        <option selected>전체보기</option>
-		        <option>루틴만들기</option>
-		        <option>스터디</option>
-		        <option>외국어</option>
-		        <option>운동</option>
-		        <option>멘탈케어</option>
-		        <option>취미</option>
-		        <option>기타</option>
-		    </select>
-		    
-		    <select class="select" name="selectOrder" id="selectOrder" onchange="changeOrder();">
-		        <option value="reviewCount" selected>인기순</option>
-		        <option value="upload">최신순</option>
-		        <option value="userLike">좋아요순</option>
-		    </select>
-	  	 </div>
-    </div>
-    <br>
- 	<div class="list-area" align="right">
-
-    </div>
-    <br><br>
-    <div class="products" align="center" id="list">
-    	
-        <div class="clearfix"></div>
-    </div>
-    
-
+	</style>
     <script>
-        function changeOrder(){
-        	var selectCategory = $('#selectCategory').val();
-        	var selectOrder = $('#selectOrder').val();
-        	
-        	
-        	
-        	$.ajax({
-                url : 'list.ore',
-                data : {
-                    selectCategory : selectCategory,
-                    selectOrder : selectOrder
-                },
-                success : function(list) {
-                  console.log(list);
-                	
-                    var result = '';
-					
-                    for(var i=0; i<list.length ; i++) {
-                    
-                    result 
-                    +='<div class="item-area">'
-                    + '<a href="<%= contextPath %>/detail.re?cno=' + list[i].challNo +'&rno='+list[i].reviewNo+'">'
-                    + '<div class="img-area">'
-                    + '<img src="' + list[i].reviewThumbnail + '">'
-                    + '<p>' + list[i].reviewTitle + '</p>'
-                    + '<p> <i class="fa-solid fa-heart" onclick="updateLike();" style="color:red"></i> 좋아요 &nbsp;&nbsp;'+ list[i].countLike  + '</p>'
-                    + '<p id="selectCountLike"> </p>'
-	                + '</div>' + '</a>'
-               		+ '<input type="hidden" id="reviewNo" name="reviewNo" value="'+list[i].reviewNo+'">'
-                    +'</div>'
-                    
-                    }
-                    $('#list').html(result);
-                },
-                error : function() {
-                    console.log('실패');
-                }
-            })
 
-        }
-    
-
-        $(function() {
    
-            changeOrder();
-    	});		
-   
-        
-        
+    var calendar = null;
+      document.addEventListener('DOMContentLoaded', function() {
+  
+        var calendarEl = document.getElementById('calendar');
+        var all_events = null;
+        all_events = loadEvents();
        
+        calendar = new FullCalendar.Calendar(calendarEl, {
+        	 headerToolbar: {
+        	        left: 'prev,next endDate',
+        	        center: 'title',
+        	        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        	      },
+             locale: 'ko',
+        	 initialView: "dayGridMonth",
+        	 slotMinTime: '09:00',
+             slotMaxTime: '19:00',
+             selectable: true,
+             firstDay: 1,
+             titleFormat: function (date) {
+               year = date.date.year;
+               month = date.date.month + 1;
+               return year + "년 " + month + "월";
+             },
+             select: function(arg){
+            	  var startDate= arg.startStr;
+            	  // fullCalender에서 날짜를 드래그하여 선택시
+            	  // arg.endStr값은 마지막 드래그날짜 +1
+            	  // 실제 드래그 마지막날을 선택하려면 arg.endStr 보다 하루 빠른 날짜로 설정해야함
+            	  
+            	 // 실제 드래그 마지막날 변수(endDate)에 담기         	 
+
+ 
+				 var endStr = arg.endStr;
+				 var split = endStr.split('-');
+				// date 문자열 분리 후, day 해당하는 부분 -1
+				// 분리된 문자열로 다시 Date 객체 생성
+				var endDate = new Date(split[0], split[1], split[2]-1);
+				 
+				// 생성된 date객체를 YYYY/mm/dd 형식으로 변환
+				 var endDate2 = endDate.getFullYear() +
+			  		'-' + ( (endDate.getMonth()) < 9 ? "0" + (endDate.getMonth()) : (endDate.getMonth()) )+
+			  		'-' + ( (endDate.getDate()) < 9 ? "0" + (endDate.getDate()) : (endDate.getDate()) );
+				 
+				 // startDate와 endDate 넘기기
+				 location.href="${pageContext.request.contextPath}/enrollForm.di?startDate="+startDate+"&endDate="+endDate2;
+ 
+ 				
+             },
+             
+            events: all_events,
+            
+            eventClick: function(info) {
+                	location.href= "${pageContext.request.contextPath}/detail.ac?ano="+info.event.id;
+               
+            },
+         	eventRender: function (event, element, icon) {
+         		if(event.Score != '' && typeof event.Score  !== "undefined"){
+         			element.find(".fc-title").append("<br/><b>"+event.Score+"</b>");
+         		}
+         	},
+             
+           });
+           calendar.render();
+		   console.log(loadEvents());
+      });
+
+
+	  	//1. 전체이벤트 데이터를  추츨해서 2. ajax로 서버에 전송하여 db저장
+	function loadEvents(){
+	  	
+	  	var return_value;
+		 $.ajax({
+			type: "post",
+			url: "calList.ac",
+			contentType : "application/json",
+			dataType:"json",
+			async: false,
+			success: function(result){
+				console.log(result);
+				return_value = result;
+			},
+			error: function(){
+				console.log('실패');
+			}			
+			
+		 });
+		 
+		 console.log(return_value);
+		 return return_value;
+	};
+	
+	console.log();
+
+	//트리거로 페이지 로딩시 change 시 실행되는 이벤트핸들러 실행되도록
+    $(function(){
+    	$("#fc-dom-1").trigger("change");
+    		
+    });
+    	
+  // 사용자가 선택한 년월에 변화가 일어나면 실행되는 함수  	
+  // calendar처럼 동적으로 생성된 요소는 document.ready 이벤트가 작동x
+  // 로드되었을 때 존재하지 않는 태그에 대해서는 이벤트를 걸 수 없음
+  
+  // 이벤트바인딩하기
+  
+   $(document).on("#fc-dom-1","change",function(){	
+	   alert("변화감지");	
+	   $.ajax({
+		type: "post",
+		url: "monthlySummary.ac",
+		data: {
+			month : $("#fc-dom-1").val()
+		},
+		contentType : "application/json",
+		dataType:"json",
+		success: function(result){
+			console.log(result);
+		},
+		error: function(){
+			console.log('실패');
+		}			
+		
+	 });
+	
+	});
+
+    	$("#incomeOfMonth").text($("#fc-dom-1").text());
+    	$("#monthlyIncome").text();
+    	
+    	
+    
+    
     </script>
+  </head>
+  <body>
+  <div class="summaryArea">
+  	<h5>입출금 장부현황</h5>
+  	<table>
+  		<tr>
+  			<td style="width:200px; height: 200px">
+  				<div style="border:1px solid black; width:100%; height:100%">
+  				<h1>수입
+				<h3 id="incomeOfMonth"></h3>
+				<h2 id="monthlyIncome"></h2>  				
+  				</div>
+  			</td>
+  			
+  		</tr> 			
+  	</table>
+  </div>	
+  <br>
+  <div class="calArea">
+      <div id='calendar'></div>
+      <a href="list.ac">모아보기</a>
+  </div>
+  </body>
 
-    
-    
-
-</body>
-</html>
-
-
-</body>
 </html>

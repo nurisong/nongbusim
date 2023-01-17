@@ -48,7 +48,7 @@ by
 
 <![CDATA[
 	select
-			account_no, decode(type, 'I', '수입', 'O', '지출', '기타') "TYPE", TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", account_category, goods, amount, account_content, account_book.status, account_book.mem_no
+			account_no, decode(type, 'I', '수입', 'O', '지출', '기타') "TYPE", TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", account_category, goods, to_char(amount,'999,999,999'), account_content, account_book.status, account_book.mem_no
 	from
 			account_book
 	join 	member
@@ -80,7 +80,7 @@ by
 	
 <select id="selectAccount" parameterType="_int" resultMap="accountResultSet">
 	select
-			account_no, TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", account_category, decode(type, 'I', '수입', 'O', '지출', '기타') "TYPE", goods, amount, account_content, account_book.status, account_book.mem_no, member.nickname
+			account_no, TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", account_category, decode(type, 'I', '수입', 'O', '지출', '기타') "TYPE", goods, to_char(amount,'999,999,999'), account_content, account_book.status, account_book.mem_no, member.nickname
 	from
 			account_book
 	join 	member
@@ -195,5 +195,31 @@ by
 			board_no = #{accountNo}
 
 	</update>	
+
+	<select id="selectCalEvent" parameterType="_int" resultType="accountCalendar">
+    	select 
+			account_no as "id", 
+			 (case when type = 'I' then '+'|| to_char(amount,'999,999,999') else '-'||to_char(amount,'999,999,999')  end) as "title", 
+			create_date as "start", 
+			create_date as "end",
+			'true' as "allDay",
+             (case when type = 'I' then 'blue' else 'red' end ) color 
+	from account_book	
+	</select>
+	
+	<select id="monthlySummary" parameterType="int">
+ SELECT
+            type, sum(amount) AS TOTAL
+    from
+            account_book
+    where
+            create_date between '2023-01-01' and last_day('2023-01-01')
+    and
+            mem_no=4
+    group
+    by
+            type
+	
+	</select>
 
 </mapper>

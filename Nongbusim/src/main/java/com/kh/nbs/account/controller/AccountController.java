@@ -147,12 +147,6 @@ public class AccountController {
 	}	
 	
 	
-	@RequestMapping("calView.ac")
-	public String accountCalView() {
-		return "member/myPageFarmer/account/accountCalView" ;
-		
-	}
-	
 	//영농일지 상세페이지
 	@RequestMapping("detail.ac")
 	public ModelAndView selectAccount(@RequestParam(value="ano") int accountNo, ModelAndView mv) {
@@ -246,6 +240,39 @@ public class AccountController {
 		return mv;	
 	
 	} 
+	
+	@RequestMapping("calView.ac")
+	public ModelAndView loadDiaryCal(ModelAndView mv) {
+		mv.setViewName("member/myPageFarmer/account/accountCalView");
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "calList.ac", produces = "application/json; charset=UTF-8")
+	public String selectCalEventList (HttpSession session) {
+		int memNo = ((Member) session.getAttribute("loginUser")).getMemNo();	  
+	    System.out.println(accountService.seletCalEvent(memNo));
+	    return new Gson().toJson(accountService.seletCalEvent(memNo));
+
+	
+	}
+
+	
+	//calView에서 해당월 수입지출 요약정보를 띄워주기위한 ajax를 받는메소드 
+	@ResponseBody
+	@RequestMapping(value = "monthlySummary.ac", produces = "application/json; charset=UTF-8")
+	public String monthlySummary(String month, HttpSession session) {
+		System.out.println("hi");
+		int memNo = ((Member) session.getAttribute("loginUser")).getMemNo();	
+		
+		String monthDay = month.substring(0,3)+"-"+month.substring(5,8)+"-01";
+		System.out.println(monthDay);
+		
+		System.out.println(accountService.monthlySummary(memNo));
+		return new Gson().toJson(accountService.monthlySummary(memNo));
+		
+		
+	}
 	
 	
 	

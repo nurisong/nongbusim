@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<typeAliases>
 		<typeAlias type="com.kh.nbs.account.model.vo.Account" alias="account" />
+	   	<typeAlias type="com.kh.nbs.account.model.vo.AccountCalendar" alias="accountCalendar" />
 		<typeAlias type="com.kh.nbs.board.model.vo.Board" alias="board" />
 		<typeAlias type="com.kh.nbs.board.model.vo.Like" alias="like" />
 		<typeAlias type="com.kh.nbs.common.model.vo.Attachment" alias="attachment" />
