@@ -147,8 +147,6 @@ public class ProgramController {
 			
 			if(programService.selectProgramNo(memNo) != null) {
 				//신청한지 조회
-				
-				
 				mv.addObject("programList", programService.selectProgramNo(memNo));
 			}
 			
@@ -207,8 +205,7 @@ public class ProgramController {
 			PageInfo pi = Pagination.getPageInfo(programService.selectListCount(), currentPage , 10 , 10);
 			
 			
-			System.out.println(reviewService.selectMyReview(memNo));
-			mv.addObject("myProgramNo",reviewService.selectMyReview(memNo));
+			mv.addObject("myReviewlist",reviewService.selectMyReview(memNo));
 			
 			if(programService.selectMyProgram(memNo,pi) != null ) {
 				

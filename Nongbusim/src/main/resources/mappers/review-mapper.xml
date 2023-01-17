@@ -81,11 +81,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectMyReview" resultMap="reviewResultSet">
 		select
-			  program_no
+			  review_no,
+			  program_no,
+			  review_content,
+			  review_status,
+			  review_enrolldate,
+			  mem_no,
+			  origin_name,
+			  change_name,
+			  rating
 		from   
  			   review
 		where
     		   mem_no = #{memNo}
+	</select>
+	
+	<select id="reviewUpdate" resultMap="reviewResultSet">
+	select
+			  review_no,
+			  program_no,
+			  review_content,
+			  review_status,
+			  review_enrolldate,
+			  mem_no,
+			  origin_name,
+			  change_name,
+			  rating
+		from   
+ 			   review
+		where
+    		   mem_no = #{memNo}
+        and 
+               program_no= #{programNo}
 	</select>
 	
 	
