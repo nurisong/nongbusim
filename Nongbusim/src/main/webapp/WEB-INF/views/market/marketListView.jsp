@@ -105,15 +105,7 @@
             <script>
 
                 $(function(){
-                	 
-                	 var size = ${list.size()};
-                     var category = '${list[0].marketCategory}';
-                     console.log(category);
-                     var list = [];
-                     for(var i = 0; i < size; i++){
-                    	 list.push('${list[i].marketCategory}');
-                     }
-                     console.log(list);
+                	
                      /*
                      if(category == '농산물'){
                     	 
@@ -128,7 +120,7 @@
 
                      }
                      */
-/*
+                        /*
                     	 
                     	 if(category == '축산물'){
                              $('select[name="marketCategory"]').find('option[value="축산물"]').attr("selected",true);         
@@ -146,30 +138,20 @@
                              $('select[name="marketCategory"]').find('option[value="모두"]').attr("selected",true);         
 
                          }
-*/
+                        */
 
-                        /*
-                    for(var i in list){
+                        
+                        if('${list[0].marketCategory}' == '모두'){
+                            
+                            $('select[name="marketCategory"]').find('option[value="모두"]').attr("selected",true);         
 
-                        console.log('${list[i].marketCategory}');
-
-                        console.log(3);
-                        if('${list[i].marketCategory}' == '농산물'){
-
-                            console.log(2);
-                            if('${list[i].marketCategory}' == '축산물'){
-                                console.log(1);
-                                $('select[name="marketCategory"]').find('option[value="모두"]').attr("selected",true);         
-
-                            }
     
                         }else{
                             
                             $('select[name="marketCategory"]').find('option[value="${list[0].marketCategory}"]').attr("selected",true);
 
                         }
-                    }
-                        */
+                        
                 });
 
                 function changeMarketCategory(){
@@ -187,7 +169,7 @@
 
                         }else{
 
-                            location.href="list.mk";
+                            location.href="list.mk?marketCategory=모두";
 
                         }
 

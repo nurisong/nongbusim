@@ -41,6 +41,7 @@ public class MarketController {
 	//게시판으로 이동
 	@RequestMapping("list.mk")
 	public ModelAndView marketSelectList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+										 @RequestParam(value="MarketCategory", defaultValue="모두") String marketCategory,
 										ModelAndView mv, HttpSession session) {
 		
 		//카테고리를 설정하지 않은경우 모두 셀렉해오기
@@ -57,8 +58,12 @@ public class MarketController {
 				
 			}*/
 			
+		ArrayList<Market> list = marketService.marketSelectList(pi);
+		
+		list.get(0).setMarketCategory(marketCategory);
+		
 		mv.addObject("pi", pi);
-		mv.addObject("list", marketService.marketSelectList(pi));
+		mv.addObject("list", list);
 		mv.addObject("at", marketService.attachmentSelectList());
 		
 		
