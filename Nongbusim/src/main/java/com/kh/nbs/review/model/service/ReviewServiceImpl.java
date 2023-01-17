@@ -43,6 +43,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.selectMyReview(sqlSession,memNo);
 	}
 
+	@Override
+	public ArrayList<Review> reviewUpdate(Review r) {
+		return reviewDao.reviewUpdate(sqlSession,r);
+	}
+
 	
 	
 	

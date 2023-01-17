@@ -35,5 +35,11 @@ public class ReviewDao {
 		return (ArrayList)sqlSession.selectList("reviewMapper.selectMyReview", memNo);
 		
 	}
+	
+	public ArrayList<Review> reviewUpdate(SqlSessionTemplate sqlSession,Review r) {
+		
+		return (ArrayList)sqlSession.selectList("reviewMapper.reviewUpdate", r);
+		
+	}
 
 }

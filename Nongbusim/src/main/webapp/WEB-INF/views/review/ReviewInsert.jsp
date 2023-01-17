@@ -103,6 +103,23 @@
                 top: 10px;
                 right: 10px; }
 
+            /*  */
+            
+            #my_modal2 {
+                display: none;
+                width: 500px;
+                padding: 20px 60px;
+                background-color: #fefefe;
+                border: 1px solid #888;
+                border-radius: 3px;
+            }
+
+            #my_modal2 .modal_close_btn {
+                position: absolute;
+                top: 10px;
+                right: 10px; }
+
+
          /* 별점 스타일 */
 
             .star-rating {
@@ -180,7 +197,9 @@
                             <td>${ p.programName }</td>
                             <td>${p.programPlan}</td>
                             <td><button>상세보기</button></td>
-                            <td class="reviewStatus"><button>리뷰작성</button></td> 
+                            <!-- <td class="reviewStatus"><button>리뷰작성</button></td>  -->
+
+                            <td><button class="reviewStatus" onclick="modal('my_modal','${p.programName}','${p.programNo}');">후기작성</button></td>
                         </tr>
                     
                     </c:forEach>
@@ -190,9 +209,7 @@
             </div>
         </div>
         
-        
-        
-
+ 
             <!-- 모달 영역 -->
 
             <div id="my_modal">
@@ -201,9 +218,9 @@
                     <h2 align="center">후기작성</h2>
                     <table style="width: 400px; height:200px;">
                         <tr>
-                           <td>프로그램명 : <input id="programName" type="text" value=""></td>
+                           <td>프로그램명 : <input class="programName" type="text" value=""></td>
                             
-                            <td><input name="programNo"  id="programNo" type="text" value="" hidden></td>
+                            <td><input name="programNo"  class="programNo" type="text" value="" hidden></td>
                          
                         </tr>
                         <tr>
@@ -245,13 +262,62 @@
                         <button type="submit">작성</button>
     
                     </div>
-
-
-
-
                 </form>
-              
-                
+             
+            </div>
+
+            <!-- 후기 수정 모달 -->
+            <div id="my_modal2">
+
+                <form action="" method="post" enctype="multipart/form-data">
+                    <h2 align="center">후기 수정</h2>
+                    <table style="width: 400px; height:200px;">
+                        <tr>
+                           <td>프로그램명 : <input class="programName" type="text" value=""></td>
+                            
+                            <td><input class="programNo" name="programNo"  type="text" value=""></td>
+                         
+                        </tr>
+                        <tr>
+                            <td><input class="reviewContent" type="text" name="reviewContent"style="width: 400px; height: 100px;" value=""></td>
+                            
+                        </tr><br>
+                       
+                        <tr>
+                            <td><input type="file" name="upfile"></td>
+                        </tr><br>
+                    </table>
+    
+                    <!-- 별점 -->
+                    <div class="star-rating space-x-4 mx-auto">
+                        <input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
+                        <label for="5-stars" class="star pr-4">★</label>
+    
+    
+                        <input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
+                        <label for="4-stars" class="star">★</label>
+    
+    
+                        <input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
+                        <label for="3-stars" class="star">★</label>
+    
+    
+                        <input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
+                        <label for="2-stars" class="star">★</label>
+    
+    
+                        <input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
+                        <label for="1-star" class="star">★</label>
+                    </div>
+            
+                    <a class="modal_close_btn">  <img  src="resources/images/close.png" style="width: 30px; height: 30px;"></a>
+                    <br>
+                    <div align="center">
+                  
+                        <button type="submit">작성</button>
+    
+                    </div>
+                </form>
             </div>
 
 </body>
@@ -292,20 +358,20 @@
 
 <script>
 
-    $(function() {
-        test();
-
-    });
-
-        
+	    $(function() {
+	        test();
+	
+	    });
+    
+	    
         function test() {
   
             var testCount = 0;
 
             <c:forEach var="p" items="${myProgramList}" >
             
-            <c:forEach var="m" items="${myProgramNo}" varStatus="status" >
-            console.log('${p.programNo eq m.programNo}');
+            <c:forEach var="m" items="${myReviewlist}" varStatus="status" >
+       
             var count = 0;
                         <c:if test="${p.programNo eq m.programNo}">
                             count++;
@@ -313,27 +379,59 @@
                     
                         if(count > 0) {
                             console.log($('.reviewStatus').eq(testCount));
-                            $('.reviewStatus').eq(testCount).html('<button>리뷰수정</button>');
-                        } 
+                            $('.reviewStatus').eq(testCount).html('후기수정').attr("onclick","modal('my_modal2','${p.programName}','${p.programNo}');");
+                            
+                        }                     
                     
                         count = 0;
                         </c:forEach>      
                         testCount++;  
             </c:forEach>
 
-            
-            console.log(count);
-
 
         }
-
+        
+	$(function(){
+		$('.reviewStatus').click(function(){
+			
+			
+			if($(this).text() == "후기수정"){
+				
+				console.log($(this).parent().parent().children().eq(0).text());
+		
+			
+				$.ajax({
+					url : 'reviewUpdate.re',
+					data : {
+							programNo : $(this).parent().parent().children().eq(0).text(),
+							memNo : ${loginUser.memNo}
+					},
+					
+					success : function(){
+						
+						console.log('성공');
+						
+					},
+					
+					error : function(){
+						
+						console.log('실패');
+					}
+				});
+			
+			}
+			
+		})
+		
+		
+	})
 
     function modal(id, programName,programNo) {
-        console.log(programName);
-        console.log(id);
-        console.log(programNo);
-        $('#programName').val(programName);
-        $('#programNo').val(programNo);
+      
+		
+
+        $('.programName').val(programName);
+        $('.programNo').val(programNo);
         var zIndex = 9999;
         var modal = document.getElementById(id);
 

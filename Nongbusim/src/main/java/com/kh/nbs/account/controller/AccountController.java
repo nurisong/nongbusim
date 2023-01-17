@@ -63,7 +63,6 @@ public class AccountController {
 	@RequestMapping("enrollForm.ac")
 	public ModelAndView accountEnrollForm(ModelAndView mv, HttpSession session) {
 		int memNo= ((Member)session.getAttribute("loginUser")).getMemNo();
-		
 		mv.addObject("catAndGoods", accountService.selectCatAndGoods(memNo)).setViewName("member/myPageFarmer/account/accountEnrollForm");
 		return mv ;
 		
@@ -90,12 +89,16 @@ public class AccountController {
 	
 	// account enrollForm 입력 후 "등록하기"버튼 누를 시 실행되는 메소드	
 	@RequestMapping("insert.ac")
-	public String insertaccount(Account account, String newCategory, MultipartFile[] upfiles, HttpSession session, Attachment at) {
-		// 만약 신규등록한 카테고리가 있다면
+	public String insertaccount(Account account, String newCategory, String newGoods, MultipartFile[] upfiles, HttpSession session, Attachment at) {
+		
+		// 만약 신규등록한 카테고리 or 품목이 있다면
 		/// account의 accountCategory필드 값을 신규등록값으로 변경
 		if(!newCategory.equals("")) {
 			account.setAccountCategory(newCategory);
-		}
+		} 
+		if(!newGoods.equals("")) {
+			account.setGoods(newGoods);
+		} 
 		
 		System.out.println(account);
 		
@@ -116,7 +119,7 @@ public class AccountController {
 				
 				// insert 성공시 attachment 클래스 필드세팅 후 insert
 				if(insertAccountResult>0) {	
-					at.setBoardType("D");
+					at.setBoardType("A");
 					at.setOriginName(upfiles[i].getOriginalFilename());
 					at.setChangeName("resources/uploadFiles/" + saveFile(upfiles[i], session)); 
 					System.out.println(at);
@@ -161,7 +164,7 @@ public class AccountController {
 	
 	// 영농일지 상세페이지에서 "수정" 버튼 누를시 수정 폼을 띄워주는 메소드
 	@RequestMapping("updateForm.ac")
-	public ModelAndView updateaccountForm(String ano, String memNo, ModelAndView mv) {		
+	public ModelAndView updateAccountForm(String ano, String memNo, ModelAndView mv) {		
 		//update할때 필요한 정보들은 accountDetailView에서 필요한 Service메소드  + categoryList Serviec메소드 
 		// 동일 메소드로 재활용하기		
 		int accountNo= Integer.parseInt(ano);
