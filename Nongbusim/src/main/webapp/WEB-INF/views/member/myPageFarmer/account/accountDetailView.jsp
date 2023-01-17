@@ -134,7 +134,7 @@
 	
 	}
 	
-	#reviewTable div {
+	#accountTable div {
 		padding: 20px;
 		width : 800px;
 		height: 500px;
@@ -148,59 +148,78 @@
 
 </head>
 <body>
-	<form action="updateForm.di" method="post">
+	<form action="updateForm.ac" method="post">
 		<input type="hidden" name="memNo" value="${ loginUser.memNo }">
-		<input type="hidden" name="dno" value="${ diary.diaryNo }">				
+		<input type="hidden" name="ano" value="${ account.accountNo }">				
 	<h1 align ="left">&nbsp;&nbsp;🗓영농일지 상세보기</h1>
 	<br>
-	<div class="outer"><br>		<table id="detail-area" align="center" width="1100px">
+	<div class="outer"><br>	
+		<table id="detail-area" align="center" width="1100px">
+			<tr>
+				<td  class="likeButton" >
+					<div>유형
+					</div>
+				</td>
+				<td>
+					<div>
+						${account.type }
+					</div>
+				</td>
+			</tr>
 			<tr>
 				<td colspan="3">
 					<div>✔등록일</div>
-					<input id="createDate" type="text" value="${diary.createDate }"disabled>
+					<input id="createDate" type="text" value="${account.createDate }"disabled>
 				</td>	
 			</tr>
-				<tr>
+			<tr>
 				<td  class="likeButton" >
 					<div>카테고리
 					</div>
 				</td>
 				<td>
 					<div>
-						${diary.diaryCategory }
+						${account.accountCategory }
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td  class="likeButton" >
+					<div>품목
+					</div>
+				</td>
+				<td>
+					<div>
+						${account.goods }
 					</div>
 				</td>
 			</tr>
 			<tr>	
 				<td  class="likeButton" >
 					<div>
-						등록일 
+						금액
 					</div>
 				</td>
-				<td>${diary.createDate }</td>
-			</tr>
-			<tr>
-				<td  class="likeButton" >작성자</td>
-				<td>${ diary.nickName }</td>
+				<td>${account.amount }</td>
 			</tr>
 		</table>
-		<table id="reviewTable">
+		<table id="accountTable">
 			<tr>	
-				<td><h3>일지내용</h3></td>
+				<td><h3>소비내역</h3></td>
 			</tr>
 			<tr>
 				<td style="padding:30px" colspan="3">
 					<div>
-					${diary.diaryContent }
+					${account.accountContent }
 					</div>
 				</td>
 			</tr>
- 			<c:if test="${not empty dAtList }" >
+ 			<c:if test="${not empty aAtList }" >
 				<tr>
 					<td><h3>업로드이미지</h3></td>
 				</tr>
 				<tr>			
-					<c:forEach var="item" items="${ dAtList}">
+					<c:forEach var="item" items="${ aAtList}">
 						<td>
 							<img width="180" height="150" onclick="window.open(this.src);" src="${item.changeName }">					
 						</td>
@@ -211,11 +230,11 @@
 		
 		<br>
 		<div align="center">
-			<a href="${pageContext.request.contextPath }/list.di" class= "likeButton">목록으로</a><br><br>	
+			<a href="${pageContext.request.contextPath }/list.ac" class= "likeButton">목록으로</a><br><br>	
 			<button class="myButton">수정하기</button>
 		</form>	
-		<form action="delete.di" >
-			<input type="hidden" name="diaryNo" value="${diary.diaryNo }">
+		<form action="delete.ac" >
+			<input type="hidden" name="accountNo" value="${account.accountNo }">
 			<button class="myButton">삭제하기</button>
 		</form>
 		</div>	

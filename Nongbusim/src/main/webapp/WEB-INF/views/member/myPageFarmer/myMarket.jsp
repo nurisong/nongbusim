@@ -14,44 +14,54 @@
 	.container{
 		padding-left:20%;
 	}
+	
 </style>
 </head>
 <body>
 <!-- 사이드바 -->
-<jsp:include page="myPageUserCommon.jsp"/>
+<jsp:include page="myPageFarmerCommon.jsp"/>
 
     <div class="container">
-        <h3>내가 작성한 게시글</h3>
+        <h3>내가 작성한 마켓글</h3>
         <hr>
-        <table class="table table-bordered table-sm">
+        <table id="boardList" class="table table-bordered table-sm">
           <thead>
             <tr style="text-align:center">
-              <th>게시판</th>
+              <th>카테고리</th>
               <th>제목</th>
-              <th>작성자</th>
+              <th>가격(원)</th>
               <th>작성일</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style="cursor:pointer;">
           	<c:choose>
 		        	<c:when test="${ not empty list }">
-			            <c:forEach var="b" items="${ list }">
+			            <c:forEach var="m" items="${ list }">
 			          		<tr style="text-align:center">
-			          			<td style="width:150px">${ b.boardType }</td>
-			          			<td>${ b.boardTitle }</td>
-			          			<td style="width:150px">${ b.boardWriter }</td>
-			          			<td style="width:150px">${ b.createDate }</td>
+			          			<td class="marketNo" hidden>${ m.marketNo }</td>
+			          			<td>${ m.marketCategory }</td>
+			          			<td>${ m.marketTitle }</td>
+			          			<td>${ m.marketPrice }</td>
+			          			<td>${ m.marketEnrollDate }</td>
 			          		</tr>
-          				</c:forEach>
+			          	</c:forEach>
 		        	</c:when>
 		        	<c:otherwise>
 		        		<tr>
-		        			<td style="width:200px;" colspan="4";>작성한 게시글이 없습니다.</td>
+							<td style="width:200px;" colspan="4";>작성한 게시글이 없습니다.</td>
 		        		</tr>
 		        	</c:otherwise>
-		    </c:choose>
+		        </c:choose>
           </tbody>
         </table>
       </div>
+      
+      <script>
+	      $(function(){
+	          $('#boardList>tbody>tr>td').click(function(){
+	             location.href = 'detail.mk?marketNo=' + $(this).parent().children().eq(0).text();          
+	         })
+         });
+      </script>
 </body>
 </html>

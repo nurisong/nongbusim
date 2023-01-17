@@ -64,6 +64,7 @@
 	<div class="menuArea"  style="width:200px; height:150px; border:1px solid red; float:left;">
 		<a class="menuButton" href="farmerMyBoardList.me">내가 작성한 게시글</a><br>
 		<a class="menuButton" href="farmerMyProgramList.me">내가 작성한 프로그램</a><br>
+		<a class="menuButton" href="farmerMyMarketList.me">내가 작성한 마켓글</a><br>
 		<a class="menuButton" href="updateFarmerForm.me">회원정보 수정</a><br>
 		<a class="menuButton" href="calender.di">영농일지</a><br>
 		<a class="menuButton" href="calender.ac">농작물 입출금</a><br>

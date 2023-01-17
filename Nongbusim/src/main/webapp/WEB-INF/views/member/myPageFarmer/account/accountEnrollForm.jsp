@@ -20,9 +20,7 @@
 		border-radius: 5%;
 		align: left;
 		width: 100%;
-		height: 200%;
-
-	
+		height: 200%;	
 	}
 	
 	.filebox .upload-name {
@@ -89,7 +87,7 @@
 <body>
 	<div class="boardArea" style="width:1000px; height:1000px; border:1px solid green; float:left"  >	
 		<h1>🗓영농일지 등록</h1>
-			<form action="insert.di" id="enroll-form" method="post" enctype="multipart/form-data">
+			<form action="insert.ac" id="enroll-form" method="post" enctype="multipart/form-data">
 				<div class="outer" >
 					<table id="accountEnrollForm">		
 						<tr>
@@ -98,22 +96,33 @@
 								<input id="createDate" type="date">
 							</td>	
 						</tr>
+						
+						<tr>
+							<td colpan="3">
+								<div>✔구분</div>
+									<input type="radio" name="type" id="income" value="I"><label for="income">수입</label>								
+									<input type="radio" name="type" id="outcome" value="O"><label for="outcome">지출</label>									
+							</td>	
+						</tr>
 						<tr>
 							<td colpan="3">
 								<div>✔카테고리</div>
 										<select id="accountCategory" name="accountCategory">		
 											<c:choose>
 												<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
-												<c:when test="${ not empty catAndGoods }">
-													<c:forEach var="item" items="${catAndGoods }">
-														<option>${ item.get("ACCOUNT_CATEGORY") }</option>
-													</c:forEach>
-												</c:when>
+													<c:when test="${ not empty catAndGoods}">
+														<option value="selectAll" selected>전체</option>				
+														<c:forEach var="account" items="${catAndGoods}">
+															<c:if test="${account.accountCategory ne ' '}">
+																<option>${ account.accountCategory }</option>
+															</c:if>
+														</c:forEach>				
+													</c:when>
 												<c:otherwise>
 													<option value="noCategory">등록된 카테고리가 없습니다.</option>
 												</c:otherwise>
 											</c:choose>
-										<option id="enrollNew" name="enrollNew" value="enrollNew">카테고리 신규입력</option>									
+										<option id="enrollNewCategory" name="enrollNewCategory" value="newCategory">카테고리 신규입력</option>									
 										</select>
 										<input type="hidden" id="newCategory" name="newCategory">
 							</td>	
@@ -121,45 +130,31 @@
 						<tr>
 							<td colpan="3">
 								<div>✔품목</div>
-										<select id="goods" name="goods">		
-											<c:choose>
-												<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
-												<c:when test="${ not empty catAndGoods }">
-													<c:forEach var="item" items="${catAndGoods }">
-														<option>${ item.get("ACCOUNT_CATEGORY") }</option>
-													</c:forEach>
-												</c:when>
-												<c:otherwise>
-													<option value="noCategory">등록된 카테고리가 없습니다.</option>
-												</c:otherwise>
-											</c:choose>
-										<option id="enrollNew" name="enrollNewCategory" value="enrollNewCategory">카테고리 신규입력</option>									
-										</select>
-										<input type="hidden" id="newCategory" name="newCategory">
+									<select id="goods" name="goods">		
+										<c:choose>
+										<%-- db에서 select해온 items(카테고리&품목이 담긴 hashmap)가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
+											<c:when test="${ not empty catAndGoods}">
+												<option value="selectAll" selected>전체</option>				
+												<c:forEach var="account" items="${catAndGoods}">
+													<c:if test="${not empty account.goods }">
+														<option>${account.goods }</option>
+													</c:if>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<option value="noGoods">등록된 품목이 없습니다.</option>
+											</c:otherwise>
+										</c:choose>
+										<option id="enrollNewGoods" name="enrollNewGoods" value="newGoods">품목 신규입력</option>									
+									</select>
+										<input type="hidden" id="newGoods" name="newGoods">
 							</td>	
 						</tr>
 						<tr>
 							<td colpan="3">
-								<div>✔카테고리</div>
-										<select id="goods" name="goods">		
-											<c:choose>
-												<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
-												<c:when test="${ not empty catAndGoods }">
-													<c:forEach var="goods" items="${catAndGoods }">
-														<option>${ item.get("GOODS") }</option>
-													</c:forEach>
-												</c:when>
-												<c:otherwise>
-													<option value="noGoods">등록된 품목이 없습니다.</option>
-												</c:otherwise>
-											</c:choose>
-										<option id="enrollNewGoods" name="enrollGoods" value="enrollNew">품목 신규입력</option>									
-										</select>
-										<input type="hidden" id="newGoods" name="newGoods">
-							</td>	
-						</tr>
-						
-						
+								<div>✔금액</div>
+								<input id="amount" name="amount" type="text" maxlength="10" onkeyup="inputNumberFormat(this);" placeholder="숫자만 입력해주세요" />
+						</td>						
 						<tr>
 							<td>
 								<div class="accountDetail">🎞사진 등록하기<br></div>
@@ -224,7 +219,7 @@
 							<tr>
 								<td>
 									<div align="center">
-									<button class="myButton" type="submit">등록하기</button>	
+									<button class="myButton" id="enroll">등록하기</button>	
 									<a class="myButton" href="javascript:history.back();">돌아가기</a>	
 									</div>
 								</td>			
@@ -232,10 +227,7 @@
 							<tr>
 								<td>
 									<input type="hidden" name="nickName" value="${loginUser.nickName }" >
-									<input type="hidden" name="memNo" value="${loginUser.memNo}" >
-									
-									
-									
+									<input type="hidden" name="memNo" value="${loginUser.memNo}" >									
 								</td>			
 							</tr>
 						</table>
@@ -313,7 +305,7 @@
 	$(function(){
 	
 		$('#accountCategory').change(function(){
-			if($(this).val()=="enrollNew"){
+			if($(this).val()=="newCategory"){
 				$("#newCategory").attr("type", "text");
 							
 			} else {
@@ -326,7 +318,7 @@
 	$(function(){
 	
 		$('#goods').change(function(){
-			if($(this).val()=="enrollNew"){
+			if($(this).val()=="newGoods"){
 				$("#newGoods").attr("type", "text");
 							
 			} else {
@@ -340,7 +332,42 @@
 	// createDate에 오늘날짜를 넣기 위한 구문
 	document.getElementById('createDate').valueAsDate = new Date();
 	
-	</script>
+	
+	// 금액 input태그에 자동 콤마 생성
+	function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+
+    function uncomma(str) {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');
+    } 
+    
+    function inputNumberFormat(obj) {
+        obj.value = comma(uncomma(obj.value));
+    }
+    
+    function inputOnlyNumberFormat(obj) {
+        obj.value = onlynumber(uncomma(obj.value));
+    }
+    
+    function onlynumber(str) {
+	    str = String(str);
+	    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,'$1');
+	}
+	
+// 등록하기 버튼을 누를 시, '000,000,000'으로된 amount input요소의 format을 숫자로 바꾼 후 submit 해주는 이벤트 핸들러
+    $('#enroll').click(function(){
+    	
+    	$('#amount').val(Number(uncomma($('#amount').val())));
+    	$('#enroll-form').submit();
+    });
+   
+    
+    
+</script>
+
 </body>
 
 </html>

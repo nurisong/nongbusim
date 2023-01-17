@@ -207,12 +207,14 @@
 		분류 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select id="enrolledCategory">		
 			<c:choose>
-			<%-- db에서 select해온 items(카테고리&품목이 담긴 hashmap)가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
+			<%-- db에서 select해온 items(카테고리&품목이 담긴 arratyList)가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
 				<c:when test="${ not empty catAndGoods}">
 					<option value="selectAll" selected>전체</option>				
-					<c:forEach var="item" items="${catAndGoods}">
-						<option>${ item.get("ACCOUNT_CATEGORY") }</option>
-					</c:forEach>
+					<c:forEach var="account" items="${catAndGoods}">
+						<c:if test="${account.accountCategory ne ' '}">
+							<option>${ account.accountCategory }</option>
+						</c:if>
+					</c:forEach>				
 				</c:when>
 				<c:otherwise>
 					<option value="noCategory">등록된 카테고리가 없습니다.</option>
@@ -227,8 +229,10 @@
 			<%-- db에서 select해온 items(카테고리&품목이 담긴 hashmap)가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
 				<c:when test="${ not empty catAndGoods}">
 					<option value="selectAll" selected>전체</option>				
-					<c:forEach var="item" items="${catAndGoods}">
-						<option>${ item.get("GOODS") }</option>
+					<c:forEach var="account" items="${catAndGoods}">
+						<c:if test="${not empty account.goods }">
+							<option>${account.goods }</option>
+						</c:if>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
@@ -312,7 +316,7 @@
 		var type=$("input[name=type]:checked").val();
 		// ajax로 해당 조건을 만족하는 accountList받아오기
 		$.ajax({
-			url: 'selectAccountList.di',
+			url: 'selectAccountList.ac',
 			data : {
 				startDate : startDate,
 				endDate : endDate,
@@ -331,16 +335,11 @@
 						+='<div class="item-area">'
 						+ '<tr onclick="selectAccount('+list[i].accountNo+');">'
 						+'<td><input type="checkbox" class="check" name="accountNo" value="'+list[i].accountNo+'"></td>'
-						+'<td><p>' + list[i].createDate + '</p></td>';
-						
-					if(list[i].type=='I'){
-						result+='<td><p>수입</p></td>';
-					} else {
-						result+='<td><p>지출</p></td>';	
-					}	
-						
-						result+= '<td><p>' + list[i].accountCategory + '</p></td>'
+						+'<td><p>' + list[i].createDate + '</p></td>'
+						+'<td><p>'+list[i].type+'</p></td>'
+						+ '<td><p>' + list[i].accountCategory + '</p></td>'
 						+ '<td><p>' + list[i].goods + '</p></td>'
+						+ '<td><p>' + list[i].amount + '</p></td>'						
 						+ '<td><p>' + list[i].accountContent + '</p></td>'                 
 						+ '<input type="hidden" name="accountNo" id="accountNo" value="'+list[i].accountNo+'">'
 						+'</div>'                    

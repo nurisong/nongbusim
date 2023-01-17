@@ -12,10 +12,10 @@ public class Account {
 	private String startDate;
 	private String endDate;
 	private String createDate;
-	private int amount;
+	private String amount;
 	private String accountContent;
 	private String status;
 	private int memNo;
-
+	private String nickName;
 	
 }

@@ -26,20 +26,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="board_type" property="boardType"></result>						
 	</resultMap>
 
-<select id="selectCatAndGoods" parameterType="_int" resultType="java.util.HashMap">	
-	select 
-			distinct account_category, goods 
-	from
-			account_Book
-	where
-			mem_no = #{memNo}
+<select id="selectCatAndGoods" parameterType="_int" resultType="account">	
+SELECT 
+        (CASE WHEN RANK = 1 THEN account_category ELSE ' ' END ) AS accountCategory , 
+        goods
+from
+        (    
+        SELECT account_category, goods, ROW_NUMBER() OVER(PARTITION BY account_category ORDER BY account_category DESC) rank
+           from account_book where mem_no =#{memNo})
+
+  
 </select>
 
 <select id="selectAccountList" parameterType="account" resultMap="accountResultSet">
 
 <![CDATA[
 	select
-			account_no, type, TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", account_category, goods, amount, account_content, account_book.status, account_book.mem_no
+			account_no, decode(type, 'I', '수입', 'O', '지출', '기타') "TYPE", TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", account_category, goods, amount, account_content, account_book.status, account_book.mem_no
 	from
 			account_book
 	join 	member
@@ -58,7 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>	
 	<!-- date로 값을 넘긴 후 대소비교를 하려고 하니 실제 입력한 마지막 날짜+1로 조회를 해야 마지막날 값이 select 됨... 그래서 createDate-1로 조회 -->
 		<if test="type !='selectAll'">
-			and type = #{type}		
+			and type = #{type}		 
 		</if>
 		<if test="accountCategory !='noCategory' and accountCategory !='selectAll'">
 			and account_category = #{accountCategory}		
@@ -67,6 +70,124 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and goods = #{goods}		
 		</if>
 	
+</select>
+	
+<select id="selectAccount" parameterType="_int" resultMap="accountResultSet">
+	select
+			account_no, TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", account_category, decode(type, 'I', '수입', 'O', '지출', '기타') "TYPE", goods, amount, account_content, account_book.status, account_book.mem_no, member.nickname
+	from
+			account_book
+	join 	member
+	
+ 	on	(member.mem_no=account_book.mem_no) 
+	where
+			account_no = #{accountNo}
+	and
+			account_book.status= 'Y'
+</select>
+	
+	
+	<select id="selectAttachmentList" parameterType="_int" resultMap="attachmentResultSet">
+	select	*
+	from
+			attachment
+	where
+			board_no = #{accountNo}
+	and
+			board_type = 'A'					
+			
 	</select>
+	
+	
+	<insert id="insertAttachment" parameterType="attachment">
+	insert
+	into
+			attachment
+			(
+			file_no, 
+			origin_name, 
+			change_name, 
+			file_path, 
+			upload_date, 
+			board_no, 
+			board_type, 
+			status			
+			)
+	values 
+			( seq_ano.nextval, 
+			  #{originName},
+			  #{changeName},
+			  null,
+			  sysdate,
+			  
+		<choose>
+			<when test="boardNo !=0">
+				#{boardNo}, 
+			</when>
+			<otherwise>
+			  seq_accno.currval,
+			</otherwise>
+		</choose>	
+			  #{boardType},
+			  'Y'
+			)
+	
+	</insert>	
+	<insert id="insertAccount" parameterType="account">
+	insert
+	into
+			account_book
+	values 
+			( seq_accno.nextval,
+     		  #{type}, 			
+			  sysdate,
+			  #{accountCategory},
+  			  #{goods},
+  			  #{amount},
+			  #{accountContent},
+			  'Y',
+			  #{memNo}
+			  )
+		
+	</insert>
+		
+	<update id="updateAccount" parameterType="account">
+	update
+			account_book
+	set
+			create_date = #{createDate}, 
+			account_category = #{accountCategory},
+			goods = #{goods},
+  			amount = #{amount},
+			account_content = #{accountContent},
+	where
+			account_no  = #{accountNo}	
+	</update>
+	<update id="updateAttachment" parameterType="attachment">
+	update
+			attachment
+	set
+			origin_name = #{originName},
+			change_name = #{changeName}
+	where
+			file_no = #{fileNo}
+	</update>
+	<update id="deleteAccount" parameterType="_int">
+	update
+			account_book
+	set	
+			status= 'N'
+	where		
+			account_no  = #{accountNo}	
+	</update>
+	<update id="deleteAttachment" parameterType="_int">
+	update
+			attachment
+	set
+			status = 'N'
+	where
+			board_no = #{accountNo}
+
+	</update>	
 
 </mapper>
