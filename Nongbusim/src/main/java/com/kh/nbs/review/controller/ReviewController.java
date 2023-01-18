@@ -140,33 +140,38 @@ public class ReviewController {
  
 
 	@RequestMapping("reviewDelete.re")
-	public String reviewDelete(Review r, HttpSession session, Model model, String filePath) {
+	public String reviewDelete(Review r,HttpSession session, Model model, String upfile) {
+		
+//		HttpSession session, Model model, String filePath
 		
 		System.out.println(r);
 		
+		reviewService.reviewDelete(r);
 		
 		
 		if(reviewService.reviewDelete(r) > 0 ) { // 삭제 성공
 					
-					if(!filePath.equals("")) { //만약에 첨부파일이 존재했을 경우
+					if(!upfile.equals("")) { //만약에 첨부파일이 존재했을 경우
 						
 						//기존에 존재하는 첨부파일을 삭제
-						// resources/xxxxxx/xxxx.jpg 요걸 찾ㅇ,려면
-						
-						
-						new File(session.getServletContext().getRealPath(filePath)).delete();
+						// resources/xxxxxx/xxxx.jpg 요걸 찾으려면
+						new File(session.getServletContext().getRealPath(upfile)).delete();
 						
 					}
 					
-					session.setAttribute("alertMsg","삭제 성공~");
+					session.setAttribute("alertMsg","리뷰가 삭제 되었습니다.");
 					return "redirect:reviewUpdate.re";
 					
 					
 				} else { // 삭제 실패
-					model.addAttribute("errorMsg","게시글 삭제 실패 ㅠㅠ");
+					model.addAttribute("errorMsg","리뷰 삭제 실패 ㅠㅠ");
 					return "common/errorPage";
 					
 				}
+				
+				
+		
+//		return "review/ReviewInsert";
 			
 	}
 	

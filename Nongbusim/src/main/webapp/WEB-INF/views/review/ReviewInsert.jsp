@@ -306,8 +306,8 @@
 
 
             <div id="my_modal2">
-
-                <form action="reviewUpdate.re" method="post" enctype="multipart/form-data">
+                <!-- enctype="multipart/form-data" -->
+                <form action="reviewUpdate.re" method="post" >
                     <h2 align="center">후기수정</h2>
                     <table style="width: 400px; height:200px;">
                         <tr>
@@ -359,7 +359,10 @@
                         
                         <div align="center">
                             <button type="submit" onclick="location.href='reviewUpdate.re';" style="background-color: rgb(103, 141, 208);">수정</button>
-                            <button type="submit"  onclick="javascript: form.action='reviewDelete.re';" style="background-color: rgb(220, 112, 112);">삭제</button>
+                            <button type="button" onclick="return review_Delete(this.form);" style="background-color: rgb(220, 112, 112);">삭제</button>
+                
+
+                             <!-- <button type="submit"   style="background-color: rgb(220, 112, 112);">삭제</button> -->
                 
                         </div>
     
@@ -408,6 +411,20 @@
 
 
 <script>
+
+        // form태그에 리뷰삭제와 수정 action값 두개 주기 위한 함수
+        function review_Delete() {
+        return true;
+        }
+        function review_Delete(frm) {
+        frm.action='reviewDelete.re';
+        frm.submit();
+        return true;
+        }
+
+
+
+
 
 	    $(function() {
 	        test();
