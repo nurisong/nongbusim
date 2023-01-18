@@ -18,25 +18,18 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Autowired
 	private BoardDao boardDao;
+	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
 	
 	@Override
 	public int selectListCount(HashMap map) {
 		return boardDao.selectListCount(sqlSession, map);
 	}
-	
-	
 	@Override
 	public ArrayList<Board> selectList(HashMap map, PageInfo pi){
 		return boardDao.selectList(sqlSession, map, pi);
 	}
-	@Override
-	public ArrayList<Attachment> attachmentSelectList() {
-		return boardDao.attachmentSelectList(sqlSession);
-	}
-	
 	
 	@Override
 	public Board selectBoard(int boardNo) {
@@ -44,7 +37,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 	@Override
 	public int increaseCount(int boardNo) {
-		return boardDao.increaseCount(sqlSession, boardNo);
+		return boardDao.increaseCount(sqlSession,boardNo);
 	}
 	@Override
 	public ArrayList<Attachment> selectAttachmentDetailBoard(Board b) {
@@ -54,24 +47,19 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Override
 	public int insertBoard(Board b) {
-		return boardDao.insertBoard(sqlSession, b);
+		return boardDao.insertBoard(b, sqlSession);
 	}
 	@Override
 	public int insertAttachment(Attachment a) {
-		return boardDao.insertAttachmentBoard(sqlSession, a);
+		return boardDao.insertAttachmentBoard(a, sqlSession);
 	}
 	
+	@Override
+	public ArrayList<Attachment> attachmentSelectList() {
+		return boardDao.attachmentSelectList(sqlSession);
+	}
 	
-	@Override
-	public int updateBoard(Board b) {
-		return boardDao.updateBoard(sqlSession, b);
-	}
-	@Override
-	public int updateAttachment(Attachment a) {
-		return boardDao.updateAttachment(sqlSession, a);
-	}
 
-	
 	@Override
 	public int deleteAttachment(Board b) {
 		return boardDao.deleteAttachment(sqlSession,b);
@@ -80,7 +68,6 @@ public class BoardServiceImpl implements BoardService{
 	public int deleteBoard(Board b) {
 		return boardDao.deleteBoard(sqlSession,b);
 	}
-	
 	
 	@Override
 	public int insertLike(Board b) {
@@ -107,11 +94,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.decreaseLike(sqlSession,b);
 	}
 	
-	
 	@Override
 	public ArrayList<Comment> selectReplyList(int boardNo) {
 		return boardDao.selectReplyList(sqlSession, boardNo);
 	}
+
 	@Override
 	public int insertReply(Comment c) {
 		return boardDao.insertReply(sqlSession, c);
