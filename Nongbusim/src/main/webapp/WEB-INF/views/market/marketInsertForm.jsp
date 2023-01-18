@@ -136,12 +136,14 @@
                     switch(num){
 
 						case 1 : $('#titleImg').attr('src', e.target.result); break;
+
                     }
+
+
 
                 }
 
-
-                $('#upfile2').parents('tr').css('display', ''); // 파일을 첨부하면 두번째 파일첨부 태그 생성
+                $('#upfile2').parents('tr').css('display', ''); //첫번째 파일을 첨부하면 두번째 파일첨부 태그 생성
 
 
 
@@ -163,10 +165,7 @@
                     $('#upfile4').after('<tr><td colspan="2">파일첨부는 최대 4개까지만 가능합니다.</td></tr>');
 
                 }
-
-
-                
-                
+   
             }
         }
 

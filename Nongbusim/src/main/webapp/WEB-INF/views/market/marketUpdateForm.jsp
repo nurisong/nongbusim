@@ -49,7 +49,7 @@
             <h2>수정하기</h2>
             <br>
 
-            <form id="updateForm" method="post" action="" enctype="multipart/form-data">
+            <form id="updateForm" method="post" action="update.mk" enctype="multipart/form-data">
                 <table algin="center">
                     <thead>
                         <tr>
@@ -82,7 +82,8 @@
                             <td colspan="2">
                                 <c:forEach items="${ at }" var="at" >
                                     <div style="display: inline;">
-                                        <img src="${at.changeName}" style="width: 150px; height: 150px; display: inline;" /> ${ at.originName}
+                                        <img src="${at.changeName}" style="width: 150px; height: 150px; display: inline;" />${ at.originName}
+                                        <input type="file" name="reUpFiles">
                                     </div>
                                 </c:forEach>
                             </td>
@@ -91,7 +92,7 @@
                     <tbody>
                         <tr>
                             <td colspan="2">
-                                <textarea name="" id="" cols="100" rows="10" style="resize:none;"> ${ market.marketContent } </textarea>
+                                <textarea name="updateMarketContent" id="" cols="100" rows="10" style="resize:none;"> ${ market.marketContent } </textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -101,7 +102,7 @@
 
                 <div align="center">
                     <button type="submit" class="btn btn-primary">수정하기</button>
-                    <button type="reset" class="btn btn-danger">취소하기</button>
+                    <button type="button" onClick="history.back();" class="btn btn-danger">취소하기</button>
                 </div>
             </form>
         </div>
