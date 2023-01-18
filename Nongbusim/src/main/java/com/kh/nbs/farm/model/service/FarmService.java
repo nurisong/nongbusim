@@ -24,7 +24,7 @@ public interface FarmService {
 	
 	// 2. 농장 등록 서비스(insert)
 	// 첨부파일 등록
-	int insertAttachment(List upfileList);
+	int insertAttachment(ArrayList<Attachment> upfileList);
 	int insertFarm(Farm f);
 	
 	// 3. 나의 농장 리스트 조회 서비스
@@ -42,7 +42,7 @@ public interface FarmService {
 	// 6. 농장 정보 수정 서비스(update)
 	int updateFarm(Farm f);
 	List selectFileNo(int farmNo);
-	int deleteAttachment(List delList);
+	int deleteAttachment(int[] delFiles);
 	int updateInsertAttachment(List upfileList);
 	
 	// 7. 검색 서비스(select)

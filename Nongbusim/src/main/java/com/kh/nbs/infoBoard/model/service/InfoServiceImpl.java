@@ -57,8 +57,8 @@ public class InfoServiceImpl implements InfoService {
 	}
 	
 	@Override
-	public int insertAttachment(Attachment a) {
-		return infoDao.insertAttachment(a, sqlSession);
+	public int insertAttachment(ArrayList<Attachment> upfileList) {
+		return infoDao.insertAttachment(upfileList, sqlSession);
 	}
 
 	@Override

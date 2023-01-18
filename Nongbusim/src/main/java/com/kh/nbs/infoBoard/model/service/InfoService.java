@@ -17,7 +17,7 @@ public interface InfoService {
 	
 	// 2. 게시글 작성 서비스(insert)
 	int insertInfo(Info i);
-	int insertAttachment(Attachment a);
+	int insertAttachment(ArrayList<Attachment> upfileList);
 	
 	// 3. 상세조회 서비스
 	// 3-1) 게시글 조회수 증가(update)

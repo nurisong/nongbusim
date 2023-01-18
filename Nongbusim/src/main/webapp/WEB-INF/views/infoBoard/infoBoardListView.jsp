@@ -63,7 +63,7 @@
                 <button type="submit" class="searchBtn btn btn-secondary">검색</button>
             </form>
 
-            <c:if test="${loginUser.memStatus eq A}">
+            <c:if test="${loginUser.memStatus eq 'A'}">
                 <a class="btn btn-secondary" id="insert-btn" href="enrollForm.if">글작성</a>
             </c:if>
             
