@@ -115,22 +115,28 @@ public class ReviewController {
 		
 	}
 	
+	
+	//마이페이지 참여한 프로그램에서 내가 작성란 리뷰내용을 select하는 요청
 	@ResponseBody
-	@RequestMapping(value = "reviewUpdate.re", produces="application/json; charset=UTF-8" )
-	public String reviewUpdate( Review r,ModelAndView mv) {
+	@RequestMapping(value = "reviewSelect.re", produces="application/json; charset=UTF-8" )
+	public String reviewSelect( Review r,ModelAndView mv) {
 		
 		// System.out.println(reviewService.reviewUpdate(r));
 		// mv.addObject("reviewUpdate",reviewService.reviewUpdate(r)).setViewName("review/ReviewInsert");
-		
-		
 		// JSONObject jObj = new JSONObject();
 		// jObj.put("reviewContent", r.getReviewContent());
 					
-		
-		
-		return new Gson().toJson(reviewService.reviewUpdate(r));
+		return new Gson().toJson(reviewService.reviewSelect(r));
 	}
 	
+	
+	@RequestMapping("reviewUpdate.re")
+	public String reviewUpdate(Review r,Model model) {
+		
+		reviewService.reviewUpdate(r);
+		
+		return "review/ReviewInsert";
+	}
  
 	
 	

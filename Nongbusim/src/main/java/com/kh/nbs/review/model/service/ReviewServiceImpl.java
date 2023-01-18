@@ -43,7 +43,12 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<Review> reviewUpdate(Review r) {
+	public List<Review> reviewSelect(Review r) {
+		return reviewDao.reviewSelect(sqlSession,r);
+	}
+
+	@Override
+	public int reviewUpdate(Review r) {
 		return reviewDao.reviewUpdate(sqlSession,r);
 	}
 

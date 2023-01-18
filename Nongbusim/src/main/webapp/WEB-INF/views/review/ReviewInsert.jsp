@@ -262,7 +262,7 @@
                          
                         </tr>
                         <tr>
-                            <td><input type="text" name="reviewContent"style="width: 400px; height: 100px;"></td>
+                            <td><input type="text" name="reviewContent2"style="width: 400px; height: 100px;"></td>
                             
                         </tr><br>
                        
@@ -307,17 +307,18 @@
 
             <div id="my_modal2">
 
-                <form action="reviewInsert.re" method="post" enctype="multipart/form-data">
+                <form action="reviewUpdate.re" method="post" enctype="multipart/form-data">
                     <h2 align="center">후기수정</h2>
                     <table style="width: 400px; height:200px;">
                         <tr>
                            <td>프로그램명 : <input class="programName" type="text" value=""></td>
-                            
+                            <td><input type="text" value=""></td>
                             <td><input name="programNo"  class="programNo" type="text" value="" hidden></td>
+                            <td><input name="reviewNo" id="reviewNo" type="text" val=""></td>
                          
                         </tr>
                         <tr>
-                            <td><input type="text" id="test3" name="reviewContent"style="width: 400px; height: 100px;"></td>
+                            <td><input type="text" id="test3" name="reviewContent" style="width: 400px; height: 100px;"></td>
                         </tr><br>
                        
                         <tr>
@@ -358,8 +359,11 @@
                     <div align="center">
                         
                         <div align="center">
-                            <button style="background-color: rgb(103, 141, 208);">수정</button>
-                            <button style="background-color: rgb(220, 112, 112);">삭제</button>
+                            <button type="submit" onclick="location.href='reviewUpdate.re';" style="background-color: rgb(103, 141, 208);">수정</button>
+
+
+                            <!-- <button type="submit"style="background-color: rgb(103, 141, 208);">수정</button> -->
+                            <button type="button" onclick="location.href='';" style="background-color: rgb(220, 112, 112);">삭제</button>
                 
                         </div>
     
@@ -453,7 +457,7 @@
 		
 			
 				$.ajax({
-					url : 'reviewUpdate.re',
+					url : 'reviewSelect.re',
 					data : {
 							programNo : $(this).parent().parent().children().eq(0).text(),
 							memNo : ${loginUser.memNo},
@@ -466,6 +470,7 @@
 						$('#test3').val(result[0].reviewContent);
 						$('#update').text('후기수정');
                         $('#image').attr("src",result[0].changeName);
+                        $('#reviewNo').val(result[0].reviewNo);
                        
 
                         if(result[0].rating == 5){
