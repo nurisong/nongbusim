@@ -312,7 +312,6 @@
                     <table style="width: 400px; height:200px;">
                         <tr>
                            <td>프로그램명 : <input class="programName" type="text" value=""></td>
-                            <td><input type="text" value=""></td>
                             <td><input name="programNo"  class="programNo" type="text" value="" hidden></td>
                             <td><input name="reviewNo" id="reviewNo" type="text" val=""></td>
                          
@@ -360,10 +359,7 @@
                         
                         <div align="center">
                             <button type="submit" onclick="location.href='reviewUpdate.re';" style="background-color: rgb(103, 141, 208);">수정</button>
-
-
-                            <!-- <button type="submit"style="background-color: rgb(103, 141, 208);">수정</button> -->
-                            <button type="button" onclick="location.href='';" style="background-color: rgb(220, 112, 112);">삭제</button>
+                            <button type="submit"  onclick="javascript: form.action='reviewDelete.re';" style="background-color: rgb(220, 112, 112);">삭제</button>
                 
                         </div>
     

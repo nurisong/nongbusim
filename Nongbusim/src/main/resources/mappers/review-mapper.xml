@@ -128,6 +128,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	
+	<update id="reviewDelete"  parameterType="review">
+		
+		update
+			review
+		set
+			review_status = 'N'
+		where
+			review_no = #{reviewNo}
+	
+	</update>
+	
 
 
 

@@ -48,5 +48,10 @@ public class ReviewDao {
 		return sqlSession.update("reviewMapper.reviewUpdate",r);
 		
 	}
+	
+	public int reviewDelete(SqlSessionTemplate sqlSession, Review r) {
+		
+		return sqlSession.update("reviewMapper.reviewDelete",r);
+	}
 
 }
