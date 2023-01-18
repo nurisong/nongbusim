@@ -85,7 +85,6 @@ public class InfoController {
 					System.out.println(atImg.getOriginName());
 					
 					upfileList.add(atImg);
-					
 				} 
 			}
 			
@@ -121,6 +120,8 @@ public class InfoController {
 	@RequestMapping("updateForm.if")
 	public String updateFormInfo(int ino, Model model) {
 		model.addAttribute("info", infoService.selecetInfo(ino));
+		model.addAttribute("atList", infoService.selectAttachment(ino));
+		model.addAttribute("imgList", infoService.selectImg(ino));
 		return "infoBoard/infoBoardUpdateForm";
 		
 	}
@@ -165,10 +166,6 @@ public class InfoController {
 		
 		return "infoBoard/infoBoardListView";
 	}
-	
-	
-	
-	
 	
 	
 	@ResponseBody

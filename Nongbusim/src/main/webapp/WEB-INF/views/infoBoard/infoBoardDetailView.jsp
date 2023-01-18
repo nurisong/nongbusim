@@ -71,6 +71,7 @@
                             </c:choose>
                         </td>
                     </tr>
+
                 </table>
 
                 <br><br>

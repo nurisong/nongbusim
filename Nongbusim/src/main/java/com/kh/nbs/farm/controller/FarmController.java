@@ -165,21 +165,19 @@ public class FarmController {
 		// 기존 파일 목록(fileNo)
 		// List fnoList = farmService.selectFileNo(farm.getFarmNo());
 		
-		// List<Integer> delList = new ArrayList<Integer>();
 		
-		/*
-		for(int i = 0; i < delFiles.length; i++) {
-			// System.out.println(delFiles[i]);
-			delList.add(delFiles[i]);
-		}
-		*/
-	
 		// 기존 첨부파일 삭제
 		// 삭제된 첨부파일이 있다면,
-		if(delFiles != null) {
+		if(delFiles.length != 0) {
+			ArrayList<Integer> delList = new ArrayList<Integer>();
 			
+			for(int i = 0; i < delFiles.length; i++) {
+				System.out.println(delFiles[i]);
+				delList.add(delFiles[i]);
+			}
+		
 			// DB에서 삭제에 성공하면
-			if(farmService.deleteAttachment(delFiles) > 0) {
+			if(farmService.deleteAttachment(delList) > 0) {
 				
 				// 실제 서버에 있는 파일 삭제
 				for(int i = 0; i < delFilesPath.length; i++) {
@@ -202,14 +200,14 @@ public class FarmController {
 		ArrayList<Attachment> upfileList = new ArrayList<Attachment>();
 		
 		// 메인 이미지 등록
-		Attachment main = new Attachment();
-		
-		if(upfileMain != null) {
+		if(!upfileMain.getOriginalFilename().equals("")) {
+			Attachment main = new Attachment();
 			System.out.println(upfileMain);
 			
 			main.setFileLevel(1);
 			main.setOriginName(upfileMain.getOriginalFilename()); // 원본명
 			main.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfileMain, session)); // 저장경로
+			main.setBoardNo(farm.getFarmNo());
 			
 			upfileList.add(main);
 		}
@@ -227,6 +225,7 @@ public class FarmController {
 					at.setFileLevel(0);
 					at.setOriginName(upfile.getOriginalFilename()); // 원본명
 					at.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfile, session)); // 저장경로
+					at.setBoardNo(farm.getFarmNo());
 					
 					upfileList.add(at);
 				}
@@ -236,24 +235,16 @@ public class FarmController {
 		// 새로 추가된 첨부파일이 있는 경우
 		if(upfileList.size() > 0) {
 			
-			if(farmService.insertAttachment(upfileList) > 0) {
-				System.out.println("insert에서 첨부파일 등록 완");
-				
-				// System.out.println(upfileList);
-				
-				// 첨부파일 추가 후 정보 수정
+			if(farmService.updateFarm(farm) > 0) {
 				if(farmService.updateInsertAttachment(upfileList) > 0) {
-					if(farmService.updateFarm(farm) > 0) {
 						rttr.addFlashAttribute("alertMsg", "정보가 수정되었습니다.");
 						return "redirect:/detail.fm?fno=" + farm.getFarmNo();
 					} else {
-						rttr.addFlashAttribute("alertMsg", "정보 수정에 실패했습니다.");
-						return "redirect:/detail.fm?fno=" + farm.getFarmNo();
+						System.out.println("첨부파일 수정 실패");
 					}
 				} else {
-					rttr.addFlashAttribute("alertMsg", "첨부파일 수정 실패!!!!!!!!!!!!!!!");
+					rttr.addFlashAttribute("alertMsg", "정보 수정에 실패했습니다.");
 					return "redirect:/detail.fm?fno=" + farm.getFarmNo();
-				}
 			}
 				
 		} else {
@@ -269,10 +260,7 @@ public class FarmController {
 		return "";
 	}
 		
-		
-		
-		
-	
+
 	
 	// 언젠가..첨부파일 수정 성공하길..
 	//@RequestMapping("update.fm")

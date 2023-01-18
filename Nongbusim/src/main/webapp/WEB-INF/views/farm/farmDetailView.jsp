@@ -149,13 +149,13 @@
                         <thead class="thead-light">
                             <tr>
                                 <th style="width: 490px;">프로그램명</th>
-                                <th>기간</th>
+                                <th>날짜</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="pg" items="${programList}">
                                 <tr>
-                                    <td>${pg.programName}</td>
+                                    <td><a href="detail.pro?bno=${pg.farmNo}">${pg.programName}</a></td>
                                     <td>${pg.programPlan}</td>
                                 </tr>
                             </c:forEach>
