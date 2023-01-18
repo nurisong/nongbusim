@@ -33,6 +33,6 @@ public interface AccountService {
 
 	ArrayList seletCalEvent(int memNo);
 
-	ArrayList monthlySummary(int memNo);
+	ArrayList monthlySummary(Account account);
 	
 }

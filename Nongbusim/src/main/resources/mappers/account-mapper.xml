@@ -196,6 +196,8 @@ by
 
 	</update>	
 
+	<!-- 달력 위 수입, 지출 표기를 위한 mapper. 수입(I)인 경우 금액 앞 +, 지출(O)인 경우 금액 앞 -, 금액표기는 3자리단위 콤마부여 -->
+	<!-- 수입(I)인 경우 파란색, 지출(O)인 경우 빨간색 표기를 위한 가상의 dummy컬럼 'color'추가  -->
 	<select id="selectCalEvent" parameterType="_int" resultType="accountCalendar">
     	select 
 			account_no as "id", 
@@ -203,23 +205,53 @@ by
 			create_date as "start", 
 			create_date as "end",
 			'true' as "allDay",
-             (case when type = 'I' then 'blue' else 'red' end ) color 
+             (case when type = 'I' then '#87D5FF' else '#EC7B5Df' end ) color 
 	from account_book	
 	</select>
 	
-	<select id="monthlySummary" parameterType="int">
- SELECT
-            type, sum(amount) AS TOTAL
-    from
-            account_book
-    where
-            create_date between '2023-01-01' and last_day('2023-01-01')
-    and
-            mem_no=4
-    group
-    by
-            type
 	
+	<!-- createDate에는 검색하고자하는 월의 첫째날이 담겨있음 (yyyy-mm-01) -->
+	<!-- 마지막 날은 last_day 이용  -->
+	<!--해당월 총 수입, 지출을, 총계를 arrayList의 0, 1,2번쨰 인덱스에 담아 반환  -->
+	<!--수입, 지출 행을 담은 테이블 union 총계(수입-지출)를 담은 테이블 -->
+	<select id="monthlySummary" parameterType="account" resultMap="accountResultSet">
+	select
+	       DECODE(type,'I', '수입','O','지출') as type, 
+	       to_char(sum(amount) ,'999,999,999') as amount, 
+	       #{createDate} as create_date
+	from
+	        account_book
+	where
+	       create_date between #{createDate} and last_day(#{createDate})
+	and
+	        mem_no=#{memNo}
+	and     status='Y'
+	group
+	by
+	       type
+	       
+	union    
+	
+	select 
+	        '총계' as type, 
+	         to_char((min(decode(rownum,1,amount))- min(decode(rownum,2,amount))),'999,999,999')  as amount, 
+	        #{createDate} as create_date 
+	 from 
+	(select    
+	            sum(amount) AS amount
+	    from
+	            account_book
+	    where
+	            create_date between #{createDate} and last_day(#{createDate})
+	    and
+	             mem_no=#{memNo}
+	    and     status='Y'
+	    group
+	    by
+	            type
+	    order by
+	        type asc)
+		
 	</select>
 
 </mapper>

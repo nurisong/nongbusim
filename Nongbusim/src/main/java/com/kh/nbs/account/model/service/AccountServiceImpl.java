@@ -74,8 +74,8 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public ArrayList monthlySummary(int memNo) {
-		return accountDao. monthlySummary(sqlSession, memNo);
+	public ArrayList monthlySummary(Account account) {
+		return accountDao.monthlySummary(sqlSession, account);
 	}
 
 }

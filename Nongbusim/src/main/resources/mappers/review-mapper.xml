@@ -96,7 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		   mem_no = #{memNo}
 	</select>
 	
-	<select id="reviewUpdate" resultMap="reviewResultSet">
+	<select id="reviewSelect" resultMap="reviewResultSet">
 	select
 			  review_no,
 			  program_no,
@@ -115,6 +115,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                program_no= #{programNo}
 	</select>
 	
+	
+	<update id="reviewUpdate"  parameterType="review">
+		
+		update
+			review
+		set
+			review_content = #{reviewContent}
+		where
+			review_no = #{reviewNo}
+	
+	</update>
+	
+	
+	<update id="reviewDelete"  parameterType="review">
+		
+		update
+			review
+		set
+			review_status = 'N'
+		where
+			review_no = #{reviewNo}
+	
+	</update>
 	
 
 

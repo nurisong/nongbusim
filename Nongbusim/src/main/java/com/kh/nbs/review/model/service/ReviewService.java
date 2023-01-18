@@ -21,7 +21,13 @@ public interface ReviewService {
 	ArrayList<Review> selectMyReview(int memNo);
 	
 	
-	//작성된 리뷰 수정
-	List<Review> reviewUpdate(Review r);
+	//작성된 리뷰 수정하기 위해 내용 불러옴
+	List<Review> reviewSelect(Review r);
+	
+	//리뷰 수정
+	int reviewUpdate(Review r);
+	
+	//리뷰삭제
+	int reviewDelete(Review r);
 	
 }

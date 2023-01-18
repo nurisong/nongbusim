@@ -68,8 +68,8 @@ public class AccountDao {
 
 	}
 
-	public ArrayList monthlySummary(SqlSessionTemplate sqlSession, int memNo) {
-		return (ArrayList)sqlSession.selectList("accountMapper.monthlySummary", memNo);
+	public ArrayList monthlySummary(SqlSessionTemplate sqlSession, Account account) {
+		return (ArrayList)sqlSession.selectList("accountMapper.monthlySummary", account);
 	}
 
 
