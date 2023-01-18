@@ -130,51 +130,89 @@ public class ReviewController {
 	}
 	
 	
+	
+	//리뷰 수정
 	@RequestMapping("reviewUpdate.re")
-	public String reviewUpdate(Review r,Model model) {
+	public String reviewUpdate(Review r,String nowImage, Model model,MultipartFile reUpfile,HttpSession session) {
 		
-		reviewService.reviewUpdate(r);
-		
-		return "review/ReviewInsert";
-	}
- 
-
-	@RequestMapping("reviewDelete.re")
-	public String reviewDelete(Review r,HttpSession session, Model model, String upfile) {
-		
-//		HttpSession session, Model model, String filePath
-		
-		System.out.println(r);
-		
-		reviewService.reviewDelete(r);
+		System.out.println(reUpfile);
 		
 		
-		if(reviewService.reviewDelete(r) > 0 ) { // 삭제 성공
+		if(!reUpfile.getOriginalFilename().equals("")) {
+				
+				//기존에 첨부파일이 있었을 경우 ? => 기존의 첨부파일을 삭제
+				if(r.getOriginName() != null) {
 					
-					if(!upfile.equals("")) { //만약에 첨부파일이 존재했을 경우
-						
-						//기존에 존재하는 첨부파일을 삭제
-						// resources/xxxxxx/xxxx.jpg 요걸 찾으려면
-						new File(session.getServletContext().getRealPath(upfile)).delete();
-						
-					}
-					
-					session.setAttribute("alertMsg","리뷰가 삭제 되었습니다.");
-					return "redirect:reviewUpdate.re";
-					
-					
-				} else { // 삭제 실패
-					model.addAttribute("errorMsg","리뷰 삭제 실패 ㅠㅠ");
-					return "common/errorPage";
+					new File(session.getServletContext().getRealPath(r.getChangeName())).delete();
 					
 				}
 				
+				// 새로 넘어온 첨부파일 서버 업로드 시키기
+				// saveFile() 호출해서 첨부파일 업로드
+				String changeName = saveFile(reUpfile,session);
 				
-		
-//		return "review/ReviewInsert";
+				//bfksms Board객체에 새로운 정보 (원본명, 저장경로) 담기
+				r.setOriginName(reUpfile.getOriginalFilename());
+				r.setChangeName("resources/uploadFiles/" + changeName);
+			}else {
+				
+				
+				String changeName = nowImage;
+				r.setOriginName(reUpfile.getOriginalFilename());
+				r.setChangeName(changeName);
+				
+				//여기서 기존사진 경로를 찾아서 changeName에 넣어야함
 			
+			}
+		
+		
+		
+		
+		if(reviewService.reviewUpdate(r) > 0) { //수정 성공시
+			
+			session.setAttribute("alertMsg","리뷰가 수정 되었습니다.");
+			return "redirect:myProgramlist.re";
+			
+		}else {
+			model.addAttribute("errorMsg","리뷰 수정 실패..");
+			return "common/errorPage";
+			
+		}
+		
 	}
+ 
+
 	
+	//리뷰 삭제
+	@RequestMapping("reviewDelete.re")
+	public String reviewDelete(Review r,HttpSession session, Model model, String upfile) {
+		
+		
+		/*
+				if(!upfile.equals("")) { //만약에 첨부파일이 존재했을 경우
+					
+					//기존에 존재하는 첨부파일을 삭제
+					// resources/xxxxxx/xxxx.jpg 요걸 찾으려면
+					new File(session.getServletContext().getRealPath(upfile)).delete();
+					
+				}
+				*/
+		
+				if(reviewService.reviewDelete(r) > 0 ) { // 삭제 성공
+					
+					session.setAttribute("alertMsg","리뷰가 삭제 되었습니다.");
+					return "redirect:myProgramlist.re";
+					
+				} else { // 삭제 실패
+					model.addAttribute("errorMsg","리뷰 삭제 실패..");
+					return "common/errorPage";
+					
+				}
+		
+		
+		
+				
+	}
 	
 	
 	
