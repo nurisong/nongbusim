@@ -99,8 +99,8 @@ public class FarmServiceImpl implements FarmService {
 	}
 
 	@Override
-	public int deleteAttachment(int[] delFiles) {
-		return farmDao.deleteAttachment(delFiles, sqlSession);
+	public int deleteAttachment(ArrayList<Integer> delList) {
+		return farmDao.deleteAttachment(delList, sqlSession);
 	}
 	
 	@Override

@@ -67,8 +67,8 @@ public class FarmDao {
 		return sqlSession.selectList("farmMapper.selectFileNo", farmNo);
 	}
 	
-	public int deleteAttachment(int[] delFiles, SqlSessionTemplate sqlSession) {
-		return sqlSession.delete("farmMapper.deleteAttachment", delFiles);
+	public int deleteAttachment(ArrayList<Integer> delList, SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("farmMapper.deleteAttachment", delList);
 	}
 	
 	public int insertAttachment(ArrayList<Attachment> upfileList, SqlSessionTemplate sqlSession) {

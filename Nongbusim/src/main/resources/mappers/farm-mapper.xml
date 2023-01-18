@@ -232,7 +232,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		ATTACHMENT
 		 WHERE
 		 		FILE_NO IN
-		<foreach collection="array" item="fileNo" open="(" separator="," close=")">
+		<foreach collection="list" item="fileNo" open="(" separator="," close=")">
 				 #{fileNo}		
 		</foreach>
 	</delete>
@@ -276,18 +276,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		origin_name,
 		  		change_name,
 		  		board_type,
-		  		board_no
+		  		board_no,
+		  		file_level
 		  		)
 		 		SELECT 
 		 				SEQ_ANO.NEXTVAL as fileNo, A.*
 				  FROM
 					   (
-						<foreach collection="list" item="attachment" separator="UNION ALL">
+						<foreach collection="list" item="at" separator="UNION ALL">
 							SELECT
-							  	     #{attachment.originName} as originName
-							  	    ,#{attachment.changeName} as changeName
+							  	     #{at.originName} as originName
+							  	    ,#{at.changeName} as changeName
 							  	    ,'F' as boardType
-							  	    ,#{attachment.boardNo} as boardNo
+							  	    ,#{at.boardNo} as boardNo
+							  	    ,#{at.fileLevel} as fileLevel
 							  FROM
 							  		 SYS.DUAL
 						</foreach>
