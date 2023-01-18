@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<resultMap id="programResultSet" type="program">
 		<result column="PROGRAM_NO" property="programNo"/>
-		<result column="FARM_NO" property="programNo"/>
+		<result column="FARM_NO" property="farmNo"/>
 		<result column="PROGRAM_NAME" property="programName"/>
 		<result column="PROGRAM_PLAN" property="programPlan"/>
 		<result column="PROGRAM_HOUR" property="programHour"/>
@@ -99,21 +99,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectAttachmentList" resultMap="attachmentResultSet">
-		SELECT *
-		   FROM (
-		        SELECT 
-		            board_no,
-		            file_no,
-		            origin_name,
-		            change_name,
-		            upload_date,
-		            board_type,
-		            ROW_NUMBER() OVER (PARTITION BY board_no ORDER BY file_no) AS RN
-		        FROM 
-		            ATTACHMENT) a
-		WHERE 
-				a.RN = 1
-
+		SELECT 
+				board_no,
+				file_no,
+				origin_name,
+				change_name,
+				upload_date,
+				board_type
+		            
+		  FROM 
+				ATTACHMENT
+		            
+		 WHERE
+				FILE_LEVEL = 1
+				
+		   AND
+				BOARD_TYPE = 'F'
 	</select>
 	
 	<select id="selectProgramList" resultMap="programResultSet">
@@ -170,7 +171,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				program_no,
 				farm_no,
 				program_name,
-				program_plan,
+				TO_CHAR(program_plan, 'YYYY-MM-DD') as program_plan,
 				program_hour,
 				program_lecture,
 				headcount,

@@ -33,6 +33,8 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/enrollForm.fm" />
+			<mapping path="/myList.fm" />
+			<mapping path="/enrollForm.if" />
 			<beans:bean class="com.kh.nbs.common.interceptor.LoginInterceptor" id="LoginInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
