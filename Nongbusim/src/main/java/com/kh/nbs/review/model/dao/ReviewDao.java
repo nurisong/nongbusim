@@ -37,9 +37,15 @@ public class ReviewDao {
 		
 	}
 	
-	public List<Review> reviewUpdate(SqlSessionTemplate sqlSession,Review r) {
+	public List<Review> reviewSelect(SqlSessionTemplate sqlSession,Review r) {
 		
-		return (List)sqlSession.selectList("reviewMapper.reviewUpdate", r);
+		return (List)sqlSession.selectList("reviewMapper.reviewSelect", r);
+		
+	}
+	
+	public int reviewUpdate(SqlSessionTemplate sqlSession, Review r) {
+		
+		return sqlSession.update("reviewMapper.reviewUpdate",r);
 		
 	}
 

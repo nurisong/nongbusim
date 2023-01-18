@@ -79,7 +79,7 @@ public class FarmServiceImpl implements FarmService {
 	}
 	
 	@Override
-	public int insertAttachment(List upfileList) {
+	public int insertAttachment(ArrayList<Attachment> upfileList) {
 		return farmDao.insertAttachment(upfileList, sqlSession);
 	}
 
@@ -99,8 +99,8 @@ public class FarmServiceImpl implements FarmService {
 	}
 
 	@Override
-	public int deleteAttachment(List delList) {
-		return farmDao.deleteAttachment(delList, sqlSession);
+	public int deleteAttachment(int[] delFiles) {
+		return farmDao.deleteAttachment(delFiles, sqlSession);
 	}
 	
 	@Override

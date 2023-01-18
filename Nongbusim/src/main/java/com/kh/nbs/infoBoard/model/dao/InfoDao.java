@@ -44,8 +44,8 @@ public class InfoDao {
 		return sqlSession.insert("infoMapper.insertInfo", info);
 	}
 
-	public int insertAttachment(Attachment a, SqlSessionTemplate sqlSession) {
-		return sqlSession.insert("attachmentMapper.insertAttachmentInfo", a);
+	public int insertAttachment(ArrayList<Attachment> upfileList, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("infoMapper.insertAttachment", upfileList);
 	}
 	
 	public int updateInfo(Info info, SqlSessionTemplate sqlSession) {

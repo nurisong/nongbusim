@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -64,34 +65,51 @@ public class InfoController {
 	}
 	
 	@RequestMapping("insert.if")
-	public String insertInfo(Info info, Attachment a, MultipartFile[] upfilesImg, MultipartFile[] upfiles, HttpSession session, RedirectAttributes rttr) {
+	public String insertInfo(Info info, MultipartFile[] upfilesImg, MultipartFile[] upfiles, HttpSession session, RedirectAttributes rttr) {
 		
 		if(infoService.insertInfo(info) > 0) {
+			
+			ArrayList<Attachment> upfileList = new ArrayList<Attachment>();
 			
 			for(MultipartFile upfile: upfilesImg) {
 				
 				if(!upfile.getOriginalFilename().equals("")) {
 
-					a.setBoardType("I");
-					a.setFileLevel(1); // 이미지 파일
-					a.setOriginName(upfile.getOriginalFilename()); // 원본명
-					a.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfile, session)); // 저장경로
+					Attachment atImg = new Attachment();
+
+					atImg.setBoardType("I");
+					atImg.setFileLevel(0); // 이미지 파일
+					atImg.setOriginName(upfile.getOriginalFilename()); // 원본명
+					atImg.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfile, session)); // 저장경로
 					
-					infoService.insertAttachment(a);
+					System.out.println(atImg.getOriginName());
+					
+					upfileList.add(atImg);
+					
 				} 
 			}
 			
 			for(MultipartFile upfile: upfiles) {
 				
 				if(!upfile.getOriginalFilename().equals("")) {
-
-					a.setBoardType("I");
-					a.setFileLevel(4); // 다운로드 첨부파일
-					a.setOriginName(upfile.getOriginalFilename()); // 원본명
-					a.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfile, session)); // 저장경로
 					
-					infoService.insertAttachment(a);
+					Attachment at = new Attachment();
+
+					at.setBoardType("I");
+					at.setFileLevel(4); // 다운로드 첨부파일
+					at.setOriginName(upfile.getOriginalFilename()); // 원본명
+					at.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfile, session)); // 저장경로
+				
+					System.out.println(at.getOriginName());
+					
+					upfileList.add(at);
 				} 
+			}
+			
+			if(infoService.insertAttachment(upfileList)>0) {
+				System.out.println("첨부파일 등록 성공");
+			} else {
+				System.out.println("첨부파일 등록 실패");
 			}
 			rttr.addFlashAttribute("alertMsg", "글이 작성되었습니다.");
 			return "redirect:/list.if";
@@ -134,7 +152,7 @@ public class InfoController {
 			   					   @RequestParam(value="ctg", defaultValue="all") String category,
 			   					   String condition, String keyword, Model model) {
 		
-		HashMap<String, String> map = new HashMap();
+		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("category", category);
 		map.put("condition", condition);
 		map.put("keyword", keyword);
