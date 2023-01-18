@@ -189,6 +189,8 @@
             -webkit-text-fill-color: #fff58c;
             } 
 
+
+
             /* 버튼 */
            
     </style>
@@ -207,6 +209,9 @@
             <a class="menuButton" href="">찜한 게시글</a><br>
             <a class="menuButton" href="">참여 프로그램</a><br>   
         </div>
+
+
+      
 
         <div class="content" align="center">
 

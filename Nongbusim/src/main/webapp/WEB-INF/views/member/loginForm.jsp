@@ -5,22 +5,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+body {
+    min-height: 600px;
+}
+
+body {
+    position:relative;
+    z-index:1;
+}
+body:after {
+    background-image:url(resources/images/farm.PNG);
+    top:0;
+    left:0;
+    position:absolute;
+    background-size:100%;
+    opacity:0.6!important;
+    filter:alpha(opacity=50);
+    z-index:-1;
+    content:"";
+    width:100%;
+    height:100%;
+}
+
 
 * {
     font-family: 'Noto Sans KR', sans-serif;
 }
 
-body {
-    background-color: #1BBC9B;
-}
 
 .area {
     margin: auto;
-    width: 300px;
+    width: 400px;
+    height: 300px;
     background-color: rgb(191, 221,183) ;
     border-radius: 5px;
     text-align: center;
@@ -28,7 +52,7 @@ body {
 }
 
 input {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     box-sizing: border-box;
     border-radius: 5px;
@@ -43,7 +67,8 @@ input {
     background-color:rgb(143, 177, 134) ;
     margin-bottom: 30px;
     border:none;
-    width: 100%;
+    border-radius: 5px;
+    width: 90%;
     color: white;
 }
 
@@ -54,20 +79,17 @@ input {
 
 
 
-
-
 </style>
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
 
+</head>
 <!-- 메뉴바 -->
 <jsp:include page="../common/menubar.jsp"/>
+<body class="test">
+
+
+
 
 <br>
 

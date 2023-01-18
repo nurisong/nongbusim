@@ -115,7 +115,6 @@ public class ReviewController {
 		
 	}
 	
-	
 	//마이페이지 참여한 프로그램에서 내가 작성란 리뷰내용을 select하는 요청
 	@ResponseBody
 	@RequestMapping(value = "reviewSelect.re", produces="application/json; charset=UTF-8" )
@@ -128,7 +127,6 @@ public class ReviewController {
 					
 		return new Gson().toJson(reviewService.reviewSelect(r));
 	}
-	
 	
 	
 	//리뷰 수정
@@ -151,20 +149,17 @@ public class ReviewController {
 				// saveFile() 호출해서 첨부파일 업로드
 				String changeName = saveFile(reUpfile,session);
 				
-				//bfksms Board객체에 새로운 정보 (원본명, 저장경로) 담기
+				// Review객체에 새로운 정보 (원본명, 저장경로) 담기
 				r.setOriginName(reUpfile.getOriginalFilename());
 				r.setChangeName("resources/uploadFiles/" + changeName);
-			}else {
 				
+				}else { //첨부파일을 수정 안할 때 기존 파일명을 다시 넣어줌
+					
+					String changeName = nowImage;
+					r.setOriginName(reUpfile.getOriginalFilename());
+					r.setChangeName(changeName);
 				
-				String changeName = nowImage;
-				r.setOriginName(reUpfile.getOriginalFilename());
-				r.setChangeName(changeName);
-				
-				//여기서 기존사진 경로를 찾아서 changeName에 넣어야함
-			
-			}
-		
+				}
 		
 		
 		

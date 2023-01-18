@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
 
+    
+
     .content {
         background-color:rgb(247, 245, 245);
         width:80%;
