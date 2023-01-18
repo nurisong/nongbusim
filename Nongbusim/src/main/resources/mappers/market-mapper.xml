@@ -399,14 +399,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update 
 			"COMMENT"
 		set
-			comment_content = #{content}
+			comment_content = #{ commentContent},
 			enroll_date = SYSDATE
 		where
 			mem_no = #{memNo}
 		and
-			board_no = #{boardNo}
-		and
 			board_type = 'mk'
+		and	
+			comment_no = #{commentNo}
 	
 	
 	</update>

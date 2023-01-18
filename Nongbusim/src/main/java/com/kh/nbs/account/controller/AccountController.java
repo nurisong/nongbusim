@@ -259,21 +259,50 @@ public class AccountController {
 
 	
 	//calView에서 해당월 수입지출 요약정보를 띄워주기위한 ajax를 받는메소드 
+	//ajax로 yyyy-mm-01 데이터(yearMonth)를 넘길 때, 
+	// 나중에 mapper에 parameterType으로  (yearMonth, memNo) 두개를 넘겨야 하므로
+	// Account vo에  두 값을 담을 것임
+	// controller에서 data를 받을 때 Account로 받도록 RequestParam 설정
 	@ResponseBody
 	@RequestMapping(value = "monthlySummary.ac", produces = "application/json; charset=UTF-8")
-	public String monthlySummary(String month, HttpSession session) {
-		System.out.println("hi");
-		int memNo = ((Member) session.getAttribute("loginUser")).getMemNo();	
+	public String monthlySummary(Account account,  HttpSession session) {
 		
-		String monthDay = month.substring(0,3)+"-"+month.substring(5,8)+"-01";
-		System.out.println(monthDay);
+		System.out.println(account);
 		
-		System.out.println(accountService.monthlySummary(memNo));
-		return new Gson().toJson(accountService.monthlySummary(memNo));
+		account.setMemNo(((Member) session.getAttribute("loginUser")).getMemNo());
+		System.out.println(accountService.monthlySummary(account));
+		return new Gson().toJson(accountService.monthlySummary(account));
 		
+		// 해당월 총 수입: [Account(accountNo=0, type=I, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=4010000, accountContent=null, status=null, memNo=0, nickName=null), 
+		// 해당월 총 지출: Account(accountNo=0, type=O, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=895000, accountContent=null, status=null, memNo=0, nickName=null)]	
+
 		
 	}
 	
+	@RequestMapping("menubarTest.ac")
+	public ModelAndView menubarTest(ModelAndView mv) {
+		mv.setViewName("common/newMenubar");
+		return mv;		
+	}
+	
+	
+	//--------------------------------------------- 검색기능 --------------------------
+	// keyup시 검색
+	@ResponseBody
+	@RequestMapping(value = "recommend.me", produces = "application/json; charset=UTF-8")
+	public String select(Account account,  HttpSession session) {
+		
+		System.out.println(account);
+		
+		account.setMemNo(((Member) session.getAttribute("loginUser")).getMemNo());
+		System.out.println(accountService.monthlySummary(account));
+		return new Gson().toJson(accountService.monthlySummary(account));
+		
+		// 해당월 총 수입: [Account(accountNo=0, type=I, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=4010000, accountContent=null, status=null, memNo=0, nickName=null), 
+		// 해당월 총 지출: Account(accountNo=0, type=O, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=895000, accountContent=null, status=null, memNo=0, nickName=null)]	
+
+		
+	}
 	
 	
 }
