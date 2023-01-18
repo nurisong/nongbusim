@@ -112,7 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  AND
 				 BOARD_TYPE = 'I'
 		  AND
-		  		 FILE_LEVEL = 1
+		  		 FILE_LEVEL = 0
 	</select>
 	
 	<insert id="insertInfo">
@@ -135,6 +135,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				,#{infoContent}
 				)
 	</insert>
+	
+	<update id="insertAttachment">
+		INSERT
+		  INTO
+		  		ATTACHMENT
+		  		(
+		  		 FILE_NO
+		  		,BOARD_NO
+		  		,ORIGIN_NAME
+		  		,CHANGE_NAME
+		  		,BOARD_TYPE
+		  		,FILE_LEVEL
+		  		)
+		  		SELECT
+		  				 SEQ_ANO.NEXTVAL as fileNo
+		  				,SEQ_INO.CURRVAL as farmNo
+		  				,A.*
+		  		  FROM
+		  		  		(
+		  				 <foreach collection="list" item="at" separator="UNION ALL">
+		  					SELECT
+		  							 #{at.originName} as originName
+							  	    ,#{at.changeName} as changeName
+							  	    ,'I' as boardType
+							  	    ,#{at.fileLevel} as fileLevel
+							  FROM
+							  		 SYS.DUAL
+						 </foreach>
+					    ) A
+	</update>
 	
 	<update id="updateInfo">
 		UPDATE

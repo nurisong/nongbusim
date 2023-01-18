@@ -79,6 +79,11 @@
              },
              
             events: all_events,
+            
+            eventClick: function(info) {
+                	location.href= "${pageContext.request.contextPath}/detail.di?dno="+info.event.id;
+               
+            },
          	eventRender: function (event, element, icon) {
          		if(event.Score != '' && typeof event.Score  !== "undefined"){
          			element.find(".fc-title").append("<br/><b>"+event.Score+"</b>");

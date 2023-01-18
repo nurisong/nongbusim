@@ -74,13 +74,14 @@ public class FarmController {
 	@RequestMapping("insert.fm")
 	public ModelAndView insertFarm(Farm f, 
 								   @RequestParam(value="upfileMain") MultipartFile upfileMain,
-								   @RequestParam(value="upfiles")MultipartFile[] upfiles, 
+								   @RequestParam(value="upfiles") MultipartFile[] upfiles, 
 								   ModelAndView mv, HttpSession session, RedirectAttributes rttr) {
 		
 		// **farmer에 로그인유저 memNo 넣기**
-		f.setFarmer(((Member)session.getAttribute("loginUser")).getMemNo());
+		// f.setFarmer(((Member)session.getAttribute("loginUser")).getMemNo());
 		
-		if(farmService.insertFarm(f)>0) {
+		// 농장 등록에 성공하면,
+		if(farmService.insertFarm(f) > 0) {
 
 			//int farmNo = f.getFarmNo();
 			
@@ -98,40 +99,38 @@ public class FarmController {
 			}
 			*/
 			
-			List<Attachment> upfileList = new ArrayList();
+			// 첨부파일 담아줄 list
+			ArrayList<Attachment> upfileList = new ArrayList<Attachment>();
 			
 			// 메인 이미지 등록
 			Attachment main = new Attachment();
 			
-			
 			System.out.println(upfileMain);
 			
-			main.setBoardType("F");
 			main.setFileLevel(1);
 			main.setOriginName(upfileMain.getOriginalFilename()); // 원본명
 			main.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfileMain, session)); // 저장경로
 			upfileList.add(main);
-			
 			
 			// 세부사진 등록
 			for(MultipartFile upfile: upfiles) {
 				
 				if(!upfile.getOriginalFilename().equals("")) {
 					
-					//System.out.println(upfile.getOriginalFilename());
-					
 					Attachment at = new Attachment();
 					
-					at.setBoardType("F");
-					at.setOriginName(upfile.getOriginalFilename()); // 원본명
-					at.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfile, session)); // 저장경로
+					at.setFileLevel(0);
+					at.setOriginName(upfile.getOriginalFilename()); 
+					at.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfile, session)); 
 					
 					upfileList.add(at);
 				}
-				
-				if(farmService.insertAttachment(upfileList) > 0) {
-					System.out.println("insert에서 첨부파일 등록 완");
-				}
+			}
+			
+			if(farmService.insertAttachment(upfileList) > 0) {
+				System.out.println("DB에 첨부파일 등록 완");
+			} else {
+				System.out.println("DB에 첨부파일 등록 실패");
 			}
 			
 			rttr.addFlashAttribute("alertMsg", "농장이 등록되었습니다.");
@@ -155,82 +154,109 @@ public class FarmController {
 	@RequestMapping("update.fm")
 	public String updateFarm(Farm farm, 
 							 int[] delFiles, String[] delFilesPath,
-							 MultipartFile[] upfiles,  
+							 @RequestParam(value="upfileMain") MultipartFile upfileMain,
+							 @RequestParam(value="upfiles") MultipartFile[] upfiles, 
 			                 Model model, HttpSession session, RedirectAttributes rttr, HttpServletRequest request) {
 		
 		// System.out.println("처음 출력" + delFiles);
 		
-		// 기존 파일 목록
-		List fnoList = farmService.selectFileNo(farm.getFarmNo());
+		// System.out.println(farm);
 		
-		List delList = new ArrayList();
+		// 기존 파일 목록(fileNo)
+		// List fnoList = farmService.selectFileNo(farm.getFarmNo());
 		
+		// List<Integer> delList = new ArrayList<Integer>();
+		
+		/*
 		for(int i = 0; i < delFiles.length; i++) {
 			// System.out.println(delFiles[i]);
 			delList.add(delFiles[i]);
 		}
+		*/
 	
 		// 기존 첨부파일 삭제
-		if(delList.size()>0) {
-			if(farmService.deleteAttachment(delList) > 0) {
+		// 삭제된 첨부파일이 있다면,
+		if(delFiles != null) {
+			
+			// DB에서 삭제에 성공하면
+			if(farmService.deleteAttachment(delFiles) > 0) {
 				
-				String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
-				
+				// 실제 서버에 있는 파일 삭제
 				for(int i = 0; i < delFilesPath.length; i++) {
 					
 					System.out.println(delFilesPath[i]);
-					System.out.println(delFilesPath[i]);
 					
-					if(new File(savePath + delFilesPath[i]).delete()) {
+					if(new File(session.getServletContext().getRealPath(delFilesPath[i])).delete()) {
 						System.out.println("서버에서 삭제 완" + i);
-						
 					} else {
 						System.out.println("서버에서 삭제 실패ㅎ");
 					}
 				}
-				System.out.println("삭제 성공");
+
 			} else {
-				System.out.println("삭제 실패");
+				System.out.println("DB에서 삭제 실패");
 			}
 		}
 		
 		// 새로 추가된 첨부파일 추가
-		if(upfiles != null) {
-			List<Attachment> upfileList = new ArrayList();
+		ArrayList<Attachment> upfileList = new ArrayList<Attachment>();
+		
+		// 메인 이미지 등록
+		Attachment main = new Attachment();
+		
+		if(upfileMain != null) {
+			System.out.println(upfileMain);
 			
+			main.setFileLevel(1);
+			main.setOriginName(upfileMain.getOriginalFilename()); // 원본명
+			main.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfileMain, session)); // 저장경로
+			
+			upfileList.add(main);
+		}
+		
+		// 세부사진 등록
+		if(upfiles != null) {
 			for(MultipartFile upfile: upfiles) {
 				
 				if(!upfile.getOriginalFilename().equals("")) {
 					
 					//System.out.println(upfile.getOriginalFilename());
 					
-					Attachment at = new Attachment();
+					Attachment at = new Attachment();at.setFileLevel(0);
 					
-					at.setBoardType("F");
+					at.setFileLevel(0);
 					at.setOriginName(upfile.getOriginalFilename()); // 원본명
 					at.setChangeName("resources/uploadFiles/" + SaveFile.getChangeName(upfile, session)); // 저장경로
-					at.setBoardNo(farm.getFarmNo());
 					
 					upfileList.add(at);
 				}
 			}
-			// System.out.println(upfileList);
+		}
+		
+		// 새로 추가된 첨부파일이 있는 경우
+		if(upfileList.size() > 0) {
 			
-			// 첨부파일 추가 후 정보 수정
-			if(farmService.updateInsertAttachment(upfileList) > 0) {
-				if(farmService.updateFarm(farm) > 0) {
-					rttr.addFlashAttribute("alertMsg", "정보가 수정되었습니다.");
-					return "redirect:/detail.fm?fno=" + farm.getFarmNo();
+			if(farmService.insertAttachment(upfileList) > 0) {
+				System.out.println("insert에서 첨부파일 등록 완");
+				
+				// System.out.println(upfileList);
+				
+				// 첨부파일 추가 후 정보 수정
+				if(farmService.updateInsertAttachment(upfileList) > 0) {
+					if(farmService.updateFarm(farm) > 0) {
+						rttr.addFlashAttribute("alertMsg", "정보가 수정되었습니다.");
+						return "redirect:/detail.fm?fno=" + farm.getFarmNo();
+					} else {
+						rttr.addFlashAttribute("alertMsg", "정보 수정에 실패했습니다.");
+						return "redirect:/detail.fm?fno=" + farm.getFarmNo();
+					}
 				} else {
-					rttr.addFlashAttribute("alertMsg", "정보 수정에 실패했습니다.");
+					rttr.addFlashAttribute("alertMsg", "첨부파일 수정 실패!!!!!!!!!!!!!!!");
 					return "redirect:/detail.fm?fno=" + farm.getFarmNo();
 				}
-			} else {
-				rttr.addFlashAttribute("alertMsg", "첨부파일 수정 실패!!!!!!!!!!!!!!!");
-				return "redirect:/detail.fm?fno=" + farm.getFarmNo();
 			}
+				
 		} else {
-			
 			// 추가된 첨부파일 X, 정보만 수정
 			if(farmService.updateFarm(farm) > 0) {
 				rttr.addFlashAttribute("alertMsg", "정보가 수정되었습니다.");
@@ -240,7 +266,13 @@ public class FarmController {
 				return "redirect:/detail.fm?fno=" + farm.getFarmNo();
 			}
 		}
+		return "";
 	}
+		
+		
+		
+		
+	
 	
 	// 언젠가..첨부파일 수정 성공하길..
 	//@RequestMapping("update.fm")
@@ -271,7 +303,7 @@ public class FarmController {
 								   @RequestParam(value="lco", defaultValue="all") String localCode, 
 								   String condition, String keyword, Model model) {
 		
-		HashMap<String, String> map = new HashMap();
+		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("localCode", localCode);
 		map.put("condition", condition);
 		map.put("keyword", keyword);

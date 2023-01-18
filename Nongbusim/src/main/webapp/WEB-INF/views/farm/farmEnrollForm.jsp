@@ -44,6 +44,8 @@
             <br><br><br>
             <div class="board-area">
             	<form action="insert.fm" method="post" enctype="multipart/form-data">	
+
+                    <input type="hidden" name="farmer" value="${loginUser.memNo}">
 	                <table class="table info-table">
 	                    <tr>
 	                        <th>농장이름</th>

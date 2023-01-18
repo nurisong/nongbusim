@@ -232,7 +232,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		ATTACHMENT
 		 WHERE
 		 		FILE_NO IN
-		<foreach collection="list" item="fileNo" open="(" separator="," close=")">
+		<foreach collection="array" item="fileNo" open="(" separator="," close=")">
 				 #{fileNo}		
 		</foreach>
 	</delete>
@@ -255,22 +255,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 				,A.*
 				  FROM
 					   (
-						<foreach collection="list" item="attachment" separator="UNION ALL">
+						<foreach collection="list" item="at" separator="UNION ALL">
 							SELECT
-							  	     #{attachment.originName} as originName
-							  	    ,#{attachment.changeName} as changeName
+							  	     #{at.originName} as originName
+							  	    ,#{at.changeName} as changeName
 							  	    ,'F' as boardType
-							  	    <choose>
-							  	    <when test="#{attachment.fileLevel != null}">
-							  	    ,#{attachment.fileLevel}
-							  	    </when>
-							  	    <otherwise>
-							  	    ,2
-							  	    </otherwise>
-							  	    </choose>
+							  	    ,#{at.fileLevel} as fileLevel
 							  FROM
 							  		 SYS.DUAL
-						</foreach>
+						 </foreach>
 					    ) A
 	</update>
 	
