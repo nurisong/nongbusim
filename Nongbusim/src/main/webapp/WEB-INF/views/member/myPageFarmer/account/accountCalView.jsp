@@ -6,7 +6,7 @@
 <html>
   <head>
     <meta charset='utf-8' />
-   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.2/index.global.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.2/index.global.min.js"></script>
 	<style>
 	/* 일요일 날짜 빨간색 */
 	.fc-day-sun a {
@@ -25,7 +25,25 @@
 	
 	}
 	</style>
-    <script>
+  
+  </head>
+  <body>
+  <div class="summaryArea">
+  	<h5>입출금 장부현황</h5>
+  	<table id="summaryTable">
+  		<tr>
+
+  			
+  		</tr> 			
+  	</table>
+  </div>	
+  <br>
+  <div class="calArea">
+      <div id='calendar'></div>
+      <a href="list.ac">모아보기</a>
+  </div>
+  </body>
+  <script>
 
    
     var calendar = null;
@@ -74,8 +92,6 @@
 				 
 				 // startDate와 endDate 넘기기
 				 location.href="${pageContext.request.contextPath}/enrollForm.di?startDate="+startDate+"&endDate="+endDate2;
- 
- 				
              },
              
             events: all_events,
@@ -91,16 +107,22 @@
          	},
 
 			 datesSet: function(info){
-				var start= info.start;
-				var end = info.end;
-				changeMonth(start, end);
 
+				//calendar.getDate()
+				// 화면에 보이는 calendar 월 버튼 클릭하여 변경 시 
+				// 해당 월 첫 번쨰 날짜를 반환 , 초기값은 현재날짜 (sysdate)
+				
+				// yyyy-mm-01을 반환하는 dateformat호출
+				var yearMonth =dateFormat(calendar.getDate());
+				
+				// xxxx년 xx월에 변화가 일어날 때 마다, montlySummary를 가져오는 ajax 함수 호출
+				monthlySummary(yearMonth);
 			 }
    		 });
 
 
            calendar.render();
-		   console.log(loadEvents());
+		   //console.log(calendar.getDate());
     
 		});
 
@@ -130,30 +152,44 @@
 	};
 
 
-	//트리거로 페이지 로딩시 change 시 실행되는 이벤트핸들러 실행되도록
-    //$(function(){
-    //	$("#fc-dom-1").trigger("change");
-    //    });
-    	
-  // 사용자가 선택한 년월에 변화가 일어나면 실행되는 함수  	
-  // calendar처럼 동적으로 생성된 요소는 document.ready 이벤트가 작동x
-  // 로드되었을 때 존재하지 않는 태그에 대해서는 이벤트를 걸 수 없음
-  
-  // 이벤트바인딩하기 -- 안됨 !! 풀켈린더가 시키는대로 해야함
- //  $(document).on("#fc-dom-1","change",function(){	
-
-	function changeMonth(start, end){
-
+	//ajax로 yyyy-mm-01 데이터(yearMonth)를 넘길 때, 
+	// 나중에 mapper에 parameterType으로  (yearMonth, memNo) 두개를 넘겨야 하므로
+	// Account vo에  두 값을 담을 것임
+	// controller에서 data를 받을 때 Account로 받도록 RequestParam 설정
+	function monthlySummary(yearMonth){
+		console.log("here")
+		console.log(yearMonth);
+		var yearMonthFormat = yearMonth.substr(0,4)+'년 '+yearMonth.substr(5,2)+'월' ;
 		$.ajax({
 			type: "post",
 			url: "monthlySummary.ac",
 			data: {
-				start: start,
-				end: end
+				"createDate": yearMonth
 			},
-			contentType : "application/json",
-			success: function(result){
-				console.log(result);
+			success: function(list){
+				if(!list.empty){
+					var result="";
+					console.log(list)
+					for (var i=0; i<list.length; i++){
+						if(list[i].amount !=null){
+							result 
+								+= '<td style="width:200px; height: 200px">'
+				  				+'<div style="border:1px solid black; width:100%; height:100%">'	
+				  				+'<h1>'+list[i].type+'</h1>'
+								+'<h3>'+ yearMonthFormat+'</h3>'
+								+'<h2>'+list[i].amount+'원</h2>'			
+				  				+'</div>'
+				  				+'</td>'
+					
+						} else {
+							result= "<td style='width:600px; height: 200px'><h1>작성된 입출금일지가 없습니다<h1></td>";
+						}
+					}
+				}else {
+ 					result= "<td style='width:600px; height: 200px'><h1>작성된 입출금일지가 없습니다<h1></td>";
+				}                   
+               	 $('#summaryTable').children().eq(0).html(result);
+				
 			},
 			error: function(){
 				console.log('실패');
@@ -162,31 +198,15 @@
 	
 	}
 
-    
-    
+	
+	//날짜를 yyyy-mm-01로 바꿔주는 함수
+	//해당월 마지막 날짜는 oracle이 제공하는 lastday 함수 이용
+	function dateFormat(date) {
+		let dateFormat2 = date.getFullYear() +
+		'-' + ( (date.getMonth()+1) < 9 ? "0" + (date.getMonth()+1) : (date.getMonth()+1) )+
+		'-01';
+		return dateFormat2;
+	}
+	
     </script>
-  </head>
-  <body>
-  <div class="summaryArea">
-  	<h5>입출금 장부현황</h5>
-  	<table>
-  		<tr>
-  			<td style="width:200px; height: 200px">
-  				<div style="border:1px solid black; width:100%; height:100%">
-  				<h1>수입
-				<h3 id="incomeOfMonth"></h3>
-				<h2 id="monthlyIncome"></h2>  				
-  				</div>
-  			</td>
-  			
-  		</tr> 			
-  	</table>
-  </div>	
-  <br>
-  <div class="calArea">
-      <div id='calendar'></div>
-      <a href="list.ac">모아보기</a>
-  </div>
-  </body>
-
 </html>
