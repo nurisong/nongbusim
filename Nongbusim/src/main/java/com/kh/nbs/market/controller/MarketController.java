@@ -41,11 +41,14 @@ public class MarketController {
 	//게시판으로 이동
 	@RequestMapping("list.mk")
 	public ModelAndView marketSelectList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+										 @RequestParam(value="MarketCategory", defaultValue="모두") String marketCategory,
 										ModelAndView mv, HttpSession session) {
 		
+		//카테고리를 설정하지 않은경우 모두 셀렉해오기
 		PageInfo pi = Pagination.getPageInfo(marketService.selectListCount(), currentPage, 5, 9);
-		
-		if((Member)session.getAttribute("loginUser") != null) {
+
+			
+			/*if((Member)session.getAttribute("loginUser") != null) {//회원일 경우 회원번호 담아주기(찜하기 목록을 셀렉해오기 위한 처리)
 			
 			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 			
@@ -53,12 +56,16 @@ public class MarketController {
 				
 				mv.addObject("mark", marketService.ajaxMarkMarket(memNo));
 				
-			}
-		}
+			}*/
+			
+		ArrayList<Market> list = marketService.marketSelectList(pi);
+		
+		list.get(0).setMarketCategory(marketCategory);
 		
 		mv.addObject("pi", pi);
-		mv.addObject("list", marketService.marketSelectList(pi));
+		mv.addObject("list", list);
 		mv.addObject("at", marketService.attachmentSelectList());
+		
 		
 		mv.setViewName("market/marketListView");
 		
@@ -69,6 +76,24 @@ public class MarketController {
 	}
 	
 	
+	//카테고리 선택했을 때의 게시물 리스트 조회
+	@RequestMapping("listCatogory.mk")
+	public ModelAndView marketSelectList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
+			ModelAndView mv, HttpSession session, String marketCategory) {
+		
+		
+		PageInfo pi = Pagination.getPageInfo(marketService.selectListCount(marketCategory), currentPage, 5, 9);
+		
+		
+		mv.addObject("pi", pi);
+		mv.addObject("list", marketService.marketSelectListCategory(pi, marketCategory));
+		mv.addObject("at", marketService.attachmentSelectListCategory(marketCategory));
+		mv.setViewName("market/marketListView");
+		
+		return mv;
+	
+		
+	}
 	
 	
 	

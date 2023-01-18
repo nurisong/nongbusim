@@ -63,6 +63,15 @@ public class AccountDao {
 		return sqlSession.update("accountMapper.updateAccount", account);
 	}
 
+	public ArrayList seletCalEvent(SqlSessionTemplate sqlSession, int memNo) {
+		return (ArrayList)sqlSession.selectList("accountMapper.selectCalEvent", memNo);
+
+	}
+
+	public ArrayList monthlySummary(SqlSessionTemplate sqlSession, int memNo) {
+		return (ArrayList)sqlSession.selectList("accountMapper.monthlySummary", memNo);
+	}
+
 
 	
 }

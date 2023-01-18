@@ -49,6 +49,21 @@ public class MarketDao {
   }
   
   
+  public ArrayList<Market> marketSelectListCategory(PageInfo pi, SqlSessionTemplate sqlSession, String marketCategory){
+	  
+	  int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+	  RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+	  
+	  return (ArrayList)sqlSession.selectList("marketMapper.marketSelectList", marketCategory, rowBounds);
+  }
+  
+  public ArrayList<Attachment> attachmentSelectListCategory(SqlSessionTemplate sqlSession, String marketCategory){
+	  
+	  return (ArrayList)sqlSession.selectList("marketMapper.attachmentSelectList", marketCategory);
+  }
+  
+  
+  
   public ArrayList<Attachment> attachmentSelectList(SqlSessionTemplate sqlSession){
 	  
 	  return (ArrayList)sqlSession.selectList("marketMapper.attachmentSelectList");
@@ -135,6 +150,12 @@ public class MarketDao {
   public int ajaxUpdateMarketComment(Comment comment, SqlSessionTemplate sqlSession) {
 	  return sqlSession.update("marketMapper.ajaxUpdateMarketComment", comment);
   }
+  
+  
+  public int selectListCount(SqlSessionTemplate sqlSession, String marketCategory) {
+	  return sqlSession.selectOne("marketMapper.selectListCount", marketCategory);
+  }
+  
   
   
   

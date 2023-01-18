@@ -27,15 +27,21 @@
 	</style>
     <script>
 
+   
+    var calendar = null;
       document.addEventListener('DOMContentLoaded', function() {
+  
         var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+        var all_events = null;
+        all_events = loadEvents();
+       
+        calendar = new FullCalendar.Calendar(calendarEl, {
         	 headerToolbar: {
         	        left: 'prev,next endDate',
         	        center: 'title',
         	        right: 'dayGridMonth,timeGridWeek,timeGridDay'
         	      },
-        	      locale: 'ko',
+             locale: 'ko',
         	 initialView: "dayGridMonth",
         	 slotMinTime: '09:00',
              slotMaxTime: '19:00',
@@ -72,35 +78,12 @@
  				
              },
              
-             events: function(start, end,callback){
-				var mydata = {
-                    action: "fw_ajax_callback",
-                    subaction: "get_myappointments",
-
-                };
-
-         		$.ajax({
-         			type: "POST",
-         			dataType: "json",
-         			url: "selectEventList.di",
-         			cache: false,
-         			async: false,
-         			success: function(appointments) {
-         			   var events = [];
-                       if(appointments!=null){
-                           $.map( appointments, function( r ) {
-                               events.push({
-                                   title: r.title,
-                                   start: r.start,
-                                   end: r.start
-                               });
-                           });
-                       }
-         				callback(events);
-         			}
-         		});
-         	},
-         	
+            events: all_events,
+            
+            eventClick: function(info) {
+                	location.href= "${pageContext.request.contextPath}/detail.di?dno="+info.event.id;
+               
+            },
          	eventRender: function (event, element, icon) {
          		if(event.Score != '' && typeof event.Score  !== "undefined"){
          			element.find(".fc-title").append("<br/><b>"+event.Score+"</b>");
@@ -109,8 +92,33 @@
              
            });
            calendar.render();
+		   console.log(loadEvents());
       });
 
+
+	  	//1. 전체이벤트 데이터를  추츨해서 2. ajax로 서버에 전송하여 db저장
+	function loadEvents(){
+	  	
+	  	var return_value;
+		 $.ajax({
+			type: "post",
+			url: "calList.di",
+			contentType : "application/json",
+			dataType:"json",
+			async: false,
+			success: function(result){
+				console.log(result);
+				return_value = result;
+			},
+			error: function(){
+				console.log('실패');
+			}			
+			
+		 });
+		 
+		 console.log(return_value);
+		 return return_value;
+	};
     </script>
   </head>
   <body>

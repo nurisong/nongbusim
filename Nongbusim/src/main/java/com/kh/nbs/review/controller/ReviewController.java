@@ -3,7 +3,6 @@ package com.kh.nbs.review.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -13,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.template.Pagination;
 import com.kh.nbs.member.model.vo.Member;
@@ -114,17 +115,20 @@ public class ReviewController {
 		
 	}
 	
-	
-	@RequestMapping("reviewUpdate.re")
-	public ModelAndView reviewUpdate( Review r,ModelAndView mv) {
+	@ResponseBody
+	@RequestMapping(value = "reviewUpdate.re", produces="application/json; charset=UTF-8" )
+	public String reviewUpdate( Review r,ModelAndView mv) {
 		
-	
+		// System.out.println(reviewService.reviewUpdate(r));
+		// mv.addObject("reviewUpdate",reviewService.reviewUpdate(r)).setViewName("review/ReviewInsert");
 		
 		
-		System.out.println(reviewService.reviewUpdate(r));
-		mv.addObject("reviewUpdate",reviewService.reviewUpdate(r)).setViewName("redirect:myProgramlist.re");
+		// JSONObject jObj = new JSONObject();
+		// jObj.put("reviewContent", r.getReviewContent());
+					
 		
-		return mv;
+		
+		return new Gson().toJson(reviewService.reviewUpdate(r));
 	}
 	
  

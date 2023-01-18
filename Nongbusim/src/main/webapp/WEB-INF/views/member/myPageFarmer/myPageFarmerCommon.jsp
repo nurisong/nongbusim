@@ -66,8 +66,8 @@
 		<a class="menuButton" href="farmerMyProgramList.me">내가 작성한 프로그램</a><br>
 		<a class="menuButton" href="farmerMyMarketList.me">내가 작성한 마켓글</a><br>
 		<a class="menuButton" href="updateFarmerForm.me">회원정보 수정</a><br>
-		<a class="menuButton" href="calender.di">영농일지</a><br>
-		<a class="menuButton" href="calender.ac">농작물 입출금</a><br>
+		<a class="menuButton" href="calView.di">영농일지</a><br>
+		<a class="menuButton" href="calView.ac">농작물 입출금</a><br>
 		<a class="menuButton">농장정보등록</a>
 
 	</div>

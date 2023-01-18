@@ -73,11 +73,12 @@
 
             <div class="col-lg-3">
 
-                <select name="marketCategory" style="width: 200px;">
-                    <option vlaue="모두" class="form-select" aria-label="Default select example" selected>모두</option>
-                    <option vlaue="농산물" class="form-select">농산물</option>>
-                    <option vlaue="수산물" class="form-select">수산물</option>>
-                    <option vlaue="축산물" class="form-select">축산물</option>>
+                <!--onchange="changeMarketCategory()"-->
+                <select id="marketCategory" name="marketCategory" style="width: 200px;" onchange="changeMarketCategory()">
+                    <option value="모두" class="form-select" aria-label="Default select example" selected>모두</option>
+                    <option value="농산물" class="form-select">농산물</option>
+                    <option value="수산물" class="form-select">수산물</option>
+                    <option value="축산물" class="form-select">축산물</option>
                 </select>
 
             </div>
@@ -100,6 +101,85 @@
                         <br>
                         <br>
                         
+
+            <script>
+
+                $(function(){
+                	
+                     /*
+                     if(category == '농산물'){
+                    	 
+                    	 if(category == '축산물'){
+                             $('select[name="marketCategory"]').find('option[value="모두"]').attr("selected",true);         
+
+                         }
+                    	 
+                     }else{
+                         
+                         $('select[name="marketCategory"]').find('option[value="${list[0].marketCategory}"]').attr("selected",true);
+
+                     }
+                     */
+                        /*
+                    	 
+                    	 if(category == '축산물'){
+                             $('select[name="marketCategory"]').find('option[value="축산물"]').attr("selected",true);         
+
+                         }
+                    	 else if(category == '농산물'){
+                             $('select[name="marketCategory"]').find('option[value="농산물"]').attr("selected",true);         
+
+                         }
+                    	 else if(category == '수산물'){
+                             $('select[name="marketCategory"]').find('option[value="수산물"]').attr("selected",true);         
+
+                         }
+                    	 else{
+                             $('select[name="marketCategory"]').find('option[value="모두"]').attr("selected",true);         
+
+                         }
+                        */
+
+                        
+                        if('${list[0].marketCategory}' == '모두'){
+                            
+                            $('select[name="marketCategory"]').find('option[value="모두"]').attr("selected",true);         
+
+    
+                        }else{
+                            
+                            $('select[name="marketCategory"]').find('option[value="${list[0].marketCategory}"]').attr("selected",true);
+
+                        }
+                        
+                });
+
+                function changeMarketCategory(){
+
+                    var changeCategory = '';
+
+                    if($('#marketCategory').val() != null){
+
+                        changeCategory = $('#marketCategory').val();
+                    
+                        if(changeCategory != '모두'){
+
+                            location.href="listCatogory.mk?marketCategory=" + changeCategory;
+                            /*location.href="list.mk?marketCategory=" + changeCategory;*/
+
+                        }else{
+
+                            location.href="list.mk?marketCategory=모두";
+
+                        }
+
+
+                    }
+
+                    
+                }
+
+            </script>
                         
                 <div class="row">
                     <c:forEach items="${ list }" var="m">
@@ -117,7 +197,6 @@
                             
                                 <div class="card-body">
                                     <h6 class="card-title">
-                                        <a href="">${ m.marketTitle }</a>
 
                                     <!--비회원 찜하기 클릭시 alert창
                                         <c:choose>
@@ -148,9 +227,12 @@
                                         </c:choose>
                                     </h6> -->
 
-                                    <p>${ m.marketPrice } 원<br>
-                                    ${ m.marketEnrollDate } <br>
-                                    ${ m.marketCount }</p>
+                                    <p> 
+                                        ${ m.marketTitle } <br>
+                                        ${ m.marketPrice } 원<br>
+                                        ${ m.marketEnrollDate } <br>
+                                        ${ m.marketCount }
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -209,6 +291,7 @@
 
     <script>
 
+        /*
             //비회원 찜하기 클릭시 알럿창 띄워주는 함수
             function notMember(){
 
@@ -301,6 +384,7 @@
                 
                 return false;
             }
+        */
 
     </script>
 

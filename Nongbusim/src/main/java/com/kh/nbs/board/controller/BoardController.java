@@ -181,7 +181,7 @@ public class BoardController {
 	}
 	
 	//게시물 수정하기
-	@RequestMapping("update.bo")
+	@RequestMapping("update.bc")
 	public ModelAndView updateBoard(@RequestParam(value="type") String boardType,@RequestParam(value="bno") int boardNo, ModelAndView mv) {
 		
 		Board b=boardService.selectBoard(boardNo);
