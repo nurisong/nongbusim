@@ -212,13 +212,6 @@
                 <label for="1-star" class="star">★</label>
             </div>
         
-
-        
-            <div align="center">
-                <button type="submit"  style="background-color: rgb(103, 141, 208);">수정</button>
-                <button type="button" onclick="return review_Delete(this.form);" style="background-color: rgb(220, 112, 112);">삭제</button>        
-                    
-            </div>
           </form>  
     </div>
 

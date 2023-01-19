@@ -338,7 +338,7 @@
                         <tr>
                             
                             <td><input type="file" name="reUpfile"></td>
-                            <td><input type="text" id="nowImage" name="nowImage" value="" hidden></td>
+                            
                         </tr><br>
                     </table>
 
