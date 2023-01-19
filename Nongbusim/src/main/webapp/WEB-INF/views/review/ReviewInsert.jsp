@@ -343,7 +343,7 @@
                     </table>
 
                     <div align="center">
-                        <img class="thumbnail" id="image" src="resources/images/딸기1.jpg" style="width: 300px; height: 200px;">
+                        <img class="thumbnail" id="image" src="" style="width: 300px; height: 200px;">
                     </div>
 
 
