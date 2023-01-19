@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -195,8 +197,10 @@ public class BoardController {
 		for (int i = 0; i < contentArray.length; i++) {
 		    System.out.println(contentArray[i]);
 		}
+		ArrayList<String> contentList = new ArrayList<String>(Arrays.asList(contentArray));
+
 		
-		mv.addObject("contentArray", contentArray);		
+		mv.addObject("contentList", contentList);		
 	
 		mv.addObject("type", boardType).addObject("b",b).addObject("a",a).setViewName("board/boardUpdateForm");
 		

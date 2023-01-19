@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,22 +67,20 @@
 	                            <th width="100"><label for="content">내용</label></th>                         
 	                            <td>
 	                            
-                                    <div id="upfile-area" align="center">
-                                    <c:forEach var="content" items="${contentArray}" varStatus="status">
-									   <textarea>${contentArray[status.index]}</textarea>
-									</c:forEach>
-                                     <c:forEach var="at" items="${contentArray}" varStatus="status" begin="0" end="3">
-                                     <!-- 
-									    <label for="upfile${status.count}">
-									        <img id="upimage${status.count}" class="myimage" src="${a.get(status.index).changeName}" width="300" height="200"/>
-									    </label>
-									    <input type="file" name="upfiles" id="upfile${status.count}" onchange="loadImg(this, ${status.count});" accept="image/*"/>
-                                      -->
-									    <textarea  class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" style="width:200px;">${at}</textarea>
+
+
+                                     <c:forEach var="at" items="${contentList}" varStatus="status">
+                                    <div id="upfile-area${status.count}" align="center">
+										    <label for="upfile${status.count}">
+										        <img id="upimage${status.count}" class="myimage" src="${a.get(status.index).changeName}" width="300" height="200"/>
+										    </label>
+										    <input type="file" name="upfiles" id="upfile${status.count}" onchange="loadImg(this, ${status.count});" accept="image/*"/>
+                                      
+									    <textarea id="text${status.count}" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" style="width:200px;">${at}</textarea>
+	                             	</div>
 									</c:forEach>
                              
 
-	                             	</div>
 
 	                            </td>                           
 	                        </tr>                 
@@ -202,6 +201,7 @@
         	  var contentCopy=content.substring(0);
         	  document.getElementById("content").value = contentCopy;    	
         };
+        
         
         
         <!-- 이미지 미리보기 -->
