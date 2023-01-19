@@ -296,7 +296,7 @@ public class FarmController {
 		map.put("condition", condition);
 		map.put("keyword", keyword);
 		
-		PageInfo pi = Pagination.getPageInfo(farmService.selectSearchListCount(map), currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(farmService.selectSearchListCount(map), currentPage, 10, 10);
 		
 		model.addAttribute("pi", pi);
 		model.addAttribute("farmList", farmService.selectSearchList(pi, map));
