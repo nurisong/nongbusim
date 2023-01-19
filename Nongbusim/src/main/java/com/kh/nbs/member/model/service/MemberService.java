@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.market.model.vo.Market;
+import com.kh.nbs.member.model.vo.Cert;
 import com.kh.nbs.member.model.vo.Member;
 import com.kh.nbs.program.model.vo.Program;
 
@@ -59,6 +60,13 @@ public interface MemberService {
 	
 	// 비밀번호 변경(update)
 	int updatePwd(Member m);
+
+	// 이메일 인증번호 전송(insert)
+	int sendCertNum(Cert cert);
+
+	// 이메일 인증번호 확인(select)
+	int chkCertNum(Cert cert);
+	
 	
 	
 }
