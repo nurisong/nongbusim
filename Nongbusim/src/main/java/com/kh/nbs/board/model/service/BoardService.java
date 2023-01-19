@@ -28,6 +28,10 @@ public interface BoardService {
 	//사진 리스트 조회,
 	ArrayList<Attachment> attachmentSelectList();
 	
+	//게시글 수정, 첨부파일 수정
+	int updateBoard(Board b);
+	int updateAttachment(Attachment a);
+	
 	//게시글 삭제
 	int deleteAttachment(Board b); 
 	int deleteBoard(Board b);

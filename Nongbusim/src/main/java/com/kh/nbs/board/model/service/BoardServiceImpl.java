@@ -58,7 +58,15 @@ public class BoardServiceImpl implements BoardService{
 	public ArrayList<Attachment> attachmentSelectList() {
 		return boardDao.attachmentSelectList(sqlSession);
 	}
-	
+
+	@Override
+	public int updateBoard(Board b) {
+		return boardDao.updateBoard(sqlSession, b);
+	}
+	@Override
+	public int updateAttachment(Attachment a) {
+		return boardDao.updateAttachment(sqlSession, a);
+	}	
 
 	@Override
 	public int deleteAttachment(Board b) {
