@@ -26,8 +26,8 @@
         <h3>내가 작성한 게시글</h3>
         <hr>
         <table id="boardList" class="table table-bordered table-sm">
-          <thead align="center">
-            <tr>
+          <thead>
+            <tr style="text-align:center">
               <th>게시판</th>
               <th>제목</th>
               <th>작성자</th>
@@ -40,7 +40,8 @@
           	<c:choose>
 		        	<c:when test="${ not empty list }">
 			            <c:forEach var="b" items="${ list }">
-			          		<tr style="text-align:center">
+			          		<tr style="text-align:center; cursor:pointer;">
+			          			<td class="bno" hidden>${ b.boardNo }</td>
 			          			<td style="width:150px">${ b.boardType }</td>
 			          			<td>${ b.boardTitle }</td>
 			          			<td style="width:150px">${ b.boardWriter }</td>
@@ -60,7 +61,7 @@
         </table>
       </div>
       
-            <script>
+     <script>
 	        	$(function(){
 					$('#boardList>tbody>tr').click(function(){
 						location.href = 'detail.bo?type=${type}&bno=' + $(this).children('.bno').text();
