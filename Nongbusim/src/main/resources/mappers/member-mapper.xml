@@ -67,6 +67,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="MK_STATUS" property="marketStatus"/>
 		<result column="MEM_NO" property="memNo"/>
 	</resultMap>
+	
+	<resultMap id="certResultSet" type="cert">
+		<result column="WHO" property="who" />
+		<result column="SECRET" property="secret" />
+		<result column="WHEN" property="when" />
+	</resultMap>
 
 	<!-- 로그인 -->
 	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
@@ -207,4 +213,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE MEM_NO = #{memNo}
 		AND MEM_STATUS = 'Y'
 	</update>
+	
+	<!-- 메일 인증 -->
+	<insert id="sendCertNum" parameterType="cert">
+		INSERT INTO CERT(WHO, SECRET, WHEN)
+		VALUES(#{who}, #{secret}, SYSDATE)
+	</insert>
+	
+	<select id="chkCertNum" resultType="cert" parameterType="cert">
+		SELECT WHO, SECRET, WHEN
+		FROM CERT
+		WHERE WHO = #{who}
+		AND SECRET = #{secret}
+		AND WHEN BETWEEN SYSDATE - 3/24/60 AND SYSDATE
+	</select>
+	
+	<delete id="removeCertNum" parameterType="cert">
+		DELETE CERT
+		WHERE WHO = #{who}
+		AND SECRET = #{secret}
+	</delete>
 </mapper>
