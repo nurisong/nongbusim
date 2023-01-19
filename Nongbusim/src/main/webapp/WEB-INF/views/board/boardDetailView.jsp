@@ -99,7 +99,7 @@
             <c:if test="${ b.boardType=='S' }">
 
 	            <div class="picture-area">
-		            <c:forEach var="c" items="${b.boardContent}" varStatus="status">
+		            <c:forEach var="c" items="${contentArray}" varStatus="status">
 					  <div>
 
 						  <c:if test="${ status.index<a.size()}">

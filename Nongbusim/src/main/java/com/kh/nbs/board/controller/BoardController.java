@@ -105,6 +105,11 @@ public class BoardController {
 			Board b=boardService.selectBoard(boardNo);
 			ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);
 			
+			String content=b.getBoardContent();
+			String delimiter="\\|";
+			String[] contentArray=content.split(delimiter);
+			
+			mv.addObject("contentArray", contentArray);
 
 			mv.addObject("a",a).addObject("b", b).setViewName("board/boardDetailView");
 			
@@ -125,8 +130,11 @@ public class BoardController {
 		System.out.println(b.getBoardContent());
 		
 		String str1=b.getBoardContent().replace("\r\n","<br>");
+		String[] boardContent1=str1.split("!?split?!");
+		System.out.println(boardContent1);
 		System.out.println(b.getBoardContent());
 		b.setBoardContent(str1);
+		
 		
 		if(boardService.insertBoard(b) > 0) {
 			
@@ -200,6 +208,7 @@ public class BoardController {
 		System.out.println(b.getBoardContent());
 		
 		String str1=b.getBoardContent().replace("\r\n","<br>");
+		String[] boardContent1=str1.split("!?split?!");
 		System.out.println(b.getBoardContent());
 		b.setBoardContent(str1);
 		
