@@ -37,12 +37,28 @@ public class InfoController {
 	
 	@RequestMapping("list.if")
 	public String infoListView(@RequestParam(value="cpage", defaultValue="1") int currentPage,
-							   Model model) {
+							   @RequestParam(value="ctg", defaultValue="all") String category,
+							   String condition, String keyword, Model model) {
 		
-		PageInfo pi = Pagination.getPageInfo(infoService.selectListCount(), currentPage, 10, 5);
+		if(keyword != null) {
 		
-		model.addAttribute("pi", pi);
-		model.addAttribute("infoList", infoService.selectList(pi));
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("category", category);
+			map.put("condition", condition);
+			map.put("keyword", keyword);
+			
+			PageInfo pi = Pagination.getPageInfo(infoService.selectSearchListCount(map), currentPage, 10, 5);
+			model.addAttribute("pi", pi);
+			model.addAttribute("infoList", infoService.selectList(pi));
+			
+		} else {
+			
+			PageInfo pi = Pagination.getPageInfo(infoService.selectListCount(), currentPage, 10, 10);
+			model.addAttribute("pi", pi);
+			model.addAttribute("infoList", infoService.selectList(pi));
+			
+		}
+		
 		
 		return "infoBoard/infoBoardListView";
 	}

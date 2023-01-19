@@ -35,6 +35,7 @@
 <body>
 	
     <jsp:include page="../common/menubar.jsp" />
+    <jsp:include page="boardbar.jsp" />
 
     <div class="content" align="center">
         <br><br>
@@ -84,7 +85,7 @@
 	                        	</th>                         
 	                            <td>
 	                            	<div align="center">
-	                             		<textarea id="text1" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" name="boardContent" required style="width:200px;"></textarea>                                	
+	                             		<textarea id="text1" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;"  required style="width:200px;"></textarea>                                	
 	                            	</div>
 	                            	
 	                             	<div id="upfile-area1" align="center" style="display:none;">
@@ -92,7 +93,7 @@
 						        			<img id="upimage1" class="myimage" src="https://adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width="300" height="200"/>
 						    			</label>
 										<input type="file" name="upfiles" id="upfile1" onchange="loadImg(this, 1);" accept="image/*"/>
-	                              		<textarea id="text2" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" name="boardContent" style="width:200px;"></textarea>
+	                              		<textarea id="text2" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;"  style="width:200px;"></textarea>
 	                             	</div>
 	                             
 	                             	<div id="upfile-area2" align="center" style="display:none;">
@@ -100,7 +101,7 @@
 						        			<img id="upimage2" class="myimage" src="https://adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width="300" height="200"/>
 						    			</label>
 										<input type="file" name="upfiles" id="upfile2" onchange="loadImg(this, 2);" accept="image/*"/>
-	                              		<textarea id="text3" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" name="boardContent" style="width:200px;"></textarea>                               
+	                              		<textarea id="text3" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;"  style="width:200px;"></textarea>                               
 									</div>
 						
 									<div id="upfile-area3" align="center" style="display:none;">
@@ -108,7 +109,7 @@
 						        			<img id="upimage3" class="myimage" src="https://adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width="300" height="200"/>
 						    			</label>
 										<input type="file" name="upfiles" id="upfile3" onchange="loadImg(this, 3);" accept="image/*"/>
-	                              		<textarea id="text4" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" name="boardContent" style="width:200px;"></textarea>                               
+	                              		<textarea id="text4" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;"  style="width:200px;"></textarea>                               
 										<h6 style="color:grey;">*여기까지만 나옵니다.*<h6>
 									</div>
 	                            </td>                           
@@ -117,13 +118,16 @@
 	
 	                    
 	                    <br>
-						<input type="hidden" id="content" name="content" value="">
+	                    <textarea style="display:none;" id="content" name="boardContent"></textarea>
+						<!-- 
+						 <input type="hidden" id="content" name="content" value="">
+						 -->
 	                    <input id="boardType-pic" type="hidden" name="boardType" value="${type}">
 	                    <input type="hidden" name="memNo" value="${loginUser.memNo}">
 	                    <input type="hidden" name="boardWriter" value="${loginUser.nickName}">
 	                    
 	                    <div align="center">
-	                        <button type="submit" class="btn btn-primary">등록하기</button>
+	                        <button type="submit" class="btn btn-primary" onclick="combineFunction()">등록하기</button>
 	                        <button type="reset" class="btn btn-danger">취소하기</button>
 	                    </div>
 	                    <br>
@@ -216,18 +220,14 @@
         };
 
         <!--text 합치고 content에 넣기-->      
-        var content="";
-        var text1=document.getElementById("text1").value;
-        var text2=document.getElementById("text2").value;
-        var text3=document.getElementById("text3").value;
-        var text4=document.getElementById("text4").value;
-        
-        content+=text1+'!?split?!'+text2+'!?split?!'+text3+'!?split?!'+text4;
-        
         function combineFunction() {
-        	
-        	$('#content').val(content);
-        	console.log(content);       	
+        	  var text1=document.getElementById("text1").value;
+        	  var text2=document.getElementById("text2").value;       
+        	  var text3=document.getElementById("text3").value;    
+        	  var text4=document.getElementById("text4").value;
+        	  var content = text1+"|nongbusim|"+text2+"|nongbusim|"+text3+"|nongbusim|"+text4;
+        	  var contentCopy=content.substring(0);
+        	  document.getElementById("content").value = contentCopy;    	
         };
         
         <!-- 추가 내용 쓸 수 있는 공간 보이기 -->

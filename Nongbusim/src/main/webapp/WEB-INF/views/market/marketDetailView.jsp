@@ -489,37 +489,40 @@
                     };
 
 
-                    
+                    var loginMemNo;
+                    var cno;
+                    var content;
                     //댓글 수정용 ajax
                     
                     $('#replyArea tbody').on('click', '.updateComment', function(){ //동적으로 생성된 요소에 이벤트 부여
                         
-
-                        let th = $(this).closest("th"); //수정버튼을 클릭한 요소에세 제일 가까운 th를 찾아오기
-                        
-                        let cno = th.data("cno");
-                        var content = th.data("content");
+                        //let th = $(this).closest("th"); //수정버튼을 클릭한 요소에세 제일 가까운 th를 찾아오기
+                        var th = $(this).parent(); //수정버튼을 클릭한 요소에세 제일 가까운 th를 찾아오기
+                        console.log($(th).siblings().eq(1).text());
+                        cno = th.data("cno");
+                        content = $(th).siblings().eq(1).text();
                         let writer = '${loginUser.memId}';
-                        let loginMemNo = '${loginUser.memNo}';
+                        loginMemNo = '${loginUser.memNo}';
 
                         $('#modal #commentNo').val(cno);
-                        $('#modal #commentContent').text(content);
+                        $('#modal #commentContent').val(content);
                         $('#modal #commentWriter').val(writer);
 
                         //댓글 수정할 모달창 보여주기
-                        $('#modal').fadeIn(200).css('display', 'block');
-       
-                        $('#modal #commentContent').on('change keyup paste', function(){ //textarea에 값을 입력하거나 붙여넣기 하거나 등등 하면
-
-                            var newContent = $(this).val();
-
-                            if(content == newContent){ // 기존 댓글내용과 새로운 댓글내용이 같을 경우
+                        $('#modal').css('display', 'block');
+                        
+                        $('#modal #commentContent').on('keyup', function(){ //textarea에 값을 입력하거나 붙여넣기 하거나 등등 하면
+                            
+                            //var newContent = $(this).val();
+                            
+                            //if(content == newContent){ // 기존 댓글내용과 새로운 댓글내용이 같을 경우
                                 
-                                return;
+                                //return;
 
-                            }else{ //아닐경우 기존댓글에 새로운 댓글내용 덮어써주기
+                           // }else{ //아닐경우 기존댓글에 새로운 댓글내용 덮어써주기
 
-                                content = newContent;
+                                //content = newContent;
+                                //newContent = content;
                                 
                                 $('#modal_submit_btn').click(function(){//댓글 수정 모달에서 수정버튼을 누르면
                                     
@@ -531,7 +534,7 @@
         
                                                 memNo : loginMemNo,
                                                 commentNo : cno,
-                                                commentContent : content
+                                                commentContent : $('#commentContent').val()
         
                                             },
         
@@ -541,9 +544,9 @@
         
                                                     //alert('댓글이 수정되었습니다');
                                                     selectCommentList();
-                                                    $('#modal').fadeOut(200).css('display', 'none');
+                                                    $('#modal').css('display', 'none');
         
-        
+                                                    
                                                 }else{
                                                     
                                                     alert('문제생김');
@@ -561,16 +564,15 @@
                                         });
                                 
                                     });
-                            }
+                           // }
                   
                             
                         });
 
                         $('#modal_close_btn').click(function(){
                             
-
-                            $('#modal').fadeOut(200).css('display', 'none');
-
+                            
+                            $('#modal').css('display', 'none');
 
                         });
 
@@ -646,13 +648,14 @@
                         $.ajax({
     
                             url : 'deleteComment.mk',
-    
+                            
+                            type : 'POST',
+
                             data : { 
                                 commentNo : num,
                                 boardType : 'mk'
                             },
     
-                            type : 'POST',
     
                             success : function(status){
     

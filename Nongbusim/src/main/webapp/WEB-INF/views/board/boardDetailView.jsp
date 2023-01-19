@@ -41,6 +41,12 @@
 		 top:20px;
 		 right : 5px;
 		 }
+	
+		 #replyArea{
+		 
+		 width:50%;
+		 
+		 }
 
 
     </style>
@@ -52,6 +58,7 @@
 <body>
 
     <jsp:include page="../common/menubar.jsp" />
+    <jsp:include page="boardbar.jsp" />
 
     <div class="outer" align="center">
         <!-- 게시글 상세내용 -->
@@ -79,7 +86,7 @@
                 	
                 	<!-- 글 수정, 삭제 추가 -->
                 	<c:if test="${ loginUser.nickName==b.boardWriter }">
-	                    <button onclick="location.href='update.bo?type=${b.boardType}&bno=${b.boardNo}';">수정</button>
+	                    <button onclick="location.href='update.bc?type=${b.boardType}&bno=${b.boardNo}';">수정</button>
 	                    <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
 						  삭제
 						</button>
@@ -93,7 +100,7 @@
             <c:if test="${ b.boardType=='S' }">
 
 	            <div class="picture-area">
-		            <c:forEach var="c" items="${b.boardContent}" varStatus="status">
+		            <c:forEach var="c" items="${contentArray}" varStatus="status">
 					  <div>
 
 						  <c:if test="${ status.index<a.size()}">
@@ -143,7 +150,7 @@
                         <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                         <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
                     </svg> 댓글 
-                    <span id="rcount">3</span>
+                    <span id="rcount"></span>
                     </button>
                 </div>
                 <div class="report-board"style="width: 75%;">
@@ -160,7 +167,7 @@
         <!-- 댓글 기능 -->
         <div class="reply-area">
             
-            <table id="replyArea" class="table" align="center" style="width:50%">
+            <table id="replyArea" class="table" align="center">
                 <thead>
                     
                     <tr>
@@ -232,7 +239,7 @@
 			} else {
 				$('#replyArea').hide();
 			}
-		})
+		});
 		
 	});
 	
@@ -241,7 +248,7 @@
 		
 		if(${result}!=0) {
 			$('.heart').attr("src", "resources/images/heart2.png");
-		}
+		};
 	});
 	
 
@@ -300,7 +307,7 @@
 	                }
 	            });
         		
-        	}
+        	};
         });
         
     });
@@ -339,7 +346,7 @@
     		}
     		else{
     			alertify.alert('정상적인 댓글을 작성해주세요 ~ ');
-    		}
+    		};
     	};
     
     	function selectReplyList(){
@@ -356,7 +363,7 @@
 							   + '<td>' + list[i].commentContent      + '</td>'
 							   + '<td>' + list[i].commentEnrollDate   + '</td>'
 							   + '</tr>';
-					}
+					};
 					
 					$('#replyArea tbody').html(value);
 					$('#rcount').text(list.length);
