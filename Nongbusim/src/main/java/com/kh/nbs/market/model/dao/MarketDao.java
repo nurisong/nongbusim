@@ -3,6 +3,7 @@ package com.kh.nbs.market.model.dao;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -201,6 +202,17 @@ public class MarketDao {
 	  
   }
 
+  
+  //메인페이지에 뿌려줄 마켓 리스트
+  public ArrayList<Market> ajaxMainMarketList(SqlSessionTemplate sqlSession){
+	  
+	  return (ArrayList)sqlSession.selectList("marketMapper.ajaxMainMarketList");
+	  
+  }
+  
+  
+  
+  
   
 }
   

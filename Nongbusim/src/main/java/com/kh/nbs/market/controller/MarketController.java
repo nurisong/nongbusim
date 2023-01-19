@@ -322,4 +322,15 @@ public class MarketController {
 	
 
 	
+	
+	//메인 페이지 게시글 불러오기
+	@ResponseBody
+	@RequestMapping(value="main.mk", produces="application/json; charset=UTF-8")
+	public String ajaxMainMarketList() {
+		
+		return new Gson().toJson(marketService.ajaxMainMarketList());
+		
+	}
+	
+	
 }
