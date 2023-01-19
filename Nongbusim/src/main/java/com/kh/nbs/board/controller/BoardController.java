@@ -106,7 +106,7 @@ public class BoardController {
 			ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);
 			
 			String content=b.getBoardContent();
-			String delimiter="\\|";
+			String delimiter="\\|nongbusim\\|";
 			String[] contentArray=content.split(delimiter);
 			
 			mv.addObject("contentArray", contentArray);
@@ -124,17 +124,10 @@ public class BoardController {
 	//게시판 등록하기
 	@RequestMapping("insert.bo")
 	public ModelAndView insertBoard(Board b, MultipartFile[] upfiles, HttpSession session, ModelAndView mv, Attachment a) {
-		
-		System.out.println(b.getBoardType());
-		System.out.println(b.getBoardNo());
-		System.out.println(b.getBoardContent());
-		
+				
 		String str1=b.getBoardContent().replace("\r\n","<br>");
-		String[] boardContent1=str1.split("!?split?!");
-		System.out.println(boardContent1);
-		System.out.println(b.getBoardContent());
-		b.setBoardContent(str1);
-		
+
+		b.setBoardContent(str1);	
 		
 		if(boardService.insertBoard(b) > 0) {
 			
@@ -211,7 +204,7 @@ public class BoardController {
 		String[] boardContent1=str1.split("!?split?!");
 		System.out.println(b.getBoardContent());
 		b.setBoardContent(str1);
-		
+		System.out.println(boardService.updateBoard(b));
 		if(boardService.updateBoard(b) > 0) {
 			
 			int boardNo = b.getBoardNo();

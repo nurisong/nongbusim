@@ -148,12 +148,13 @@
 	                
 	                    </table>
 	                    <br>
-	                    <input id="boardType-table" type="hidden" name="boardType" value="${type}">
+	                    <input id="boardType-table" type="hidden" name="boardType" value="${b.boardType}">
+	                    <input type="hidden" name="boardNo" value="${b.boardNo}">
 	                    <input type="hidden" name="memNo" value="${loginUser.memNo}">
 	                    <input type="hidden" name="boardWriter" value="${loginUser.nickName}">
 	                    
 	                    <div align="center">
-	                        <button type="submit" class="btn btn-primary" onclick="combineFunction()">등록하기</button>
+	                        <button type="submit" class="btn btn-primary">등록하기</button>
 	                        <button type="reset" class="btn btn-danger">취소하기</button>
 	                    </div>
 	                    <br>

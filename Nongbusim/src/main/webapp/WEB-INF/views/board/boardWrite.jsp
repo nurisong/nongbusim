@@ -220,15 +220,11 @@
 
         <!--text 합치고 content에 넣기-->      
         function combineFunction() {
-        	  var text1=document.getElementById("text1");
-        	  var newText1 = text1.value.replace(/,/g, "replaceText");
-        	  var text2=document.getElementById("text2");
-        	  var newText2 = text2.value.replace(/,/g, "replaceText");        
-        	  var text3=document.getElementById("text3");
-        	  var newText3 = text3.value.replace(/,/g, "replaceText");        
-        	  var text4=document.getElementById("text4");
-        	  var newText4 = text4.value.replace(/,/g, "replaceText");  
-        	  var content = newText1+"|"+newText2+"|"+newText3+"|"+newText4;
+        	  var text1=document.getElementById("text1").value;
+        	  var text2=document.getElementById("text2").value;       
+        	  var text3=document.getElementById("text3").value;    
+        	  var text4=document.getElementById("text4").value;
+        	  var content = text1+"|nongbusim|"+text2+"|nongbusim|"+text3+"|nongbusim|"+text4;
         	  var contentCopy=content.substring(0);
         	  document.getElementById("content").value = contentCopy;    	
         };
