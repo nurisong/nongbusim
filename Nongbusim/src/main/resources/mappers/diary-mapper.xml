@@ -99,7 +99,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where
 			board_no = #{dirayNo}
 	and
-			board_type = 'D'					
+			board_type = 'D'
+	and
+			attachment.status = 'Y'					
 			
 	</select>
 	
@@ -168,8 +170,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	set
 			create_date = #{createDate}, 
 			diary_category = #{diaryCategory},
-			diary_content = #{diaryContent},
-			diary_thumbnail = #{diaryThumbnail}
+			diary_content = #{diaryContent}
+			
+
+	<if test="diaryThumbnail !=null">
+			, diary_thumbnail = #{diaryThumbnail}
+	</if>
 	where
 			diary_no  = #{diaryNo}	
 	</update>
@@ -190,7 +196,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where		
 			diary_no  = #{diaryNo}	
 	</update>
-	<update id="deleteAttachment" parameterType="_int">
+	<update id="deleteAttschment" parameterType="_int">
 	update
 			attachment
 	set
@@ -200,9 +206,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</update>
 	
-	
-	
-	
 	<select id="selectCalEvent" parameterType="_int" resultType="diaryCalendar">
 	select 
 			diary_no as "id", 
@@ -211,6 +214,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			create_date as "end",
 			'true' as "allDay" 
 	from diary
+	where
+			mem_no = #{memNo}
+	and
+			diary.status ='Y'
 	
 	</select>
+	
+	<select id="selectListCount" parameterType="diary" resultType="_int">
+	select
+				count(*)
+	      from
+	      		diary
+	      where
+	      		status= 'Y'
+	      and
+	      		mem_no = #{memNo}
+	      		
+	   	<if test="diaryCategory !='noCategory' and diaryCategory !='selectAll'">
+			and diary_category = #{diaryCategory}		
+		</if>
+			
+	 </select>     		
+	
 </mapper>

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.google.gson.JsonElement;
 import com.kh.nbs.account.model.vo.Account;
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.diary.model.vo.Diary;
 
 public interface AccountService {
@@ -13,7 +14,7 @@ public interface AccountService {
 
 	ArrayList selectCatAndGoods(int memNo);
 
-	ArrayList<Account> selectAccountList(Account account);
+	ArrayList<Account> selectAccountList(Account account, PageInfo pi);
 
 	int insertAccount(Account account);
 
@@ -34,5 +35,7 @@ public interface AccountService {
 	ArrayList seletCalEvent(int memNo);
 
 	ArrayList monthlySummary(Account account);
+
+	int selectListCount(Account account);
 	
 }

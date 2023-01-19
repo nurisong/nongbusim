@@ -22,7 +22,8 @@ import com.google.gson.Gson;
 import com.kh.nbs.account.model.service.AccountService;
 import com.kh.nbs.account.model.vo.Account;
 import com.kh.nbs.common.model.vo.Attachment;
-import com.kh.nbs.account.model.vo.Account;
+import com.kh.nbs.common.model.vo.PageInfo;
+import com.kh.nbs.common.template.Pagination;
 import com.kh.nbs.member.model.vo.Member;
 
 @Controller
@@ -49,15 +50,27 @@ public class AccountController {
 	// list.ac 페이지에서 사용자가 검색조건 설정 후 "검색" 버튼 클릭시 이를 만족하는 accountList(table표)를 뿌려주기 위한 메소드 (ajax)
 	@ResponseBody
 	@RequestMapping(value="selectAccountList.ac", produces="application/json; charset=UTF-8")
-	public String selectAccountList(Account account, HttpSession session) {
+	public String selectAccountList(@RequestParam(value="cpage",defaultValue="1") int currentPage, Account account, HttpSession session) {
 		
-		int memNo= ((Member)session.getAttribute("loginUser")).getMemNo();
-		
+		int memNo= ((Member)session.getAttribute("loginUser")).getMemNo();		
 		account.setMemNo(memNo);
-		return new Gson().toJson(accountService.selectAccountList(account));	
-	}
-
+		
+		PageInfo pi = Pagination.getPageInfo(accountService.selectListCount(account), currentPage , 10 , 10);
+		System.out.println(pi);
 	
+		
+		ArrayList result = null;
+		if(accountService.selectAccountList(account,pi) != null ) {
+			result =accountService.selectAccountList(account, pi);
+			result.add(pi);
+			System.out.println(result);
+			// list의 마지막에 pi를 담아 돌려보냄
+			
+		}
+		
+		return new Gson().toJson(result);
+
+	}
 	
 	// 가계부 등록form을 띄워주는 메소드
 	@RequestMapping("enrollForm.ac")
@@ -91,6 +104,7 @@ public class AccountController {
 	@RequestMapping("insert.ac")
 	public String insertaccount(Account account, String newCategory, String newGoods, MultipartFile[] upfiles, HttpSession session, Attachment at) {
 		
+		System.out.println("hiinsertAccount" +account);
 		// 만약 신규등록한 카테고리 or 품목이 있다면
 		/// account의 accountCategory필드 값을 신규등록값으로 변경
 		if(!newCategory.equals("")) {
@@ -270,8 +284,19 @@ public class AccountController {
 		System.out.println(account);
 		
 		account.setMemNo(((Member) session.getAttribute("loginUser")).getMemNo());
-		System.out.println(accountService.monthlySummary(account));
-		return new Gson().toJson(accountService.monthlySummary(account));
+		
+		ArrayList<Account> result = accountService.monthlySummary(account);
+		
+		if(result.size()<3) {
+			if(result.get(0).getType().equals("수입")) {
+				result.get(1).setAmount("+"+result.get(1).getAmount());
+			} else if(result.get(0).getType().equals("지출"))  {
+				result.get(1).setAmount("-"+result.get(1).getAmount());
+			}
+		}
+		
+		
+		return new Gson().toJson(result);
 		
 		// 해당월 총 수입: [Account(accountNo=0, type=I, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=4010000, accountContent=null, status=null, memNo=0, nickName=null), 
 		// 해당월 총 지출: Account(accountNo=0, type=O, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=895000, accountContent=null, status=null, memNo=0, nickName=null)]	
@@ -279,30 +304,7 @@ public class AccountController {
 		
 	}
 	
-	@RequestMapping("menubarTest.ac")
-	public ModelAndView menubarTest(ModelAndView mv) {
-		mv.setViewName("common/newMenubar");
-		return mv;		
-	}
-	
-	
-	//--------------------------------------------- 검색기능 --------------------------
-	// keyup시 검색
-	@ResponseBody
-	@RequestMapping(value = "recommend.me", produces = "application/json; charset=UTF-8")
-	public String select(Account account,  HttpSession session) {
-		
-		System.out.println(account);
-		
-		account.setMemNo(((Member) session.getAttribute("loginUser")).getMemNo());
-		System.out.println(accountService.monthlySummary(account));
-		return new Gson().toJson(accountService.monthlySummary(account));
-		
-		// 해당월 총 수입: [Account(accountNo=0, type=I, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=4010000, accountContent=null, status=null, memNo=0, nickName=null), 
-		// 해당월 총 지출: Account(accountNo=0, type=O, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=895000, accountContent=null, status=null, memNo=0, nickName=null)]	
 
-		
-	}
 	
 	
 }

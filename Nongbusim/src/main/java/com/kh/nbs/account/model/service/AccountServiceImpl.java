@@ -1,7 +1,6 @@
 package com.kh.nbs.account.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.nbs.account.model.vo.Account;
 import com.kh.nbs.common.model.vo.Attachment;
-import com.kh.nbs.diary.model.vo.Diary;
+import com.kh.nbs.common.model.vo.PageInfo;
 
 @Service
 public class AccountServiceImpl implements AccountService{
@@ -25,12 +24,12 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public ArrayList<Account> selectAccountList(Account account) {
-		return accountDao.selectAccountList(sqlSession, account);
+	public ArrayList<Account> selectAccountList(Account account, PageInfo pi) {
+		return accountDao.selectAccountList(sqlSession, account, pi);
 	}
 
 	@Override
-	public Account selectAccount(int accountNo) {
+	public Account selectAccount(int accountNo) {	
 		return accountDao.selectAccount(sqlSession, accountNo);
 	}
 	@Override
@@ -76,6 +75,11 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public ArrayList monthlySummary(Account account) {
 		return accountDao.monthlySummary(sqlSession, account);
+	}
+
+	@Override
+	public int selectListCount(Account account) {
+		return  accountDao.selectListCount(sqlSession, account);
 	}
 
 }

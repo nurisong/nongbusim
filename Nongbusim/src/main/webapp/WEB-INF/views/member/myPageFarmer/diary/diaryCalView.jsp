@@ -123,8 +123,10 @@
   </head>
   <body>
   <div class="calArea">
+       <a href="list.di">모아보기</a>
+      <a href="enrollForm.di">일지 작성하기</a>
       <div id='calendar'></div>
-      <a href="list.di">모아보기</a>
+
   </div>
   </body>
 

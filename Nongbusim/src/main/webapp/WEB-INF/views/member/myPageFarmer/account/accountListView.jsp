@@ -242,7 +242,9 @@
 		</select>
 	</div>		
 	<div>
-		<button type="button" onclick="selectAccountList();">검색</button>
+		<button type="button" onclick="selectAccountList(1);">검색</button>
+		<a href="enrollForm.ac">입출금일지 작성하기</a>
+		 <a href="calView.ac">달력으로 보기</a>
 	</div>
 
 	<br><br><Br>
@@ -253,14 +255,17 @@
 	<div id="listArea">
 		<table id="listAreaTable">
 		</table>
-	</div>
-	
-</div>
+	</div>	
 
+	<div id="pagingArea">
+        <ul id="pagination">
+        </ul>
+     </div>
+  </div>   
 <script>
 
 	function selectPeriod(period){
-		
+		var startDate1;
 		var startDate ;
 		var now = new Date();	
 		console.log(now);
@@ -268,21 +273,27 @@
 		console.log("now"+dateFormat(now));
 		$('#endDate').val(dateFormat(now));
 		
-		
+
 		switch(period){
 		
 		case 'oneMonth':
-			startDate = new Date(now.setMonth(now.getMonth() - 1));			
+			// 현재월 - 1개월
+			startDate1 = new Date(now.setMonth(now.getMonth() - 1));
+			// 현재월 -1개월 +1
+			startDate = new Date(startDate1.setDate(startDate1.getDate()+1));
 			break;
 		case 'threeMonths':
-			startDate = new Date(now.setMonth(now.getMonth() - 3));
+			startDate1 = new Date(now.setMonth(now.getMonth() - 3));
+			startDate = new Date(startDate1.setDate(startDate1.getDate()+1));
 			break;		
 		case 'sixMonths':
-			startDate = new Date(now.setMonth(now.getMonth() - 6));
-			break;		
+			startDate1 = new Date(now.setMonth(now.getMonth() - 6));
+			startDate = new Date(startDate1.setDate(startDate1.getDate()+1));
 		case 'oneYear':
-			startDate = new Date(now.setFullYear(now.getFullYear() - 1));
+			startDate1 = new Date(now.setFullYear(now.getFullYear() - 1));
+			startDate = new Date(startDate1.setDate(startDate1.getDate()+1));
 			break;		
+		
 		
 		}
 		
@@ -303,7 +314,7 @@
 	
 	
 	//기간, 구분, 분류, 품목 지정 후 "검색" 버튼 누를 시 시행되는 함수 (ajax)
-	function selectAccountList(){		
+	function selectAccountList(cpage){		
 		// yyyy-mm-dd형식
 		var startDate = $('#startDate').val();
 		var endDate = $('#endDate').val();
@@ -322,15 +333,17 @@
 				endDate : endDate,
 		 		accountCategory : accountCategory,		
 				goods: goods,
-				type: type				
+				type: type,
+				cpage : cpage
 			},
 			success: function(list){
 				var result = '<div class="item-area">'
-					+'<tr><th><input type="checkbox" id="checkAll"></th><th>날짜</th><th>구분</th><th>분류</th><th>품목</th><th>내용</th></tr>';
-				
-				if(!list.empty){
+					+'<tr><th><input type="checkbox" id="checkAll"></th><th>날짜</th><th>구분</th><th>분류</th><th>품목</th><th>금액</th><th>내용</th></tr>';
+				// 만약 돌아온 list가 없다면, 마지막에 list.add()로 pi를 넣어뒀으므로
+				// list[0] 엔 pi가, list[1] 부터는 비어있을 것
+				if(list[1] != null ){
 
-					for(var i=0; i<list.length ; i++) {                
+					for(var i=0; i<list.length-1 ; i++) {                
 					result 
 						+='<div class="item-area">'
 						+ '<tr onclick="selectAccount('+list[i].accountNo+');">'
@@ -344,10 +357,46 @@
 						+ '<input type="hidden" name="accountNo" id="accountNo" value="'+list[i].accountNo+'">'
 						+'</div>'                    
 					}
+					
+					
+					// 동적으로 페이징버튼 만들기
+					// list의 마지막 인덱스에 "pi"가 담겨있음
+					if(list[list.length-1] != null){
+						
+						var innerPagi = '';
+						
+						console.log("hi");
+						var pi = list[list.length-1];
+						console.log(pi);						
+						if(pi.currentPage == 1){
+							innerPagi += '<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>'
+						} else {
+							innerPagi +=  '<li class="page-item"><a class="page-link" onclick="selectAccountList('+(pi.currentPage - 1)+');" >Previous</a></li>'
+						
+
+						}
+						
+						for(var i=pi.startPage ; i<=pi.endPage; i++){
+							innerPagi += '<li class="page-item "><a class="page-link" onclick="selectAccountList('+i+');" >'+i+'</a></li>'
+
+						}
+						
+						if(pi.currentPage == pi.maxPage){
+							innerPagi += '<li class="page-item disabled"><a class="page-link" href="#" >Next</a></li>'
+			                
+						} else {
+							innerPagi += '<li class ="page-item"><a class="page-link" onclick="selectAccountList('+(pi.currentPage +1)+');">NEXT</a>'
+						
+						}
+						
+					}
+					
+					
 				} else {
  					result= '작성한 영농일지가 없습니다'
 				}                   
                	 $('#listAreaTable').html(result);
+               	 $('#pagination').html(innerPagi);
 			},
 			error: function(){
 				console.log('실패');

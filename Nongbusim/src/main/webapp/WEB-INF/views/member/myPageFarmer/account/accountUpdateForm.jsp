@@ -245,7 +245,7 @@
 							<tr>
 								<td>
 									<div align="center">
-									<button class="myButton" type="submit">수정하기</button>	
+									<button class="myButton" id="update">수정하기</button>	
 									<a class="myButton" href="javascript:history.back();">돌아가기</a>	
 									</div>
 								</td>			
@@ -319,8 +319,6 @@
 		$("#reUpfile3").on('change',function(){
 			  var fileName3 = $("#reUpfile3").val();
 			  $("#upload-name3").val(fileName3);
-			  
-
 	});	
 			
 		
@@ -339,9 +337,6 @@ $(function(){
 					
 			}
 		})		
-	}); 
-	
-	$(function(){
 	
 		$('#goods').change(function(){
 			if($(this).val()=="newGoods"){
@@ -351,8 +346,52 @@ $(function(){
 				$("#newGoods").attr("type", "hidden");
 					
 			}
-		})		
+		})
+		
+		inputNumberFormat($('#amount'));
+		
+		
 	});  
+	
+	
+
+	// 금액 input태그에 자동 콤마 생성
+	function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+
+    function uncomma(str) {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');
+    } 
+    
+    function inputNumberFormat(obj) {
+        obj.value = comma(uncomma(obj.value));
+    }
+    
+    function inputOnlyNumberFormat(obj) {
+        obj.value = onlynumber(uncomma(obj.value));
+    }
+    
+    function onlynumber(str) {
+	    str = String(str);
+	    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,'$1');
+	}
+	
+    
+ // 등록하기 버튼을 누를 시, '000,000,000'으로된 amount input요소의 format을 숫자로 바꾼 후 submit 해주는 이벤트 핸들러
+    $('#update').click(function(){
+		if($('input:radio').is(':checked')){
+	    	$('#amount').val(Number(uncomma($('#amount').val())));	    	
+	    	$('#enroll-form').submit();
+		} else {
+			alert('수입/지출 여부를 선택해주세요');
+		}   	
+
+    }); 
+    
+    
 	
 /* 	// createDate에 오늘날짜를 넣기 위한 구문
 	document.getElementById('createDate').valueAsDate = new Date();
