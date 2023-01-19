@@ -88,4 +88,10 @@ public interface MarketService {
 	//찜하기 불러오기 메소드
 	Mark markMarket(Market market);
 	
+	
+	
+	//메인페이지에 뿌려줄 리스트 3개만 가져오는 메소드
+	ArrayList<Market> ajaxMainMarketList();
+	
+	
 }

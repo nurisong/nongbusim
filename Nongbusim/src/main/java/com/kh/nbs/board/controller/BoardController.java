@@ -105,6 +105,11 @@ public class BoardController {
 			Board b=boardService.selectBoard(boardNo);
 			ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);
 			
+			String content=b.getBoardContent();
+			String delimiter="\\|nongbusim\\|";
+			String[] contentArray=content.split(delimiter);
+			
+			mv.addObject("contentArray", contentArray);
 
 			mv.addObject("a",a).addObject("b", b).setViewName("board/boardDetailView");
 			
@@ -119,14 +124,10 @@ public class BoardController {
 	//게시판 등록하기
 	@RequestMapping("insert.bo")
 	public ModelAndView insertBoard(Board b, MultipartFile[] upfiles, HttpSession session, ModelAndView mv, Attachment a) {
-		
-		System.out.println(b.getBoardType());
-		System.out.println(b.getBoardNo());
-		System.out.println(b.getBoardContent());
-		
+				
 		String str1=b.getBoardContent().replace("\r\n","<br>");
-		System.out.println(b.getBoardContent());
-		b.setBoardContent(str1);
+
+		b.setBoardContent(str1);	
 		
 		if(boardService.insertBoard(b) > 0) {
 			
@@ -180,17 +181,58 @@ public class BoardController {
 		return changeName;
 	}
 	
-	//게시물 수정하기
+	//게시물 수정하기로 이동
 	@RequestMapping("update.bc")
 	public ModelAndView updateBoard(@RequestParam(value="type") String boardType,@RequestParam(value="bno") int boardNo, ModelAndView mv) {
 		
 		Board b=boardService.selectBoard(boardNo);
 		ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);		
 		
-		mv.addObject("type", boardType).addObject("b",b).addObject("a",a).setViewName("board/boardUpdate");
+		mv.addObject("type", boardType).addObject("b",b).addObject("a",a).setViewName("board/boardUpdateForm");
 		
 		return mv;
 	}
+	
+	//게시글 수정
+	@RequestMapping("updateForm.bo")
+	public ModelAndView updateFormBoard(Board b, MultipartFile[] upfiles, HttpSession session, ModelAndView mv, Attachment a) {
+		System.out.println(b.getBoardType());
+		System.out.println(b.getBoardNo());
+		System.out.println(b.getBoardContent());
+		
+		String str1=b.getBoardContent().replace("\r\n","<br>");
+		String[] boardContent1=str1.split("!?split?!");
+		System.out.println(b.getBoardContent());
+		b.setBoardContent(str1);
+		System.out.println(boardService.updateBoard(b));
+		if(boardService.updateBoard(b) > 0) {
+			
+			int boardNo = b.getBoardNo();
+			
+			for(MultipartFile upfile : upfiles) {
+				
+				if(!upfile.getOriginalFilename().equals("")) {
+					a.setBoardNo(boardNo);
+					a.setBoardType(b.getBoardType());
+					a.setOriginName(upfile.getOriginalFilename()); // 원본명
+					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
+					
+					boardService.updateAttachment(a);
+
+						
+				}
+			}
+		
+			mv.addObject("type", b.getBoardType()).setViewName("redirect:list.bo");
+			
+		} else {
+			// 첨부파일 삭제
+			mv.addObject("type", b.getBoardType()).setViewName("redirect:list.bo");
+		}
+		
+		return mv;
+	}
+	
 	
 	//게시글 삭제
 	@RequestMapping("delete.bo")

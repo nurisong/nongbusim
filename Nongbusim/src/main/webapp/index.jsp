@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,6 +70,10 @@
         width: 50%;
         float: right;
     }
+    #market-area img{
+        width: 100%;
+    }
+
     #dairy-area{
         width: 50%;
     }
@@ -131,7 +136,52 @@
             </div>
 
             <div id="market-area">
-                <h3>판매글</h3><br>
+                <h3>농작물 거래</h3><br>
+                    <div id="market-content">
+
+                        <h5>게시글 타이틀</h5>
+                        <div class="fotorama">
+                            <img src="">
+                        </div>
+                        <div>
+                            <p>
+                                가격 : 10000원<br>
+                                날짜 : 2023-01-23
+                            </p>
+                        </div>
+
+                    </div>
+
+            <script>
+
+                // 마켓 게시물 불러오기
+                $(function(){
+                    $.ajax({
+                        url : 'main.mk',
+                        type : post,
+                        success : function(list){
+                            var result = '';
+                            if(list != null){
+                                for(var i in list){
+                                    
+                                    
+    
+    
+                                };
+                            }
+                            
+                            $('#market-content').html(result);
+                            
+                        },
+
+                        error : function(){
+                        console.log('불러오기 실패');
+                        }
+
+                    }); 
+
+                });
+            </script>
             </div>
         </div>
 

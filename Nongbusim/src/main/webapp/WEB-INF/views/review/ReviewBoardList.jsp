@@ -66,6 +66,39 @@
                 top: 10px;
                 right: 10px; }
 
+/* 별점 스타일 시작 */
+
+.star-rating2 {
+            display: flex;
+            flex-direction: row-reverse;
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            justify-content: space-around;
+            padding: 0 0.2em;
+            text-align: center;
+            width: 5em;
+            }
+            
+            .star-rating2 input {
+            display: none;
+            }
+            
+            .star-rating2 label {
+            -webkit-text-fill-color: transparent; 
+            -webkit-text-stroke-width: 2.3px;
+            -webkit-text-stroke-color: #2b2a29;
+            cursor: pointer;
+            }
+            
+             .star-rating2 :checked ~ label {
+            -webkit-text-fill-color: gold;
+            } 
+            
+            .star-rating2 label:hover,
+            .star-rating2 label:hover ~ label {
+            -webkit-text-fill-color: #fff58c;
+            } 
+
     
 </style>
 </head>
@@ -128,43 +161,65 @@
             </tbody>
         </table>
 
-        
-       
     </div>
 
 
-
     <div id="my_modal">
-        <table style="width: 700px; height:200px;">
-            <tr>
-                <td style="width:50px;">작성자 : user01</td>
-                <td style="width: 200px;" id="reviewEnrollDate"></td>
-             
-              
-            </tr>
-            <tr>
-                <td style="width: 500px;">프로그램명 : <input type="text" id="programName" name="programName" value="" readonly>  </td>
-            </tr>
+
+        <form action="reviewUpdate.re" method="post" enctype="multipart/form-data">
+            <table style="width: 700px; height:200px;">
+                <tr>
+                    <td style="width:50px;">작성자: user01</td>
+                    <td style="width: 200px;" id="reviewEnrollDate"></td>
+                
+                
+                </tr>
+                <tr>
+                    <td style="width: 500px;">프로그램명 : <input type="text" id="programName" name="programName" value="" readonly>  </td>
+                </tr>
+                <br>
+                <tr>
+                    <td><input style="width:600px; height:200px;" type="text" id="reviewContent" name="reviewContent" value="" ></td>
+                </tr><br>
             <br>
-            <tr>
-                <td><input style="width:600px; height:200px;" type="text" id="reviewContent" name="reviewContent" value=""  readonly></td>
-            </tr><br>
-         <br>
-        </table>
+            </table>
 
-        <div align="center">
-            <img class="thumbnail" id="image" src="resources/images/딸기1.jpg" style="width: 300px; height: 200px;">
+            <div align="center">
+                <img class="thumbnail" id="image" src="" style="width: 300px; height: 200px;">
 
-        </div>
+            </div>
 
-        <a class="modal_close_btn">  <img  src="resources/images/close.png" style="width: 30px; height: 30px;"></a>
-        <br>
-        <div align="center">
-            <button style="background-color: rgb(103, 141, 208);">수정</button>
-            <button style="background-color: rgb(220, 112, 112);">삭제</button>
+            <a class="modal_close_btn">  <img  src="resources/images/close.png" style="width: 30px; height: 30px;"></a>
+            <br>
+            <div class="star-rating2 space-x-4 mx-auto">
+                <input type="radio" id="5-stars" name="rating" value="5" v-model="ratings"/>
+                <label for="5-stars" class="star pr-4">★</label>
 
-        </div>
+
+                <input type="radio" id="4-stars" name="rating" value="4" v-model="ratings"/>
+                <label for="4-stars" class="star">★</label>
+
+
+                <input type="radio" id="3-stars" name="rating" value="3" v-model="ratings"/>
+                <label for="3-stars" class="star">★</label>
+
+
+                <input type="radio" id="2-stars" name="rating" value="2" v-model="ratings"/>
+                <label for="2-stars" class="star">★</label>
+
+
+                <input type="radio" id="1-star" name="rating" value="1" v-model="ratings" />
+                <label for="1-star" class="star">★</label>
+            </div>
         
+
+        
+            <div align="center">
+                <button type="submit"  style="background-color: rgb(103, 141, 208);">수정</button>
+                <button type="button" onclick="return review_Delete(this.form);" style="background-color: rgb(220, 112, 112);">삭제</button>        
+                    
+            </div>
+          </form>  
     </div>
 
     <!-- 페이지처리하는 영역-->

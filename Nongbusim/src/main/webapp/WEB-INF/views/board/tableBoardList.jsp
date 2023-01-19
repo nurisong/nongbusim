@@ -92,10 +92,10 @@ text-align: center;
 			<div class="img-select">
 				<div id="oform">
 				
-				  <select name="jump" onchange="location.href=this.value">
-				    <option value="list.bo?cpage=1&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=recent" selected>최신순</option>
-				    <option value="list.bo?cpage=1&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=like">좋아요순</option>
-				    <option value="list.bo?cpage=1&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=count">조회수순</option>
+				  <select id="order-select" name="jump" onchange="location.href=this.value">
+				    <option name="recent" value="list.bo?cpage=1&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=recent" selected>최신순</option>
+				    <option name="like" value="list.bo?cpage=1&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=like">좋아요순</option>
+				    <option name="count" value="list.bo?cpage=1&type=${type}&condition=${con.condition}&keyword=${con.keyword}&order=count">조회수순</option>
 				  </select>
 				</div>
 			
@@ -126,15 +126,6 @@ text-align: center;
                 </tbody>
             </table>
 
-            <script>
-            
-            	$(function(){
-					$('#boardList>tbody>tr').click(function(){
-						location.href = 'detail.bo?type=${type}&bno=' + $(this).children('.bno').text();
-					})
-            	})
-            
-            </script>
             
              
             <div id="pagingArea">
@@ -170,15 +161,21 @@ text-align: center;
             
         </div>
     </div>
-    <script>
-    
+            <script>
+            
+            	$(function(){
+					$('#boardList>tbody>tr').click(function(){
+						location.href = 'detail.bo?type=${type}&bno=' + $(this).children('.bno').text();
+					})
+            	});
+            	
+            	$(function(){
+            		var name='${con.order}';
+            		$("#order-select option[name = '" + name + "']").attr('selected',true);
+            	});
+            
+            </script>
 
-        
-        
-
-
-
-    </script>
     
 
 
