@@ -501,7 +501,7 @@
                         console.log($(th).siblings().eq(1).text());
                         cno = th.data("cno");
                         content = $(th).siblings().eq(1).text();
-                        let writer = '${loginUser.memId}';
+                        var writer = '${loginUser.memId}';
                         loginMemNo = '${loginUser.memNo}';
 
                         $('#modal #commentNo').val(cno);
