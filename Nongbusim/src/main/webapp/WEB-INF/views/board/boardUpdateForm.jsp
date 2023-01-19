@@ -34,6 +34,7 @@
 <body>
 
     <jsp:include page="../common/menubar.jsp" />
+    <jsp:include page="boardbar.jsp" />
 
     <div class="content" align="center">
         <br><br>

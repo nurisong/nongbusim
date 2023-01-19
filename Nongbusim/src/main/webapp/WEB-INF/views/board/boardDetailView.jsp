@@ -58,6 +58,7 @@
 <body>
 
     <jsp:include page="../common/menubar.jsp" />
+    <jsp:include page="boardbar.jsp" />
 
     <div class="outer" align="center">
         <!-- 게시글 상세내용 -->
