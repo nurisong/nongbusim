@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://kit.fontawesome.com/aa839e973e.js" crossorigin="anonymous"></script>  
+<!-- <script src="https://kit.fontawesome.com/aa839e973e.js" crossorigin="anonymous"></script>   -->
 <title>마이페이지-참여 프로그램</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
     <style>
 
         #myPage { 
@@ -169,9 +169,9 @@
             width: 5em;
             }
               
-             /* .star-rating2 input {
+              .star-rating2 input {
             display: none;
-            }     */
+            }     
             
             .star-rating2 label {
             -webkit-text-fill-color: transparent; 
@@ -188,6 +188,13 @@
             .star-rating2 label:hover ~ label {
             -webkit-text-fill-color: #fff58c;
             } 
+
+            td{
+
+               padding: 10px;
+            }
+
+
 
 
 
@@ -268,7 +275,7 @@
                          
                         </tr>
                         <tr>
-                            <td><input type="text" name="reviewContent2"style="width: 400px; height: 100px;"></td>
+                            <td><input type="text" name="reviewContent"style="width: 400px; height: 100px;"></td>
                             
                         </tr><br>
                        
@@ -320,16 +327,18 @@
                         <tr>
                            <td>프로그램명 : <input class="programName" type="text" value=""></td>
                             <td><input name="programNo"  class="programNo" type="text" value="" hidden></td>
-                            <td><input name="reviewNo" id="reviewNo" type="text" val="" hidden></td>
+                            <td><input name="reviewNo" id="reviewNo" type="text" value="" hidden></td>
                          
                         </tr>
                         <tr>
                             <td><input type="text" id="test3" name="reviewContent" style="width: 400px; height: 100px;"></td>
-                        </tr><br>
+                            <td><input type="text" id="nowImage" name="nowImage" value="" hidden></td>
+                        </tr>
                        
                         <tr>
-                            <td><input type="text" id="nowImage" name="nowImage" value=""></td>
+                            
                             <td><input type="file" name="reUpfile"></td>
+                            <td><input type="text" id="nowImage" name="nowImage" value="" hidden></td>
                         </tr><br>
                     </table>
 

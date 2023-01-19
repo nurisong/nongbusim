@@ -23,35 +23,48 @@
     <div class="container">
         <h3>내가 작성한 게시글</h3>
         <hr>
-        <table class="table table-bordered table-sm">
+        <table id="boardList" class="table table-bordered table-sm">
           <thead>
             <tr style="text-align:center">
               <th>게시판</th>
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
+              <th>조회수</th>
+              <th>좋아요</th>
             </tr>
           </thead>
           <tbody>
           	<c:choose>
 		        	<c:when test="${ not empty list }">
 			            <c:forEach var="b" items="${ list }">
-			          		<tr style="text-align:center">
+			          		<tr style="text-align:center; cursor:pointer;">
+			          			<td class="bno" hidden>${ b.boardNo }</td>
 			          			<td style="width:150px">${ b.boardType }</td>
 			          			<td>${ b.boardTitle }</td>
 			          			<td style="width:150px">${ b.boardWriter }</td>
 			          			<td style="width:150px">${ b.createDate }</td>
+			          			<td>${ b.count }</td>
+			          			<td>${ b.boardLike }</td>	
 			          		</tr>
           				</c:forEach>
 		        	</c:when>
 		        	<c:otherwise>
 		        		<tr>
-		        			<td style="width:200px;" colspan="4";>작성한 게시글이 없습니다.</td>
+		        			<td style="width:200px;" colspan="6";>작성한 게시글이 없습니다.</td>
 		        		</tr>
 		        	</c:otherwise>
 		    </c:choose>
           </tbody>
         </table>
       </div>
+      
+     <script>
+	        	$(function(){
+					$('#boardList>tbody>tr').click(function(){
+						location.href = 'detail.bo?type=${type}&bno=' + $(this).children('.bno').text();
+					})
+	        	});
+      </script>
 </body>
 </html>
