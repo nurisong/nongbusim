@@ -39,7 +39,7 @@ public class InfoController {
 	public String infoListView(@RequestParam(value="cpage", defaultValue="1") int currentPage,
 							   Model model) {
 		
-		PageInfo pi = Pagination.getPageInfo(infoService.selectListCount(), currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(infoService.selectListCount(), currentPage, 10, 10);
 		
 		model.addAttribute("pi", pi);
 		model.addAttribute("infoList", infoService.selectList(pi));

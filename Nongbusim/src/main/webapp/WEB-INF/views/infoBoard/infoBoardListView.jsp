@@ -25,7 +25,7 @@
 #insert-btn{float: right;}
 #insert-btn:hover{cursor: pointer;}
 .info-table>tbody>tr:hover{cursor: pointer;}
-.board-area{height: 350px;}
+.board-area{min-height: 350px;}
 .custom-select{width: 100px;}
 .form-control{width: 300px;}
 .select, .text{display: inline-block;}
