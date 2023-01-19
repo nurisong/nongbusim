@@ -186,8 +186,18 @@ public class BoardController {
 	public ModelAndView updateBoard(@RequestParam(value="type") String boardType,@RequestParam(value="bno") int boardNo, ModelAndView mv) {
 		
 		Board b=boardService.selectBoard(boardNo);
-		ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);		
+		ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);
+
+		String content=b.getBoardContent();
+		String delimiter="\\|nongbusim\\|";
+		String[] contentArray=content.split(delimiter);
 		
+		for (int i = 0; i < contentArray.length; i++) {
+		    System.out.println(contentArray[i]);
+		}
+		
+		mv.addObject("contentArray", contentArray);		
+	
 		mv.addObject("type", boardType).addObject("b",b).addObject("a",a).setViewName("board/boardUpdateForm");
 		
 		return mv;
@@ -199,12 +209,16 @@ public class BoardController {
 		System.out.println(b.getBoardType());
 		System.out.println(b.getBoardNo());
 		System.out.println(b.getBoardContent());
+		System.out.println(a.getBoardNo());
+		System.out.println(a.getOriginName());
+		System.out.println(a.getChangeName());
+		System.out.println(a.getFileNo());
 		
 		String str1=b.getBoardContent().replace("\r\n","<br>");
-		String[] boardContent1=str1.split("!?split?!");
-		System.out.println(b.getBoardContent());
 		b.setBoardContent(str1);
+		
 		System.out.println(boardService.updateBoard(b));
+		System.out.println(boardService.updateAttachment(a));
 		if(boardService.updateBoard(b) > 0) {
 			
 			int boardNo = b.getBoardNo();
@@ -242,9 +256,6 @@ public class BoardController {
 		b.setBoardNo(boardNo);
 		b.setBoardType(boardType);
 		
-		if(boardService.deleteAttachment(b)>0) {
-			System.out.println("첨부파일 삭제 성공");
-		}
 		
 		if(boardService.deleteBoard(b)>0) {
 			System.out.println("게시글 삭제 성공");

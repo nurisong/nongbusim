@@ -69,10 +69,6 @@ public class BoardServiceImpl implements BoardService{
 	}	
 
 	@Override
-	public int deleteAttachment(Board b) {
-		return boardDao.deleteAttachment(sqlSession,b);
-	}
-	@Override
 	public int deleteBoard(Board b) {
 		return boardDao.deleteBoard(sqlSession,b);
 	}

@@ -54,11 +54,9 @@ public class BoardDao {
 	}
 	
 	
-	public int deleteAttachment(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.delete("boardMapper.deleteAttachment",b);
-	}
+
 	public int deleteBoard(SqlSessionTemplate sqlSession, Board b) {
-		return sqlSession.delete("boardMapper.deleteBoard",b);
+		return sqlSession.update("boardMapper.deleteBoard",b);
 	}
 	
 	

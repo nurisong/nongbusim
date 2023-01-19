@@ -33,7 +33,6 @@ public interface BoardService {
 	int updateAttachment(Attachment a);
 	
 	//게시글 삭제
-	int deleteAttachment(Board b); 
 	int deleteBoard(Board b);
 	
 	//좋아요 입력

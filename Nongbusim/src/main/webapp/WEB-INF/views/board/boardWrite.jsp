@@ -65,6 +65,7 @@
 	                            <th width="100"><label for="title">제목</label></th>
 	                            <td><input type="text" id="title" class="form-control" name="boardTitle" maxlength="60" required style="width:30%"></td>
 	                        </tr>
+	                       
 	                        <tr>
 	                            <th width="100"><label for="content">썸네일</label></th>
 	                            <td>
