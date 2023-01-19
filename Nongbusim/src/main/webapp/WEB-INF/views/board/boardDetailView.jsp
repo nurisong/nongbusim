@@ -58,6 +58,7 @@
 <body>
 
     <jsp:include page="../common/menubar.jsp" />
+    <jsp:include page="boardbar.jsp" />
 
     <div class="outer" align="center">
         <!-- 게시글 상세내용 -->
@@ -99,7 +100,7 @@
             <c:if test="${ b.boardType=='S' }">
 
 	            <div class="picture-area">
-		            <c:forEach var="c" items="${b.boardContent}" varStatus="status">
+		            <c:forEach var="c" items="${contentArray}" varStatus="status">
 					  <div>
 
 						  <c:if test="${ status.index<a.size()}">

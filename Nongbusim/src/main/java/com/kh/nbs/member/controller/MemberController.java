@@ -1,17 +1,28 @@
 package com.kh.nbs.member.controller;
 
+import java.text.DecimalFormat;
+import java.text.Format;
+import java.util.Random;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.nbs.market.model.vo.Market;
 import com.kh.nbs.member.model.service.MemberService;
+import com.kh.nbs.member.model.vo.Cert;
 import com.kh.nbs.member.model.vo.Member;
 import com.kh.nbs.program.model.service.ProgramService;
 
@@ -26,6 +37,9 @@ public class MemberController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@Autowired
+	private JavaMailSender sender;
 	
 	@RequestMapping("loginForm.me")
 	public String loginForm() {
@@ -321,5 +335,63 @@ public class MemberController {
 			return "member/myPageUser/updateUser";
 		}
 	}
+	
+	@GetMapping("sendCertNum.me")
+	public String input() {
+		return "member/userEnrollForm";
+	}
+	
+	@GetMapping("chkCertNum.me")
+	public String check() {
+		return "member/userEnrollForm";
+	}
+	
+	// 메일 인증번호 랜덤숫자 앞자리 00방지
+	public String generateSecret() {
+		Random r = new Random();
+		int n = r.nextInt(100000);
+		Format f = new DecimalFormat("000000");
+		String secret = f.format(n);
+		
+		return secret;
+	}
+	
+	// 메일 인증번호 전송
+	@PostMapping("sendCertNum.me")
+	public String sendCertNum(String email, HttpServletRequest request) throws MessagingException {
+		MimeMessage message = sender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+		
+		String ip = request.getRemoteAddr();
+		String secret = generateSecret();
+		Cert cert = Cert.builder().who(ip).secret(secret).build();
+		
+		memberService.sendCertNum(cert);
+		System.out.println(memberService.sendCertNum(cert));
+		helper.setTo(email);
+		helper.setSubject("농부심 인증번호입니다.");
+		helper.setText("인증번호 : " + secret);
+		sender.send(message);
+		
+		return "redirect:chkCertNum.me";
+	}
+	
+	// 메일 인증 확인
+	@ResponseBody
+	@PostMapping("chkCertNum.me")
+	public String chkCertNum(String secret, HttpServletRequest request) {
+		Cert cert = Cert.builder().who(request.getRemoteAddr()).secret(secret).build();
+		
+		int result = memberService.chkCertNum(cert);
+		
+		if(result > 0) {
+			request.setAttribute("alertMsg", "인증되었습니다.");
+			return "redirect:/";
+		} else {
+			request.setAttribute("alertMsg", "인증되지 않았습니다. 다시 시도해주세요.");
+			return "member/userEnrollForm";
+		}
+	}
+	// ㅇㅇㅇ
 	
 }

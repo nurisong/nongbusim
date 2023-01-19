@@ -125,7 +125,7 @@
             <div class="search-area">
                 
                 <br>
-                <form action="search.fm" method="get">
+                <form action="list.fm" method="get">
                     <input type="hidden" name="lco" value="${lco}">
                     <select class="custom-select" name="condition">
                         <option value="all">전체</option>

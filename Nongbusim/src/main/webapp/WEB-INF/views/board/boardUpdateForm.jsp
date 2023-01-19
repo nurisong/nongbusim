@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,7 @@
 <body>
 
     <jsp:include page="../common/menubar.jsp" />
+    <jsp:include page="boardbar.jsp" />
 
     <div class="content" align="center">
         <br><br>
@@ -62,65 +64,37 @@
 	                            <td><input type="text" id="title" class="form-control" name="boardTitle" maxlength="60" required style="width:30%" value="${b.boardTitle }"></td>
 	                        </tr>
 	                        <tr>
-	                            <th width="100"><label for="content">썸네일</label></th>
+	                            <th width="100"><label for="content">내용</label></th>                         
 	                            <td>
-									<h6 align="center" style="color:grey;">*썸네일은 게시판과 게시물 상단에 보입니다. 반드시 넣어주세요*<h6>
-	                                <div class="image-upload" align="center">
-						    			<label for="file-input">
-						        			<img id="myimage" class="myimage" src="https://adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width="300" height="200"/>
-						    			</label>									
-						    			<input id="file-input" type="file" name="upfiles" required onchange="onFileSelected(event)"/>
-									</div> 
-	                            </td>
-	                        </tr>
-	
-	                        <tr>
-	                            <th width="100"><label for="content">내용</label>
-	                            	<br>
-	                        		<button type="button" class="add-content"><h5>이미지/내용 추가</h5></button>
-	                        	</th>                         
-	                            <td>
-	                            	<div align="center">
-	                             		<textarea id="text1" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" name="boardContent" required style="width:200px;"></textarea>                                	
-	                            	</div>
-	                            	
-	                             	<div id="upfile-area1" align="center" style="display:none;">
-	                             		<label for="upfile1">
-						        			<img id="upimage1" class="myimage" src="https://adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width="300" height="200"/>
-						    			</label>
-										<input type="file" name="upfiles" id="upfile1" onchange="loadImg(this, 1);" accept="image/*"/>
-	                              		<textarea id="text2" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" name="boardContent" style="width:200px;"></textarea>
+	                            
+
+
+                                     <c:forEach var="at" items="${contentList}" varStatus="status">
+                                    <div id="upfile-area${status.count}" align="center">
+										    <label for="upfile${status.count}">
+										        <img id="upimage${status.count}" class="myimage" src="${a.get(status.index).changeName}" width="300" height="200"/>
+										    </label>
+										    <input type="file" name="upfiles" id="upfile${status.count}" onchange="loadImg(this, ${status.count});" accept="image/*"/>
+                                      
+									    <textarea id="text${status.count}" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" style="width:200px;">${at}</textarea>
 	                             	</div>
-	                             
-	                             	<div id="upfile-area2" align="center" style="display:none;">
-	                             		<label for="upfile2">
-						        			<img id="upimage2" class="myimage" src="https://adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width="300" height="200"/>
-						    			</label>
-										<input type="file" name="upfiles" id="upfile2" onchange="loadImg(this, 2);" accept="image/*"/>
-	                              		<textarea id="text3" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" name="boardContent" style="width:200px;"></textarea>                               
-									</div>
-						
-									<div id="upfile-area3" align="center" style="display:none;">
-	                             		<label for="upfile3">
-						        			<img id="upimage3" class="myimage" src="https://adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width="300" height="200"/>
-						    			</label>
-										<input type="file" name="upfiles" id="upfile3" onchange="loadImg(this, 3);" accept="image/*"/>
-	                              		<textarea id="text4" class="form-control" rows="20" cols="125" maxlength="900" style="resize:none;" name="boardContent" style="width:200px;"></textarea>                               
-										<h6 style="color:grey;">*여기까지만 나옵니다.*<h6>
-									</div>
+									</c:forEach>
+                             
+
+
 	                            </td>                           
 	                        </tr>                 
 	                    </table>
 	
 	                    
 	                    <br>
-						<input type="hidden" id="content" name="content" value="">
+	                    <textarea style="display:none;" id="content" name="boardContent"></textarea>
 	                    <input id="boardType-pic" type="hidden" name="boardType" value="${type}">
 	                    <input type="hidden" name="memNo" value="${loginUser.memNo}">
 	                    <input type="hidden" name="boardWriter" value="${loginUser.nickName}">
 	                    
 	                    <div align="center">
-	                        <button type="submit" class="btn btn-primary">등록하기</button>
+	                        <button type="submit" class="btn btn-primary" onclick="combineFunction()">등록하기</button>
 	                        <button type="reset" class="btn btn-danger">취소하기</button>
 	                    </div>
 	                    <br>
@@ -142,18 +116,21 @@
 	                        <tr>
 	                            <th><label for="upfile">첨부파일</label></th>
 	                            <td><input type="file" class="form-control-file border" name="upfiles" accept="image/*">
-
 	                            </td>
 	                        </tr>
 	                
 	                    </table>
+	                    	<c:forEach items="${a}" var="attach">
+	                  			<a href="${ attach.changeName }" download="${ attach.originName }">${ attach.originName }</a>
+	      					</c:forEach>	
 	                    <br>
-	                    <input id="boardType-table" type="hidden" name="boardType" value="${type}">
+	                    <input id="boardType-table" type="hidden" name="boardType" value="${b.boardType}">
+	                    <input type="hidden" name="boardNo" value="${b.boardNo}">
 	                    <input type="hidden" name="memNo" value="${loginUser.memNo}">
 	                    <input type="hidden" name="boardWriter" value="${loginUser.nickName}">
 	                    
 	                    <div align="center">
-	                        <button type="submit" class="btn btn-primary" onclick="combineFunction()">등록하기</button>
+	                        <button type="submit" class="btn btn-primary">등록하기</button>
 	                        <button type="reset" class="btn btn-danger">취소하기</button>
 	                    </div>
 	                    <br>
@@ -213,40 +190,19 @@
 
         	  reader.readAsDataURL(selectedFile);
         };
-
+    
         <!--text 합치고 content에 넣기-->      
-        var content="";
-        var text1=document.getElementById("text1").value;
-        var text2=document.getElementById("text2").value;
-        var text3=document.getElementById("text3").value;
-        var text4=document.getElementById("text4").value;
-        
-        content+=text1+'!?split?!'+text2+'!?split?!'+text3+'!?split?!'+text4;
-        console.log(content);
         function combineFunction() {
-        	
-        	$('#content').val(content);
-        	console.log(content);       	
+        	  var text1=document.getElementById("text1").value;
+        	  var text2=document.getElementById("text2").value;       
+        	  var text3=document.getElementById("text3").value;    
+        	  var text4=document.getElementById("text4").value;
+        	  var content = text1+"|nongbusim|"+text2+"|nongbusim|"+text3+"|nongbusim|"+text4;
+        	  var contentCopy=content.substring(0);
+        	  document.getElementById("content").value = contentCopy;    	
         };
         
-        <!-- 추가 내용 쓸 수 있는 공간 보이기 -->
-        $('.add-content').click(function(){
-        	
-        	if($('#upfile-area1').css('display')=='none') {
-        		$('#upfile-area1').css('display','block');
-        		$('#upfile1').css('display','none');
-        		$('#text2').attr('required',true);
-        	} else if($('#upfile-area2').css('display')=='none'){
-        		$('#upfile-area2').css('display','block');
-        		$('#upfile2').css('display','none');
-        		$('#text3').css('required',true);
-        	} else {
-        		$('#upfile-area3').css('display','block');
-        		$('#upfile3').css('display','none');
-        		$('#text4').css('required',true);
-        	};
-        	
-        });
+        
         
         <!-- 이미지 미리보기 -->
         function loadImg(inputFile, num){

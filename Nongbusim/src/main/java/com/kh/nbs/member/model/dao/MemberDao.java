@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.market.model.vo.Market;
+import com.kh.nbs.member.model.vo.Cert;
 import com.kh.nbs.member.model.vo.Member;
 import com.kh.nbs.program.model.vo.Program;
 
@@ -97,6 +98,22 @@ public class MemberDao {
 	// 비밀번호 변경
 	public int updatePwd(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updatePwd", m);
+	}
+
+	// 이메일 인증번호 전송
+	public int sendCertNum(SqlSessionTemplate sqlSession, Cert cert) {
+		return sqlSession.insert("memberMapper.sendCertNum", cert);
+	}
+
+	// 이메일 인증번호 확인
+	public int chkCertNum(SqlSessionTemplate sqlSession, Cert cert) {
+		
+		int result = sqlSession.selectOne("memberMapper.chkCertNum", cert);
+		
+		if(result > 0) {
+			sqlSession.delete("memberMapper.deleteCertNum", cert);
+		}
+		return result;
 	}
 	
 }

@@ -75,6 +75,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    	 FARMER = #{memNo}
 		   AND
 		  		 STATUS = 'Y'
+		 ORDER
+		 	BY
+		 		 CREATE_DATE
 	</select>
 	
 	<select id="selectFarmList" resultMap="farmResultSet">

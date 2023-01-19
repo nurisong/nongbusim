@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +24,24 @@
         border-radius: 20px;
         box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
         margin-bottom: 100px;
+        width: 90%;
+    }
+    #main-img{
+        width: 80%;
+        margin-bottom: 10px;
+    }
+    #main-img>img{
+        width: 100%;
+    }
+    .btn-area{
+        width: 90%;
+        margin-bottom: 100px;
+    }
+    .btn-area>span{
+        margin: 35px;
+    }
+    .btn-area>span>a>img{
+        width: 190px;
     }
     .top-area>div, .botton-area>div, .fammer-area>div{
         display: inline-block;
@@ -32,6 +51,7 @@
         height: 100px;
         /* background-color: aqua; */
     }
+    
     #program-area{
         width: 50%;
         /* background-color: aqua; */
@@ -50,6 +70,10 @@
         width: 50%;
         float: right;
     }
+    #market-area img{
+        width: 100%;
+    }
+
     #dairy-area{
         width: 50%;
     }
@@ -57,7 +81,8 @@
         width: 50%;
         float: right;
     }
-    
+
+
 </style>
 </head>
 <body>
@@ -65,7 +90,18 @@
 
     <div class="outer" align="center">
 
-        <c:if test="${loginUser.memStatus == 'F'}">
+        <div id="main-img">
+            <img src="resources/images/로고1.jpg">
+        </div>
+
+        <div class="btn-area">
+            <span><a href="list.fm"><img src="resources/images/버튼1.jpg"></a></span>
+            <span><a href="list.pr"><img src="resources/images/버튼2.jpg"></a></span>
+            <span><a href=""><img src="resources/images/버튼3.jpg"></a></span>
+            <span><a href="list.mk?marketCategory=모두"><img src="resources/images/버튼4.jpg"></a></span>
+        </div>
+
+        <c:if test="${loginUser.memStatus eq 'F'}">
             <div class="fammer-area">
                 <div id="dairy-area">
                     <h3>영농일지</h3><br>
@@ -100,7 +136,52 @@
             </div>
 
             <div id="market-area">
-                <h3>판매글</h3><br>
+                <h3>농작물 거래</h3><br>
+                    <div id="market-content">
+
+                        <h5>게시글 타이틀</h5>
+                        <div class="fotorama">
+                            <img src="">
+                        </div>
+                        <div>
+                            <p>
+                                가격 : 10000원<br>
+                                날짜 : 2023-01-23
+                            </p>
+                        </div>
+
+                    </div>
+
+            <script>
+
+                // 마켓 게시물 불러오기
+                $(function(){
+                    $.ajax({
+                        url : 'main.mk',
+                        type : post,
+                        success : function(list){
+                            var result = '';
+                            if(list != null){
+                                for(var i in list){
+                                    
+                                    
+    
+    
+                                };
+                            }
+                            
+                            $('#market-content').html(result);
+                            
+                        },
+
+                        error : function(){
+                        console.log('불러오기 실패');
+                        }
+
+                    }); 
+
+                });
+            </script>
             </div>
         </div>
 
