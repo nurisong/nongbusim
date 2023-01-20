@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<resultMap id="programResultSet" type="program">
 		<result column="PROGRAM_NO" property="programNo"/>
-		<result column="FARM_NO" property="programNo"/>
+		<result column="FARM_NO" property="farmNo"/>
 		<result column="PROGRAM_NAME" property="programName"/>
 		<result column="PROGRAM_PLAN" property="programPlan"/>
 		<result column="PROGRAM_HOUR" property="programHour"/>
@@ -75,6 +75,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    	 FARMER = #{memNo}
 		   AND
 		  		 STATUS = 'Y'
+		 ORDER
+		 	BY
+		 		 CREATE_DATE
 	</select>
 	
 	<select id="selectFarmList" resultMap="farmResultSet">
@@ -99,21 +102,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectAttachmentList" resultMap="attachmentResultSet">
-		SELECT *
-		   FROM (
-		        SELECT 
-		            board_no,
-		            file_no,
-		            origin_name,
-		            change_name,
-		            upload_date,
-		            board_type,
-		            ROW_NUMBER() OVER (PARTITION BY board_no ORDER BY file_no) AS RN
-		        FROM 
-		            ATTACHMENT) a
-		WHERE 
-				a.RN = 1
-
+		SELECT 
+				board_no,
+				file_no,
+				origin_name,
+				change_name,
+				upload_date,
+				board_type
+		            
+		  FROM 
+				ATTACHMENT
+		            
+		 WHERE
+				FILE_LEVEL = 1
+				
+		   AND
+				BOARD_TYPE = 'F'
 	</select>
 	
 	<select id="selectProgramList" resultMap="programResultSet">
@@ -170,7 +174,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				program_no,
 				farm_no,
 				program_name,
-				program_plan,
+				TO_CHAR(program_plan, 'YYYY-MM-DD') as program_plan,
 				program_hour,
 				program_lecture,
 				headcount,
@@ -232,7 +236,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		ATTACHMENT
 		 WHERE
 		 		FILE_NO IN
-		<foreach collection="array" item="fileNo" open="(" separator="," close=")">
+		<foreach collection="list" item="fileNo" open="(" separator="," close=")">
 				 #{fileNo}		
 		</foreach>
 	</delete>
@@ -276,18 +280,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  		origin_name,
 		  		change_name,
 		  		board_type,
-		  		board_no
+		  		board_no,
+		  		file_level
 		  		)
 		 		SELECT 
 		 				SEQ_ANO.NEXTVAL as fileNo, A.*
 				  FROM
 					   (
-						<foreach collection="list" item="attachment" separator="UNION ALL">
+						<foreach collection="list" item="at" separator="UNION ALL">
 							SELECT
-							  	     #{attachment.originName} as originName
-							  	    ,#{attachment.changeName} as changeName
+							  	     #{at.originName} as originName
+							  	    ,#{at.changeName} as changeName
 							  	    ,'F' as boardType
-							  	    ,#{attachment.boardNo} as boardNo
+							  	    ,#{at.boardNo} as boardNo
+							  	    ,#{at.fileLevel} as fileLevel
 							  FROM
 							  		 SYS.DUAL
 						</foreach>

@@ -228,6 +228,15 @@ public class MarketServiceImpl implements MarketService{
 		return 0;
 	}
 
+	
+	
+	
+	//메인 페이지에 뿌려줄 마켓 리스트
+	@Override
+	public ArrayList<Market> ajaxMainMarketList() {
+		return marketdao.ajaxMainMarketList(sqlSession);
+	}
+
 
 
 

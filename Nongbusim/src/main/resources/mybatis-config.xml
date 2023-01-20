@@ -24,9 +24,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.nbs.infoBoard.model.vo.Info" alias="info" />
 		<typeAlias type="com.kh.nbs.market.model.vo.Market" alias="market" />
 		<typeAlias type="com.kh.nbs.member.model.vo.Member" alias="member" />
+		<typeAlias type="com.kh.nbs.member.model.vo.Cert" alias="cert" />
 		<typeAlias type="com.kh.nbs.program.model.vo.Program" alias="program" />
 		<typeAlias type="com.kh.nbs.review.model.vo.Review" alias="review" />
+<<<<<<< HEAD
 		<typeAlias type="com.kh.nbs.search.model.vo.Search" alias="search" />
+=======
+>>>>>>> a34d1c8a20d8457a422da54e411c463862593096
 	</typeAliases>
 	<!-- ***주의: 미리 등록을 해두려면 해당 클래스가 존재하고 있는 상태여야 함  -->
 	

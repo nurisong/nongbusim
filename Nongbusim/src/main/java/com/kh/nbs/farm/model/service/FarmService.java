@@ -42,7 +42,7 @@ public interface FarmService {
 	// 6. 농장 정보 수정 서비스(update)
 	int updateFarm(Farm f);
 	List selectFileNo(int farmNo);
-	int deleteAttachment(int[] delFiles);
+	int deleteAttachment(ArrayList<Integer> delList);
 	int updateInsertAttachment(List upfileList);
 	
 	// 7. 검색 서비스(select)

@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://kit.fontawesome.com/aa839e973e.js" crossorigin="anonymous"></script>  
+<!-- <script src="https://kit.fontawesome.com/aa839e973e.js" crossorigin="anonymous"></script>   -->
 <title>마이페이지-참여 프로그램</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
     <style>
 
         #myPage { 
@@ -169,9 +169,9 @@
             width: 5em;
             }
               
-             /* .star-rating2 input {
+              .star-rating2 input {
             display: none;
-            }     */
+            }     
             
             .star-rating2 label {
             -webkit-text-fill-color: transparent; 
@@ -189,7 +189,17 @@
             -webkit-text-fill-color: #fff58c;
             } 
 
-        
+            td{
+
+               padding: 10px;
+            }
+
+
+
+
+
+            /* 버튼 */
+           
     </style>
     
 </head>
@@ -206,6 +216,9 @@
             <a class="menuButton" href="">찜한 게시글</a><br>
             <a class="menuButton" href="">참여 프로그램</a><br>   
         </div>
+
+
+      
 
         <div class="content" align="center">
 
@@ -262,11 +275,12 @@
                          
                         </tr>
                         <tr>
-                            <td><input type="text" name="reviewContent2"style="width: 400px; height: 100px;"></td>
+                            <td><input type="text" name="reviewContent"style="width: 400px; height: 100px;"></td>
                             
                         </tr><br>
                        
                         <tr>
+                          
                             <td><input type="file" name="upfile"></td>
                         </tr><br>
                     </table>
@@ -306,28 +320,30 @@
 
 
             <div id="my_modal2">
-
-                <form action="reviewUpdate.re" method="post" enctype="multipart/form-data">
+                <!-- enctype="multipart/form-data" -->
+                <form action="reviewUpdate.re" method="post"  enctype="multipart/form-data">
                     <h2 align="center">후기수정</h2>
                     <table style="width: 400px; height:200px;">
                         <tr>
                            <td>프로그램명 : <input class="programName" type="text" value=""></td>
-                            <td><input type="text" value=""></td>
                             <td><input name="programNo"  class="programNo" type="text" value="" hidden></td>
-                            <td><input name="reviewNo" id="reviewNo" type="text" val=""></td>
+                            <td><input name="reviewNo" id="reviewNo" type="text" value="" hidden></td>
                          
                         </tr>
                         <tr>
                             <td><input type="text" id="test3" name="reviewContent" style="width: 400px; height: 100px;"></td>
-                        </tr><br>
+                            <td><input type="text" id="nowImage" name="nowImage" value="" hidden></td>
+                        </tr>
                        
                         <tr>
-                            <td><input type="file" name="upfile"></td>
+                            
+                            <td><input type="file" name="reUpfile"></td>
+                            
                         </tr><br>
                     </table>
 
                     <div align="center">
-                        <img class="thumbnail" id="image" src="resources/images/딸기1.jpg" style="width: 300px; height: 200px;">
+                        <img class="thumbnail" id="image" src="" style="width: 300px; height: 200px;">
                     </div>
 
 
@@ -359,11 +375,11 @@
                     <div align="center">
                         
                         <div align="center">
-                            <button type="submit" onclick="location.href='reviewUpdate.re';" style="background-color: rgb(103, 141, 208);">수정</button>
+                            <button type="submit"  style="background-color: rgb(103, 141, 208);">수정</button>
+                            <button type="button" onclick="return review_Delete(this.form);" style="background-color: rgb(220, 112, 112);">삭제</button>
+                
 
-
-                            <!-- <button type="submit"style="background-color: rgb(103, 141, 208);">수정</button> -->
-                            <button type="button" onclick="location.href='';" style="background-color: rgb(220, 112, 112);">삭제</button>
+                             <!-- <button type="submit"   style="background-color: rgb(220, 112, 112);">삭제</button> -->
                 
                         </div>
     
@@ -412,6 +428,20 @@
 
 
 <script>
+
+        // form태그에 리뷰삭제와 수정 action값 두개 주기 위한 함수
+        function review_Delete() {
+        return true;
+        }
+        function review_Delete(frm) {
+        frm.action='reviewDelete.re';
+        frm.submit();
+        return true;
+        }
+
+
+
+
 
 	    $(function() {
 	        test();
@@ -465,12 +495,13 @@
 					
 					success : function(result){
 						
-					
+                        console.log(result);
 						//console.log(result[0].reviewContent);
 						$('#test3').val(result[0].reviewContent);
 						$('#update').text('후기수정');
                         $('#image').attr("src",result[0].changeName);
                         $('#reviewNo').val(result[0].reviewNo);
+                        $('#nowImage').val(result[0].changeName);
                        
 
                         if(result[0].rating == 5){

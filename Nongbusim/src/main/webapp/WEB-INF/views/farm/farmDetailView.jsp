@@ -15,6 +15,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1d40107f1ef7cb9b23f17d054938c10e&libraries=services"></script>
 
 <style>
+    *>a{color: black;}
     .outer{
         padding: 50px;
         width: 100%;
@@ -149,13 +150,13 @@
                         <thead class="thead-light">
                             <tr>
                                 <th style="width: 490px;">프로그램명</th>
-                                <th>기간</th>
+                                <th>날짜</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="pg" items="${programList}">
                                 <tr>
-                                    <td>${pg.programName}</td>
+                                    <td><a href="detail.pro?bno=${pg.farmNo}">${pg.programName}</a></td>
                                     <td>${pg.programPlan}</td>
                                 </tr>
                             </c:forEach>

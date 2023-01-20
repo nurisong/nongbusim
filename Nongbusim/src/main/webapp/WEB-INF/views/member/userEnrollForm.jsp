@@ -10,6 +10,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <title>일반사용자 회원가입</title>
     <style>
+    #outer{
+    	margin-left: 20px;
+    }
+    
       .form-group{
         width: 30%;
       }
@@ -20,6 +24,7 @@
 <!-- 메뉴바 -->
 <jsp:include page="../common/menubar.jsp"/>
 
+<div id="outer">
 <br>
 <h3>회원가입</h3>
   <hr>
@@ -83,10 +88,20 @@
           <input type="radio" id="Female" value="F" name="gender">여자
           <input type="radio" id="Male" value="M" name="gender">남자
         </div>
-        <div class="form-group">
-            <label for="email">* 이메일 :</label>
-            <input type="email" class="form-control" name="email" required>
-        </div>
+        
+	    <div class="form-group">
+	        <label for="email">* 이메일 :</label>
+	        <input type="email" class="form-control" name="email" required>
+	    </div>
+	    <button type="button" class="btn btn-success" onclick="ondisplay(); return sendCertNum(this.form);">인증번호 전송</button>
+	    <div class="form-group" id="chkEmail" style="display:none;">
+	        <label for="chkEmail">인증번호 :</label>
+	        <input type="text" class="form-control" name="chkEmail" required>
+	        <button type="button" class="btn btn-success">인증하기</button>
+	    </div>
+	    
+	    <div id=""></div>
+        
         <div class="form-group">
             <label for="nickName">닉네임 :</label>
             <input type="text" class="form-control" name="nickName">
@@ -100,7 +115,8 @@
         <button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
        </div>
       </form>
-      
+</div>
+
      <script>
    		// 아이디 중복체크
 	    function idCheck(){
@@ -172,6 +188,23 @@
 	    	  	$("#chk_all").prop("checked", false);
 	    	  }
 	    	});
+	    	
+	    	// 인증번호 클릭하면 인증번호 작성칸 보이기
+	    	function ondisplay(){
+	    		$('#chkEmail').show();
+	    	}
+	    	
+	    	// form 태그에 action값 두개를 주기 위한 함수
+	    	function sendCertNum() {
+	        	return true;
+	        }
+	    	
+	        function sendCertNum(result) {
+		        result.action='sendCertNum.me';
+		        result.submit();
+		        return true;
+	        }
+	    	
       </script>
 </body>
 </html>

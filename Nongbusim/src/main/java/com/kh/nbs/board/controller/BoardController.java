@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -105,6 +107,11 @@ public class BoardController {
 			Board b=boardService.selectBoard(boardNo);
 			ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);
 			
+			String content=b.getBoardContent();
+			String delimiter="\\|nongbusim\\|";
+			String[] contentArray=content.split(delimiter);
+			
+			mv.addObject("contentArray", contentArray);
 
 			mv.addObject("a",a).addObject("b", b).setViewName("board/boardDetailView");
 			
@@ -119,14 +126,10 @@ public class BoardController {
 	//게시판 등록하기
 	@RequestMapping("insert.bo")
 	public ModelAndView insertBoard(Board b, MultipartFile[] upfiles, HttpSession session, ModelAndView mv, Attachment a) {
-		
-		System.out.println(b.getBoardType());
-		System.out.println(b.getBoardNo());
-		System.out.println(b.getBoardContent());
-		
+				
 		String str1=b.getBoardContent().replace("\r\n","<br>");
-		System.out.println(b.getBoardContent());
-		b.setBoardContent(str1);
+
+		b.setBoardContent(str1);	
 		
 		if(boardService.insertBoard(b) > 0) {
 			
@@ -180,17 +183,74 @@ public class BoardController {
 		return changeName;
 	}
 	
-	//게시물 수정하기
+	//게시물 수정하기로 이동
 	@RequestMapping("update.bc")
 	public ModelAndView updateBoard(@RequestParam(value="type") String boardType,@RequestParam(value="bno") int boardNo, ModelAndView mv) {
 		
 		Board b=boardService.selectBoard(boardNo);
-		ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);		
+		ArrayList<Attachment> a= boardService.selectAttachmentDetailBoard(b);
+
+		String content=b.getBoardContent();
+		String delimiter="\\|nongbusim\\|";
+		String[] contentArray=content.split(delimiter);
 		
-		mv.addObject("type", boardType).addObject("b",b).addObject("a",a).setViewName("board/boardUpdate");
+		for (int i = 0; i < contentArray.length; i++) {
+		    System.out.println(contentArray[i]);
+		}
+		ArrayList<String> contentList = new ArrayList<String>(Arrays.asList(contentArray));
+
+		
+		mv.addObject("contentList", contentList);		
+	
+		mv.addObject("type", boardType).addObject("b",b).addObject("a",a).setViewName("board/boardUpdateForm");
 		
 		return mv;
 	}
+	
+	//게시글 수정
+	@RequestMapping("updateForm.bo")
+	public ModelAndView updateFormBoard(Board b, MultipartFile[] upfiles, HttpSession session, ModelAndView mv, Attachment a) {
+		System.out.println(b.getBoardType());
+		System.out.println(b.getBoardNo());
+		System.out.println(b.getBoardContent());
+		System.out.println(a.getBoardNo());
+		System.out.println(a.getOriginName());
+		System.out.println(a.getChangeName());
+		System.out.println(a.getFileNo());
+		
+		String str1=b.getBoardContent().replace("\r\n","<br>");
+		b.setBoardContent(str1);
+		
+		System.out.println(boardService.updateBoard(b));
+		System.out.println(boardService.updateAttachment(a));
+		if(boardService.updateBoard(b) > 0) {
+			
+			int boardNo = b.getBoardNo();
+			
+			for(MultipartFile upfile : upfiles) {
+				
+				if(!upfile.getOriginalFilename().equals("")) {
+					a.setBoardNo(boardNo);
+					a.setBoardType(b.getBoardType());
+					a.setOriginName(upfile.getOriginalFilename()); // 원본명
+					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
+					
+					boardService.updateAttachment(a);
+
+						
+				}
+			}
+		
+			mv.addObject("type", b.getBoardType()).setViewName("redirect:list.bo");
+			
+		} else {
+			// 첨부파일 삭제
+			mv.addObject("type", b.getBoardType()).setViewName("redirect:list.bo");
+		}
+		
+		return mv;
+	}
+	
 	
 	//게시글 삭제
 	@RequestMapping("delete.bo")
@@ -200,9 +260,6 @@ public class BoardController {
 		b.setBoardNo(boardNo);
 		b.setBoardType(boardType);
 		
-		if(boardService.deleteAttachment(b)>0) {
-			System.out.println("첨부파일 삭제 성공");
-		}
 		
 		if(boardService.deleteBoard(b)>0) {
 			System.out.println("게시글 삭제 성공");

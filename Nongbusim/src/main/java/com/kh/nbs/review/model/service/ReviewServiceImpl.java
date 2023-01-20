@@ -52,6 +52,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.reviewUpdate(sqlSession,r);
 	}
 
+	@Override
+	public int reviewDelete(Review r) {
+		return reviewDao.reviewDelete(sqlSession,r);
+	}
+
 	
 	
 	

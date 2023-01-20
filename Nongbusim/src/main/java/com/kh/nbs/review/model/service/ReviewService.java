@@ -27,4 +27,7 @@ public interface ReviewService {
 	//리뷰 수정
 	int reviewUpdate(Review r);
 	
+	//리뷰삭제
+	int reviewDelete(Review r);
+	
 }

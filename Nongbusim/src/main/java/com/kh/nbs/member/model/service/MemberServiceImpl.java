@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.nbs.board.model.vo.Board;
 import com.kh.nbs.market.model.vo.Market;
 import com.kh.nbs.member.model.dao.MemberDao;
+import com.kh.nbs.member.model.vo.Cert;
 import com.kh.nbs.member.model.vo.Member;
 import com.kh.nbs.program.model.vo.Program;
 
@@ -104,6 +105,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updatePwd(Member m) {
 		return memberDao.updatePwd(sqlSession,m);
+	}
+
+	@Override
+	public int sendCertNum(Cert cert) {
+		return memberDao.sendCertNum(sqlSession, cert);
+	}
+
+	@Override
+	public int chkCertNum(Cert cert) {
+		return memberDao.chkCertNum(sqlSession, cert);
 	}
 
 }

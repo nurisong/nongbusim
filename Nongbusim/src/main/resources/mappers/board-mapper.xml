@@ -192,13 +192,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectAttachmentDetailBoard" parameterType="board" resultMap="attachmentResultSet">
 		SELECT
-			   FILE_NO
-			   ,ORIGIN_NAME
-		       ,CHANGE_NAME
-			   ,FILE_PATH
-			   ,UPLOAD_DATE
-			   ,BOARD_NO
-			   ,BOARD_TYPE
+			   *
 		  FROM
 			   ATTACHMENT
 		 WHERE 
@@ -232,27 +226,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</select>
 	
+	<update id="updateBoard" parameterType="board">
+		UPDATE
+			   board
+		   SET
+		       board_title=#{boardTitle},
+		       board_content=#{boardContent},
+		       modify_date=#{modifyDate}
+		 WHERE
+		       board_no=#{boardNo}
+		   AND
+		       board_type=#{boardType}
+	</update>
+	<update id="updateAttachment" parameterType="attachment">
+	   UPDATE
+			  attachment
+	      SET
+			  origin_name = #{originName},
+			  change_name = #{changeName}
+	    WHERE
+			  board_no=#{boardNo}
+		  AND
+		      board_type=#{boardType}
+	</update>
+	
 	<!-- 게시글 삭제 -->
-	<delete id="deleteBoard" parameterType="board">
-		delete
-		  from	   
+	<update id="deleteBoard" parameterType="board">
+		update	   
 		  	   board
+		   set
+		   	   status='N'
 		 where
 		       board_no=#{boardNo}
-		
-	</delete>
-	
-	<delete id="deleteAttachment" parameterType="board">
-		delete
-		  from	   
-		  	   attachment
-		 where
-		       board_no=#{boardNo}
-		   and
-		   	   board_type=#{boardType}
-	</delete>
-	
-	
+	</update>
 	
 	<insert id="insertLike" parameterType="board">
 	

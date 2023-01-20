@@ -121,12 +121,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update
 			review
 		set
-			review_content = #{reviewContent}
+			review_content = #{reviewContent},
+			rating = #{rating},
+			origin_name = #{originName},
+			change_name = #{changeName}
+			
 		where
 			review_no = #{reviewNo}
 	
 	</update>
 	
+	
+	<update id="reviewDelete"  parameterType="review">
+		
+		update
+			review
+		set
+			review_status = 'N'
+		where
+			review_no = #{reviewNo}
+	
+	</update>
 	
 
 

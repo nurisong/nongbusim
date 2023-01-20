@@ -86,6 +86,12 @@
             <label for="email">* 이메일 :</label>
             <input type="email" class="form-control" name="email" required>
         </div>
+        <button type="button" class="btn btn-success" onclick="sendCertNum();">인증번호 전송</button>
+        <div class="form-group" id="chkEmail" style="display:none;">
+            <label for="chkEmail">인증번호 :</label>
+            <input type="text" class="form-control" name="chkEmail" required>
+        </div>
+        
         <div class="form-group">
             <label for="nickName">닉네임 :</label>
             <input type="text" class="form-control" name="nickName">
@@ -184,6 +190,11 @@
 	    	  	$("#chk_all").prop("checked", false);
 	    	  }
 	    	});
+	    	
+	    	// 인증번호 클릭하면 인증번호 작성칸 보이기
+	    	function sendCertNum(){
+	    		$('#chkEmail').show();
+	    	}
       </script>
 </body>
 </html>

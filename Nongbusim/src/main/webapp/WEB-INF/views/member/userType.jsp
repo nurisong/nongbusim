@@ -28,7 +28,7 @@
     <h4>회원분류 선택</h4>
     <table class="table table-bordered" id="table" border="1">
         <tr>
-            <td rowspan="2"><img src="" alt="">이미지</td>
+            <td rowspan="2"><img src="/images/farmer1.png" alt="">이미지</td>
             <td>농부</td>
         </tr>
         <tr>
