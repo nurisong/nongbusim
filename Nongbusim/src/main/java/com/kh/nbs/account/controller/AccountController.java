@@ -46,6 +46,8 @@ public class AccountController {
 		return mv;		
 	}
 	
+
+	
 	
 	// list.ac 페이지에서 사용자가 검색조건 설정 후 "검색" 버튼 클릭시 이를 만족하는 accountList(table표)를 뿌려주기 위한 메소드 (ajax)
 	@ResponseBody
@@ -77,6 +79,7 @@ public class AccountController {
 	public ModelAndView accountEnrollForm(ModelAndView mv, HttpSession session) {
 		int memNo= ((Member)session.getAttribute("loginUser")).getMemNo();
 		mv.addObject("catAndGoods", accountService.selectCatAndGoods(memNo)).setViewName("member/myPageFarmer/account/accountEnrollForm");
+		System.out.println("catAndGoods" +accountService.selectCatAndGoods(memNo));
 		return mv ;
 		
 	}

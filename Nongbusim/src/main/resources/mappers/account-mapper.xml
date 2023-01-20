@@ -19,7 +19,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="file_no" property="fileNo"></result>
 		<result column="origin_name" property="originName"></result>
 		<result column="change_name" property="changeName"></result>
-		<result column="filepath" property="filepath"></result>
 		<result column="file_level" property="fileLevel"></result>
 		<result column="upload_date" property="uploadDate"></result>
 		<result column="board_no" property="boardNo"></result>
@@ -36,7 +35,7 @@ from
          row_number() over(partition by account_category order by account_category desc) rank1,
          row_number() over(partition by  goods order by goods desc) rank2
 from 
-        account_book where mem_no=4)
+        account_book where mem_no= #{memNo})
 order 
 by
         account_category desc, goods desc
@@ -61,7 +60,7 @@ by
     and     create_date-1 <= #{endDate}
 	
 	and
-			account_book.mem_no = ${memNo}
+			account_book.mem_no = #{memNo}
 	and
 			account_book.status = 'Y'
 	]]>	
@@ -113,7 +112,6 @@ by
 			file_no, 
 			origin_name, 
 			change_name, 
-			file_path, 
 			upload_date, 
 			board_no, 
 			board_type, 
@@ -123,7 +121,6 @@ by
 			( seq_ano.nextval, 
 			  #{originName},
 			  #{changeName},
-			  null,
 			  sysdate,
 			  
 		<choose>
@@ -256,7 +253,7 @@ by
 	        type asc)
 		
 	</select>
-	
+
 		
 	<select id="selectListCount" parameterType="account" resultType="_int">
 	select
