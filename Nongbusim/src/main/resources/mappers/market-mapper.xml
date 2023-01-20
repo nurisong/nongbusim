@@ -142,8 +142,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		            ROW_NUMBER() OVER (PARTITION BY board_no ORDER BY file_no) AS RN
 		        FROM 
 		            ATTACHMENT
-		        AND 
-		        	board_type = 'mk') a
+		        where 
+		        	board_type = 'mk'
+		        	) a
 		WHERE 
 				a.RN = 1
 	
