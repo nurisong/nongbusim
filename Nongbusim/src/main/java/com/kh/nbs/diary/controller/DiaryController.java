@@ -3,6 +3,7 @@ package com.kh.nbs.diary.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.PageInfo;
+import com.kh.nbs.common.template.Pagination;
 import com.kh.nbs.diary.model.service.DiaryService;
 import com.kh.nbs.diary.model.vo.Diary;
 import com.kh.nbs.member.model.vo.Member;
@@ -35,6 +38,8 @@ public class DiaryController {
 
 		// diaryListView 진입시 user가 등록한 category를 select태그로 뿌려주기 위한 메소드 (where memNo=사용자)
 		int memNo = ((Member) session.getAttribute("loginUser")).getMemNo();
+		
+			
 		mv.addObject("categoryList", diaryService.selectCategoryList(memNo))
 				.setViewName("member/myPageFarmer/diary/diaryListView");
 
@@ -45,11 +50,22 @@ public class DiaryController {
 	// 메소드 (ajax)
 	@ResponseBody
 	@RequestMapping(value = "selectDiaryList.di", produces = "application/json; charset=UTF-8")
-	public String selectDiaryList(Diary diary, HttpSession session) {
+	public String selectDiaryList(@RequestParam(value="cpage",defaultValue="1") int currentPage, Diary diary, HttpSession session) {
 
 		int memNo = ((Member) session.getAttribute("loginUser")).getMemNo();
 		diary.setMemNo(memNo);
-		return new Gson().toJson(diaryService.selectDiaryList(diary));
+		PageInfo pi = Pagination.getPageInfo(diaryService.selectListCount(diary), currentPage , 10 , 10);
+		System.out.println(pi);
+		
+		ArrayList result = null;
+		if(diaryService.selectDiaryList(diary,pi) != null ) {
+			result = diaryService.selectDiaryList(diary, pi);
+			result.add(pi);
+			// list의 마지막에 pi를 담아 돌려보냄
+			
+		}
+		
+		return new Gson().toJson(result);
 	}
 
 	// diary등록 form을 띄워주 메소드
@@ -192,11 +208,12 @@ public class DiaryController {
 					// diary를 insert하기 전 썸네일 필드 세팅(diary의 thumbnail필드엔 첫번쨰 file을 등록)
 					diary.setDiaryThumbnail("resources/uploadFiles/" + saveFile(reUpfiles[i], session));
 					// for문 내에서 insert문은 단 한 번만 실행되어야하므로 i==0 블럭에서 실행
+					System.out.println(diary);
 					diaryService.updateDiary(diary);
 				}
 
 				at.setBoardType("D");
-				// attachment vfo에 새로 들어온 파일의 값을 담고
+				// attachment vo에 새로 들어온 파일의 값을 담고
 				at.setOriginName(reUpfiles[i].getOriginalFilename());
 				at.setChangeName("resources/uploadFiles/" + saveFile(reUpfiles[i], session));
 

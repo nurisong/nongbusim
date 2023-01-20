@@ -217,13 +217,21 @@
 		</select>
 	</div>
 	<div style="align:right">
-		<button type="button" onclick="selectDiaryList();">검색</button>
+		<button type="button" onclick="selectDiaryList(1);">검색</button>
+		 <a href="enrollForm.di">일지 작성하기</a>
+		 <a href="calView.di">달력으로 보기</a>
 	</div>
 	<div id="listArea">
-	<table id="listAreaTable">
-	</table>
+		<table id="listAreaTable">
+		</table>
 	</div>
-	</div>
+
+	
+	 <div id="pagingArea">
+        <ul id="pagination">
+        </ul>
+     </div>
+	</div>  
 <script>
 
 	function selectPeriod(period){
@@ -274,7 +282,7 @@
 	
 	
 		//기간, 카테고리 지정 후 "검색" 버튼 누를 시 시행되는 함수 (ajax)
-	function selectDiaryList(){		
+	function selectDiaryList(cpage){		
 		// yyyy-mm-dd형식
 		var startDate = $('#startDate').val();
 		var endDate = $('#endDate').val();
@@ -288,15 +296,18 @@
 			data : {
 				startDate : startDate,
 				endDate : endDate,
-		 		diaryCategory : diaryCategory,						
+		 		diaryCategory : diaryCategory,	
+		 		cpage : cpage
 			},
 			success: function(list){
 				console.log(list);
 
                 var result = '';
-				if(!list.empty){
+				// 만약 돌아온 list가 없다면, 마지막에 list.add()로 pi를 넣어뒀으므로
+				// list[0] 엔 pi가, list[1] 부터는 비어있을 것
+				if(list[1] != null ){
 
-					for(var i=0; i<list.length ; i++) {                
+					for(var i=0; i<(list.length)-1 ; i++) {                
 					result 
 						+='<div class="item-area">'
 						+ '<tr onclick="selectDiary('+list[i].diaryNo+');">'
@@ -307,10 +318,47 @@
 						+ '<input type="hidden" name="diaryNo" id="diaryNo" value="'+list[i].diaryNo+'">'
 						+'</div>'                    
 					}
+					
+					// 동적으로 페이징버튼 만들기
+					// list의 마지막 인덱스에 "pi"가 담겨있음
+					if(list[list.length-1] != null){
+						
+						var innerPagi = '';
+						
+						console.log("hi");
+						var pi = list[list.length-1];
+						console.log(pi);						
+						if(pi.currentPage == 1){
+							innerPagi += '<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>'
+						} else {
+							innerPagi +=  '<li class="page-item"><a class="page-link" onclick="selectDiaryList('+(pi.currentPage - 1)+');" >Previous</a></li>'
+						
+
+						}
+						
+						for(var i=pi.startPage ; i<=pi.endPage; i++){
+							innerPagi += '<li class="page-item "><a class="page-link" onclick="selectDiaryList('+i+');" >'+i+'</a></li>'
+
+						}
+						
+						if(pi.currentPage == pi.maxPage){
+							innerPagi += '<li class="page-item disabled"><a class="page-link" href="#" >Next</a></li>'
+			                
+						} else {
+							innerPagi += '<li class ="page-item"><a class="page-link" onclick="selectDiaryList('+(pi.currentPage +1)+');">NEXT</a>'
+
+							
+						}
+						
+						
+					}
+					
 				} else {
  					result= '작성한 영농일지가 없습니다'
 				}                   
                	 $('#listAreaTable').html(result);
+               	 $('#pagination').html(innerPagi);
+               	 
 			},
 			error: function(){
 				console.log('실패');

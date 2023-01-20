@@ -2,10 +2,12 @@ package com.kh.nbs.diary.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.diary.model.vo.Diary;
 
 @Repository
@@ -20,9 +22,13 @@ public class DiaryDao {
 	
 
 
-	public ArrayList<Diary> selectDiaryList(SqlSessionTemplate sqlSession, Diary diary) {
-				
-		return (ArrayList)sqlSession.selectList("diaryMapper.selectDiaryList", diary);
+	public ArrayList<Diary> selectDiaryList(SqlSessionTemplate sqlSession, Diary diary, PageInfo pi) {
+
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+	
+		return (ArrayList)sqlSession.selectList("diaryMapper.selectDiaryList", diary, rowBounds);
 	}
 
 
@@ -65,6 +71,11 @@ public class DiaryDao {
 
 	public ArrayList selectCalEvent(SqlSessionTemplate sqlSession, int memNo) {
 		return  (ArrayList)sqlSession.selectList("diaryMapper.selectCalEvent", memNo);
+	}
+
+
+	public int selectListCount(SqlSessionTemplate sqlSession, Diary diary) {
+		return sqlSession.selectOne("diaryMapper.selectListCount", diary);
 	}
 
 

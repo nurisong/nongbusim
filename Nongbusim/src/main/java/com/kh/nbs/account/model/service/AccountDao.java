@@ -3,11 +3,13 @@ package com.kh.nbs.account.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.nbs.account.model.vo.Account;
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.PageInfo;
 
 
 @Repository
@@ -18,8 +20,10 @@ public class AccountDao {
 		return (ArrayList)sqlSession.selectList("accountMapper.selectCatAndGoods", memNo);
 	}
 
-	public ArrayList<Account> selectAccountList(SqlSessionTemplate sqlSession, Account account) {
-		return (ArrayList)sqlSession.selectList("accountMapper.selectAccountList", account);
+	public ArrayList<Account> selectAccountList(SqlSessionTemplate sqlSession, Account account, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("accountMapper.selectAccountList", account, rowBounds);
 	}
 
 	
@@ -70,6 +74,10 @@ public class AccountDao {
 
 	public ArrayList monthlySummary(SqlSessionTemplate sqlSession, Account account) {
 		return (ArrayList)sqlSession.selectList("accountMapper.monthlySummary", account);
+	}
+
+	public int selectListCount(SqlSessionTemplate sqlSession, Account account) {
+		return sqlSession.selectOne("accountMapper.selectListCount", account);
 	}
 
 

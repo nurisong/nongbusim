@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.google.gson.JsonElement;
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.diary.model.vo.Diary;
 
 public interface DiaryService {
@@ -15,7 +16,7 @@ public interface DiaryService {
 	//
 	ArrayList<Diary> selectCategoryList(int MemNo);
 	// Ajax: 
-	ArrayList<Diary> selectDiaryList(Diary diary);	
+	ArrayList<Diary> selectDiaryList(Diary diary, PageInfo pi);	
 	Diary selectDiary(int diaryNo);
 	int insertAttachment(Attachment a);
 	int insertDiary(Diary diary);
@@ -25,5 +26,6 @@ public interface DiaryService {
 	int deleteDiary(int diaryNo);
 	int deleteAttachment(int diaryNo);
 	ArrayList seletCalEvent(int memNo);
+	int selectListCount(Diary diary);
 
 }

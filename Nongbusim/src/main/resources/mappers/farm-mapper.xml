@@ -49,13 +49,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT
 				COUNT(*)
 		  FROM
-		  		FARM
-		 WHERE
-		 		STATUS = 'Y'
-		 <if test="lco != 'all'">
-		   AND
-		   		local_code = #{localCode}
-		 </if>
+				(
+				SELECT
+						 FARM_NO
+				    	,FARMER
+				    	,FARM_NAME
+				    	,LOCAL_CODE
+				    	,ADDRESS
+				    	,PHONE
+				    	,CREATE_DATE
+				    	,STATUS
+				    	,CROP
+			 	  FROM
+			 	  		FARM
+			 	 WHERE
+			 	 		STATUS = 'Y'
+			 	 <if test="localCode != 'all'">
+			 	   AND
+			 	   		LOCAL_CODE = #{localCode}
+			 	 </if>
+			 	)
+	 	<if test="condition == 'all'">
+	 	 WHERE
+	 	 		FARM_NAME LIKE '%'||#{keyword}||'%'
+	 	 	OR
+	 	 		CROP LIKE '%'||#{keyword}||'%'
+	 	 </if> 
+	 	 <if test="condition == 'farmName'">
+	 	 WHERE
+	 	   		FARM_NAME LIKE '%'||#{keyword}||'%'
+	 	 </if>
+	 	 <if test="condition == 'crop'">
+	 	 WHERE
+	 	   		CROP LIKE '%'||#{keyword}||'%'
+	 	 </if>	
 	</select>
 
 	<select id="selectMyFarmList" resultMap="farmResultSet">
@@ -81,24 +108,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectFarmList" resultMap="farmResultSet">
-		SELECT 
-		    	 FARM_NO
-		    	,FARMER
-		    	,FARM_NAME
-		    	,LOCAL_CODE
-		    	,ADDRESS
-		    	,PHONE
-		    	,CREATE_DATE
-		    	,STATUS
-		    	,CROP
+		SELECT
+				*
 		  FROM
-		 		 FARM
-		 WHERE 
-		  		 STATUS = 'Y'
-		  <if test="lco != 'all'">
-		   AND
-		   		 LOCAL_CODE = #{localCode}
-		 </if>
+				(
+				SELECT
+						 FARM_NO
+				    	,FARMER
+				    	,FARM_NAME
+				    	,LOCAL_CODE
+				    	,ADDRESS
+				    	,PHONE
+				    	,CREATE_DATE
+				    	,STATUS
+				    	,CROP
+			 	  FROM
+			 	  		FARM
+			 	 WHERE
+			 	 		STATUS = 'Y'
+			 	 <if test="localCode != 'all'">
+			 	   AND
+			 	   		LOCAL_CODE = #{localCode}
+			 	 </if>
+			 	)
+	 	<if test="condition == 'all'">
+	 	 WHERE
+	 	 		FARM_NAME LIKE '%'||#{keyword}||'%'
+	 	 	OR
+	 	 		CROP LIKE '%'||#{keyword}||'%'
+	 	 </if> 
+	 	 <if test="condition == 'farmName'">
+	 	 WHERE
+	 	   		FARM_NAME LIKE '%'||#{keyword}||'%'
+	 	 </if>
+	 	 <if test="condition == 'crop'">
+	 	 WHERE
+	 	   		CROP LIKE '%'||#{keyword}||'%'
+	 	 </if>	
+	 	 ORDER
+	 	 	BY
+	 	 <if test="order == 'recent'">
+	 	 		FARM_NO DESC
+	 	 </if>
+	 	 <if test="order == 'name'">
+	 	 		FARM_NAME DESC
+	 	 </if>
 	</select>
 	
 	<select id="selectAttachmentList" resultMap="attachmentResultSet">

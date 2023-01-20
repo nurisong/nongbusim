@@ -108,13 +108,15 @@
 
 			 datesSet: function(info){
 
+				console.log("change datesSet");
+
 				//calendar.getDate()
 				// 화면에 보이는 calendar 월 버튼 클릭하여 변경 시 
 				// 해당 월 첫 번쨰 날짜를 반환 , 초기값은 현재날짜 (sysdate)
 				
 				// yyyy-mm-01을 반환하는 dateformat호출
 				var yearMonth =dateFormat(calendar.getDate());
-				
+				console.log(yearMonth);
 				// xxxx년 xx월에 변화가 일어날 때 마다, montlySummary를 가져오는 ajax 함수 호출
 				monthlySummary(yearMonth);
 			 }
@@ -170,8 +172,9 @@
 				if(!list.empty){
 					var result="";
 					console.log(list)
+					console.log("hi success")
 					for (var i=0; i<list.length; i++){
-						if(list[i].amount !=null){
+						if(list[i].type !=null){
 							result 
 								+= '<td style="width:200px; height: 200px">'
 				  				+'<div style="border:1px solid black; width:100%; height:100%">'	
@@ -185,10 +188,12 @@
 							result= "<td style='width:600px; height: 200px'><h1>작성된 입출금일지가 없습니다<h1></td>";
 						}
 					}
+
+					$('#summaryTable').children().eq(0).html(result);
 				}else {
  					result= "<td style='width:600px; height: 200px'><h1>작성된 입출금일지가 없습니다<h1></td>";
 				}                   
-               	 $('#summaryTable').children().eq(0).html(result);
+     
 				
 			},
 			error: function(){

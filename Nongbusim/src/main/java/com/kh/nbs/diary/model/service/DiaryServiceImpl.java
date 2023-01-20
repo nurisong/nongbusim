@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.diary.model.dao.DiaryDao;
 import com.kh.nbs.diary.model.vo.Diary;
 
@@ -24,11 +25,9 @@ public class DiaryServiceImpl implements DiaryService {
 		return diaryDao.selectCategoryList(sqlSession, memNo);
 	}
 	
-
-
 	@Override
-	public ArrayList<Diary> selectDiaryList(Diary diary) {
-		return diaryDao.selectDiaryList(sqlSession, diary);
+	public ArrayList<Diary> selectDiaryList(Diary diary, PageInfo pi) {
+		return diaryDao.selectDiaryList(sqlSession, diary, pi);
 	}
 
 	@Override
@@ -73,6 +72,13 @@ public class DiaryServiceImpl implements DiaryService {
 	@Override
 	public ArrayList seletCalEvent(int memNo) {
 		return diaryDao.selectCalEvent(sqlSession, memNo);
+	}
+
+
+
+	@Override
+	public int selectListCount(Diary diary) {
+		return diaryDao.selectListCount(sqlSession, diary);
 	}
 
 	/*
