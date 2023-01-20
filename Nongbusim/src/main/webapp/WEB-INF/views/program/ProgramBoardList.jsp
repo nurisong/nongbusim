@@ -176,7 +176,6 @@
 
                     if($(this).attr("src") == "resources/images/deleteheart.png"){
 
-                        
                         $.ajax({
                             url : 'wish.pr',
                             data :{
