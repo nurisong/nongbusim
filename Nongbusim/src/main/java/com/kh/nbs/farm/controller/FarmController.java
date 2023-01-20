@@ -31,6 +31,20 @@ public class FarmController {
 	@Autowired
 	private FarmService farmService;
 	
+	
+	
+	/**
+	 * selectFarmList: 농장 전체 조회하는 메소드
+	 * 
+	 * 
+	 * @param currentPage
+	 * @param localCode
+	 * @param keyword
+	 * @param condition
+	 * @param order
+	 * @param mv
+	 * @return
+	 */
 	@RequestMapping("list.fm")
 	public ModelAndView selectFarmList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
 									   @RequestParam(value="lco", defaultValue="all") String localCode,
@@ -51,7 +65,7 @@ public class FarmController {
 		map.put("keyword", keyword);
 		map.put("order", order);
 		
-		PageInfo pi = Pagination.getPageInfo(farmService.selectSearchListCount(map), currentPage, 10, 10);
+		PageInfo pi = Pagination.getPageInfo(farmService.selectSearchListCount(map), currentPage, 10, 5);
 
 		mv.addObject("pi", pi);
 		mv.addObject("atList", farmService.selectAttachmentList()); // 첨부파일
@@ -290,6 +304,17 @@ public class FarmController {
 		return "";
 	}
 	
+	
+	
+	/**
+	 * 
+	 * deleteFarm: 사용자자에게 게시글 번호를 입력받아서 DB에 있는 게시글을 지워주는 메소드
+	 * 
+	 * @param fno: 화면에서 넘어오는 농장 번호
+	 * @param model
+	 * @param rttr
+	 * @return
+	 */
 	@RequestMapping("delete.fm")
 	public String deleteFarm(int fno, Model model, RedirectAttributes rttr) {
 		
