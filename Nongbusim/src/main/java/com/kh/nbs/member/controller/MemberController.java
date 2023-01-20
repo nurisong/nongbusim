@@ -357,7 +357,7 @@ public class MemberController {
 	}
 	
 	// 메일 인증번호 전송
-	@PostMapping("sendCertNum.me")
+	@PostMapping(value="sendCertNum.me")
 	public String sendCertNum(String email, HttpServletRequest request) throws MessagingException {
 		MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -385,13 +385,12 @@ public class MemberController {
 		int result = memberService.chkCertNum(cert);
 		
 		if(result > 0) {
-			request.setAttribute("alertMsg", "인증되었습니다.");
+			request.setAttribute("alertMsg", "인증 완료되었습니다.");
 			return "redirect:/";
 		} else {
 			request.setAttribute("alertMsg", "인증되지 않았습니다. 다시 시도해주세요.");
 			return "member/userEnrollForm";
 		}
 	}
-	// ㅇㅇㅇ
 	
 }

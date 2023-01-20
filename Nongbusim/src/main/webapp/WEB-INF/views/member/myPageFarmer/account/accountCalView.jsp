@@ -105,9 +105,7 @@
          			element.find(".fc-title").append("<br/><b>"+event.Score+"</b>");
          		}
          	},
-
 			 datesSet: function(info){
-
 				console.log("change datesSet");
 
 				//calendar.getDate()
