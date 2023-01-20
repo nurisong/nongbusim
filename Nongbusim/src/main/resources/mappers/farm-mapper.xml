@@ -164,7 +164,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				upload_date,
 				board_type
 		            
-		  FROM 
+		  FROM
 				ATTACHMENT
 		            
 		 WHERE
