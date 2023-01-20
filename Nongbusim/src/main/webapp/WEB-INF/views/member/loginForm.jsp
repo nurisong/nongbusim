@@ -32,13 +32,13 @@ body:after {
     z-index:-1;
     content:"";
     width:100%;
-    height:100%;
+    height:800px;
 }
 
 
 * {
     font-family: 'Noto Sans KR', sans-serif;
-}
+        }
 
 
 .area {
@@ -92,7 +92,7 @@ input {
 
 
 <br>
-
+<br><br><br><br><br><br><br>
 
 
 
