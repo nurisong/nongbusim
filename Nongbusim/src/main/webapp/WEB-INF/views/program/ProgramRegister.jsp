@@ -49,7 +49,7 @@ text-align: center;
       <form action="insert.pr" method="post" enctype="multipart/form-data">
 
          
-         <input name="memNo" type="text" value="${loginUser.memNo}">
+         <input name="memNo" type="text" value="${loginUser.memNo}" hidden>
          <select  name="farmNo">
     			
             <c:forEach items="${ list }" var="p" >

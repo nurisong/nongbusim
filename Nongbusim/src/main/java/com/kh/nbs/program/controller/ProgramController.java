@@ -38,15 +38,25 @@ public class ProgramController {
 		@RequestMapping("list.pr")
 		public ModelAndView selectList(@RequestParam(value="cpage",defaultValue="1") int currentPage,HttpSession session , ModelAndView mv) {
 			
-			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
+			
+			
+			if(((Member)session.getAttribute("loginUser"))!=null) {
+			
+				int memNo = ((Member)session.getAttribute("loginUser")).getMemNo();
 			
 			if(programService.selectMarkNo(memNo) != null ) {
 				
 				mv.addObject("markNoList",programService.selectMarkNo(memNo));
 			}
 			
+		
+			
+			}
+			
 			PageInfo pi = Pagination.getPageInfo(programService.selectListCount(), currentPage , 10 , 5);
-			mv.addObject("pi",pi).addObject("programlist",programService.selectList(pi)).setViewName("program/ProgramBoardList");
+			mv.addObject("pi",pi).addObject("programlist",programService.selectList(pi));
+			
+			mv.setViewName("program/ProgramBoardList");
 			
 			return mv;
 		}
@@ -142,12 +152,16 @@ public class ProgramController {
 		@RequestMapping("detail.pro")
 		public ModelAndView selectBoard(int bno, ModelAndView mv,HttpSession session) {
 			
+			
+			
+			if(((Member)session.getAttribute("loginUser"))!=null) {
 			int memNo = ((Member)session.getAttribute("loginUser")).getMemNo(); 
 			
 			
 			if(programService.selectProgramNo(memNo) != null) {
 				//신청한지 조회
 				mv.addObject("programList", programService.selectProgramNo(memNo));
+				}
 			}
 			
 			if( programService.selectProgram(bno) != null ) { 
@@ -157,6 +171,8 @@ public class ProgramController {
 				
 				mv.addObject("errorMsg","게시글 조회 실패").setViewName("common/errorPage");
 			}
+			
+			
 			return mv;
 		}
 			
