@@ -89,7 +89,7 @@
         <button type="button" class="btn btn-success" onclick="sendCertNum();">인증번호 전송</button>
         <div class="form-group" id="chkEmail" style="display:none;">
             <label for="chkEmail">인증번호 :</label>
-            <input type="text" class="form-control" name="chkEmail" required>
+            <input type="text" class="form-control" name="chkEmail">
         </div>
         
         <div class="form-group">

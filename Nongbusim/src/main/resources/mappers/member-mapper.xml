@@ -228,7 +228,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND WHEN BETWEEN SYSDATE - 3/24/60 AND SYSDATE
 	</select>
 	
-	<delete id="removeCertNum" parameterType="cert">
+	<delete id="deleteCertNum" parameterType="cert">
 		DELETE CERT
 		WHERE WHO = #{who}
 		AND SECRET = #{secret}

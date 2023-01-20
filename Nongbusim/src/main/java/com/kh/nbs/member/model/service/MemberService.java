@@ -65,7 +65,7 @@ public interface MemberService {
 	int sendCertNum(Cert cert);
 
 	// 이메일 인증번호 확인(select)
-	int chkCertNum(Cert cert);
+	Cert chkCertNum(Cert cert);
 	
 	
 	
