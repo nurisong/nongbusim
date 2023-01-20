@@ -3,6 +3,149 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="searchMapper">
+<select id="recommendKeyword" parameterType="search" resultType="String">
+	
+	select  substr(board_title,instr(board_title,#{keyword}),
+	                decode(instr(board_title,' '),0,
+                     (instr(board_title||' ',' ',instr(board_title,#{keyword}))- instr(board_title,#{keyword})) ,
+                     (instr(board_title,' ',instr(board_title,#{keyword}))-instr(board_title,#{keyword})+1)))
+	from board 
+	where  board_title like '%'||#{keyword}||'%'
+	and
+	    status= 'Y'
+	
+	UNION
+	
+	
+	select  substr(board_content,instr(board_content,#{keyword}),
+	                decode(instr(board_content,' '),0,
+                     (instr(board_content||' ',' ',instr(board_content,#{keyword}))- instr(board_content,#{keyword})) ,
+                     (instr(board_content,' ',instr(board_content,#{keyword}))-instr(board_content,#{keyword})+1)))
 
+	from board 
+	where  board_content like '%'||#{keyword}||'%'
+	and
+	    status= 'Y'
+	
+	UNION
+	
+	select  substr(mk_category,instr(mk_category,#{keyword}),
+	                decode(instr(mk_category,' '),0,
+                     (instr(mk_category||' ',' ',instr(mk_category,#{keyword}))- instr(mk_category,#{keyword})) ,
+                     (instr(mk_category,' ',instr(mk_category,#{keyword}))-instr(mk_category,#{keyword})+1)))
+
+	from market
+	where mk_category  like '%'||#{keyword}||'%'
+	and
+	    mk_status= 'Y'
+	    
+	UNION
+	
+	select  substr(mk_title,instr(mk_title,#{keyword}),
+	                decode(instr(mk_title,' '),0,
+                     (instr(mk_title||' ',' ',instr(mk_title,#{keyword}))- instr(mk_title,#{keyword})) ,
+                     (instr(mk_title,' ',instr(mk_title,#{keyword}))-instr(mk_title,#{keyword})+1)))
+
+	from market
+	where  mk_title  like '%'||#{keyword}||'%'
+	and
+	    mk_status= 'Y'
+	    
+	UNION
+	
+	select substr(program_name,instr(program_name,#{keyword}),
+	                decode(instr(program_name,' '),0,
+                     (instr(program_name||' ',' ',instr(program_name,#{keyword}))- instr(program_name,#{keyword})) ,
+                     (instr(program_name,' ',instr(program_name,#{keyword}))-instr(program_name,#{keyword})+1)))
+
+	from program
+	where   program_name  like '%'||#{keyword}||'%'
+	and
+	    status= 'Y'
+	    
+	UNION
+	
+	select  substr(program_location,instr(program_location,#{keyword}),
+	                decode(instr(program_location,' '),0,
+                     (instr(program_location||' ',' ',instr(program_location,#{keyword}))- instr(program_location,#{keyword})) ,
+                     (instr(program_location,' ',instr(program_location,#{keyword}))-instr(program_location,#{keyword})+1)))
+
+	from program
+	where  program_location  like '%'||#{keyword}||'%'
+	and
+	    status= 'Y'
+
+	UNION
+
+	
+	select  substr(info_title,instr(info_title,#{keyword}),
+	                decode(instr(info_title,' '),0,
+                     (instr(info_title||' ',' ',instr(info_title,#{keyword}))- instr(info_title,#{keyword})) ,
+                     (instr(info_title,' ',instr(info_title,#{keyword}))-instr(info_title,#{keyword})+1)))
+
+	from  info_board
+	where info_title  like '%'||#{keyword}||'%'
+	and
+	    status= 'Y'
+    
+		
+</select>
+<select id="searchInfoBoard" >
+	select 
+	        info_no, category, info_title, info_content, create_date, count
+	from 
+	        info_board
+	
+	where info_title like  '%'||#{keyword}||'%'
+	or info_content like  '%'||#{keyword}||'%'
+	or category like  '%'||#{keyword}||'%'
+	and status = 'Y'
+
+</select>
+
+<select id="searchMarket">
+	select 
+	        nickname, mem_no, mk_category, mk_title, mk_price, mk_intro, mk_content, mk_enrolldate
+	from 
+	        market
+	join
+	        member
+	using (mem_no)    
+	where mk_category like  '%'||#{keyword}||'%'
+	or mk_category like  '%'||#{keyword}||'%'
+	or mk_title like  '%'||#{keyword}||'%'
+	or mk_content like  '%'||#{keyword}||'%'
+	and mk_status = 'Y'
+	
+
+</select>
+<!--board: board_type = s(자랑), q (질문), k(노하우), m (멘티)
+	board_type은 동적으로 가져가자 -->
+<select id="searchBoard">
+
+	select board_no, board_type board_title, board_content, create_date, board_writer        
+	from 
+	        board
+	where  board_title like  '%'||#{keyword}||'%'
+	or board_content like '%'||#{keyword}||'%' 
+	or board_writer like '%'||#{keyword}||'%'
+	and status = 'Y'
+	and board_type = 'S'
+
+
+
+</select>
+<select id="searchProgram">
+
+	select 
+	        program_no, program_name, program_plan, program_hour, program_lecture, program_detail, program_location, status, sign_up
+	from 
+	        program   
+	where program_name  like  '%'||#{keyword}||'%'
+	or program_lecture like '%'||#{keyword}||'%' 
+	or program_detail like '%'||#{keyword}||'%'
+	or program_location like ''%'||#{keyword}||'%''
+	and status = 'Y'
+</select>
 
 </mapper>

@@ -126,7 +126,8 @@
                 
                 <br>
                 <form action="list.fm" method="get">
-                    <input type="hidden" name="lco" value="${lco}">
+                    <input type="hidden" name="lco" value="${map.localCode}">
+
                     <select class="custom-select" name="condition">
                         <option value="all">전체</option>
                         <option value="farmName">농장 이름</option>
@@ -160,10 +161,19 @@
                 <br>
             </div>
 
+            <div>
+                <div id="order-area" style="float: right;">
+                    <select class="custom-select" id="order-select" name="order" onchange="location.href=this.value">
+                        <option id="recent" value="list.fm?lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}&order=recent" selected>최신순</option>
+                        <option id="name" value="list.fm?lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}&order=name">이름순</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="farm-main-area">
                 <div class="farm-main-title">
                     <h3>농장 조회</h3>
-                    <span>(총 ${farmList.size()}개)</span>
+                    <span>(총 ${pi.listCount}개)</span>
                 </div>
                 <hr style="width: 800px;">
     
@@ -246,5 +256,11 @@
 
 
     </div>
+
+    <script>
+        $(function(){
+            $('#order-select option[id="' + ${map.order} + ']"').attr('selected', true);
+        })
+    </script>
 </body>
 </html>

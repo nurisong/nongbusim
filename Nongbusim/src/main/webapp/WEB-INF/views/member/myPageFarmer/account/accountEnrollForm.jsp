@@ -93,14 +93,14 @@
 						<tr>
 							<td colspan="3">
 								<div>✔등록일</div>
-								<input id="createDate" type="date">
+								<input id="createDate" name="createDate" type="date">
 							</td>	
 						</tr>
 						
 						<tr>
 							<td colpan="3">
 								<div>✔구분</div>
-									<input type="radio" name="type" id="income" value="I"><label for="income">수입</label>								
+									<input type="radio" name="type" id="income" value="I" required><label for="income">수입</label>								
 									<input type="radio" name="type" id="outcome" value="O"><label for="outcome">지출</label>									
 							</td>	
 						</tr>
@@ -136,7 +136,7 @@
 											<c:when test="${ not empty catAndGoods}">
 												<option value="selectAll" selected>전체</option>				
 												<c:forEach var="account" items="${catAndGoods}">
-													<c:if test="${not empty account.goods }">
+													<c:if test="${account.goods  ne ' '}">
 														<option>${account.goods }</option>
 													</c:if>
 												</c:forEach>
@@ -153,7 +153,7 @@
 						<tr>
 							<td colpan="3">
 								<div>✔금액</div>
-								<input id="amount" name="amount" type="text" maxlength="10" onkeyup="inputNumberFormat(this);" placeholder="숫자만 입력해주세요" />
+								<input id="amount" name="amount" type="text" maxlength="20" onkeyup="inputNumberFormat(this);" placeholder="숫자만 입력해주세요" />
 							</td>			
 						</tr>			
 						<tr>
@@ -360,9 +360,13 @@
 	
 // 등록하기 버튼을 누를 시, '000,000,000'으로된 amount input요소의 format을 숫자로 바꾼 후 submit 해주는 이벤트 핸들러
     $('#enroll').click(function(){
-    	
-    	$('#amount').val(Number(uncomma($('#amount').val())));
-    	$('#enroll-form').submit();
+		if($('input:radio').is(':checked')){
+	    	$('#amount').val(Number(uncomma($('#amount').val())));	    	
+	    	$('#enroll-form').submit();
+		} else {
+			alert('수입/지출 여부를 선택해주세요');
+		}   	
+
     });
    
     

@@ -4,6 +4,7 @@ import com.kh.nbs.common.model.vo.PageInfo;
 
 public class Pagination {
 	
+	
 	public static PageInfo getPageInfo(int listCount, int currentPage, int pageLimit, int boardLimit) {
 		
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);

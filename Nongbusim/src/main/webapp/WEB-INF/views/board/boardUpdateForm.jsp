@@ -99,6 +99,7 @@
 	                    </div>
 	                    <br>
 	                </form>     
+	                    	<button onclick="combineFunction()">나올려나</button>
 	            </div>
 	                	
 	            <div class="table-area" id="table-area" style="display: none;">
@@ -197,7 +198,9 @@
         	  var text2=document.getElementById("text2").value;       
         	  var text3=document.getElementById("text3").value;    
         	  var text4=document.getElementById("text4").value;
+        	  console.log(text1);
         	  var content = text1+"|nongbusim|"+text2+"|nongbusim|"+text3+"|nongbusim|"+text4;
+        	  console.log(content);
         	  var contentCopy=content.substring(0);
         	  document.getElementById("content").value = contentCopy;    	
         };

@@ -68,8 +68,7 @@
 		<a class="menuButton" href="updateFarmerForm.me">회원정보 수정</a><br>
 		<a class="menuButton" href="calView.di">영농일지</a><br>
 		<a class="menuButton" href="calView.ac">농작물 입출금</a><br>
-		<a class="menuButton">농장정보등록</a>
-
+		<a class="menuButton" href="myList.fm">나의농장</a>
 	</div>
     
     
