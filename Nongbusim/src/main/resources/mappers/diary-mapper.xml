@@ -29,7 +29,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="file_no" property="fileNo"></result>
 		<result column="origin_name" property="originName"></result>
 		<result column="change_name" property="changeName"></result>
-		<result column="filepath" property="filepath"></result>
 		<result column="file_level" property="fileLevel"></result>
 		<result column="upload_date" property="uploadDate"></result>
 		<result column="board_no" property="boardNo"></result>
@@ -117,7 +116,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			file_no, 
 			origin_name, 
 			change_name, 
-			file_path, 
 			upload_date, 
 			board_no, 
 			board_type, 
@@ -127,7 +125,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			( seq_ano.nextval, 
 			  #{originName},
 			  #{changeName},
-			  null,
 			  sysdate,
 			  
 		<choose>

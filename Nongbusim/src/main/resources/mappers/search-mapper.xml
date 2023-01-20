@@ -3,7 +3,6 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="searchMapper">
-
 <select id="recommendKeyword" parameterType="search" resultType="String">
 	
 	select  substr(board_title,instr(board_title,#{keyword}),
@@ -15,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and
 	    status= 'Y'
 	
-	union
+	UNION
 	
 	
 	select  substr(board_content,instr(board_content,#{keyword}),
@@ -28,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and
 	    status= 'Y'
 	
-	union
+	UNION
 	
 	select  substr(mk_category,instr(mk_category,#{keyword}),
 	                decode(instr(mk_category,' '),0,
@@ -40,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and
 	    mk_status= 'Y'
 	    
-	union
+	UNION
 	
 	select  substr(mk_title,instr(mk_title,#{keyword}),
 	                decode(instr(mk_title,' '),0,
@@ -52,7 +51,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and
 	    mk_status= 'Y'
 	    
-	union
+	UNION
+	
 	select substr(program_name,instr(program_name,#{keyword}),
 	                decode(instr(program_name,' '),0,
                      (instr(program_name||' ',' ',instr(program_name,#{keyword}))- instr(program_name,#{keyword})) ,
@@ -63,7 +63,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and
 	    status= 'Y'
 	    
-	union
+	UNION
+	
 	select  substr(program_location,instr(program_location,#{keyword}),
 	                decode(instr(program_location,' '),0,
                      (instr(program_location||' ',' ',instr(program_location,#{keyword}))- instr(program_location,#{keyword})) ,
@@ -73,7 +74,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where  program_location  like '%'||#{keyword}||'%'
 	and
 	    status= 'Y'
-	union
+
+	UNION
 
 	
 	select  substr(info_title,instr(info_title,#{keyword}),
@@ -88,19 +90,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
 		
 </select>
-
-
-
 <select id="searchInfoBoard" >
-select 
-        info_no, category, info_title, info_content, create_date, count
-from 
-        info_board
-
-where info_title like  '%'||#{keyword}||'%'
-or info_content like  '%'||#{keyword}||'%'
-or category like  '%'||#{keyword}||'%'
-and status = 'Y'
+	select 
+	        info_no, category, info_title, info_content, create_date, count
+	from 
+	        info_board
+	
+	where info_title like  '%'||#{keyword}||'%'
+	or info_content like  '%'||#{keyword}||'%'
+	or category like  '%'||#{keyword}||'%'
+	and status = 'Y'
 
 </select>
 
@@ -118,7 +117,6 @@ and status = 'Y'
 	or mk_content like  '%'||#{keyword}||'%'
 	and mk_status = 'Y'
 	
-
 
 </select>
 <!--board: board_type = s(자랑), q (질문), k(노하우), m (멘티)
