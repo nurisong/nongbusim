@@ -34,15 +34,30 @@ public class FarmController {
 	@RequestMapping("list.fm")
 	public ModelAndView selectFarmList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
 									   @RequestParam(value="lco", defaultValue="all") String localCode,
+									   @RequestParam(value="keyword", required=false, defaultValue="") String keyword,
+									   @RequestParam(value="condition", required=false, defaultValue="all") String condition,
+									   @RequestParam(value="order", required=false, defaultValue="recent") String order,
 									   ModelAndView mv) {
 		
-		PageInfo pi = Pagination.getPageInfo(farmService.selectFarmCount(localCode), currentPage, 10, 5);
-		// 프로그램 조회
+		System.out.println(localCode);
+		System.out.println(keyword);
+		System.out.println(condition);
+		System.out.println(order);
+		
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("localCode", localCode);
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("order", order);
+		
+		PageInfo pi = Pagination.getPageInfo(farmService.selectSearchListCount(map), currentPage, 10, 10);
+
 		mv.addObject("pi", pi);
 		mv.addObject("atList", farmService.selectAttachmentList()); // 첨부파일
-		mv.addObject("programList", farmService.selectProgramList());
-		mv.addObject("farmList", farmService.selectFarmList(pi, localCode)).setViewName("farm/farmListView");
-		mv.addObject("lco", localCode);
+		mv.addObject("programList", farmService.selectProgramList()); // 프로그램
+		mv.addObject("map", map);
+		mv.addObject("farmList", farmService.selectSearchList(pi, map)).setViewName("farm/farmListView");
 		
 		return mv;
 	}

@@ -126,7 +126,8 @@
                 
                 <br>
                 <form action="list.fm" method="get">
-                    <input type="hidden" name="lco" value="${lco}">
+                    <input type="hidden" name="lco" value="${map.localCode}">
+
                     <select class="custom-select" name="condition">
                         <option value="all">전체</option>
                         <option value="farmName">농장 이름</option>
@@ -158,6 +159,15 @@
                     <br>
                 </div>
                 <br>
+            </div>
+
+            <div>
+                <div id="order-area">
+                    <select class="custom-select" name="order" onchange="location.href=this.value">
+                        <option value="list.fm?lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}&order=recent">최신순</option>
+                        <option value="list.fm?lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}&order=name">이름순</option>
+                    </select>
+                </div>
             </div>
 
             <div class="farm-main-area">
