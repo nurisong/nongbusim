@@ -78,9 +78,7 @@
 			<c:if test="${ not empty loginUser.farmerCode}">
             	<a class ="btn btn-secondary" style="float:right;" href="enrollForm.pr">프로그램 등록</a>
                   </c:if>
-			
 
-          
             <table id="boardList"  class="table table-hover" align="center">
                 <thead>
                     <tr>
@@ -89,7 +87,9 @@
                         <th>일정</th>
                         <th>모집인원</th>
                         <th>신청</th>
+                        <c:if test="${ not empty loginUser}">
                         <th>찜</th>
+                        </c:if>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,8 +118,10 @@
                             </c:otherwise>
 
                         </c:choose>
-
-                        <td  class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
+                        
+                        <c:if test="${ not empty loginUser}">
+                              <td  class="sorry"><img class="heart"  src="resources/images/deleteheart.png" alt="${ p.programNo }"></td>
+                        </c:if>
                      
                      </tr>
                        
@@ -167,6 +169,8 @@
 
                  
             $(function(){
+
+                <c:if test="${not empty loginUser}">
                 $('.heart').click(function(){
                     var $btn1 = $(this);
                     // console.log($(this).attr("alt"));
@@ -216,15 +220,11 @@
 
                     }
                 });
+                </c:if>
             })
 
 
-                
-
-
-
-
-
+ 
 
                $(function(){
                   $('#boardList>tbody>tr>td').not('.sorry').click(function(){
@@ -234,6 +234,10 @@
                      location.href = 'detail.pro?bno=' + $(this).parent().children().eq(0).text();          
                   })
            
+
+
+
+
                 // mark 테이블에서 조회해서 markNoList에서 borarNo 가져와서 현재 하트 IMG ALT에 있는 programNo랑 비교헤서 하트 바꿔줌,  비교해서 같은 값이 있으면 check값 증가
                 $('.heart').each(function() {
 
