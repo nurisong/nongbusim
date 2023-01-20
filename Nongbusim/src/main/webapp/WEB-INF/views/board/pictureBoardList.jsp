@@ -80,8 +80,9 @@
         <!-- main-area과paging-area로 나뉨 -->
         <div class="main-area">
 
+          <br>
           <h1>농작물 자랑</h1>
-          <br><br>
+          <br>
           
           <!--글 작성-->
           <div>
@@ -89,8 +90,7 @@
               <button type="button" onclick="location.href='write.bo?type=${type}';" class="btn btn-secondary" id="insert-btn" >글작성</button>
           	  </c:if>
           </div>
-          <br>
-          <br>
+          <br><br>
 
           <!--검색바-->
           <div style="background-color:rgb(223, 223, 223); height: 60px; width:70%; text-align: center;">

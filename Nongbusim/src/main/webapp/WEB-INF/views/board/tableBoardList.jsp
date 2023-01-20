@@ -54,9 +54,11 @@ text-align: center;
     <div class="outer" align="center">
         <div class="main-area">
 
+			<br>           
 			<c:if test="${ type=='M' }"><h1>멘티멘토 게시판</h1></c:if>
 			<c:if test="${ type=='Q' }"><h1>질문 게시판</h1></c:if>
-			<c:if test="${ type=='K' }"><h1>노하우 게시판</h1></c:if>           
+			<c:if test="${ type=='K' }"><h1>노하우 게시판</h1></c:if>
+			<br>
             
             <c:if test="${loginUser !=null }">
             <button type="button" onclick="location.href='write.bo?type=${type}';" class="btn btn-secondary" id="insert-btn" >글작성</button>

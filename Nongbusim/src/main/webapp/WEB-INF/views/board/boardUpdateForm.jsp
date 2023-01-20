@@ -116,14 +116,26 @@
 	                        </tr>
 	                        <tr>
 	                            <th><label for="upfile">첨부파일</label></th>
-	                            <td><input type="file" class="form-control-file border" name="upfiles" accept="image/*">
+	                            <td>
+			                        <input type="file" name="upfiles" style="display : none;" accept="image/*" id="bizFile">
+									<button type="button"><label for="bizFile" class="btn fileBtn">파일선택</label></button>
+									
+									<c:if test="${a==null}">
+										<span id="fileName">선택된 파일없음</span>
+									</c:if>
+									<c:if test="${a!=null}">
+										<span id="haveFile">
+											<c:forEach items="${a}" var="att">${att.originName}									
+												<input type="hidden" name="changeName" value="${att.changeName}" >
+											</c:forEach>
+										</span>
+									</c:if>
+	                            	
 	                            </td>
 	                        </tr>
 	                
 	                    </table>
-	                    	<c:forEach items="${a}" var="attach">
-	                  			<a href="${ attach.changeName }" download="${ attach.originName }">${ attach.originName }</a>
-	      					</c:forEach>	
+
 	                    <br>
 	                    <input id="boardType-table" type="hidden" name="boardType" value="${b.boardType}">
 	                    <input type="hidden" name="boardNo" value="${b.boardNo}">
@@ -233,6 +245,39 @@
 			 		}
             }
         };
+        
+        <!--테이블에서 업로드한 파일 이름으로 변경-->
+        $(function() {
+        	  
+       	    $("#bizFile").change(function(e){
+				var changedname = e.target.files[0].name;
+       	 		$('#fileName').text(changedname);
+       	 		$('#haveFile').text(changedname);
+       	 		
+       	    });
+
+        });
+        
+        var theFile = document.querySelector('#bizFile');
+
+        theFile.on('click', initialize);
+
+        function initialize(event) {
+            document.body.onfocus = checkIt;
+            console.log('initializing');
+        }
+
+        function checkIt() {
+            if (theFile.value.length!=0) {
+                aleft('Files Loaded');
+            } else {
+                alert('Cancel clicked');
+            }
+            // 초기화
+          document.body.onfocus = null;
+            console.log('checked');
+        };
+
 
     </script>
 

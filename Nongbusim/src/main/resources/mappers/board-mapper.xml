@@ -114,7 +114,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 ORDER
 		    BY
 		<if test="order == 'recent'">
-		    	BOARD_NO DESC
+		    	"create_date" DESC
 		</if>
 		<if test="order == 'like'">
 				BOARD_LIKE DESC
