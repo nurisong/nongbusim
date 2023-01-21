@@ -210,46 +210,32 @@ public class BoardController {
 	//게시글 수정
 	@RequestMapping("updateForm.bo")
 	public ModelAndView updateFormBoard(Board b, MultipartFile[] upfiles, HttpSession session, ModelAndView mv, Attachment a) {
-		System.out.println(b.getBoardType());
-		System.out.println(b.getBoardNo());
-		System.out.println(b.getBoardContent());
-		System.out.println(a.getBoardNo());
-		System.out.println(a.getOriginName());
 		System.out.println(a.getChangeName());
-		System.out.println(a.getFileNo());
 		
 		String str1=b.getBoardContent().replace("\r\n","<br>");
 		b.setBoardContent(str1);
-		
-		System.out.println(boardService.updateBoard(b));
-		System.out.println(boardService.updateAttachment(a));
-		if(boardService.updateBoard(b) > 0) {
-			
-			int boardNo = b.getBoardNo();
-			
-			for(MultipartFile upfile : upfiles) {
-				
-				if(!upfile.getOriginalFilename().equals("")) {
-					a.setBoardNo(boardNo);
-					a.setBoardType(b.getBoardType());
-					a.setOriginName(upfile.getOriginalFilename()); // 원본명
-					a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session)); // 저장경로
-					
-					boardService.updateAttachment(a);
 
-						
-				}
-			}
-		
-			mv.addObject("type", b.getBoardType()).setViewName("redirect:list.bo");
+		for(MultipartFile upfile: upfiles) {
 			
-		} else {
-			// 첨부파일 삭제
-			mv.addObject("type", b.getBoardType()).setViewName("redirect:list.bo");
+			if(!upfile.getOriginalFilename().equals("")) {
+
+				a.setBoardNo(b.getBoardNo());
+				a.setBoardType(b.getBoardType());
+				a.setOriginName(upfile.getOriginalFilename());
+				a.setChangeName("resources/uploadFiles/" + saveFile(upfile, session));
+
+				boardService.updateAttachment(a);
+			} 
 		}
+		
+		boardService.updateBoard(b);
+		
+		mv.addObject("type", b.getBoardType()).setViewName("redirect:list.bo");
 		
 		return mv;
 	}
+		
+
 	
 	
 	//게시글 삭제

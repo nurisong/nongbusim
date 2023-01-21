@@ -94,11 +94,11 @@
 	        <input type="email" class="form-control" id="email" name="email" required>
 	    </div>
 	    <button type="button" id="send" class="btn btn-success">인증번호 전송</button>
+	    
 	    <div class="form-group" id="chkEmail" style="display:none;">
 	        <label for="chkEmail">인증번호 :</label>
-	        
-	        <input type="text" class="form-control" name="chkEmail" required>
-	        <button type="button" class="btn btn-success">인증하기</button>
+	        <input type="text" class="form-control" id="secret" name="secret">
+	        <button type="button" id="check" class="btn btn-success">인증하기</button>
 	    </div>
 	    
 	    <div id=""></div>
@@ -197,9 +197,30 @@
 					   url: 'sendCertNum.me',
 					   data: {"email" : $('#email').val()},
 					   type: 'post',
-					   success: function(result){
-						   console.log(result);
+					   success: function(){
 						   $('#chkEmail').show();
+					   },
+					   error: function(){
+						   console.log('ajax 통신 실패');
+					   }
+				   })
+			   });
+		   });
+			   
+			  // 이메일 인증 번호 확인
+			 $(function(){
+			   $('#check').click(function(){
+				 var inputSecret = $('#secret').val();
+				   $.ajax({
+					   url: 'chkCertNum.me',
+					   data: {"secret" : $('#secret').val()},
+					   type: 'post',
+					   success: function(result){
+						  if(result.secret == inputSecret){
+							  alert('일치');
+						  } else {
+							  alert('불일치');
+						  }
 					   },
 					   error: function(){
 						   console.log('ajax 통신 실패');
@@ -208,7 +229,7 @@
 			   })
 		   });
 		   
-
+//jy20001201@gmail.com
 	        
 	    	
       </script>

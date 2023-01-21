@@ -156,7 +156,7 @@
                         <tbody>
                             <c:forEach var="pg" items="${programList}">
                                 <tr>
-                                    <td><a href="detail.pro?bno=${pg.farmNo}">${pg.programName}</a></td>
+                                    <td><a href="detail.pro?bno=${pg.programNo}">${pg.programName}</a></td>
                                     <td>${pg.programPlan}</td>
                                 </tr>
                             </c:forEach>
