@@ -13,11 +13,10 @@ public interface FarmService {
 	
 	// 1. 농장 리스트 조회 서비스 + 페이징 처리(select)
 	// 1-1) 농장 총 개수 조회
-	int selectFarmCount();
-	int selectFarmCount(String localCode); // lco있는 경우
+	int selectFarmCount(HashMap<String, String> map); // lco있는 경우
 	// 1-2) 농장 리스트 조회
 	// **프로그램, 판매품목 연결
-	ArrayList<Farm> selectFarmList(PageInfo pi, String localCode);
+	ArrayList<Farm> selectFarmList(PageInfo pi, HashMap<String, String> map);
 	ArrayList<Attachment> selectAttachmentList(); // 첨부파일
 	// 1-3) 농장 프로그램 조회
 	ArrayList<Program> selectProgramList();

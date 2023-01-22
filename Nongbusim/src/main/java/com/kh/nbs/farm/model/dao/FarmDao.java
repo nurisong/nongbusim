@@ -21,14 +21,14 @@ public class FarmDao {
 		return sqlSession.selectOne("farmMapper.selectFarmCount");
 	}
 	
-	public int selectFarmCount(String localCode, SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("farmMapper.selectFarmCount", localCode);
+	public int selectFarmCount(HashMap<String, String> map, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("farmMapper.selectFarmCount", map);
 	}
 	
-	public ArrayList<Farm> selectFarmList(PageInfo pi, String localCode, SqlSessionTemplate sqlSession) {
+	public ArrayList<Farm> selectFarmList(PageInfo pi, HashMap<String, String> map, SqlSessionTemplate sqlSession) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("farmMapper.selectFarmList", localCode, rowBounds);
+		return (ArrayList)sqlSession.selectList("farmMapper.selectFarmList", map, rowBounds);
 	}
 	
 	public ArrayList<Attachment> selectAttachmentList(SqlSessionTemplate sqlSession) {
