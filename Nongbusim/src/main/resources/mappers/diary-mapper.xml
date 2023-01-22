@@ -209,7 +209,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			diary_category as "title", 
 			create_date as "start", 
 			create_date as "end",
-			'true' as "allDay" 
+			'true' as "allDay" ,
+			'#fbc02d' as "color" 
 	from diary
 	where
 			mem_no = #{memNo}

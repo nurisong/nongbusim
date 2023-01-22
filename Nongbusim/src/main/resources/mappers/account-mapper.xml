@@ -274,4 +274,17 @@ by
 	   		
 	 </select>   
 
+	<update id="deleteSelected">
+			update 
+ 		  		account_book
+ 		  set
+ 		  		status = 'N'
+ 		  where
+ 		  		account_no in
+ 		  		<foreach collection="list" item="item" open="(" close=")" separator=",">
+ 		  		 #{item}
+ 		  		</foreach> 
+	</update>
+
+
 </mapper>

@@ -6,9 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,14 +60,12 @@ public class AccountController {
 		account.setMemNo(memNo);
 		
 		PageInfo pi = Pagination.getPageInfo(accountService.selectListCount(account), currentPage , 10 , 10);
-		System.out.println(pi);
 	
 		
 		ArrayList result = null;
 		if(accountService.selectAccountList(account,pi) != null ) {
 			result =accountService.selectAccountList(account, pi);
 			result.add(pi);
-			System.out.println(result);
 			// list의 마지막에 pi를 담아 돌려보냄
 			
 		}
@@ -284,7 +284,6 @@ public class AccountController {
 	@RequestMapping(value = "monthlySummary.ac", produces = "application/json; charset=UTF-8")
 	public String monthlySummary(Account account,  HttpSession session) {
 		
-		System.out.println(account);
 		
 		account.setMemNo(((Member) session.getAttribute("loginUser")).getMemNo());
 		
@@ -304,6 +303,27 @@ public class AccountController {
 		// 해당월 총 수입: [Account(accountNo=0, type=I, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=4010000, accountContent=null, status=null, memNo=0, nickName=null), 
 		// 해당월 총 지출: Account(accountNo=0, type=O, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=895000, accountContent=null, status=null, memNo=0, nickName=null)]	
 
+		
+	}
+	
+	//선택한 체크박스  글들을 삭제하는 메소드
+	@ResponseBody
+	@RequestMapping(value = "deleteSelected.ac", produces = "application/json; charset=UTF-8")
+	public String deleteSelected(@RequestParam(value="checkboxArr[]") List<String> checkboxArr ,  HttpSession session) {
+
+		
+		String result = "";
+		if(accountService.deleteSelected(checkboxArr)>0) {
+			result = "삭제성공";
+		} else {
+			result = "삭제실패";
+		};
+		
+		return new Gson().toJson(result);
+		
+		// 해당월 총 수입: [Account(accountNo=0, type=I, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=4010000, accountContent=null, status=null, memNo=0, nickName=null), 
+		// 해당월 총 지출: Account(accountNo=0, type=O, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=895000, accountContent=null, status=null, memNo=0, nickName=null)]	
+		
 		
 	}
 	

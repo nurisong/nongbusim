@@ -1,6 +1,7 @@
 package com.kh.nbs.account.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,11 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public int selectListCount(Account account) {
 		return  accountDao.selectListCount(sqlSession, account);
+	}
+
+	@Override
+	public int deleteSelected(List<String> checkboxArr) {
+		return accountDao.deleteSelected(sqlSession,checkboxArr);
 	}
 
 }
