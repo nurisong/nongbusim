@@ -9,6 +9,6 @@ public class DiaryCalendar {
 	private String start;
 	private String end;
 	private String allDay;
-	
+	private String color; 
 	
 }
