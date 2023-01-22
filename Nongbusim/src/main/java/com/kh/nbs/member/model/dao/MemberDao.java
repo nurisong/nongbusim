@@ -106,11 +106,11 @@ public class MemberDao {
 	}
 
 	// 이메일 인증번호 확인
-	public int chkCertNum(SqlSessionTemplate sqlSession, Cert cert) {
+	public Cert chkCertNum(SqlSessionTemplate sqlSession, Cert cert) {
 		
-		int result = sqlSession.selectOne("memberMapper.chkCertNum", cert);
+		Cert result = sqlSession.selectOne("memberMapper.chkCertNum", cert);
 		
-		if(result > 0) {
+		if(result !=null) {
 			sqlSession.delete("memberMapper.deleteCertNum", cert);
 		}
 		return result;

@@ -113,7 +113,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int chkCertNum(Cert cert) {
+	public Cert chkCertNum(Cert cert) {
 		return memberDao.chkCertNum(sqlSession, cert);
 	}
 

@@ -164,7 +164,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				upload_date,
 				board_type
 		            
-		  FROM 
+		  FROM
 				ATTACHMENT
 		            
 		 WHERE
@@ -178,6 +178,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT 
             	 PROGRAM_NAME
             	,PROGRAM_PLAN
+            	,PROGRAM_NO
             	,FARM_NO
           FROM
           		 PROGRAM

@@ -82,7 +82,7 @@ table th {
     <br><br>
 
 
-
+    <c:if test="${ not empty loginUser}">
     <div style="display:none;" id="applyBtnArea">
         <button type="submit">신청</button>
     </div>
@@ -91,6 +91,7 @@ table th {
             이미 신청한 프로그램입니다.
         </p>
     </div>
+    </c:if>
 
 
     <!-- 회원이 이전에 신청했던 프로그램 넘버  -->

@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<jsp:include page="../myPageFarmerCommon.jsp" />>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <title>게시글 상세보기</title>
 <style>
 
@@ -23,7 +26,9 @@
 	
 
 	}
-
+	.container{
+		padding-left:25%;
+	}
 
 	.list-area{
 		text-align :center; 
@@ -148,6 +153,8 @@
 
 </head>
 <body>
+<jsp:include page="../myPageFarmerCommon.jsp" />
+	<div class="container">
 	<form action="updateForm.ac" method="post">
 		<input type="hidden" name="memNo" value="${ loginUser.memNo }">
 		<input type="hidden" name="ano" value="${ account.accountNo }">				
@@ -238,7 +245,9 @@
 			<button class="myButton">삭제하기</button>
 		</form>
 		</div>	
-	</div><br><br><br>
+	</div>
+
+	<br><br><br>
 </body>
 	
 </html>

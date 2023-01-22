@@ -208,7 +208,7 @@
                                         <c:forEach var="program" items="${programList}">
                                             <c:if test="${program.farmNo eq farm.farmNo}">
                                                 <dd>
-                                                    <div><a href="detail.pro?bno=${farm.farmNo}">${program.programName}</a></div>
+                                                    <div><a href="detail.pro?bno=${program.programNo}">${program.programName}</a></div>
                                                 </dd>
                                             </c:if>
                                         </c:forEach>

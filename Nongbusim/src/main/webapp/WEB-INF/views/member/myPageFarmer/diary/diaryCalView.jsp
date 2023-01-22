@@ -1,13 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<jsp:include page="../myPageFarmerCommon.jsp" />
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8' />
-   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.2/index.global.min.js"></script>
-	<style>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.2/index.global.min.js"></script>
+<title>Insert title here</title>
+	<style>	
+	.container{
+		padding-left:25%;
+	}
 	/* 일요일 날짜 빨간색 */
 	.fc-day-sun a {
 	  color: red;
@@ -25,6 +31,7 @@
 	
 	}
 	</style>
+	
     <script>
 
    
@@ -121,13 +128,17 @@
 	};
     </script>
   </head>
-  <body>
+
+    <body>
+  <jsp:include page="../myPageFarmerCommon.jsp" />
+<div class="container">
   <div class="calArea">
        <a href="list.di">모아보기</a>
       <a href="enrollForm.di">일지 작성하기</a>
       <div id='calendar'></div>
 
   </div>
-  </body>
+</div>
+</body>
 
 </html>

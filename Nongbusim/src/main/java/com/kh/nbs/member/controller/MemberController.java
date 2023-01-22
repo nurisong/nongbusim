@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.nbs.member.model.service.MemberService;
 import com.kh.nbs.member.model.vo.Cert;
 import com.kh.nbs.member.model.vo.Member;
@@ -357,7 +358,7 @@ public class MemberController {
 	}
 	
 	// 메일 인증번호 전송
-	@PostMapping("sendCertNum.me")
+	@PostMapping(value="sendCertNum.me")
 	public String sendCertNum(String email, HttpServletRequest request) throws MessagingException {
 		MimeMessage message = sender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -367,7 +368,6 @@ public class MemberController {
 		Cert cert = Cert.builder().who(ip).secret(secret).build();
 		
 		memberService.sendCertNum(cert);
-		System.out.println(memberService.sendCertNum(cert));
 		helper.setTo(email);
 		helper.setSubject("농부심 인증번호입니다.");
 		helper.setText("인증번호 : " + secret);
@@ -378,20 +378,36 @@ public class MemberController {
 	
 	// 메일 인증 확인
 	@ResponseBody
-	@PostMapping("chkCertNum.me")
-	public String chkCertNum(String secret, HttpServletRequest request) {
+	@PostMapping(value="chkCertNum.me", produces="application/json; charset=UTF-8") 
+	public String chkCertNum(String secret, HttpServletRequest request, HttpSession session) {
+		
+		System.out.println(secret);
+		
 		Cert cert = Cert.builder().who(request.getRemoteAddr()).secret(secret).build();
 		
-		int result = memberService.chkCertNum(cert);
+		System.out.println(cert);
+
 		
-		if(result > 0) {
-			request.setAttribute("alertMsg", "인증되었습니다.");
-			return "redirect:/";
-		} else {
-			request.setAttribute("alertMsg", "인증되지 않았습니다. 다시 시도해주세요.");
-			return "member/userEnrollForm";
-		}
+		return new Gson().toJson(memberService.chkCertNum(cert));
+		
+		/*
+		 * String result2 = ""; if(result > 0) { request.setAttribute("alertMsg",
+		 * "인증 완료되었습니다."); result2 = "s"; } else { request.setAttribute("alertMsg",
+		 * "인증되지 않았습니다. 다시 시도해주세요."); result2 = "f"; }
+		 * 
+		 * return result2;
+		 */
+//		if(result > 0) {
+//			request.setAttribute("alertMsg", "인증 완료되었습니다.");
+//			System.out.println("controller : " + result);
+//			return "redirect:/";
+//		} else {
+//			request.setAttribute("alertMsg", "인증되지 않았습니다. 다시 시도해주세요.");
+//			return "member/userEnrollForm";
+//		}
 	}
-	// ㅇㅇㅇ
 	
+		
+		
+		
 }

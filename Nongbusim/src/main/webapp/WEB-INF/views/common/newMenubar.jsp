@@ -87,22 +87,23 @@
 	    white-space: nowrap;
 	}
 	.search-form{
-	    min-width: 180px;
+	    min-width: 400px;
 	    max-width: 230px;
 	    height: 40px;
 	    padding-left: 15px;
 	    background-color: rgb(247, 247, 247);
 	    border-radius: 10px;
+	    
 	}
 
 	.inner{
-	    max-width: 200px;
+	    max-width: 400px;
 	    height: 100%;
 	    display: flex;
 	    align-items: center;
 	}
 	.search-text{
-	 max-width: 200px;
+		 max-width: 300px;
 
 	    color: rgb(178, 178, 178);
 	    font-size: 14px;
@@ -112,24 +113,56 @@
 	    margin-top: 1px;
 	}
 	#searchbox{
-	text-align: left;
-	 max-width: 100px;
-	  height: 100%;
-	  background: none;
-	  border: none;
-	  font-size: 10pt;
-	  float: left;
-	  color: #262626;
-	    -webkit-border-radius: 5px;
-	  -moz-border-radius: 5px;
-	  border-radius: 5px;
+		text-align: left;
+		 width: 300px;
+		  height: 100%;
+		  background: none;
+		  border: none;
+		  font-size: 10pt;
+		  float: left;
+		  color: #262626;
+		    -webkit-border-radius: 5px;
+		  -moz-border-radius: 5px;
+		  border-radius: 5px;
   
-    -webkit-transition: background .55s ease;
-  -moz-transition: background .55s ease;
-  -ms-transition: background .55s ease;
-  -o-transition: background .55s ease;
-  transition: background .55s ease;
+	    -webkit-transition: background .55s ease;
+	  -moz-transition: background .55s ease;
+	  -ms-transition: background .55s ease;
+	  -o-transition: background .55s ease;
+	  transition: background .55s ease;
 	}
+	
+	#recommendations{
+	 		z-index: 1;
+            background-color: white;
+            position: absolute;
+            top: 40px;
+            width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+	
+	}
+	
+	
+	.item {
+			height: 1.8em;
+			width: 220px;
+			outline: none;
+	}
+	
+	.item:hover {
+		color: #9baec8;
+	}
+	
+	.text {
+		font-weight: bold;
+	}
+		
+	
+ 	.invisible {
+	display: none;
+	} 
+	
 	.user-list{
 	    width: 100%;
 	    margin: 0px;
@@ -197,11 +230,13 @@
                     <li><a href="">공지/정보</a></li>
                     
                     <!-- 진짜 검색창 -->
-                    <li class="search-form" style="margin-left: 400px;">
+                    <li class="search-form" style="margin-left: 100px;">
                         <div class="inner">
                             <img id="search" src="https://w7.pngwing.com/pngs/870/689/png-transparent-computer-icons-desktop-illustrations-miscellaneous-glass-desktop-wallpaper.png" alt="" width="16" height="16">
                             <span class="search-text"><input name="keyword" id="searchbox" placeholder="여기에 검색해 보세요" ></span>
-                        	<div id="recommendations"></div>
+                        	<div id="recommendations" class="invisible">
+                        		
+                        	</div>
                         </div>
                     </li>
                     
@@ -245,8 +280,15 @@
         </div>
     </div>
     <script>
-    /* ---------------검색 ajax----------------------*/
+    /* ---------------키워드 추천 ajax----------------------*/
    $("#searchbox").keyup(function(){
+	   
+	   var keyword = $('#keyword');
+	   var recommendations = $('#recommendations');
+	   var texts = $('.text');
+	   
+	   
+	   
 	   $.ajax({
 	        method: 'GET',
 	        dataType: 'JSON',
@@ -257,6 +299,30 @@
 	        success: function(data){
 	            console.log(data);
 
+	            if(data.length>0){
+	            	$('#recommendations').removeClass("invisible");
+	            	
+	            	var result ="";
+	            	
+	            	for(var i=0; i<data.length; i++){
+						if (data[i] !=null ){
+	            		result += '<div class="item"><span class="text">'+data[i]+'</span></div>';
+						}
+	            	}
+	            		$('#recommendations').html(result); 
+	            		
+	            		//recommendations에 동적으로 생성된 결과물(검색 키워드)을 추가하고
+	            		//키워드 중 하나를 클릭하면, 해당 값이 검색 input에 뜨도록
+	            		// 동적으로 생성된 요소에 이벤트걸기
+	            		
+	            		$(document).on("click", '.text', function(){ // on 이벤트로 변경
+								var text = $(this).html();
+								console.log($("#recommendations").addClass("invisible"));
+								$('#searchbox').val(text);
+						});
+	            		
+	            	
+	            }
 	        },
        		error: function(){
            	console.log("실패");
@@ -266,7 +332,7 @@
     		
     
    $("#search").click(function(){
-	   
+	   location.href= "search.me"
    });
     
     

@@ -9,10 +9,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
                                                                                        
     <style>
+        	.container{
+	    	padding-left:25%;
+   			margin: 0px;
+        	}
             .content {
                 background-color:rgb(247, 245, 245);
-                width:80%;
-                margin:auto;
+                width : 100%;
+                margin:left;
             }
             .innerOuter {
                 border:1px solid lightgray;
@@ -50,7 +54,7 @@
 </head>
 <body>
    <jsp:include page="myPageFarmerCommon.jsp" />
-       
+      <div class="container"> 
         <div class="content" align="center">
                <br>
                 <h2>내가 작성한 프로그램</h2>
@@ -107,6 +111,7 @@
             </table>
             </div>
         </div>
+       </div> 
         
           <script>
                $(function(){
