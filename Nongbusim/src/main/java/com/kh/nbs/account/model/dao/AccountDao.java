@@ -81,8 +81,12 @@ public class AccountDao {
 		return sqlSession.selectOne("accountMapper.selectListCount", account);
 	}
 
-	public int deleteSelected(SqlSessionTemplate sqlSession, List<String> checkboxArr) {
-		return sqlSession.update("accountMapper.deleteSelected",checkboxArr);
+	public int deleteCheckedAccountNo(SqlSessionTemplate sqlSession, List<String> checkboxArr) {
+		return sqlSession.update("accountMapper.deleteCheckedAccountNo",checkboxArr);
+	}
+
+	public int deleteCheckedAttachment(SqlSessionTemplate sqlSession, List<String> checkboxArr) {
+		return sqlSession.update("accountMapper.deleteCheckedAttachment",checkboxArr);
 	}
 
 

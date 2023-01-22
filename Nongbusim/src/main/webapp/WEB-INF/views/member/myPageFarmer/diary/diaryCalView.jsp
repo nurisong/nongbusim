@@ -59,7 +59,7 @@
 <jsp:include page="../myPageFarmerCommon.jsp" />
 	<div class="container">
 	   <div class="title">
-			<h3>영농일지 내역</h3>
+			<h3>🌿영농일지 내역</h3>
 			<a class=likeButton href="list.di">모아보기</a><a class=likeButton href="enrollForm.di">작성하기</a><br>
 	  </div>
 	  <br><br><br>

@@ -85,8 +85,13 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public int deleteSelected(List<String> checkboxArr) {
-		return accountDao.deleteSelected(sqlSession,checkboxArr);
+	public int deleteCheckedAccountNo(List<String> checkboxArr) {
+		return accountDao.deleteCheckedAccountNo(sqlSession,checkboxArr);
+	}
+
+	@Override
+	public int deleteCheckedAttachment(List<String> checkboxArr) {
+		return accountDao.deleteCheckedAttachment(sqlSession,checkboxArr);
 	}
 
 }
