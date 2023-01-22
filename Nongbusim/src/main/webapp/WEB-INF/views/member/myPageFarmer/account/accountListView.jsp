@@ -11,7 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<title>Insert title here</title>
+<title>입출금장부 모아보기</title>
 
 <style>
 
@@ -114,7 +114,7 @@
     
     
    .myButton{ 
- 		    background-color: #FFA500;
+ 		    background-color: #cddc39;
      		color: maroon;
      		text-align: center;
      		text-decoration: none;
@@ -135,8 +135,6 @@
     }
     
     
-    
-	
 	
 	button{
 	    padding:5px 5px;
@@ -145,18 +143,15 @@
 	    heigh:30px;
 		font-size: 14px;
 	    border: white;
-	    background-color: lightgray;
+	    background-color: #c5e1a5;
    		color: black;
    		text-decoration: none;
    		border-radius: 5px;   
  
 	}
-		.title {
-		margin: 0px;
-		display: flex;
-		align-items: center;
-		text-align: center;
-		
+	
+	button:hover{
+		background-color: forestgreen;
 	}
 	.likeButton{
 	    display: flex;
@@ -174,9 +169,32 @@
    		border-radius: 5px;   
  
 	}
-	 
+		.title {
+		margin: 0px;
+		display: flex;
+		align-items: center;
+		text-align: center;
+		
+	}
+
 	 ul, li{
-        margin: 0px;
+        ma	.likeButton{
+	    display: flex;
+	    padding:5px 5px;
+	    margin: 5px;
+	    width: 50px; 
+	    heigh:30px;
+		font-size: 10px;
+	    border: white;
+	    background-color: #388e3c;
+   		color: white;
+   		text-align: center;
+   		justify-content: center;
+   		text-decoration: none;
+   		border-radius: 5px;   
+ 
+	}
+	 rgin: 0px;
         padding: 0px;
         list-style: none;
     }
@@ -187,8 +205,8 @@
 <div class="container">
 
 	<div class="title">
-		<h3>🗓농작물입출금 모아보기 </h3>
-		<a class=likeButton href="calView.ac">달력보기</a><a class=likeButton href="enrollForm.ac">작성하기</a><br>
+		<h3>🌱농작물입출금 모아보기 </h3>
+		<a class="likeButton" href="calView.ac">달력보기</a><a class="likeButton" href="enrollForm.ac">작성하기</a><br>
 	</div><br>
 <!--조회기간 설정 후, "검색"버튼 누를 시 ajax 실행 -->
 
@@ -350,7 +368,7 @@
 			},
 			success: function(list){
 				var result =
-					'<tr><th><input type="checkbox" id="checkAll" name="checkAll"></th><th>날짜</th><th>구분</th><th>분류</th><th>품목</th><th>금액</th><th>내용</th></tr>';
+					'<tr style="background-color:#f1f8e9"><th><input type="checkbox" id="checkAll" name="checkAll"></th><th>날짜</th><th>구분</th><th>분류</th><th>품목</th><th>금액</th><th>내용</th></tr>';
 				// 만약 돌아온 list가 없다면, 마지막에 list.add()로 pi를 넣어뒀으므로
 				// list[0] 엔 pi가, list[1] 부터는 비어있을 것
 				if(list[1] != null ){

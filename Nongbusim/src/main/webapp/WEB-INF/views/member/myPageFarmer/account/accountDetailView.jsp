@@ -9,67 +9,40 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<title>게시글 상세보기</title>
+<title>입출금장부 상세보기</title>
 <style>
-
-	
-	body { 
-		width: 1200px;
-		margin: auto;
-	
-	}
-
-	.outer {
-		border: 1px dashed gray;
-		margin : auto 10px;
-		padding: 30px;
-	
-
-	}
 	.container{
-		padding-left:25%;
-	}
-
-	.list-area{
-		text-align :center; 
-		border : 1px solid white;
+		padding-left:25%;		
+		margin: 0px;
 	}
 	
-	.list-area>tbody>tr:hover{
-		cursor : pointer;
-		background: darkgreen
-	}
-	
-	.certExp>div {	
-		align: left;
-		display: inline-block;
-		margin 10px;
-		border: 1px solid red;
+	main {
+		margin : auto;
+
 
 	}
-	.certDetail {
 	
+	
+	.category-area{
+		display: grid;
+		grid-template-columns: 100px 300px;
+ 		grid-template-rows: repeat(5, 40px);
+ 		grid-template-areas:'a b '
+							'c d'
+							'e f'
+							'g h'
+							'i j';
+		background-color: #f1f8e9;
+		padding : 20px 20px;
 	}
-	.selectPhoto{
-		align :center;			
-		display: inline-block;
-		margin-right: 10px;
-		border: 1px solid red;
-		
+	.category-area > div{
+		text-align:left;
+	}
+	
+	.detail-area {
+		padding: 20px 0px 0px 0px
 	}
 
-	.likeButton {
-		display: inline-block;
-        padding: 10px 10px;
-        background-color:aliceblue;		
-        text-align: center;
-        cursor: pointer;
-        margin-right: 20px;
-        border-radius: 5px;
-        width: 150px;
-        font-weight: bolder;
-		
-	}
 	
 	.textBox{
 		padding: 30px 30px;
@@ -83,171 +56,185 @@
 
 	
 	}
+
+ 	.button-area {
+ 		display:flex;
+ 		justify-content:center;
+ 		
+
+ 	}
 	
-	 th, td {
-
-	padding-top: 10px;
-    padding-bottom: 20px;
-    padding-right: 20px;
-    padding-left: 20px;
-    }
-    
-    img {
-    	border-radius: 5px;
-    
-    }
-    	
-    	
-   .myButton{ 
- 		    background-color: #FFA500;
-     		color: maroon;
-     		padding: 5px 10px;
-     		text-align: center;
-     		text-decoration: none;
-     		display: inline-block;
-     		border-radius: 5px;
-   			border : none;
-    }
-    .likeButton {
-        padding: 10px 10px;
-        background-color:aliceblue;	
-        text-align: center;
-        cursor: pointer;
-        margin-right: 20px;
-        border-radius: 5px;
-
+	 button, .button-area a {	 
+	 	margin: 5px;
+	    width: 80px;
+	    heigh: 30px;
+		font-size: 15px;
+		color: white;
+	    border: white;
+	    background-color: #388e3c;
+   		text-decoration: none;
+   		text-align: center;
+   		border-radius: 5px;   
+ 		
 	}
-	#likeIcon{
 
-	  -webkit-appearance: none;
-	  -moz-appearance: none;
-	  appearance: none;
 	
-	}
-	
-	.outer img{
-		 width: 250px;
-        height: 150px;
-        border-radius: 5px;		
+	/* 이미지 슬라이드 */
+	li> img {
+		width: 640px;
+    	height: 460px;
 		object-fit: cover;
-	
 	}
 	
-	#likeTable td{
+	.slider{
+    width: 640px;
+    height: 480px;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden; /* 현재 슬라이드 오른쪽에 위치한 나머지 슬라이드 들이 보이지 않도록 가림 */
+	}
+	.slider input[type=radio]{
+	    display: none;
+	}
+	ul.imgs{
+	    padding: 0;
+	    margin: 0;
+	    list-style: none;   
+	   
+	}
+	ul.imgs li{
+	    position: absolute;
+	    left: 640px;
+	    transition-delay: 1s; /* 새 슬라이드가 이동해 오는 동안 이전 슬라이드 이미지가 배경이 보이도록 지연 */
+	
+	    padding: 0;
+	    margin: 0;
+	}
 		
-		padding: 5px 5px 5px 5px
-	
+	.bullets{
+	    position: absolute;
+	    left: 50%;
+	    transform: translateX(-50%);
+	    bottom: 20px;
+	    z-index: 2;
 	}
-	
-	#accountTable div {
-		padding: 20px;
-		width : 800px;
-		height: 500px;
-		background-color: #EAEAEA;
-		border-radius: 5px;
-	
-	
+	.bullets label{
+	    display: inline-block;
+	    border-radius: 50%;
+	    background-color: rgba(0,0,0,0.55);
+	    width: 20px;
+	    height: 20px;
+	    cursor: pointer;
 	}
+	/* 현재 선택된 불릿 배경 흰색으로 구분 표시 */
+	.slider input[type=radio]:nth-child(1):checked~.bullets>label:nth-child(1){
+	    background-color: #fff;
+	}
+	.slider input[type=radio]:nth-child(2):checked~.bullets>label:nth-child(2){
+	    background-color: #fff;
+	}
+	.slider input[type=radio]:nth-child(3):checked~.bullets>label:nth-child(3){
+	    background-color: #fff;
+	}
+	.slider input[type=radio]:nth-child(4):checked~.bullets>label:nth-child(4){
+	    background-color: #fff;
+	}
+		
+	.slider input[type=radio]:nth-child(1):checked~ul.imgs>li:nth-child(1){
+	    left: 0;
+	    transition: 0.5s;
+	    z-index:1;
+	}
+	.slider input[type=radio]:nth-child(2):checked~ul.imgs>li:nth-child(2){
+	    left: 0;
+	    transition: 0.5s;
+	    z-index:1;
+	}
+	.slider input[type=radio]:nth-child(3):checked~ul.imgs>li:nth-child(3){
+	    left: 0;
+	    transition: 0.5s;
+	    z-index:1;
+	}
+	.slider input[type=radio]:nth-child(4):checked~ul.imgs>li:nth-child(4){
+	    left: 0;
+	    transition: 0.5s;
+	    z-index:1;
+	}
+		
+	
+	
+	
 </style>
 
 
 </head>
 <body>
 <jsp:include page="../myPageFarmerCommon.jsp" />
-	<div class="container">
+<div class="container">
+	<main>
 	<form action="updateForm.ac" method="post">
 		<input type="hidden" name="memNo" value="${ loginUser.memNo }">
 		<input type="hidden" name="ano" value="${ account.accountNo }">				
-	<h1 align ="left">&nbsp;&nbsp;🗓영농일지 상세보기</h1>
-	<br>
-	<div class="outer"><br>	
-		<table id="detail-area" align="center" width="1100px">
-			<tr>
-				<td  class="likeButton" >
-					<div>유형
-					</div>
-				</td>
-				<td>
-					<div>
-						${account.type }
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					<div>✔등록일</div>
-					<input id="createDate" type="text" value="${account.createDate }"disabled>
-				</td>	
-			</tr>
-			<tr>
-				<td  class="likeButton" >
-					<div>카테고리
-					</div>
-				</td>
-				<td>
-					<div>
-						${account.accountCategory }
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td  class="likeButton" >
-					<div>품목
-					</div>
-				</td>
-				<td>
-					<div>
-						${account.goods }
-					</div>
-				</td>
-			</tr>
-			<tr>	
-				<td  class="likeButton" >
-					<div>
-						금액
-					</div>
-				</td>
-				<td>${account.amount }</td>
-			</tr>
-		</table>
-		<table id="accountTable">
-			<tr>	
-				<td><h3>소비내역</h3></td>
-			</tr>
-			<tr>
-				<td style="padding:30px" colspan="3">
-					<div>
-					${account.accountContent }
-					</div>
-				</td>
-			</tr>
- 			<c:if test="${not empty aAtList }" >
-				<tr>
-					<td><h3>업로드이미지</h3></td>
-				</tr>
-				<tr>			
-					<c:forEach var="item" items="${ aAtList}">
-						<td>
-							<img width="180" height="150" onclick="window.open(this.src);" src="${item.changeName }">					
-						</td>
+		<h3 "style=align:left;">🌱입출금장부 보기</h3>	<br>	
+		<hr style="width: 700px; color:lightgray">
+		<div class="category-area" align="center" width="1100px">
+			<div style="grid-area:a;">등록일</div>
+			<div style="grid-area:b;"><input id="createDate" type="text" value="${account.createDate }"disabled></div>
+			<div style="grid-area:c;">유형</div>
+			<div style="grid-area:d;">${account.type }</div>
+			<div style="grid-area:e;" >카테고리</div>
+			<div  style="grid-area:f;">${account.accountCategory }</div>
+		 	<div  style="grid-area:g;" >품목</div>
+			<div  style="grid-area:h;">${account.goods }</div>
+			<div  style="grid-area:i;">금액	</div>
+			<div style="grid-area:j;">${account.amount }원</div>
+		</div><br><br>
+		<div class="detail-area">
+			<div><h3>소비내역</h3></div>
+			<div style="background-color:#f5f5f5; width:100%; padding: 40px 20px;">${account.accountContent }</div><br><br><br>
+			<c:if test="${not empty aAtList }" >
+				<div><h3>업로드이미지</h3></div>
+				<div class="slider">					
+					<c:forEach var="item" items="${ aAtList}"  varStatus="status" >
+						<c:choose>
+							<c:when test="${status.count eq 1 }">
+							 	<input type="radio" name="slide" id="slide${status.count}" checked>
+						 	</c:when>
+						 	<c:otherwise>
+						 		<input type="radio" name="slide" id="slide${status.count}">
+						 	</c:otherwise>	
+						 </c:choose>
 					</c:forEach>
-				</tr>
+					<ul id="imgholder" class="imgs">		 
+					<c:forEach var="item" items="${ aAtList}"  varStatus="status" >	 
+						  <li><img onclick="window.open(this.src);" src="${item.changeName }"></li>	
+					</c:forEach>
+					</ul>
+					<div class="bullets">	
+						<c:forEach var="item" items="${ aAtList}"  varStatus="status" >	 
+							   <label for="slide${status.count}">&nbsp;</label>
+						</c:forEach>	  		
+					</div>
+				</div>		 
 			</c:if>
-		</table>
-		
-		<br>
-		<div align="center">
-			<a href="${pageContext.request.contextPath }/list.ac" class= "likeButton">목록으로</a><br><br>	
-			<button class="myButton">수정하기</button>
-		</form>	
-		<form action="delete.ac" >
-			<input type="hidden" name="accountNo" value="${account.accountNo }">
-			<button class="myButton">삭제하기</button>
-		</form>
 		</div>	
+	</form><br>
+	<div class="button-area">
+		<form action="list.ac" method="post" >
+			<div><button>목록으로</button></div>
+		</form>
+		<form action="updateForm.ac" method="post" >
+			<input type="hidden" name="ano" value="${account.accountNo }">	
+			<div><button>수정하기</button></div>
+		</form>	
+		<form action="delete.ac" method="post" >
+			<input type="hidden" name="ano" value="${account.accountNo }">
+			<input type="hidden" name="att" value="${aAtList}">			
+			<div><button>삭제하기</button></div>
+		</form>		
 	</div>
-
-	<br><br><br>
+	</main>
+</div><br><br><br>
 </body>
 	
 </html>
