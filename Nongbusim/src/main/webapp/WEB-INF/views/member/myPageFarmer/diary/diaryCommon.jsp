@@ -1,19 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<jsp:include page="../myPageFarmerCommon.jsp" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <title>Insert title here</title>
-</head>
-<body>
-	<script src="https://kit.fontawesome.com/aa839e973e.js" crossorigin="anonymous"></script>   
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 <title>영농일지</title>
 <style>
 
@@ -57,7 +53,9 @@
 </style>
 </head>
 <body> 
+<jsp:include page="../myPageFarmerCommon.jsp" />
 <div id="myPage">
+
 	<h3>마이페이지</h3>
 	<div class="menuArea"  style="width:200px; height:150px; border:1px solid red; float:left;">
 		<button class="menuButton">내가 작성한 게시글</button><br>

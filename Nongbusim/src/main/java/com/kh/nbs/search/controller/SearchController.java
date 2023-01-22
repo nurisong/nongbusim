@@ -43,9 +43,7 @@ public class SearchController {
 	@RequestMapping("search.me")
 	public ModelAndView searchList(ModelAndView mv) {
 
-		mv.addObject("searchList", (ArrayList<HashMap>)accountService.selectCatAndGoods(memNo))
-          .setViewName("member/myPageFarmer/account/accountListView");
-		
+
 		return mv;		
 	}
 	

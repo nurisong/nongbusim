@@ -22,8 +22,6 @@
 <!-- 메뉴바 -->
 <jsp:include page="myPageFarmerCommon.jsp"/>
 
-<br>
-
     <form action="updateFarmer.me" id="form-div" method="post">
 	<h3>회원정보 수정</h3>
 	  <hr>

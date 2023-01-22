@@ -12,7 +12,8 @@
 <title>Insert title here</title>
 <style>
 	.container{
-		padding-left:20%;
+		padding-left:25%;
+		margin: 0px;
 	}
 	
 </style>
@@ -24,7 +25,7 @@
     <div class="container">
         <h3>내가 작성한 마켓글</h3>
         <hr>
-        <table id="boardList" class="table table-bordered table-sm">
+        <table id="boardList" class="table table-bordered table-sm" style="margin:0px">
           <thead>
             <tr style="text-align:center">
               <th>카테고리</th>

@@ -12,7 +12,8 @@
 <title>Insert title here</title>
 <style>
 	.container{
-		padding-left:20%;
+		padding-left:25%;
+		margin: 0px;
 	}
 </style>
 </head>

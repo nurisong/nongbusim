@@ -93,6 +93,7 @@
 	    padding-left: 15px;
 	    background-color: rgb(247, 247, 247);
 	    border-radius: 10px;
+	    
 	}
 
 	.inner{

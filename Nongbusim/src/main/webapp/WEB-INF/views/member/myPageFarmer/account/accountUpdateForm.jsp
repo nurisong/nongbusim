@@ -1,18 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
-
-<jsp:include page="../myPageFarmerCommon.jsp" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <title>Insert title here</title>
 </head>
 
 <style>
-  
+	.container{
+		padding-left:25%;
+	}
 	.textBox{
 		padding: 10px 10px;
 		border: 10px 10px;
@@ -88,6 +91,8 @@
 	
 </style>
 <body>
+<jsp:include page="../myPageFarmerCommon.jsp" />
+<div class="container">
 	<div class="boardArea" style="width:1000px; height:1000px; border:1px solid green; float:left"  >	
 		<h1>가계부 수정</h1>
 			<form action="update.ac" id="enroll-form" method="post" enctype="multipart/form-data">
@@ -262,7 +267,7 @@
 					</div>			
 			</form>
 	</div>
-	
+</body>	
 	<script>
 	function loadImg(inputFile, num){				
 				
