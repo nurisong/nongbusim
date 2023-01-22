@@ -257,7 +257,7 @@
 	
 <div id="listArea" style="clear:both; margin:20px 0px;">
 	<div>
-		<button>선택삭제</button>
+		<button onclick="deleteSelected();">선택삭제</button>
 		<button>선택수정</button>
 		<button>엑셀 다운로드</button>
 	</div>
@@ -446,11 +446,7 @@
 			var total = $('input:checkbox[name=accountNo]').length;
 			var checked = $('input:checkbox[name="accountNo"]:checked').length;
 			
-			
-			
-			console.log(total);
-			console.log(checked);
-			
+
 			
 			if(total != checked) {
 				$("#checkAll").prop("checked", false);
@@ -465,6 +461,33 @@
 	});
 	
 	// 동적으로 생성된 체크박스 제어하기
+	
+	//"선택삭제"를 누를 시 동작하는 함수 및 ajax
+	function deleteSelected(){
+	  var checkboxArr = []; 
+	  $('input:checkbox[name="accountNo"]:checked').each(function() {
+	  checkboxArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+	  console.log(checkboxArr);
+	});
+	
+	  $.ajax({
+	      type  : "POST",
+	      url    : "deleteSelected.ac",
+	      data: {
+	      checkboxArr : checkboxArr        // folder seq 값을 가지고 있음.
+	      },
+	      success: function(result){
+	      	console.log(result);
+	      	alert(result);
+	      	selectAccountList();
+	      	
+	      },
+	      error: function() {
+	      	alert('실패');
+	      }  
+	   });
+	}
+		
 	
 
  
