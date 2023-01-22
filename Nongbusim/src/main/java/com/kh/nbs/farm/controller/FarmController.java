@@ -65,13 +65,13 @@ public class FarmController {
 		map.put("keyword", keyword);
 		map.put("order", order);
 		
-		PageInfo pi = Pagination.getPageInfo(farmService.selectSearchListCount(map), currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(farmService.selectFarmCount(map), currentPage, 10, 5);
 
 		mv.addObject("pi", pi);
 		mv.addObject("atList", farmService.selectAttachmentList()); // 첨부파일
 		mv.addObject("programList", farmService.selectProgramList()); // 프로그램
 		mv.addObject("map", map);
-		mv.addObject("farmList", farmService.selectSearchList(pi, map)).setViewName("farm/farmListView");
+		mv.addObject("farmList", farmService.selectFarmList(pi, map)).setViewName("farm/farmListView");
 		
 		return mv;
 	}

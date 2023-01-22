@@ -128,7 +128,7 @@
                 <form action="list.fm" method="get">
                     <input type="hidden" name="lco" value="${map.localCode}">
 
-                    <select class="custom-select" name="condition">
+                    <select class="custom-select" name="condition" id="condition-select">
                         <option value="all">전체</option>
                         <option value="farmName">농장 이름</option>
                         <option value="crop">작물</option>
@@ -199,7 +199,7 @@
                                         <dd>${farm.phone}<br><br></dd>
                                         <dt>대표 작물</dt>
                                         <dd>
-                                            <div><a href="">${farm.crop}</a></div>
+                                            <div>${farm.crop}</div>
                                             <br>
                                         </dd>
 
@@ -259,7 +259,9 @@
 
     <script>
         $(function(){
-            $('#order-select option[id="' + ${map.order} + ']"').attr('selected', true);
+            $('#order-select').val('${map.order}').prop('selected', true);
+            $('#condition-select').val('${map.condition}').prop('selected', true);
+            $('#search-input').val('${map.keyword}');
         })
     </script>
 </body>

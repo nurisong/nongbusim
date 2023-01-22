@@ -24,18 +24,13 @@ public class FarmServiceImpl implements FarmService {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int selectFarmCount() {
-		return farmDao.selectFarmCount(sqlSession);
-	}
-	
-	@Override
-	public int selectFarmCount(String localCode) {
-		return farmDao.selectFarmCount(localCode, sqlSession);
+	public int selectFarmCount(HashMap<String, String> map) {
+		return farmDao.selectFarmCount(map, sqlSession);
 	}
 
 	@Override
-	public ArrayList<Farm> selectFarmList(PageInfo pi, String localCode) {
-		return farmDao.selectFarmList(pi, localCode, sqlSession);
+	public ArrayList<Farm> selectFarmList(PageInfo pi, HashMap<String, String> map) {
+		return farmDao.selectFarmList(pi, map, sqlSession);
 	}
 	
 	@Override
