@@ -45,6 +45,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="NOW_HEADCOUNT" property="nowHeadCount"/>
 	</resultMap>
 	
+	<resultMap id="marketResultSet" type="market">
+		<result column="MARKET_NO" property="marketNo"/>
+		<result column="MK_CATEGORY" property="marketCategory"/>
+		<result column="MK_TITLE" property="marketTitle"/>
+		<result column="MK_PRICE" property="marketPrice"/>
+		<result column="MK_INTRO" property="marketIntro"/>
+		<result column="MK_CONTENT" property="marketContent"/>
+		<result column="MK_ENROLLDATE" property="marketEnrollDate"/>
+		<result column="MK_COUNT" property="marketCount"/>
+		<result column="MK_STATUS" property="marketStatus"/>
+		<result column="MEM_NO" property="memNo"/>
+	</resultMap>
+
+	<select id="selectMyFarmList" resultMap="farmResultSet">
+		SELECT 
+		    	 FARM_NO
+		    	,FARMER
+		    	,FARM_NAME
+		    	,LOCAL_CODE
+		    	,ADDRESS
+		    	,PHONE
+		    	,CREATE_DATE
+		    	,STATUS
+		    	,CROP
+		  FROM
+		 		 FARM
+		 WHERE 
+		    	 FARMER = #{memNo}
+		   AND
+		  		 STATUS = 'Y'
+		 ORDER
+		 	BY
+		 		 CREATE_DATE
+	</select>
+	
 	<select id="selectFarmCount" resultType="_int">
 		SELECT
 				COUNT(*)
@@ -83,28 +118,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	 WHERE
 	 	   		CROP LIKE '%'||#{keyword}||'%'
 	 	 </if>	
-	</select>
-
-	<select id="selectMyFarmList" resultMap="farmResultSet">
-		SELECT 
-		    	 FARM_NO
-		    	,FARMER
-		    	,FARM_NAME
-		    	,LOCAL_CODE
-		    	,ADDRESS
-		    	,PHONE
-		    	,CREATE_DATE
-		    	,STATUS
-		    	,CROP
-		  FROM
-		 		 FARM
-		 WHERE 
-		    	 FARMER = #{memNo}
-		   AND
-		  		 STATUS = 'Y'
-		 ORDER
-		 	BY
-		 		 CREATE_DATE
 	</select>
 	
 	<select id="selectFarmList" resultMap="farmResultSet">
@@ -151,7 +164,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	 		FARM_NO DESC
 	 	 </if>
 	 	 <if test="order == 'name'">
-	 	 		FARM_NAME DESC
+	 	 		FARM_NAME
 	 	 </if>
 	</select>
 	
@@ -238,12 +251,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				mem_no,
 				status
 
-			from
+		  from
 				program
-			where
+		 where
 				status = 'Y'
-			and
+	       and
 				farm_no = #{farmNo}
+	</select>
+	
+	<select id="selectMarket" resultMap="marketResultSet">
+		SELECT
+				 MARKET_NO
+				,MK_TITLE
+				,MK_PRICE
+		  FROM
+		  		 MARKET
+		 WHERE
+		 		 MK_STATUS = 'Y'
+		   AND
+		   		 MEM_NO = #{memNo}
+	</select>
+	
+	<select id="selectMarketAt" resultMap="attachmentResultSet">
+		SELECT
+				 FILE_NO
+				,ORIGIN_NAME
+				,CHANGE_NAME
+				,BOARD_NO
+		  FROM
+		  		 ATTACHMENT
+		 WHERE 
+		 		 BOARD_TYPE = 'mk'
+		   AND
+		   		 BOARD_NO IN
+		<foreach collection="list" item="mk" open="(" separator="," close=")">
+				 #{mk.marketNo}		
+		</foreach>
+		   		
 	</select>
 	
 	<insert id="insertFarm" parameterType="farm">
@@ -376,78 +420,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE
 		 		FARM_NO = #{farmNo}
 	</update>
-	
-	<select id="selectSearchListCount" resultType="_int">
-		SELECT
-				COUNT(*)
-	 	  FROM
-	 	  		(
-	 	  		SELECT
-	 	  				 FARM_NAME
-	 	  				,CROP
-	 	  		  FROM
-	 	  				 FARM
-	 	 		 WHERE
-	 	 				 STATUS = 'Y'
-	 	 		<if test="localCode != 'all'">
-	 	   		  AND
-	 	   				 LOCAL_CODE = #{localCode}
-	 	 		</if>
-	 	 		)
-	 	<if test="condition == 'all'">
-	 	 WHERE
-	 	 		FARM_NAME LIKE '%'||#{keyword}||'%'
-	 	 	OR
-	 	 		CROP LIKE '%'||#{keyword}||'%'
-	 	</if> 
-	 	<if test="condition == 'farmName'">
-	 	WHERE
-	 	   		FARM_NAME LIKE '%'||#{keyword}||'%'
-	 	</if>
-	 	<if test="condition == 'crop'">
-	 	 WHERE
-	 	   		CROP LIKE '%'||#{keyword}||'%'
-	 	</if>	 	   		
-	</select>
-	
-	<select id="selectSearchList" resultMap="farmResultSet">
-		SELECT
-				*
-		  FROM
-				(
-				SELECT
-						 FARM_NO
-				    	,FARMER
-				    	,FARM_NAME
-				    	,LOCAL_CODE
-				    	,ADDRESS
-				    	,PHONE
-				    	,CREATE_DATE
-				    	,STATUS
-				    	,CROP
-			 	  FROM
-			 	  		FARM
-			 	 WHERE
-			 	 		STATUS = 'Y'
-			 	 <if test="localCode != 'all'">
-			 	   AND
-			 	   		LOCAL_CODE = #{localCode}
-			 	 </if>
-			 	)
-	 	<if test="condition == 'all'">
-	 	 WHERE
-	 	 		FARM_NAME LIKE '%'||#{keyword}||'%'
-	 	 	OR
-	 	 		CROP LIKE '%'||#{keyword}||'%'
-	 	 </if> 
-	 	 <if test="condition == 'farmName'">
-	 	 WHERE
-	 	   		FARM_NAME LIKE '%'||#{keyword}||'%'
-	 	 </if>
-	 	 <if test="condition == 'crop'">
-	 	 WHERE
-	 	   		CROP LIKE '%'||#{keyword}||'%'
-	 	 </if>	
-	</select>
 
 </mapper>

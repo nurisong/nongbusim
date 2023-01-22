@@ -22,13 +22,11 @@
     text-decoration: none;
     color: rgb(142, 141, 141);
 }
-#insert-btn{float: right;}
-#insert-btn:hover{cursor: pointer;}
-.member-table>tbody>tr:hover{cursor: pointer;}
-.member-area{height: 350px;}
-.custom-select{width: 100px;}
-.form-control{width: 300px;}
-.select, .text{display: inline-block;}
+.member-table>tbody>tr:hover{ cursor: pointer; }
+.member-area{ min-height: 350px; }
+.custom-select{ width: 100px; }
+.form-control{ width: 300px; }
+.select, .text{ display: inline-block; }
 </style>
 </head>
 <body>

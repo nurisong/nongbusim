@@ -12,6 +12,7 @@ import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.farm.model.dao.FarmDao;
 import com.kh.nbs.farm.model.vo.Farm;
+import com.kh.nbs.market.model.vo.Market;
 import com.kh.nbs.program.model.vo.Program;
 
 @Service
@@ -43,10 +44,6 @@ public class FarmServiceImpl implements FarmService {
 		return farmDao.selectProgramList(sqlSession);
 	}
 	
-	@Override
-	public ArrayList<Program> selectProgram(int farmNo){
-		return farmDao.selectProgram(farmNo, sqlSession);
-	}
 	
 	@Override
 	public ArrayList<Farm> selectMyFarmList(int memNo) {
@@ -63,10 +60,20 @@ public class FarmServiceImpl implements FarmService {
 		return farmDao.selectAttachment(farmNo, sqlSession);
 	}
 
-//	@Override
-//	public int insertAttachment(Attachment a) {
-//		return farmDao.insertAttachment(a, sqlSession);
-//	}
+	@Override
+	public ArrayList<Program> selectProgram(int farmNo){
+		return farmDao.selectProgram(farmNo, sqlSession);
+	}
+	
+	@Override
+	public ArrayList<Market> selectMarket(int memNo){
+		return farmDao.selectMarket(memNo, sqlSession);
+	}
+	
+	@Override
+	public ArrayList<Attachment> selectMarketAt(ArrayList<Market> mkList){
+		return farmDao.selectMarketAt(mkList, sqlSession);
+	}
 
 	@Override
 	public int insertFarm(Farm f) {

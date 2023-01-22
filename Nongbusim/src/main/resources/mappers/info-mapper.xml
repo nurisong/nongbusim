@@ -28,28 +28,80 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectList" resultMap="infoResultSet">
 		SELECT
-				 INFO_NO
-				,CATEGORY
-				,INFO_TITLE
-				,INFO_CONTENT
-				,TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') as "CREATE_DATE"
-				,COUNT
+				*
 		  FROM
-				 INFO_BOARD
+		  		(
+				 SELECT
+						 INFO_NO
+						,CATEGORY
+						,INFO_TITLE
+						,INFO_CONTENT
+						,TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') as "CREATE_DATE"
+						,COUNT
+				  FROM
+						INFO_BOARD
+				 WHERE
+						STATUS = 'Y'
+				<if test="category != 'all'">
+				   AND 
+				   		CATEGORY = #{category}
+				</if>
+				)
+		<if test="condition == 'all'">
 		 WHERE
-				 STATUS = 'Y'
+				INFO_CONTENT LIKE '%'||#{keyword}||'%'
+			OR
+				INFO_TITLE LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'title'">
+		 WHERE 
+				INFO_TITLE LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'content'">
+		 WHERE
+				INFO_CONTENT LIKE '%'||#{keyword}||'%'
+		</if>
 		 ORDER
-		    BY
-		    	INFO_NO DESC
+	 	 	BY
+	 	 <if test="order == 'recent'">
+	 	 		INFO_NO DESC
+	 	 </if>
+	 	 <if test="order == 'name'">
+	 	 		INFO_TITLE
+	 	 </if>
 	</select>
 	
 	<select id="selectListCount" resultType="_int">
 		SELECT
 				COUNT(*)
-		  FROM
-				INFO_BOARD
+		  FROM 
+		  		(
+		  		SELECT 
+						 INFO_TITLE
+						,INFO_CONTENT
+				  FROM
+						 INFO_BOARD
+				 WHERE
+				 		 STATUS = 'Y'
+				<if test="category != 'all'">
+				   AND
+		   				 CATEGORY = #{category}
+				</if>
+				)
+		<if test="condition == 'all'">
 		 WHERE
-				STATUS = 'Y'
+				INFO_CONTENT LIKE '%'||#{keyword}||'%'
+			OR
+				INFO_TITLE LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'title'">
+		 WHERE
+				INFO_TITLE LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'content'">
+		 WHERE
+				INFO_CONTENT LIKE '%'||#{keyword}||'%'
+		</if>
 	</select>
 	
 	<update id="increaseCount">

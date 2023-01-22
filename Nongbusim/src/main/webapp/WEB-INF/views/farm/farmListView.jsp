@@ -15,14 +15,9 @@
         width: 100%;
         font-family: 'Pretendard-Regular';
     }
-    .farm-area{
-        min-height: 300px;
-    }
-    .farm-list-area{
-        width: 900px;
-    }
+    .farm-area{ min-height: 300px; }
+    .farm-list-area{ width: 900px; }
     #farm-list-title{
-        /* float: left; */
         margin-right: 500px;
         margin-bottom: 50px;
     }
@@ -38,10 +33,7 @@
         padding: 0px;
         list-style: none;
     }
-    .area-selection-list{
-        /* float: left; */
-        width: 700px;
-    }
+    .area-selection-list{ width: 700px; }
     .area-selection-list li{
         display: inline-block;
         width: 20%;
@@ -55,12 +47,8 @@
         font-family: 'Pretendard-Regular';
         margin-top: 20px;
     }
-    .farm-main-title{
-        margin: 20px 490px 20px 0px;
-    }
-    .farm-info-table{
-        width: 800px;
-    }
+    .farm-main-title{ margin: 20px 490px 20px 0px; }
+    .farm-info-table{ width: 800px; }
     .farm-info-table tr{
         height: 310px;
         border-bottom: 1px solid rgb(227, 227, 227);
@@ -73,24 +61,12 @@
         width: 700px;
         padding: 20px;
     }
-    .crop-img{
-        width: 100px;
-    }
-    .farm-info-table dt, .farm-info-table dd{
-        display: inline;
-    }
-    .farm-info-table h3{
-        font-weight: bold;
-    }
-    .farm-info-icon{
-        width: 18px;
-    }
-    .farm-info h4 {
-        font-weight: bold;
-    }
-    .farm-info a{
-        color: black;
-    }
+    .crop-img{ width: 100px; }
+    .farm-info-table dt, .farm-info-table dd{ display: inline; }
+    .farm-info-table h3{ font-weight: bold; }
+    .farm-info-icon{ width: 18px; }
+    .farm-info h4 { font-weight: bold; }
+    .farm-info a{ color: black; }
     #search-input{
         width: 300px;
         display: inline-block;
@@ -101,16 +77,17 @@
         box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.05);
         width: 680px;
     }
-    .area-selection-list a{
-        color: black;
-    }
+    .area-selection-list a{ color: black; }
     .search-title{
         font-size: 23px;
         margin-right: 500px;
     }
-    .custom-select{
-        width: 100px;
+    .custom-select{ width: 100px; }
+    #order-area{
+        margin-top: 40px;
+        margin-right: 50px;
     }
+    #page-area a{ color: black; }
 </style>
 </head>
 <body>
@@ -164,8 +141,8 @@
             <div>
                 <div id="order-area" style="float: right;">
                     <select class="custom-select" id="order-select" name="order" onchange="location.href=this.value">
-                        <option id="recent" value="list.fm?lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}&order=recent" selected>최신순</option>
-                        <option id="name" value="list.fm?lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}&order=name">이름순</option>
+                        <option name="recent" value="list.fm?lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}&order=recent" selected>최신순</option>
+                        <option name="name" value="list.fm?lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}&order=name">이름순</option>
                     </select>
                 </div>
             </div>
@@ -239,15 +216,15 @@
             <div id="page-area">
                 <ul class="pagination justify-content-center">
                     <c:if test="${pi.currentPage ne 1}">
-                        <li class="page-item"><a class="page-link" href="list.fm?cpage=${pi.currentPage - 1}&lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}">이전</a></li>
+                        <li class="page-item"><a class="page-link" href="list.fm?cpage=${pi.currentPage - 1}&lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}&order=${map.order}">이전</a></li>
                     </c:if>
 
                     <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-                        <li class="page-item"><a class="page-link" href="list.fm?cpage=${p}&lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}">${p}</a></li>
+                        <li class="page-item"><a class="page-link" href="list.fm?cpage=${p}&lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}&order=${map.order}">${p}</a></li>
                     </c:forEach>    
                     
                     <c:if test="${pi.maxPage ne pi.currentPage}">
-                        <li class="page-item"><a class="page-link" href="list.fm?cpage=${pi.currentPage + 1}&lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}">다음</a></li>
+                        <li class="page-item"><a class="page-link" href="list.fm?cpage=${pi.currentPage + 1}&lco=${map.localCode}&condition=${map.condition}&keyword=${map.keyword}&order=${map.order}">다음</a></li>
                     </c:if>
                 </ul>
             </div>
@@ -259,7 +236,7 @@
 
     <script>
         $(function(){
-            $('#order-select').val('${map.order}').prop('selected', true);
+            $('#order-select option[name=' + "${map.order}" + ']').prop('selected',true);
             $('#condition-select').val('${map.condition}').prop('selected', true);
             $('#search-input').val('${map.keyword}');
         })

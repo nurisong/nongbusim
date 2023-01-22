@@ -253,7 +253,7 @@
                     	<c:otherwise>
                     		<c:choose>
                     			<c:when test="${ loginUser.memStatus eq 'A' }">
-                    				 <li class="username"><a href="">관리자페이지 ></a></li>
+                    				 <li class="username"><a href="mList.ad">관리자페이지 ></a></li>
 									 <li class="logout"><a href="logout.me">로그아웃</a></li>
                     			</c:when>
                     			<c:otherwise>

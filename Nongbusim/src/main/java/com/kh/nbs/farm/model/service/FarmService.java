@@ -7,13 +7,14 @@ import java.util.List;
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.farm.model.vo.Farm;
+import com.kh.nbs.market.model.vo.Market;
 import com.kh.nbs.program.model.vo.Program;
 
 public interface FarmService {
 	
 	// 1. 농장 리스트 조회 서비스 + 페이징 처리(select)
 	// 1-1) 농장 총 개수 조회
-	int selectFarmCount(HashMap<String, String> map); // lco있는 경우
+	int selectFarmCount(HashMap<String, String> map);
 	// 1-2) 농장 리스트 조회
 	// **프로그램, 판매품목 연결
 	ArrayList<Farm> selectFarmList(PageInfo pi, HashMap<String, String> map);
@@ -34,6 +35,8 @@ public interface FarmService {
 	Farm selectFarm(int farmNo);
 	ArrayList<Attachment> selectAttachment(int farmNo);
 	ArrayList<Program> selectProgram(int farmNo);
+	ArrayList<Market> selectMarket(int memNo); // 추후 farmNo조회로 수정
+	ArrayList<Attachment> selectMarketAt(ArrayList<Market> mkList); // 추후 farmNo조회로 수정
 	
 	// 5. 농장 삭제 서비스(update)
 	int deleteFarm(int farmNo);
