@@ -10,15 +10,15 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
-.outer{font-family: 'Pretendard-Regular';}
+.outer{ font-family: 'Pretendard-Regular'; }
 .main-area{
     width: 1200px;
     padding: 50px;
 }
-.main-area>h1{float: left;}
-#list-btn{float: right;}
-#list-btn:hover{cursor: pointer;}
-.board-area{height: 350px;}
+.main-area>h1{ float: left; }
+#list-btn{ float: right; }
+#list-btn:hover{ cursor: pointer; }
+.board-area{ height: 350px; }
 </style>
 </head>
 <body>
@@ -73,6 +73,8 @@
                             <td colspan="3"><input type="text" class="form-control" required name="source"></td>
                         </tr> -->
                     </table>
+
+                    <input type="checkbox" name="important" id=""> 중요공지 <br><br>
 
                     <button type="submit" class="btn btn-secondary">등록하기</button>
                     <a class="btn btn-secondary" href="list.if">취소하기</a>

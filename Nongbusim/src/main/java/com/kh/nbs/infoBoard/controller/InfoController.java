@@ -37,19 +37,22 @@ public class InfoController {
 	
 	@RequestMapping("list.if")
 	public String infoListView(@RequestParam(value="cpage", defaultValue="1") int currentPage,
-							   @RequestParam(value="ctg", defaultValue="all") String category,
+							   @RequestParam(value="ctg", required=false, defaultValue="all") String category,
 							   @RequestParam(value="condition", required=false, defaultValue="all") String condition,
 							   @RequestParam(value="keyword", required=false, defaultValue="") String keyword,
+							   @RequestParam(value="order", defaultValue="recent") String order,
 							   Model model) {
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("category", category);
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("order", order);
 		
-		PageInfo pi = Pagination.getPageInfo(infoService.selectSearchListCount(map), currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(infoService.selectListCount(map), currentPage, 10, 5);
 		model.addAttribute("pi", pi);
-		model.addAttribute("infoList", infoService.selectList(pi));
+		model.addAttribute("map", map);
+		model.addAttribute("infoList", infoService.selectList(pi, map));
 		
 		return "infoBoard/infoBoardListView";
 	}
@@ -154,26 +157,6 @@ public class InfoController {
 			return "redirect:detail.if?ino=" + ino;
 		}
 	}
-	
-	@RequestMapping("search.if")
-	public String selectSearchList(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
-			   					   @RequestParam(value="ctg", defaultValue="all") String category,
-			   					   String condition, String keyword, Model model) {
-		
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("category", category);
-		map.put("condition", condition);
-		map.put("keyword", keyword);
-		
-		PageInfo pi = Pagination.getPageInfo(infoService.selectSearchListCount(map), currentPage, 10, 5);
-		
-		model.addAttribute("pi", pi);
-		model.addAttribute("infoList", infoService.selectSearchList(pi, map));
-		model.addAttribute("map", map);
-		
-		return "infoBoard/infoBoardListView";
-	}
-	
 	
 	@ResponseBody
 	@RequestMapping(value="monthTech.if", produces="text/xml; charset=UTF-8")

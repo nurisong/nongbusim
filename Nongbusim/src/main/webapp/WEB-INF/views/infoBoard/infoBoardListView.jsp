@@ -10,25 +10,28 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
-.outer{font-family: 'Pretendard-Regular';}
-.main-area{
-    width: 1200px;
-    padding: 50px;
-}
-.info-menu{
-    color: rgb(178, 178, 178);
-}
-.info-menu>a:hover{
-    text-decoration: none;
-    color: rgb(142, 141, 141);
-}
-#insert-btn{float: right;}
-#insert-btn:hover{cursor: pointer;}
-.info-table>tbody>tr:hover{cursor: pointer;}
-.board-area{min-height: 350px;}
-.custom-select{width: 100px;}
-.form-control{width: 300px;}
-.select, .text{display: inline-block;}
+    .outer{ font-family: 'Pretendard-Regular'; }
+    .main-area{
+        width: 1200px;
+        padding: 50px;
+    }
+    .info-menu{ color: rgb(178, 178, 178); }
+    .info-menu>a:hover{
+        text-decoration: none;
+        color: rgb(142, 141, 141);
+    }
+    #insert-btn{ float: right; }
+    #insert-btn:hover{ cursor: pointer; }
+    .info-table>tbody>tr:hover{ cursor: pointer; }
+    .board-area{ min-height: 350px; }
+    .custom-select{ width: 100px; }
+    .form-control{ width: 300px; }
+    .select, .text{ display: inline-block; }
+    #order-area{
+        margin: 40px 50px 30px 0px;
+        float: left;
+    }
+    #page-area a{ color: black; }
 </style>
 </head>
 <body>
@@ -51,17 +54,26 @@
             <form id="searchForm" action="list.if" method="get" align="center">
                 <div class="select">
                     <input type="hidden" name="ctg" value="${map.category}">
-                    <select class="custom-select" name="condition">
+                    <select class="custom-select" name="condition"  id="condition-select" >
                         <option value="all">전체</option>
                         <option value="title">제목</option>
                         <option value="content">내용</option>
                     </select>
                 </div>
                 <div class="text">
-                    <input type="text" class="form-control" name="keyword">
+                    <input type="text" class="form-control" name="keyword" id="search-input">
                 </div>
                 <button type="submit" class="searchBtn btn btn-secondary">검색</button>
             </form>
+
+            <div>
+                <div id="order-area">
+                    <select class="custom-select" id="order-select" name="order" onchange="location.href=this.value">
+                        <option name="recent" value="list.if?ctg=${map.category}&condition=${map.condition}&keyword=${map.keyword}&order=recent" selected>최신순</option>
+                        <option name="name" value="list.if?ctg=${map.category}&condition=${map.condition}&keyword=${map.keyword}&order=name">제목순</option>
+                    </select>
+                </div>
+            </div>
 
             <c:if test="${loginUser.memStatus eq 'A'}">
                 <a class="btn btn-secondary" id="insert-btn" href="enrollForm.if">글작성</a>
@@ -100,26 +112,20 @@
                 </c:if>
             </div>
 
-            <form action="">
-                <input type="hidden" name="category" value="${map.category}">
-                <input type="hidden" name="condition" value="${map.condition}">
-                <input type="hidden" name="keyword" value="${map.keyword}">
-            </form>
-
             <br><br>
             <!-- 페이지처리하는 영역-->
             <div id="page-area">
                 <ul class="pagination justify-content-center">
                     <c:if test="${pi.currentPage ne 1}">
-                        <li class="page-item"><a class="page-link" href="list.if?cpage=${pi.currentPage - 1}&ctg=${map.category}&condition=${map.condition}&keyword=${map.keyword}">이전</a></li>
+                        <li class="page-item"><a class="page-link" href="list.if?cpage=${pi.currentPage - 1}&ctg=${map.category}&condition=${map.condition}&keyword=${map.keyword}&order=${map.order}">이전</a></li>
                     </c:if>
 
                     <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-                        <li class="page-item"><a class="page-link" href="list.if?cpage=${p}&ctg=${map.category}&condition=${map.condition}&keyword=${map.keyword}">${p}</a></li>
+                        <li class="page-item"><a class="page-link" href="list.if?cpage=${p}&ctg=${map.category}&condition=${map.condition}&keyword=${map.keyword}&order=${map.order}">${p}</a></li>
                     </c:forEach>    
                     
                     <c:if test="${pi.maxPage ne pi.currentPage}">
-                        <li class="page-item"><a class="page-link" href="list.if?cpage=${pi.currentPage + 1}&ctg=${map.category}&condition=${map.condition}&keyword=${map.keyword}">다음</a></li>
+                        <li class="page-item"><a class="page-link" href="list.if?cpage=${pi.currentPage + 1}&ctg=${map.category}&condition=${map.condition}&keyword=${map.keyword}&order=${map.order}">다음</a></li>
                     </c:if>
                 </ul>
             </div>
@@ -127,6 +133,12 @@
     </div>
 
     <script>
+        $(function(){
+            $('#order-select option[name=' + "${map.order}" + ']').prop('selected',true);
+            $('#condition-select').val('${map.condition}').prop('selected',true);
+            $('#search-input').val('${map.keyword}');
+        })
+        
         $('.info-table>tbody>tr').click(function(){
             location.href="detail.if?ino=" + $(this).children('.ino').text();
 

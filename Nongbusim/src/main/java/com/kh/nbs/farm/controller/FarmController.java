@@ -3,7 +3,6 @@ package com.kh.nbs.farm.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,6 +22,7 @@ import com.kh.nbs.common.template.Pagination;
 import com.kh.nbs.common.template.SaveFile;
 import com.kh.nbs.farm.model.service.FarmService;
 import com.kh.nbs.farm.model.vo.Farm;
+import com.kh.nbs.market.model.vo.Market;
 import com.kh.nbs.member.model.vo.Member;
 
 @Controller
@@ -42,7 +42,6 @@ public class FarmController {
 	 * @param keyword
 	 * @param condition
 	 * @param order
-	 * @param mv
 	 * @return
 	 */
 	@RequestMapping("list.fm")
@@ -52,12 +51,6 @@ public class FarmController {
 									   @RequestParam(value="condition", required=false, defaultValue="all") String condition,
 									   @RequestParam(value="order", required=false, defaultValue="recent") String order,
 									   ModelAndView mv) {
-		
-		System.out.println(localCode);
-		System.out.println(keyword);
-		System.out.println(condition);
-		System.out.println(order);
-		
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("localCode", localCode);
@@ -79,8 +72,18 @@ public class FarmController {
 	@RequestMapping("detail.fm")
 	public String selectFarm(int fno, Model model) {
 		
-		model.addAttribute("farm", farmService.selectFarm(fno));
+		// 이건 selectMarket(fno)로 바꾸면 없앨 코드들
+		Farm farm = farmService.selectFarm(fno);
+		int memNo = farm.getFarmer();
+		ArrayList<Market> mkList = farmService.selectMarket(memNo);
+		
+		//System.out.println(mkList);
+		//System.out.println(farmService.selectMarketAt(mkList));
+		
+		model.addAttribute("farm", farm);
 		model.addAttribute("programList", farmService.selectProgram(fno));
+		model.addAttribute("mkList", mkList);
+		model.addAttribute("mkAtList", farmService.selectMarketAt(mkList));
 		model.addAttribute("atList", farmService.selectAttachment(fno));
 		
 		return "farm/farmDetailView";
