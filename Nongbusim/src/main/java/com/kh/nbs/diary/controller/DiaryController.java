@@ -170,15 +170,16 @@ public class DiaryController {
 
 	// 영농일지 상세페이지에서 "수정" 버튼 누를시 수정 폼을 띄워주는 메소드
 	@RequestMapping("updateForm.di")
-	public ModelAndView updateDiaryForm(String dno, String memNo, ModelAndView mv) {
+	public ModelAndView updateDiaryForm(String dno, HttpSession session, ModelAndView mv) {
 		// update할때 필요한 정보들은 diaryDetailView에서 필요한 Service메소드 + categoryList Serviec메소드
 		// 동일 메소드로 재활용하기
 		int diaryNo = Integer.parseInt(dno);
-		int memberNo = Integer.parseInt(memNo);
-
+		int memNo = ((Member) session.getAttribute("loginUser")).getMemNo();
+		
+		
 		mv.addObject("diary", diaryService.selectDiary(diaryNo)).addObject("dAtList",
 				diaryService.selectAttachmentList(diaryNo));
-		mv.addObject("categoryList", diaryService.selectCategoryList(memberNo));
+		mv.addObject("categoryList", diaryService.selectCategoryList(memNo));
 		mv.setViewName("member/myPageFarmer/diary/diaryUpdateForm");
 		return mv;
 
@@ -242,18 +243,30 @@ public class DiaryController {
 	}
 
 	@RequestMapping("delete.di")
-	public ModelAndView deleteDiary(int diaryNo, ModelAndView mv, HttpSession session) {
-		if (diaryService.deleteDiary(diaryNo) * diaryService.deleteAttachment(diaryNo) > 0) {
-			session.setAttribute("alertMsg", "영농일지가 삭제되었습니다");
-			mv.setViewName("redirect:list.di");
+	public ModelAndView deleteDiary(int diaryNo,  @RequestParam(value="att") String attatchment, ModelAndView mv, HttpSession session) {
+		
+		if( attatchment.equals("[]")){
+			if (diaryService.deleteDiary(diaryNo) >0) {
+				session.setAttribute("alertMsg", "영농일지가 삭제되었습니다");
+				mv.setViewName("redirect:list.di");
+			} else {
+				session.setAttribute("alertMsg", "영농일지 삭제에 실패하였습니다.");
+				mv.setViewName("common/errorPage");			
+			}
+			
 		} else {
-			session.setAttribute("alertMsg", "영농일지 삭제에 실패하였습니다.");
-			mv.setViewName("common/errorPage");
+			if(diaryService.deleteDiary(diaryNo)*diaryService.deleteAttachment(diaryNo)>0) {
+				session.setAttribute("alertMsg", "영농일지가 삭제되었습니다");
+				mv.setViewName("redirect:list.di");
+			} else {
+				session.setAttribute("alertMsg", "영농일지 삭제에 실패하였습니다.");
+				mv.setViewName("common/errorPage");			
+			}
+			
 		}
-		return mv;
-
-	}
-
+			return mv;	
+		
+	}	
 	
 
 	@RequestMapping("calView.di")

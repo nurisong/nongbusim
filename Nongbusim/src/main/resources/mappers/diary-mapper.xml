@@ -193,7 +193,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where		
 			diary_no  = #{diaryNo}	
 	</update>
-	<update id="deleteAttschment" parameterType="_int">
+	<update id="deleteAttachment" parameterType="_int">
 	update
 			attachment
 	set

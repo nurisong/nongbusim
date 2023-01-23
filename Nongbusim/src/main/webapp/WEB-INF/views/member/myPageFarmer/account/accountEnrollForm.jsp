@@ -223,169 +223,122 @@
 
 	
 	
-/* 	----------------------------------------------- */
-	
-	
-	
-	
-	.filebox .upload-name {
-	
-	   display: inline-block;
-	   height: 40px;
-	   padding: 0 10px;
-	   vertical-align: middle;
-	   border: 1px solid #dddddd;
-	   width: 78%;
-	   color: #999999;
-	}
-	
-	.filebox label {
-	    display: inline-block;
-	    padding: 5px 10px;
-	    color: #fff;
-	    vertical-align: middle;
-	    background-color: #999999;
-	    cursor: pointer;
-	    height: 40px;
-	    width: 100px;
-	    margin: 10px;
-	    border-radius: 3%;
-	}
-	.filebox input[type="file"] {
-	    position: absolute;
-	    width: 0;
-	    height: 0;
-	    padding: 0;
-	    overflow: hidden;
-	    border: 0;
-	}
-
-  	.img-area img {
-		width: 200px;
-		height: 150px;
-		border-radius: 5%;
-		object-fit: cover;
-	}
-		  
-	
 </style>
 <body>
 <jsp:include page="../myPageFarmerCommon.jsp" />
 <div class="container">
 	<main>	
-		<h3 "style=align:left;">🌱입출금장부 등록</h3>	<br>	
-	
-	<form action="insert.ac" id="enroll-form" method="post" enctype="multipart/form-data">
-	<div class="category-area" align="center" width="1100px">
-		<div style="grid-area:a;">✔등록일</div>
-		<div style="grid-area:b;"><input id="createDate" name="createDate" type="date"></div>
-		<div style="grid-area:c;">✔유형</div>
-		
-		<div style="grid-area:d;">
-			<input type="radio" name="type" id="income" value="I" required><label for="income">수입</label>								
-			<input type="radio" name="type" id="outcome" value="O"><label for="outcome">지출</label>									
-		</div>	
-		<div style="grid-area:e;" >✔카테고리</div>
-		<div  style="grid-area:f;">
-			<div style="display:inline-block;">
-				<select id="accountCategory" name="accountCategory">		
-					<c:choose>
-					<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
-						<c:when test="${ not empty catAndGoods}">
-							<option value="selectAll" selected>전체</option>				
-							<c:forEach var="account" items="${catAndGoods}">
-								<c:if test="${account.accountCategory ne ' '}">
-									<option>${ account.accountCategory }</option>
-								</c:if>
-							</c:forEach>				
-						</c:when>
-						<c:otherwise>
-							<option value="noCategory">등록된 카테고리가 없습니다.</option>
-						</c:otherwise>
-					</c:choose>
-					<option id="enrollNewCategory" name="enrollNewCategory" value="newCategory">카테고리 신규입력</option>									
-				</select>
+		<h3 "style=align:left;">🌱입출금장부 등록</h3>	<br>		
+		<form action="insert.ac" id="enroll-form" method="post" enctype="multipart/form-data">
+			<div class="category-area" align="center" width="1100px">
+				<div style="grid-area:a;">✔등록일</div>
+				<div style="grid-area:b;"><input id="createDate" name="createDate" type="date"></div>
+				<div style="grid-area:c;">✔유형</div>
+				
+				<div style="grid-area:d;">
+					<input type="radio" name="type" id="income" value="I" required><label for="income">수입</label>								
+					<input type="radio" name="type" id="outcome" value="O"><label for="outcome">지출</label>									
+				</div>	
+				<div style="grid-area:e;" >✔카테고리</div>
+				<div  style="grid-area:f;">
+					<div style="display:inline-block;">
+						<select id="accountCategory" name="accountCategory">		
+							<c:choose>
+							<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
+								<c:when test="${ not empty catAndGoods}">
+									<option value="selectAll" selected>전체</option>				
+									<c:forEach var="account" items="${catAndGoods}">
+										<c:if test="${account.accountCategory ne ' '}">
+											<option>${ account.accountCategory }</option>
+										</c:if>
+									</c:forEach>				
+								</c:when>
+								<c:otherwise>
+									<option value="noCategory">등록된 카테고리가 없습니다.</option>
+								</c:otherwise>
+							</c:choose>
+							<option id="enrollNewCategory" name="enrollNewCategory" value="newCategory">카테고리 신규입력</option>									
+						</select>
+					</div>
+					<div>
+						<input type="hidden" id="newCategory" name="newCategory">
+					</div>
+				</div>				
+				<div  style="grid-area:g;" >✔품목</div>
+				<div  style="grid-area:h;">
+					<select id="goods" name="goods">		
+						<c:choose>
+						<%-- db에서 select해온 items(카테고리&품목이 담긴 hashmap)가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
+							<c:when test="${ not empty catAndGoods}">
+								<option value="selectAll" selected>전체</option>				
+								<c:forEach var="account" items="${catAndGoods}">
+									<c:if test="${account.goods  ne ' '}">
+										<option>${account.goods }</option>
+									</c:if>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<option value="noGoods">등록된 품목이 없습니다.</option>
+							</c:otherwise>
+						</c:choose>
+							<option id="enrollNewGoods" name="enrollNewGoods" value="newGoods">품목 신규입력</option>									
+							<input type="hidden" id="newGoods" name="newGoods">
+						</select>
+				</div>
+			
+				<div  style="grid-area:i;">✔금액</div>
+				<div style="grid-area:j;"><input id="amount" name="amount" type="text" maxlength="20" onkeyup="inputNumberFormat(this);" placeholder="숫자만 입력해주세요" /></div>			
+			</div>	
+			<br><br>
+			<h3>📸사진 등록하기<br></h3><br>
+			<div class="file-area" stype="width:100%; height: 100%;">
+				<div class="filebox">
+				    <input class="upload-name"  id="upload-name1" value="첨부파일" placeholder="첨부파일" >
+				    <label for="file1">파일찾기</label> 
+				    <input type="file" name="upfiles" id="file1" onchange="loadImg(this,1);">
+				</div>
+				<div class="img-area">
+						<img src="https://fl-1.cdn.flockler.com/embed/no-image.svg"  class="contentImg" id="contentImg1">
+				</div>
 			</div>
-			<div>
-				<input type="hidden" id="newCategory" name="newCategory">
+			<div class="file-area">	
+				<div class="filebox">
+				    <input class="upload-name"  id="upload-name2"  value="첨부파일" placeholder="첨부파일">
+				    <label for="file2">파일찾기</label> 
+				    <input type="file" name="upfiles" id="file2" onchange="loadImg(this,2);">
+				</div>
+				<div class="img-area">
+				<img src="https://fl-1.cdn.flockler.com/embed/no-image.svg" class="contentImg" id="contentImg2">
+				</div>
 			</div>
-		</div>				
-		<div  style="grid-area:g;" >✔품목</div>
-		<div  style="grid-area:h;">
-			<select id="goods" name="goods">		
-				<c:choose>
-				<%-- db에서 select해온 items(카테고리&품목이 담긴 hashmap)가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
-					<c:when test="${ not empty catAndGoods}">
-						<option value="selectAll" selected>전체</option>				
-						<c:forEach var="account" items="${catAndGoods}">
-							<c:if test="${account.goods  ne ' '}">
-								<option>${account.goods }</option>
-							</c:if>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<option value="noGoods">등록된 품목이 없습니다.</option>
-					</c:otherwise>
-				</c:choose>
-					<option id="enrollNewGoods" name="enrollNewGoods" value="newGoods">품목 신규입력</option>									
-					<input type="hidden" id="newGoods" name="newGoods">
-				</select>
-		</div>
-	
-		<div  style="grid-area:i;">✔금액</div>
-		<div style="grid-area:j;"><input id="amount" name="amount" type="text" maxlength="20" onkeyup="inputNumberFormat(this);" placeholder="숫자만 입력해주세요" /></div>			
+			<div class="file-area">	
+				<div class="filebox">
+				    <input class="upload-name" id="upload-name3" value="첨부파일" placeholder="첨부파일" >
+				    <label for="file3">파일찾기</label> 
+				    <input type="file" name="upfiles"  id="file3" onchange="loadImg(this,3);">
+				</div>
+				<div class="img-area">
+					<img src="https://fl-1.cdn.flockler.com/embed/no-image.svg" class="contentImg" id="contentImg3">
+				</div>
+			</div>
+			<br><br>	
+			<h3>🖌글 작성하기<br></h3><br>
+			<div class="content-area">
+				<div> 		
+					<textarea name="accountContent"></textarea>
+				</div>	
+			</div>					
+			<div class="button-area">
+				<div><button class="myButton" id="enroll">등록하기</button></div>	
+				<div><a style="padding:5px;"href="javascript:history.back();">돌아가기</a></div>	
+			</div>
+			
+			<input type="hidden" name="nickName" value="${loginUser.nickName }" >
+			<input type="hidden" name="memNo" value="${loginUser.memNo}" >									
+	</form>
 	</div>	
-	<br><br>
-	<h3>📸사진 등록하기<br></h3><br>
-	<div class="file-area" stype="width:100%; height: 100%;">
-		<div class="filebox">
-		    <input class="upload-name"  id="upload-name1" value="첨부파일" placeholder="첨부파일" >
-		    <label for="file1">파일찾기</label> 
-		    <input type="file" name="upfiles" id="file1" onchange="loadImg(this,1);">
-		</div>
-		<div class="img-area">
-				<img src="https://fl-1.cdn.flockler.com/embed/no-image.svg"  class="contentImg" id="contentImg1">
-		</div>
-	</div>
-	<div class="file-area">	
-		<div class="filebox">
-		    <input class="upload-name"  id="upload-name2"  value="첨부파일" placeholder="첨부파일">
-		    <label for="file2">파일찾기</label> 
-		    <input type="file" name="upfiles" id="file2" onchange="loadImg(this,2);">
-		</div>
-		<div class="img-area">
-		<img src="https://fl-1.cdn.flockler.com/embed/no-image.svg" class="contentImg" id="contentImg2">
-		</div>
-	</div>
-	<div class="file-area">	
-		<div class="filebox">
-		    <input class="upload-name" id="upload-name3" value="첨부파일" placeholder="첨부파일" >
-		    <label for="file3">파일찾기</label> 
-		    <input type="file" name="upfiles"  id="file3" onchange="loadImg(this,3);">
-		</div>
-		<div class="img-area">
-			<img src="https://fl-1.cdn.flockler.com/embed/no-image.svg" class="contentImg" id="contentImg3">
-		</div>
-	</div>
-	<br><br>	
-	<h3>🖌글 작성하기<br></h3><br>
-	<div class="content-area">
-		<div> 		
-			<textarea name="accountContent"></textarea>
-		</div>	
-	</div>					
-	<div class="button-area">
-		<div><button class="myButton" id="enroll">등록하기</button></div>	
-		<div><a style="padding:5px;"href="javascript:history.back();">돌아가기</a></div>	
-	</div>
-	
-	<input type="hidden" name="nickName" value="${loginUser.nickName }" >
-	<input type="hidden" name="memNo" value="${loginUser.memNo}" >									
-</form>
-</div>	
 </main>
 </div>
-
 </body>
 	<script>
 	function loadImg(inputFile, num){

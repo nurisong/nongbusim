@@ -127,7 +127,7 @@
        events: all_events,
        
        eventClick: function(info) {
-           	location.href= "${pageContext.request.contextPath}/detail.ac?ano="+info.event.id;
+           	location.href= "${pageContext.request.contextPath}/detail.di?dno="+info.event.id;
           
        },
     	eventRender: function (event, element, icon) {

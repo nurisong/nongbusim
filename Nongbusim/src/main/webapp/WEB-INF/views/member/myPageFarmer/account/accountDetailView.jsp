@@ -172,9 +172,6 @@
 <jsp:include page="../myPageFarmerCommon.jsp" />
 <div class="container">
 	<main>
-	<form action="updateForm.ac" method="post">
-		<input type="hidden" name="memNo" value="${ loginUser.memNo }">
-		<input type="hidden" name="ano" value="${ account.accountNo }">				
 		<h3 "style=align:left;">🌱입출금장부 보기</h3>	<br>	
 		<hr style="width: 700px; color:lightgray">
 		<div class="category-area" align="center" width="1100px">
@@ -218,7 +215,7 @@
 				</div>		 
 			</c:if>
 		</div>	
-	</form><br>
+	<br>
 	<div class="button-area">
 		<form action="list.ac" method="post" >
 			<div><button>목록으로</button></div>

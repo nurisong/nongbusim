@@ -149,135 +149,134 @@
 <div class="container">
 	<main>
 		<h3 "style=align:left;">🌱입출금장부 수정</h3>	<br>
-	<form action="update.ac" id="enroll-form" method="post" enctype="multipart/form-data">
-	<div class="category-area" align="center" width="1100px">
-		<div style="grid-area:a;">✔등록일</div>
-		<div style="grid-area:b;"><input name="createDate" type="date" value="${account.createDate }"></div>
-		<div style="grid-area:c;">✔유형</div>
-		<div style="grid-area:d;">
-			<c:choose>
-				<c:when test="${ type eq 'I' }">
-					<input type="radio" name="type" id="income" value="I" checked><label for="income">수입</label>		
-					<input type="radio" name="type" id="outcome" value="O"><label for="outcome">지출</label>							
-				</c:when>
-				<c:otherwise>
-					<input type="radio" name="type" id="income" value="I" ><label for="income">수입</label>		
-					<input type="radio" name="type" id="outcome" value="O" checked><label for="outcome">지출</label>						
-				</c:otherwise>
-			</c:choose>							
-		</div>	
-		<div style="grid-area:e;" >✔카테고리</div>
-		<div  style="grid-area:f;">
-			<select name="accountCategory" id="accountCategory">
-				<c:choose>
-						<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
-					<c:when test="${ not empty catAndGoods}">
-						<c:forEach var="item" items="${catAndGoods}">
-							<c:if test="${item.accountCategory ne ' ' and item.accountCategory ne null }">
-								<c:choose>
-									<c:when test="${ account.accountCategory eq item.accountCategory }">
-										<option name="accountCategory" selected>${ item.accountCategory }</option>
-									</c:when>
-									<c:otherwise>
-										<option>${ item.accountCategory }</option>
-									</c:otherwise>
-								</c:choose>
-							</c:if>
-						</c:forEach>				
-					</c:when>
-					<c:otherwise>
-						<option value="noCategory">등록된 카테고리가 없습니다.</option>
-					</c:otherwise>
-				</c:choose>
-					<option id="enrollNewCategory" name="enrollNewCategory" value="newCategory">카테고리 신규입력</option>									
-				</select>
-				<input type="hidden" id="newCategory" name="newCategory">
-		</div>	
-		<div  style="grid-area:g;" >✔품목</div>
-		<div  style="grid-area:h;">
-			<select id="goods" name="goods">		
-				<c:choose>
-				<%-- db에서 select해온 items(카테고리&품목이 담긴 hashmap)가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
-					<c:when test="${ not empty catAndGoods}">
-						<option value="selectAll" selected>전체</option>				
-						<c:forEach var="item" items="${catAndGoods}">
-							<c:if test="${item.goods ne ' ' and item.goods ne null }">
-								<c:choose>
-									<c:when test="${ account.goods eq item.goods }">
-										<option selected>${ item.goods }</option>
-									</c:when>
-									<c:otherwise>
-										<option>${ item.goods }</option>
-									</c:otherwise>
-							</c:choose>
-							</c:if>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<option value="noGoods">등록된 품목이 없습니다.</option>
-					</c:otherwise>
-				</c:choose>
-				<option id="enrollNewGoods" name="enrollNewGoods" value="newGoods">품목 신규입력</option>									
-			</select>
-			<input type="hidden" id="newGoods" name="newGoods">
-		</div>	
-		<div  style="grid-area:i;">✔금액</div>
-		<div style="grid-area:j;"><input id="amount" name="amount" type="text" maxlength="10" onkeyup="inputNumberFormat(this);" value="${account.amount }" /></div>						
-	</div>
-	<br><br>
-	<h3>📸사진 수정하기<br></h3><br>
-		<!-- aAtList를 돌면서 수정전 파일이 존재할 경우 퍄일번호, 파일명을 input태그에 담아 넘김-->
-		<c:if test="${ aAtList ne null}">
-			<c:forEach var="at" items="${ aAtList}" varStatus="status">
-				<input type="hidden" name="beforeFileNo${status.count}" value="${at.fileNo }">
-				<input type="hidden" name="beforeFileName${status.count}" value="${at.originName }">
-				<input type="hidden" name="beforeFileChangeName${status.count}" value="${at.changeName }">
-			</c:forEach> 
-		</c:if>	
-		<c:if test="${ aAtList ne null }">
-			<c:forEach var="at" items="${ aAtList}" varStatus="status">
-				<div class="file-area" stype="width:100%; height: 100%;">		
-					<div class="filebox">
-				    	<input class="upload-name" id="upload-name${status.count}" value="${at.originName}" >
-				    	<label for="reUpfile${status.count}">파일찾기</label>		
-						<input type="file" name="reUpfiles" id="reUpfile${status.count}" onchange="loadImg(this,${status.count})">
-					</div>
-					<div class="img-area">
-						<img width="150" height="120" id="contentImg${status.count}" src="${at.changeName }">
-					</div>	
-				</div>		
-			</c:forEach>
-			<c:forEach var="at" begin="${fn:length(aAtList)+1}" end="3" varStatus="status">
-				<div class="file-area" stype="width:100%; height: 100%;">			
-					<div class="filebox">
-				    	<input class="upload-name" id="upload-name${fn:length(aAtList)+status.count}" value="첨부파일" placeholder="첨부파일" >
-				    	<label for="reUpfile${fn:length(aAtList)+status.count}">파일찾기</label> 						
-						<input type="file" name="reUpfiles" id="reUpfile${fn:length(aAtList)+status.count}" onchange="loadImg(this,${fn:length(aAtList)+status.count})">
-					</div>
-					<div class="img-area">
-						<img width="150" height="120" id="contentImg${fn:length(aAtList)+status.count}" src="https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg">
-					</div>
+		<form action="update.ac" id="enroll-form" method="post" enctype="multipart/form-data">
+			<div class="category-area" align="center" width="1100px">
+				<div style="grid-area:a;">✔등록일</div>
+				<div style="grid-area:b;"><input name="createDate" type="date" value="${account.createDate }"></div>
+				<div style="grid-area:c;">✔유형</div>
+				<div style="grid-area:d;">
+					<c:choose>
+						<c:when test="${ type eq 'I' }">
+							<input type="radio" name="type" id="income" value="I" checked><label for="income">수입</label>		
+							<input type="radio" name="type" id="outcome" value="O"><label for="outcome">지출</label>							
+						</c:when>
+						<c:otherwise>
+							<input type="radio" name="type" id="income" value="I" ><label for="income">수입</label>		
+							<input type="radio" name="type" id="outcome" value="O" checked><label for="outcome">지출</label>						
+						</c:otherwise>
+					</c:choose>							
 				</div>	
-			</c:forEach>
-		</c:if>			
-
-	<h3>🖌글 작성하기<br></h3><br>
-	<div class="content-area">			
-		<div> 		
-			<textarea name="accountContent">${account.accountContent}</textarea>
-		</div>					
-	</div>
-	<div class="button-area">
-		<button class="myButton" id="update">수정하기</button>	
-		<a class="myButton" href="javascript:history.back();">돌아가기</a>	
-	</div>
-	<input type="hidden" name="nickName" value="${loginUser.nickName }" >
-	<input type="hidden" name="memNo" value="${loginUser.memNo}" >
-	<input type="hidden" name="accountNo" value="${account.accountNo}" >
-			
-</form>
-</div>	
-</main>
+				<div style="grid-area:e;" >✔카테고리</div>
+				<div  style="grid-area:f;">
+					<select name="accountCategory" id="accountCategory">
+						<c:choose>
+								<%-- db에서 select해온 categroyList가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
+							<c:when test="${ not empty catAndGoods}">
+								<c:forEach var="item" items="${catAndGoods}">
+									<c:if test="${item.accountCategory ne ' ' and item.accountCategory ne null }">
+										<c:choose>
+											<c:when test="${ account.accountCategory eq item.accountCategory }">
+												<option name="accountCategory" selected>${ item.accountCategory }</option>
+											</c:when>
+											<c:otherwise>
+												<option>${ item.accountCategory }</option>
+											</c:otherwise>
+										</c:choose>
+									</c:if>
+								</c:forEach>				
+							</c:when>
+							<c:otherwise>
+								<option value="noCategory">등록된 카테고리가 없습니다.</option>
+							</c:otherwise>
+						</c:choose>
+							<option id="enrollNewCategory" name="enrollNewCategory" value="newCategory">카테고리 신규입력</option>									
+						</select>
+						<input type="hidden" id="newCategory" name="newCategory">
+				</div>	
+				<div  style="grid-area:g;" >✔품목</div>
+				<div  style="grid-area:h;">
+					<select id="goods" name="goods">		
+						<c:choose>
+						<%-- db에서 select해온 items(카테고리&품목이 담긴 hashmap)가 비어있지 않다면 반복문을 통해 select태그를 생성--%>
+							<c:when test="${ not empty catAndGoods}">
+								<option value="selectAll" selected>전체</option>				
+								<c:forEach var="item" items="${catAndGoods}">
+									<c:if test="${item.goods ne ' ' and item.goods ne null }">
+										<c:choose>
+											<c:when test="${ account.goods eq item.goods }">
+												<option selected>${ item.goods }</option>
+											</c:when>
+											<c:otherwise>
+												<option>${ item.goods }</option>
+											</c:otherwise>
+									</c:choose>
+									</c:if>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<option value="noGoods">등록된 품목이 없습니다.</option>
+							</c:otherwise>
+						</c:choose>
+						<option id="enrollNewGoods" name="enrollNewGoods" value="newGoods">품목 신규입력</option>									
+					</select>
+					<input type="hidden" id="newGoods" name="newGoods">
+				</div>	
+				<div  style="grid-area:i;">✔금액</div>
+				<div style="grid-area:j;"><input id="amount" name="amount" type="text" maxlength="10" onkeyup="inputNumberFormat(this);" value="${account.amount }" /></div>						
+			</div>
+			<br><br>
+			<h3>📸사진 수정하기<br></h3><br>
+				<!-- aAtList를 돌면서 수정전 파일이 존재할 경우 퍄일번호, 파일명을 input태그에 담아 넘김-->
+				<c:if test="${ aAtList ne null}">
+					<c:forEach var="at" items="${ aAtList}" varStatus="status">
+						<input type="hidden" name="beforeFileNo${status.count}" value="${at.fileNo }">
+						<input type="hidden" name="beforeFileName${status.count}" value="${at.originName }">
+						<input type="hidden" name="beforeFileChangeName${status.count}" value="${at.changeName }">
+					</c:forEach> 
+				</c:if>	
+				<c:if test="${ aAtList ne null }">
+					<c:forEach var="at" items="${ aAtList}" varStatus="status">
+						<div class="file-area" stype="width:100%; height: 100%;">		
+							<div class="filebox">
+						    	<input class="upload-name" id="upload-name${status.count}" value="${at.originName}" >
+						    	<label for="reUpfile${status.count}">파일찾기</label>		
+								<input type="file" name="reUpfiles" id="reUpfile${status.count}" onchange="loadImg(this,${status.count})">
+							</div>
+							<div class="img-area">
+								<img width="150" height="120" id="contentImg${status.count}" src="${at.changeName }">
+							</div>	
+						</div>		
+					</c:forEach>
+					<c:forEach var="at" begin="${fn:length(aAtList)+1}" end="3" varStatus="status">
+						<div class="file-area" stype="width:100%; height: 100%;">			
+							<div class="filebox">
+						    	<input class="upload-name" id="upload-name${fn:length(aAtList)+status.count}" value="첨부파일" placeholder="첨부파일" >
+						    	<label for="reUpfile${fn:length(aAtList)+status.count}">파일찾기</label> 						
+								<input type="file" name="reUpfiles" id="reUpfile${fn:length(aAtList)+status.count}" onchange="loadImg(this,${fn:length(aAtList)+status.count})">
+							</div>
+							<div class="img-area">
+								<img width="150" height="120" id="contentImg${fn:length(aAtList)+status.count}" src="https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg">
+							</div>
+						</div>	
+					</c:forEach>
+				</c:if>			
+		
+			<h3>🖌글 작성하기<br></h3><br>
+			<div class="content-area">			
+				<div> 		
+					<textarea name="accountContent">${account.accountContent}</textarea>
+				</div>					
+			</div>
+			<div class="button-area">
+				<button class="myButton" id="update">수정하기</button>	
+				<a class="myButton" href="javascript:history.back();">돌아가기</a>	
+			</div>
+			<input type="hidden" name="nickName" value="${loginUser.nickName }" >
+			<input type="hidden" name="memNo" value="${loginUser.memNo}" >
+			<input type="hidden" name="accountNo" value="${account.accountNo}" >
+		</form>
+	</div>	
+	</main>
 </div>
 </body>	
 	<script>
