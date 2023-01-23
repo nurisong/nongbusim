@@ -14,26 +14,24 @@ import com.kh.nbs.search.model.vo.Search;
 
 @Controller
 public class SearchController {
-	
-	@Autowired 
+
+	@Autowired
 	private SearchService searchService;
-	
-	//--------------------------------------------- 검색기능 --------------------------
-	
+
+	// --------------------------------------------- 검색기능 --------------------------
 
 	@RequestMapping("menubarTest.me")
 	public ModelAndView menubarTest(ModelAndView mv) {
 		mv.setViewName("common/menubar");
-		return mv;		
+		return mv;
 	}
-	
-	
+
 	// keyup시 검색
 	@ResponseBody
 	@RequestMapping(value = "recommend.me", produces = "application/json; charset=UTF-8")
 	public String recommendKeyword(Search search) {
-			return new Gson().toJson(searchService.recommendKeyword(search));
-		
+		return new Gson().toJson(searchService.recommendKeyword(search));
+
 	}
 
 	/*
@@ -60,26 +58,26 @@ public class SearchController {
 	 * 
 	 * return mv; }
 	 */
-	 @RequestMapping("search.me") 
-	 public ModelAndView searchList(ModelAndView mv, HttpSession session, String keyword) {
-		 System.out.println(keyword);
+	@RequestMapping("search.me")
+	public ModelAndView searchList(ModelAndView mv, HttpSession session, String keyword) {
+		System.out.println(keyword);
 		// 1. 일반게시판
-		//boardType S K, Q, M
+		// boardType S K, Q, M
+		System.out.println(searchService.selectBoardList(keyword));
+		System.out.println(searchService.selectFarmList(keyword));
+		System.out.println(searchService.selectInfoBoardList(keyword));
+		System.out.println(searchService.selectMarketList(keyword));
+		System.out.println(searchService.selectProgramList(keyword));
+
+		mv.addObject("boardList", searchService.selectBoardList(keyword));
+		mv.addObject("farmList", searchService.selectFarmList(keyword));
+		 mv.addObject("infoBoardList", searchService.selectInfoBoardList(keyword));
+		 mv.addObject("marketList", searchService.selectMarketList(keyword));
+		 mv.addObject("programList", searchService.selectProgramList(keyword));
 		 
-		 mv.addObject("boardList", searchService.selectBoardList());
-		 mv.addObject("farmList", searchService.selectFarmList());
-		 mv.addObject("infoBoardList", searchService.selectInfoBoardList());
-		 mv.addObject("marketList", searchService.selectMarketList());
-		 mv.addObject("programList", searchService.selectProgramList());
-		 mv.setViewName("search/searchList");
-		 
-		 System.out.println("boardList");
-		 System.out.println("farmList");
-		 System.out.println("marketList");
-		 System.out.println("programList");
-		 System.out.println("infoBoardList");
-		 return mv;
-		
-	
+		mv.setViewName("search/searchList");
+
+		return mv;
+
 	}
 }

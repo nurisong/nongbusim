@@ -25,28 +25,28 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public ArrayList<Search> selectBoardList() {
-		return searchDao.selectBoardList(sqlSession);
+	public ArrayList<Search> selectBoardList(String keyword) {
+		return searchDao.selectBoardList(sqlSession, keyword);
 	}
 
 	@Override
-	public ArrayList<Search> selectFarmList() {
-		return searchDao.selectFarmList(sqlSession);
+	public ArrayList<Search> selectFarmList(String keyword) {
+		return searchDao.selectFarmList(sqlSession, keyword);
 	}
 
 	@Override
-	public ArrayList<Search> selectInfoBoardList() {
-		return searchDao.selectInfoBoardList(sqlSession);
+	public ArrayList<Search> selectInfoBoardList(String keyword) {
+		return searchDao.selectInfoBoardList(sqlSession, keyword);
 	}
 
 	@Override
-	public ArrayList<Search> selectMarketList() {
-		return searchDao.selectMarketList(sqlSession);
+	public ArrayList<Search> selectMarketList(String keyword) {
+		return searchDao.selectMarketList(sqlSession, keyword);
 	}
 
 	@Override
-	public ArrayList<Search> selectProgramList() {
-		return searchDao.selectProgramList(sqlSession);
+	public ArrayList<Search> selectProgramList(String keyword) {
+		return searchDao.selectProgramList(sqlSession, keyword);
 	}
 	
 

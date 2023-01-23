@@ -220,7 +220,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- infoBoard쿼리 -->
 	
-	<select id="searchInfoBoard" resultMap="infoResultSet">
+	<select id="searchInfoBoardList" resultMap="infoResultSet">
 		select 
 		        info_no, category, info_title, info_content, create_date, count
 		from 
@@ -233,9 +233,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</select>
 	
-	<select id="searchMarket"  resultMap="marketResultSet">
+	<select id="searchMarketList"  resultMap="marketResultSet">
 		select 
-		        nickname, mem_no, mk_category, mk_title, mk_price, mk_intro, mk_content, mk_enrolldate
+		        market_no, nickname, mem_no, mk_category, mk_title, mk_price, mk_intro, mk_content, mk_enrolldate
 		from 
 		        market
 		join
@@ -251,21 +251,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!--board: board_type = s(자랑), q (질문), k(노하우), m (멘티)
 		board_type은 동적으로 가져가자 -->
-	<select id="searchBoard" resultMap="boardResultSet">
+	<select id="searchBoardList" resultMap="boardResultSet">
 	
-		select board_no, board_type board_title, board_content, create_date, board_writer        
+		select board_no, board_type, board_title, board_content, create_date, board_writer        
 		from 
 		        board
 		where  board_title like  '%'||#{keyword}||'%'
 		or board_content like '%'||#{keyword}||'%' 
 		or board_writer like '%'||#{keyword}||'%'
 		and status = 'Y'
-		and board_type = 'S'
 	
 	
 	
 	</select>
-	<select id="searchProgram" resultMap="programResultSet">
+	<select id="searchProgramList" resultMap="programResultSet">
 	
 		select 
 		        program_no, program_name, program_plan, program_hour, program_lecture, program_detail, program_location, status, sign_up
@@ -274,19 +273,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where program_name  like  '%'||#{keyword}||'%'
 		or program_lecture like '%'||#{keyword}||'%' 
 		or program_detail like '%'||#{keyword}||'%'
-		or program_location like ''%'||#{keyword}||'%''
+		or program_location like '%'||#{keyword}||'%'
 		and status = 'Y'
 	</select>
 	
-	<select id="searchFarm" resultMap="farmResultSet">
+	<select id="searchFarmList" resultMap="farmResultSet">
 		select 
-		        farm_name, address, crop, create_date, farm_intro
+		        farm_no, farm_name, address, crop, create_date, farm_intro
 		from 
 		        farm 
 		where farm_name  like  '%'||#{keyword}||'%'
 		or crop like '%'||#{keyword}||'%' 
 		or create_date like '%'||#{keyword}||'%'
-		or farm_intro like ''%'||#{keyword}||'%''
+		or farm_intro like '%'||#{keyword}||'%'
 		and status = 'Y'
 	
 	</select>

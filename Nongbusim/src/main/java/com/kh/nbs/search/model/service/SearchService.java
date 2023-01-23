@@ -9,15 +9,15 @@ public interface SearchService {
 
 	ArrayList recommendKeyword(Search search);
 
-	ArrayList<Search> selectBoardList();
+	ArrayList<Search> selectBoardList(String keyword);
 
-	ArrayList<Search> selectFarmList();
+	ArrayList<Search> selectFarmList(String keyword);
 
-	ArrayList<Search> selectInfoBoardList();
+	ArrayList<Search> selectInfoBoardList(String keyword);
 
-	ArrayList<Search>selectMarketList();
+	ArrayList<Search>selectMarketList(String keyword);
 
-	ArrayList<Search>selectProgramList();
+	ArrayList<Search>selectProgramList(String keyword);
 
 	
 }
