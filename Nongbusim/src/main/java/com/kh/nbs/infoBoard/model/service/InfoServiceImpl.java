@@ -72,6 +72,11 @@ public class InfoServiceImpl implements InfoService {
 	}
 	
 	@Override
+	public ArrayList<Info> selectMainList() {
+		return infoDao.selectMainList(sqlSession);
+	}
+	
+	@Override
 	public int selectSearchListCount(HashMap map) {
 		return infoDao.selectSearchListCount(map, sqlSession);
 	}

@@ -13,4 +13,5 @@ public class Info {
 	private String createDate;
 	private int count;
 	private String status;
+	private String changeName;
 }

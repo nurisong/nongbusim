@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				,MEM_STATUS
 				,FARMER_CODE
 		  FROM
-				MEMBER
+				 MEMBER
 	</select>
 	
 </mapper>

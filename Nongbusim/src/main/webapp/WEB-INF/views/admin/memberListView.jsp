@@ -37,13 +37,6 @@
         <div class="main-area">
 
             <h1>회원 관리</h1>
-            
-            <div class="menu-area">
-                <a href="#">전체</a> | 
-                <a href="#">농부신청</a> | 
-                <a href="#">신고회원</a> |
-                <a href="#">탈퇴회원</a> 
-            </div>
             <br><br>
 
             <form id="searchForm" action="search.ad" method="get" align="center">
@@ -60,7 +53,7 @@
                 </div>
                 <button type="submit" class="searchBtn btn btn-secondary">검색</button>
             </form>
-            
+
             <br><br><br>
             <div class="member-area">
                 <table class="table member-table">
@@ -71,7 +64,6 @@
                         <th>연락처</th>
                         <th>가입일</th>
                         <th>농부코드</th>
-                        <th>상태</th>
                     </thead>
                     <tbody align="center">
                         <c:forEach var="m" items="${mList}">
@@ -85,7 +77,6 @@
                                 <c:if test="${not empty m.farmerCode && m.memStatus == 'Y'}">
                                     <button class="btn btn-secondary accept-btn">수락</button>
                                 </c:if>
-                                <td>${m.memStatus}</td>
                             </tr>
                         </c:forEach>
                     </tbody>

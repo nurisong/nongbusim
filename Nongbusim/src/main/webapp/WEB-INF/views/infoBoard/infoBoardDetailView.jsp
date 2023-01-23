@@ -10,14 +10,14 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
-.outer{font-family: 'Pretendard-Regular';}
+.outer{ font-family: 'Pretendard-Regular'; }
 .main-area{
     width: 1200px;
     padding: 50px;
 }
-.main-area>h1{float: left;}
-#list-btn{float: right;}
-#list-btn:hover{cursor: pointer;}
+.main-area>h1{ float: left; }
+#list-btn{ float: right; }
+#list-btn:hover{ cursor: pointer; }
 </style>
 </head>
 <body>
@@ -37,7 +37,7 @@
                 <table class="table info-table">
                     <tr>
                         <th width="100">제목</th>
-                        <td colspan="3">${ info.infoTitle }</td>
+                        <td colspan="4">${ info.infoTitle }</td>
                     </tr>
                     <tr>
                         <th>작성일</th>
