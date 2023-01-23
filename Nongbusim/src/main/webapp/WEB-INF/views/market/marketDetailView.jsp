@@ -492,8 +492,8 @@
                     var loginMemNo;
                     var cno;
                     var content;
-                    //댓글 수정용 ajax
                     
+                    //댓글 수정용 ajax
                     $('#replyArea tbody').on('click', '.updateComment', function(){ //동적으로 생성된 요소에 이벤트 부여
                         
                         //let th = $(this).closest("th"); //수정버튼을 클릭한 요소에세 제일 가까운 th를 찾아오기

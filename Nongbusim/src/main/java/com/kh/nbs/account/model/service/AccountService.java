@@ -39,6 +39,8 @@ public interface AccountService {
 
 	int selectListCount(Account account);
 
-	int deleteSelected(List<String> checkboxArr);
+	int deleteCheckedAccountNo(List<String> checkboxArr);
+
+	int deleteCheckedAttachment(List<String> checkboxArr);
 	
 }

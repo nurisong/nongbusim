@@ -121,7 +121,7 @@ public class MemberController {
 	
 	@RequestMapping("myPageUser.me")
 	public String myPageUser() {
-		return "member/myPageUser/myPageUserCommon";
+		return "redirect:farmerMyBoardList.me";
 	}
 	
 	@RequestMapping("updateUserForm.me")
@@ -143,7 +143,7 @@ public class MemberController {
 	
 	@RequestMapping("myPageFarmer.me")
 	public String myPageFarmer() {
-		return "member/myPageFarmer/myPageFarmerCommon";
+		return "redirect:farmerMyBoardList.me";
 	}
 	
 	@RequestMapping("updateFarmerForm.me")

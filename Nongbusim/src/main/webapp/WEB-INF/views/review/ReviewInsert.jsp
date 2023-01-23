@@ -5,54 +5,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- <script src="https://kit.fontawesome.com/aa839e973e.js" crossorigin="anonymous"></script>   -->
 <title>마이페이지-참여 프로그램</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
     <style>
 
-        #myPage { 
-                width: 1200px;
-                margin: auto;
-            }
-        
-        .outer {
-            margin : auto;
-        }
-        
-        
-       * {
-          box-sizing: border-box;
-        }
-        
-        .menuButton{ 
-            background-color: #bed655;
-               color: maroon;
-               width: 200px;
-               padding: 5px 10px;
-               text-align: center;
-               text-decoration: none;
-               display: inline-block;
-               cursor: pointer;
-               border: none;
-               
-        }
-        
-        .menubutton:hover {background-color: lightgreen}
-    
-    
-        .menubutton:active {
-        
-          background-color: #3e8e41;   
-          box-shadow: 0 5px #666;   
-          transform: translateY(4px);   
-        }
-
+       .container{
+		padding-left:25%;
+		margin: 0px;
+		}
 
         /* 리스트 스타일 시작 */
         .content {
                 background-color:rgb(247, 245, 245);
                 width:80%;
-                margin:auto;
             }
             .innerOuter {
                 border:1px solid lightgray;
@@ -204,23 +176,10 @@
     
 </head>
 <body>
-    <jsp:include page="../common/menubar.jsp" />
-    <div id="myPage">
-    
-    
-        <h3>마이페이지</h3>
-        <hr>
-        <div class="menuArea"  style="width:200px; height:120px; border:1px solid red; float:left;">
-            <a class="menuButton" href="">내가 작성한 게시글</a><br>
-            <a class="menuButton" href="">회원정보 수정</a><br>
-            <a class="menuButton" href="">찜한 게시글</a><br>
-            <a class="menuButton" href="">참여 프로그램</a><br>   
-        </div>
-
-
-      
-
-        <div class="content" align="center">
+<jsp:include page="../member/myPageUser/myPageUserCommon.jsp" />
+    <div class="container">
+    	<div id="myPage">
+         <div class="content" align="center">
 
             <h2>내가 참여한 프로그램</h2>
           
@@ -387,7 +346,7 @@
                 </form>
              
             </div>
-
+		</div>
 
            
 

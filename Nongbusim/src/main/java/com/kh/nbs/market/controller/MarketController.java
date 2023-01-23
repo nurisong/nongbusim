@@ -230,6 +230,22 @@ public class MarketController {
 	}	
 	
 	
+	//게시물 수정 
+	@RequestMapping("update.mk")
+	public String updateMarket(Market market) {
+		
+		//게시글을 수정 혹은 수정안할 수 도 있음
+		
+		return "";
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 	//게시물 삭제 
 	@RequestMapping("delete.mk")
 	public ModelAndView marketDelete(int marketNo, ModelAndView mv, RedirectAttributes rttr) {

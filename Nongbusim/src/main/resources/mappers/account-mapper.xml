@@ -207,6 +207,7 @@ by
 	account_book	
 	where
 			mem_no = #{memNo}
+	and 	status= 'Y'
 	</select>
 	
 	
@@ -274,7 +275,7 @@ by
 	   		
 	 </select>   
 
-	<update id="deleteSelected">
+	<update id="deleteCheckedAccountNo">
 			update 
  		  		account_book
  		  set
@@ -285,6 +286,18 @@ by
  		  		 #{item}
  		  		</foreach> 
 	</update>
+	<update id="deleteCheckedAttachment" parameterType="_int">
+	update
+			attachment
+	set
+			status = 'N'
+	where
+			board_no in
+			<foreach collection="list" item="item" open="(" close=")" separator=",">
+ 		  		 #{item}
+ 		  	</foreach> 
 
+	</update>	
+	
 
 </mapper>

@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="MK_COUNT" property="marketCount"/>
 		<result column="MK_STATUS" property="marketStatus"/>
 		<result column="MEM_NO" property="memNo"/>
+		<result column="CHANGE_NAME" property="changeName" />
 		
 		
 	</resultMap>
@@ -417,6 +418,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="ajaxMainMarketList" resultMap="marketResultSet">
 		
+			select *
+			    from (
+			        select 
+			            rownum rnum, a.*
+			                from(
+			                    select
+			                        mk_title
+			                        ,mk_price
+			                        ,mk_count
+			                        ,mk_enrollDate
+			                        ,mem_id
+			                        ,market_no
+			                        ,change_name
+			                        ,ROW_NUMBER() OVER (PARTITION BY board_no ORDER BY file_no) as rn
+			                    from
+			                        market 
+			                    join
+			                        member
+			                    using
+			                        (mem_no)
+			                    join
+			                        attachment
+			                    on
+			                        (board_no = market_no)
+			                    where
+			                        mk_status = 'Y'
+			                    and
+			                        board_type = 'mk'
+			                    order
+			                        by
+			                            mk_enrolldate desc) a
+			     	where
+			            	rn = 1)
+			    	where
+			            	rnum BETWEEN 1 AND 3
+		 
 		
 	</select>
 	

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -170,15 +171,16 @@ public class DiaryController {
 
 	// 영농일지 상세페이지에서 "수정" 버튼 누를시 수정 폼을 띄워주는 메소드
 	@RequestMapping("updateForm.di")
-	public ModelAndView updateDiaryForm(String dno, String memNo, ModelAndView mv) {
+	public ModelAndView updateDiaryForm(String dno, HttpSession session, ModelAndView mv) {
 		// update할때 필요한 정보들은 diaryDetailView에서 필요한 Service메소드 + categoryList Serviec메소드
 		// 동일 메소드로 재활용하기
 		int diaryNo = Integer.parseInt(dno);
-		int memberNo = Integer.parseInt(memNo);
-
+		int memNo = ((Member) session.getAttribute("loginUser")).getMemNo();
+		
+		
 		mv.addObject("diary", diaryService.selectDiary(diaryNo)).addObject("dAtList",
 				diaryService.selectAttachmentList(diaryNo));
-		mv.addObject("categoryList", diaryService.selectCategoryList(memberNo));
+		mv.addObject("categoryList", diaryService.selectCategoryList(memNo));
 		mv.setViewName("member/myPageFarmer/diary/diaryUpdateForm");
 		return mv;
 
@@ -242,18 +244,30 @@ public class DiaryController {
 	}
 
 	@RequestMapping("delete.di")
-	public ModelAndView deleteDiary(int diaryNo, ModelAndView mv, HttpSession session) {
-		if (diaryService.deleteDiary(diaryNo) * diaryService.deleteAttachment(diaryNo) > 0) {
-			session.setAttribute("alertMsg", "영농일지가 삭제되었습니다");
-			mv.setViewName("redirect:list.di");
+	public ModelAndView deleteDiary(int diaryNo,  @RequestParam(value="att") String attatchment, ModelAndView mv, HttpSession session) {
+		
+		if( attatchment.equals("[]")){
+			if (diaryService.deleteDiary(diaryNo) >0) {
+				session.setAttribute("alertMsg", "영농일지가 삭제되었습니다");
+				mv.setViewName("redirect:list.di");
+			} else {
+				session.setAttribute("alertMsg", "영농일지 삭제에 실패하였습니다.");
+				mv.setViewName("common/errorPage");			
+			}
+			
 		} else {
-			session.setAttribute("alertMsg", "영농일지 삭제에 실패하였습니다.");
-			mv.setViewName("common/errorPage");
+			if(diaryService.deleteDiary(diaryNo)*diaryService.deleteAttachment(diaryNo)>0) {
+				session.setAttribute("alertMsg", "영농일지가 삭제되었습니다");
+				mv.setViewName("redirect:list.di");
+			} else {
+				session.setAttribute("alertMsg", "영농일지 삭제에 실패하였습니다.");
+				mv.setViewName("common/errorPage");			
+			}
+			
 		}
-		return mv;
-
-	}
-
+			return mv;	
+		
+	}	
 	
 
 	@RequestMapping("calView.di")
@@ -272,5 +286,25 @@ public class DiaryController {
 	
 	}
 
+	//선택한 체크박스  글들을 삭제하는 메소드
+	@ResponseBody
+	@RequestMapping(value = "deleteSelected.di", produces = "application/json; charset=UTF-8")
+	public String deleteSelected(@RequestParam(value="checkboxArr[]") List<String> checkboxArr ,  HttpSession session) {
+		System.out.println();
+		
+		String result = "";
+		if(diaryService.deleteCheckedDiaryNo(checkboxArr)>0) {
+			diaryService.deleteCheckedAttachment(checkboxArr);
+			result = "삭제성공";
+		} else {
+			result = "삭제실패";
+		};
+		return new Gson().toJson(result);
+		
+		// 해당월 총 수입: [Account(accountNo=0, type=I, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=4010000, accountContent=null, status=null, memNo=0, nickName=null), 
+		// 해당월 총 지출: Account(accountNo=0, type=O, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=895000, accountContent=null, status=null, memNo=0, nickName=null)]	
+		
+		
+	}
 	
 }

@@ -11,13 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
-
 </head>
-<body>
-
 <style>
-	
-	
 
 	 body{
         font-family: 'Pretendard-Regular';
@@ -78,6 +73,9 @@
 		<a class="menuButton" href="farmerMyProgramList.me">내가 작성한 프로그램</a><br>
 		<a class="menuButton" href="farmerMyMarketList.me">내가 작성한 마켓글</a><br>
 		<a class="menuButton" href="updateFarmerForm.me">회원정보 수정</a><br>
+        <a class="menuButton" href="markProgram.me">찜한 프로그램</a><br>
+        <a class="menuButton" href="markMarket.me">찜한 마켓</a><br>
+        <a class="menuButton" href="myProgramlist.re">참여 프로그램</a><br>   
 		<a class="menuButton" href="calView.di">영농일지</a><br>
 		<a class="menuButton" href="calView.ac">농작물 입출금</a><br>
 		<a class="menuButton" href="myList.fm">나의농장</a>

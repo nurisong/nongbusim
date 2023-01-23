@@ -1,6 +1,7 @@
 package com.kh.nbs.diary.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -76,6 +77,18 @@ public class DiaryDao {
 
 	public int selectListCount(SqlSessionTemplate sqlSession, Diary diary) {
 		return sqlSession.selectOne("diaryMapper.selectListCount", diary);
+	}
+
+
+	public int deleteCheckedDiaryNo(SqlSessionTemplate sqlSession, List<String> checkboxArr) {
+		return sqlSession.update("diaryMapper.deleteCheckedAccountNo",checkboxArr);
+	}
+
+
+
+
+	public int deleteCheckedAttachment(SqlSessionTemplate sqlSession, List<String> checkboxArr) {
+		return sqlSession.update("diaryMapper.deleteCheckedAttachment",checkboxArr);
 	}
 
 
