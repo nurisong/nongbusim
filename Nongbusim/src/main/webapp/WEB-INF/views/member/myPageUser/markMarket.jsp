@@ -12,10 +12,13 @@
 <title>Insert title here</title>
 <style>
 
-		#container{
-			padding-left:30%;
+		
+		.container{
+			padding-left:25%;
+			margin: 0px;
 		}
-    
+		
+	    
         #boardList {text-align:center;}
         #boardList>tbody>tr:hover {cursor:pointer;}
     
@@ -23,7 +26,6 @@
             
          	width: 30px;
             height: 30px;
-         
             top:20px;
             right : 5px;
             }
@@ -31,7 +33,7 @@
 </head>
 <body>
 <jsp:include page="myPageUserCommon.jsp" />
-
+ <div class="container">
     <h3>찜한 마켓</h3>
 	<hr>
     <table id="boardList"  class="table table-hover" align="center">
@@ -65,7 +67,7 @@
 		        </c:choose>
         </tbody>
     </table>
-    
+   </div> 
     <script>
                  
             $(function(){
