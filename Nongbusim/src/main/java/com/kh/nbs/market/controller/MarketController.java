@@ -236,6 +236,8 @@ public class MarketController {
 		
 		//게시글을 수정 혹은 수정안할 수 도 있음
 		
+		//첨부파일을 수정하는건지, 추가하는건지
+		
 		return "";
 		
 		

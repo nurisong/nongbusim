@@ -94,6 +94,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			   review
 		where
     		   mem_no = #{memNo}
+    	and
+    		   review_status= 'Y'
+    		
 	</select>
 	
 	<select id="reviewSelect" resultMap="reviewResultSet">

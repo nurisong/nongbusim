@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="CREATE_DATE" property="createDate" />
 		<result column="COUNT" property="count" />
 		<result column="STATUS" property="status" />
+		<result column="CHANGE_NAME" property="changeName" />
 	</resultMap>
 	
 	<resultMap id="attachmentResultSet" type="attachment">
@@ -238,6 +239,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE
 		 		INFO_NO = #{infoNo}
 	</update>
+	
+	<select id="selectMainList" resultMap="infoResultSet">
+		SELECT
+				 CHANGE_NAME
+				,INFO_NO
+		  FROM
+		  		 (
+		  		 SELECT
+		  		  		  INFO_NO
+		  		   FROM	
+		  		  		  INFO_BOARD
+		  		  WHERE
+		  		  		  CATEGORY = 'fi'	
+		  		 )
+		  JOIN
+		  		 (
+		  		 SELECT
+		  		  		  BOARD_NO, CHANGE_NAME
+		  		   FROM
+		  		  		  ATTACHMENT
+		  		  WHERE
+		  		  		  BOARD_TYPE = 'I'
+		  		    AND
+		  		  		  FILE_LEVEL = 0
+		  		 )
+		  	 ON
+		  	 		INFO_NO = BOARD_NO
+	</select>
 	
 	<select id="selectSearchListCount" resultType="_int" parameterType="hashmap">
 		SELECT

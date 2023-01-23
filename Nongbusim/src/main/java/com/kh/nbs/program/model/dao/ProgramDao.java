@@ -102,6 +102,11 @@ public class ProgramDao {
 		return (ArrayList)sqlSession.selectList("programMapper.selectMyProgram",memNo, rowBounds);
 	}
 	
+	public ArrayList<Program> selectTopProgram(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("programMapper.selectTopProgram");
+	}
+	
 	
 
 }

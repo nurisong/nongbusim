@@ -92,5 +92,11 @@ public class ProgramServiceImpl implements ProgramService {
 		
 		return programDao.selectMyProgram(sqlSession,memNo,pi);
 	}
+
+
+	@Override
+	public ArrayList<Program> selectTopProgram() {
+		return programDao.selectTopProgram(sqlSession);
+	}
 	
 }
