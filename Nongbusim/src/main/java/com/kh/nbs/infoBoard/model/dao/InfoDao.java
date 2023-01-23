@@ -66,6 +66,10 @@ public class InfoDao {
 		return (ArrayList)sqlSession.selectList("infoMapper.selectSearchList", map, rowBounds);
 	}
 
+	public ArrayList<Info> selectMainList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("infoMapper.selectMainList");
+	}
+
 
 
 

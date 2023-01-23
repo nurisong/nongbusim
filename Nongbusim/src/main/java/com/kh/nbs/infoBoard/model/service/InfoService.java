@@ -33,6 +33,9 @@ public interface InfoService {
 	// 5. 게시글 수정(update)
 	int updateInfo(Info i);
 	
+	// 6. 메인 게시글 조회(select)
+	ArrayList<Info> selectMainList();
+	
 	// 6. 검색 서비스(select)
 	// 6-1) 검색 게시글 총 개수
 	int selectSearchListCount(HashMap map);
