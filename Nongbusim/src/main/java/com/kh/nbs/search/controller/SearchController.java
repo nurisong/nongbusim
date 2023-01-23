@@ -1,8 +1,5 @@
 package com.kh.nbs.search.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,40 +9,75 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.kh.nbs.member.model.vo.Member;
 import com.kh.nbs.search.model.service.SearchService;
 import com.kh.nbs.search.model.vo.Search;
 
 @Controller
 public class SearchController {
-	
-	@Autowired 
+
+	@Autowired
 	private SearchService searchService;
-	//--------------------------------------------- 검색기능 --------------------------
-	
+
+	// --------------------------------------------- 검색기능 --------------------------
 
 	@RequestMapping("menubarTest.me")
 	public ModelAndView menubarTest(ModelAndView mv) {
 		mv.setViewName("common/menubar");
-		return mv;		
+		return mv;
 	}
-	
-	
+
 	// keyup시 검색
 	@ResponseBody
 	@RequestMapping(value = "recommend.me", produces = "application/json; charset=UTF-8")
 	public String recommendKeyword(Search search) {
+		return new Gson().toJson(searchService.recommendKeyword(search));
 
-			return new Gson().toJson(searchService.recommendKeyword(search));
-		
 	}
 
+	/*
+	 * @RequestMapping("search.me") public ModelAndView searchList( ModelAndView mv,
+	 * String keyword) { //boardType S K, Q, M
+	 * 
+	 * HashMap map= new HashMap(); map.put("boardType", "S"); map.put("keyword",
+	 * keyword); map.put("condition", "all"); map.put("order", "recent");
+	 * System.out.println(map);
+	 * 
+	 * 
+	 * boardService.selectListCount(map);
+	 * 
+	 * System.out.println(boardService.selectListCount(map)); PageInfo pi= new
+	 * PageInfo();
+	 * 
+	 * pi = Pagination.getPageInfo(boardService.selectListCount(map), 1, 10, 8);
+	 * 
+	 * // 자랑게시판 boardService.selectList(map, pi);
+	 * System.out.println(boardService.selectList(map, pi));
+	 * 
+	 * 
+	 * mv.setViewName("search/searchList");
+	 * 
+	 * return mv; }
+	 */
 	@RequestMapping("search.me")
-	public ModelAndView searchList(ModelAndView mv) {
-		
+	public ModelAndView searchList(ModelAndView mv, HttpSession session, String keyword) {
+		System.out.println(keyword);
+		// 1. 일반게시판
+		// boardType S K, Q, M
+		System.out.println(searchService.selectBoardList(keyword));
+		System.out.println(searchService.selectFarmList(keyword));
+		System.out.println(searchService.selectInfoBoardList(keyword));
+		System.out.println(searchService.selectMarketList(keyword));
+		System.out.println(searchService.selectProgramList(keyword));
 
-		return mv;		
+		mv.addObject("boardList", searchService.selectBoardList(keyword));
+		mv.addObject("farmList", searchService.selectFarmList(keyword));
+		 mv.addObject("infoBoardList", searchService.selectInfoBoardList(keyword));
+		 mv.addObject("marketList", searchService.selectMarketList(keyword));
+		 mv.addObject("programList", searchService.selectProgramList(keyword));
+		 
+		mv.setViewName("search/searchList");
+
+		return mv;
+
 	}
-	
-	
 }

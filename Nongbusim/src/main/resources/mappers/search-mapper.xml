@@ -3,201 +3,291 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="searchMapper">
-<select id="recommendKeyword" parameterType="search" resultType="String">
+	<resultMap id="boardResultSet" type="board">
+		<result column="board_no"      property="boardNo" />
+		<result column="board_type"   property="boardType" />
+		<result column="board_title"  property="boardTitle" />
+		<result column="board_content"  property="boardContent" />
+		<result column="create_date"   property="createDate" />
+		<result column="modify_date"   property="modifyDate" />
+		<result column="thumbnail"   property="thumbnail" />
+		<result column="recruit_yn"   property="recruitYN" />
+		<result column="count"         property="count" />
+		<result column="status"   property="status" />
+		<result column="mem_no" property="memNo" />
+		<result column="board_writer" property="boardWriter" />
+		<result column="board_like" property="boardLike" />
+	</resultMap>
 	
-	select  substr(board_title,instr(board_title,#{keyword}),
-	                decode(instr(board_title,' '),0,
-                     (instr(board_title||' ',' ',instr(board_title,#{keyword}))- instr(board_title,#{keyword})) ,
-                     (instr(board_title,' ',instr(board_title,#{keyword}))-instr(board_title,#{keyword})+1)))
-	from board 
-	where  board_title like '%'||#{keyword}||'%'
-	and
-	    status= 'Y'
-	
-	UNION
-	
-	
-	select  substr(board_content,instr(board_content,#{keyword}),
-	                decode(instr(board_content,' '),0,
-                     (instr(board_content||' ',' ',instr(board_content,#{keyword}))- instr(board_content,#{keyword})) ,
-                     (instr(board_content,' ',instr(board_content,#{keyword}))-instr(board_content,#{keyword})+1)))
+	<resultMap id="attachmentResultSet" type="attachment">
+		<result column="file_no"      property="fileNo" />
+		<result column="origin_name"   property="originName" />
+		<result column="change_name"  property="changeName" />
+		<result column="upload_date"   property="uploadDate" />
+		<result column="board_no"   property="boardNo" />
+		<result column="board_type"   property="boardType" />
+	</resultMap>
 
-	from board 
-	where  board_content like '%'||#{keyword}||'%'
-	and
-	    status= 'Y'
-	
-	UNION
-	
-	select  substr(mk_category,instr(mk_category,#{keyword}),
-	                decode(instr(mk_category,' '),0,
-                     (instr(mk_category||' ',' ',instr(mk_category,#{keyword}))- instr(mk_category,#{keyword})) ,
-                     (instr(mk_category,' ',instr(mk_category,#{keyword}))-instr(mk_category,#{keyword})+1)))
+	<resultMap id="farmResultSet" type="farm">
+		<result column="FARM_NO" property="farmNo"/>
+		<result column="FARMER" property="farmer"/>
+		<result column="FARM_NAME" property="farmName"/>
+		<result column="FARM_INTRO" property="farmIntro"/>
+		<result column="LOCAL_CODE" property="localCode"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="PHONE" property="phone"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="CROP" property="crop"/>
+	</resultMap>
 
-	from market
-	where mk_category  like '%'||#{keyword}||'%'
-	and
-	    mk_status= 'Y'
+	<resultMap id="infoResultSet" type="info">
+		<result column="INFO_NO" property="infoNo" />
+		<result column="WRITER" property="writer" />
+		<result column="CATEGORY" property="category" />
+		<result column="INFO_TITLE" property="infoTitle" />
+		<result column="INFO_CONTENT" property="infoContent" />
+		<result column="SOURCE" property="source" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="COUNT" property="count" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+	
+	<resultMap id="marketResultSet" type="market">
+		
+		<result column="MARKET_NO" property="marketNo"/>
+		<result column="MK_CATEGORY" property="marketCategory"/>
+		<result column="MK_TITLE" property="marketTitle"/>
+		<result column="MK_PRICE" property="marketPrice"/>
+		<result column="MK_INTRO" property="marketIntro"/>
+		<result column="MK_CONTENT" property="marketContent"/>
+		<result column="MK_ENROLLDATE" property="marketEnrollDate"/>
+		<result column="MK_COUNT" property="marketCount"/>
+		<result column="MK_STATUS" property="marketStatus"/>
+		<result column="MEM_NO" property="memNo"/>
+		<result column="CHANGE_NAME" property="changeName" />
+		
+		
+	</resultMap>
+	
+	
+	<resultMap id="programResultSet" type="program">
+		<result column="PROGRAM_NO" property="programNo"/>
+		<result column="FARM_NO" property="programNo"/>
+		<result column="PROGRAM_NAME" property="programName"/>
+		<result column="PROGRAM_PLAN" property="programPlan"/>
+		<result column="PROGRAM_HOUR" property="programHour"/>
+		<result column="PROGRAM_LECTURE" property="programLecture"/>
+		<result column="HEADCOUNT" property="headcount"/>
+		<result column="PROGRAM_DETAIL" property="programDetail"/>
+		<result column="MEM_NO" property="memNo"/>
+		<result column="SIGN_UP" property="signUp"/>
+		<result column="STATUS" property="status"/>
+		<result column="PROGRAM_LOCATION" property="programLocation"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="NOW_HEADCOUNT" property="nowHeadCount"/>
+	</resultMap>
+	
+
+	<!-- 추천검색어 쿼리 -->	
+	<select id="recommendKeyword" parameterType="search" resultType="String">
+		
+		select  substr(board_title,instr(board_title,#{keyword}),
+		                decode(instr(board_title,' '),0,
+	                     (instr(board_title||' ',' ',instr(board_title,#{keyword}))- instr(board_title,#{keyword})) ,
+	                     (instr(board_title,' ',instr(board_title,#{keyword}))-instr(board_title,#{keyword})+1)))
+		from board 
+		where  board_title like '%'||#{keyword}||'%'
+		and
+		    status= 'Y'
+		
+		UNION
+		
+		
+		select  substr(board_content,instr(board_content,#{keyword}),
+		                decode(instr(board_content,' '),0,
+	                     (instr(board_content||' ',' ',instr(board_content,#{keyword}))- instr(board_content,#{keyword})) ,
+	                     (instr(board_content,' ',instr(board_content,#{keyword}))-instr(board_content,#{keyword})+1)))
+	
+		from board 
+		where  board_content like '%'||#{keyword}||'%'
+		and
+		    status= 'Y'
+		
+		UNION
+		
+		select  substr(mk_category,instr(mk_category,#{keyword}),
+		                decode(instr(mk_category,' '),0,
+	                     (instr(mk_category||' ',' ',instr(mk_category,#{keyword}))- instr(mk_category,#{keyword})) ,
+	                     (instr(mk_category,' ',instr(mk_category,#{keyword}))-instr(mk_category,#{keyword})+1)))
+	
+		from market
+		where mk_category  like '%'||#{keyword}||'%'
+		and
+		    mk_status= 'Y'
+		    
+		UNION
+		
+		select  substr(mk_title,instr(mk_title,#{keyword}),
+		                decode(instr(mk_title,' '),0,
+	                     (instr(mk_title||' ',' ',instr(mk_title,#{keyword}))- instr(mk_title,#{keyword})) ,
+	                     (instr(mk_title,' ',instr(mk_title,#{keyword}))-instr(mk_title,#{keyword})+1)))
+	
+		from market
+		where  mk_title  like '%'||#{keyword}||'%'
+		and
+		    mk_status= 'Y'
+		    
+		UNION
+		
+		select substr(program_name,instr(program_name,#{keyword}),
+		                decode(instr(program_name,' '),0,
+	                     (instr(program_name||' ',' ',instr(program_name,#{keyword}))- instr(program_name,#{keyword})) ,
+	                     (instr(program_name,' ',instr(program_name,#{keyword}))-instr(program_name,#{keyword})+1)))
+	
+		from program
+		where   program_name  like '%'||#{keyword}||'%'
+		and
+		    status= 'Y'
+		    
+		UNION
+		
+		select  substr(program_location,instr(program_location,#{keyword}),
+		                decode(instr(program_location,' '),0,
+	                     (instr(program_location||' ',' ',instr(program_location,#{keyword}))- instr(program_location,#{keyword})) ,
+	                     (instr(program_location,' ',instr(program_location,#{keyword}))-instr(program_location,#{keyword})+1)))
+	
+		from program
+		where  program_location  like '%'||#{keyword}||'%'
+		and
+		    status= 'Y'
+	
+		UNION
+	
+		
+		select  substr(info_title,instr(info_title,#{keyword}),
+		                decode(instr(info_title,' '),0,
+	                     (instr(info_title||' ',' ',instr(info_title,#{keyword}))- instr(info_title,#{keyword})) ,
+	                     (instr(info_title,' ',instr(info_title,#{keyword}))-instr(info_title,#{keyword})+1)))
+	
+		from  info_board
+		where info_title  like '%'||#{keyword}||'%'
+		and
+		    status= 'Y'
 	    
-	UNION
-	
-	select  substr(mk_title,instr(mk_title,#{keyword}),
-	                decode(instr(mk_title,' '),0,
-                     (instr(mk_title||' ',' ',instr(mk_title,#{keyword}))- instr(mk_title,#{keyword})) ,
-                     (instr(mk_title,' ',instr(mk_title,#{keyword}))-instr(mk_title,#{keyword})+1)))
-
-	from market
-	where  mk_title  like '%'||#{keyword}||'%'
-	and
-	    mk_status= 'Y'
 	    
-	UNION
-	
-	select substr(program_name,instr(program_name,#{keyword}),
-	                decode(instr(program_name,' '),0,
-                     (instr(program_name||' ',' ',instr(program_name,#{keyword}))- instr(program_name,#{keyword})) ,
-                     (instr(program_name,' ',instr(program_name,#{keyword}))-instr(program_name,#{keyword})+1)))
-
-	from program
-	where   program_name  like '%'||#{keyword}||'%'
-	and
-	    status= 'Y'
+	    UNION
 	    
-	UNION
-	
-	select  substr(program_location,instr(program_location,#{keyword}),
-	                decode(instr(program_location,' '),0,
-                     (instr(program_location||' ',' ',instr(program_location,#{keyword}))- instr(program_location,#{keyword})) ,
-                     (instr(program_location,' ',instr(program_location,#{keyword}))-instr(program_location,#{keyword})+1)))
-
-	from program
-	where  program_location  like '%'||#{keyword}||'%'
-	and
-	    status= 'Y'
-
-	UNION
-
-	
-	select  substr(info_title,instr(info_title,#{keyword}),
-	                decode(instr(info_title,' '),0,
-                     (instr(info_title||' ',' ',instr(info_title,#{keyword}))- instr(info_title,#{keyword})) ,
-                     (instr(info_title,' ',instr(info_title,#{keyword}))-instr(info_title,#{keyword})+1)))
-
-	from  info_board
-	where info_title  like '%'||#{keyword}||'%'
-	and
-	    status= 'Y'
-    
-    
-    UNION
-    
-    
-
-    select  substr(farm_name,instr(farm_name,#{keyword}),
-	                decode(instr(farm_name,' '),0,
-                     (instr(farm_name||' ',' ',instr(farm_name,#{keyword}))- instr(farm_name,#{keyword})) ,
-                     (instr(farm_name,' ',instr(farm_name,#{keyword}))-instr(farm_name,#{keyword})+1)))
-
-	from  farm
-	where farm_name  like '%'||#{keyword}||'%'
-	and
-	    status= 'Y'
 	    
-	UNION  
-	 
-
-    select  substr(address,instr(address,#{keyword}),
-	                decode(instr(address,' '),0,
-                     (instr(address||' ',' ',instr(address,#{keyword}))- instr(address,#{keyword})) ,
-                     (instr(address,' ',instr(address,#{keyword}))-instr(address,#{keyword})+1)))
-
-	from  farm
-	where address  like '%'||#{keyword}||'%'
-	and
-	    status= 'Y'   
+	
+	    select  substr(farm_name,instr(farm_name,#{keyword}),
+		                decode(instr(farm_name,' '),0,
+	                     (instr(farm_name||' ',' ',instr(farm_name,#{keyword}))- instr(farm_name,#{keyword})) ,
+	                     (instr(farm_name,' ',instr(farm_name,#{keyword}))-instr(farm_name,#{keyword})+1)))
+	
+		from  farm
+		where farm_name  like '%'||#{keyword}||'%'
+		and
+		    status= 'Y'
+		    
+		UNION  
+		 
+	
+	    select  substr(address,instr(address,#{keyword}),
+		                decode(instr(address,' '),0,
+	                     (instr(address||' ',' ',instr(address,#{keyword}))- instr(address,#{keyword})) ,
+	                     (instr(address,' ',instr(address,#{keyword}))-instr(address,#{keyword})+1)))
+	
+		from  farm
+		where address  like '%'||#{keyword}||'%'
+		and
+		    status= 'Y'   
+		
+		
+		UNION  
+		
+	    select  substr(crop,instr(crop,#{keyword}),
+		                decode(instr(crop,' '),0,
+	                     (instr(crop||' ',' ',instr(crop,#{keyword}))- instr(crop,#{keyword})) ,
+	                     (instr(crop,' ',instr(crop,#{keyword}))-instr(crop,#{keyword})+1)))
+	
+		from  farm
+		where crop  like '%'||#{keyword}||'%'
+		and
+		    status= 'Y'	
+	</select>
+	
+	<!-- infoBoard쿼리 -->
+	
+	<select id="searchInfoBoardList" resultMap="infoResultSet">
+		select 
+		        info_no, category, info_title, info_content, create_date, count
+		from 
+		        info_board
+		
+		where info_title like  '%'||#{keyword}||'%'
+		or info_content like  '%'||#{keyword}||'%'
+		or category like  '%'||#{keyword}||'%'
+		and status = 'Y'
+	
+	</select>
+	
+	<select id="searchMarketList"  resultMap="marketResultSet">
+		select 
+		        market_no, nickname, mem_no, mk_category, mk_title, mk_price, mk_intro, mk_content, mk_enrolldate
+		from 
+		        market
+		join
+		        member
+		using (mem_no)    
+		where mk_category like  '%'||#{keyword}||'%'
+		or mk_category like  '%'||#{keyword}||'%'
+		or mk_title like  '%'||#{keyword}||'%'
+		or mk_content like  '%'||#{keyword}||'%'
+		and mk_status = 'Y'
+		
+	
+	</select>
+	<!--board: board_type = s(자랑), q (질문), k(노하우), m (멘티)
+		board_type은 동적으로 가져가자 -->
+	<select id="searchBoardList" resultMap="boardResultSet">
+	
+		select board_no, board_type, board_title, board_content, create_date, board_writer        
+		from 
+		        board
+		where  board_title like  '%'||#{keyword}||'%'
+		or board_content like '%'||#{keyword}||'%' 
+		or board_writer like '%'||#{keyword}||'%'
+		and status = 'Y'
 	
 	
-	UNION  
 	
-    select  substr(crop,instr(crop,#{keyword}),
-	                decode(instr(crop,' '),0,
-                     (instr(crop||' ',' ',instr(crop,#{keyword}))- instr(crop,#{keyword})) ,
-                     (instr(crop,' ',instr(crop,#{keyword}))-instr(crop,#{keyword})+1)))
-
-	from  farm
-	where crop  like '%'||#{keyword}||'%'
-	and
-	    status= 'Y'	
-</select>
-<select id="searchInfoBoard" >
-	select 
-	        info_no, category, info_title, info_content, create_date, count
-	from 
-	        info_board
+	</select>
+	<select id="searchProgramList" resultMap="programResultSet">
 	
-	where info_title like  '%'||#{keyword}||'%'
-	or info_content like  '%'||#{keyword}||'%'
-	or category like  '%'||#{keyword}||'%'
-	and status = 'Y'
-
-</select>
-
-<select id="searchMarket">
-	select 
-	        nickname, mem_no, mk_category, mk_title, mk_price, mk_intro, mk_content, mk_enrolldate
-	from 
-	        market
-	join
-	        member
-	using (mem_no)    
-	where mk_category like  '%'||#{keyword}||'%'
-	or mk_category like  '%'||#{keyword}||'%'
-	or mk_title like  '%'||#{keyword}||'%'
-	or mk_content like  '%'||#{keyword}||'%'
-	and mk_status = 'Y'
+		select 
+		        program_no, program_name, program_plan, program_hour, program_lecture, program_detail, program_location, status, sign_up
+		from 
+		        program   
+		where program_name  like  '%'||#{keyword}||'%'
+		or program_lecture like '%'||#{keyword}||'%' 
+		or program_detail like '%'||#{keyword}||'%'
+		or program_location like '%'||#{keyword}||'%'
+		and status = 'Y'
+	</select>
 	
-
-</select>
-<!--board: board_type = s(자랑), q (질문), k(노하우), m (멘티)
-	board_type은 동적으로 가져가자 -->
-<select id="searchBoard">
-
-	select board_no, board_type board_title, board_content, create_date, board_writer        
-	from 
-	        board
-	where  board_title like  '%'||#{keyword}||'%'
-	or board_content like '%'||#{keyword}||'%' 
-	or board_writer like '%'||#{keyword}||'%'
-	and status = 'Y'
-	and board_type = 'S'
-
-
-
-</select>
-<select id="searchProgram">
-
-	select 
-	        program_no, program_name, program_plan, program_hour, program_lecture, program_detail, program_location, status, sign_up
-	from 
-	        program   
-	where program_name  like  '%'||#{keyword}||'%'
-	or program_lecture like '%'||#{keyword}||'%' 
-	or program_detail like '%'||#{keyword}||'%'
-	or program_location like ''%'||#{keyword}||'%''
-	and status = 'Y'
-</select>
-
-<select id="searchFarm">
-	select 
-	        farm_name, address, crop, create_date, farm_intro
-	from 
-	        farm 
-	where farm_name  like  '%'||#{keyword}||'%'
-	or crop like '%'||#{keyword}||'%' 
-	or create_date like '%'||#{keyword}||'%'
-	or farm_intro like ''%'||#{keyword}||'%''
-	and status = 'Y'
-
-</select>
+	<select id="searchFarmList" resultMap="farmResultSet">
+		select 
+		        farm_no, farm_name, address, crop, create_date, farm_intro
+		from 
+		        farm 
+		where farm_name  like  '%'||#{keyword}||'%'
+		or crop like '%'||#{keyword}||'%' 
+		or create_date like '%'||#{keyword}||'%'
+		or farm_intro like '%'||#{keyword}||'%'
+		and status = 'Y'
+	
+	</select>
 
 </mapper>

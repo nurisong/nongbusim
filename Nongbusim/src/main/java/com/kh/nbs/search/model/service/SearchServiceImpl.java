@@ -23,6 +23,31 @@ public class SearchServiceImpl implements SearchService {
 	public ArrayList recommendKeyword(Search search) {
 		return searchDao.recommendKeyword(sqlSession, search);
 	}
+
+	@Override
+	public ArrayList<Search> selectBoardList(String keyword) {
+		return searchDao.selectBoardList(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Search> selectFarmList(String keyword) {
+		return searchDao.selectFarmList(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Search> selectInfoBoardList(String keyword) {
+		return searchDao.selectInfoBoardList(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Search> selectMarketList(String keyword) {
+		return searchDao.selectMarketList(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Search> selectProgramList(String keyword) {
+		return searchDao.selectProgramList(sqlSession, keyword);
+	}
 	
 
 	/*

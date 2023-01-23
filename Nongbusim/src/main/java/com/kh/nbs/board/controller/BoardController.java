@@ -53,7 +53,7 @@ public class BoardController {
 		map.put("keyword", keyword);
 		map.put("condition", condition);
 		map.put("order", order);
-		
+
 
 		PageInfo pi= new PageInfo();
 
