@@ -6,10 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootsdivap@4.6.2/dist/css/bootsdivap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootsdivap@4.6.2/dist/js/bootsdivap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <title>영농일지 수정</title>	
 </head>
 
@@ -20,8 +20,11 @@
 	}
 	
 	main {
-		margin : aut;
+		margin : aut;tk
 		display: block;
+		box-sizing: border-box;
+		width: 800px;
+		font-family:Pretendard-Regular;
 
 
 	}
@@ -168,7 +171,7 @@
 						</select>
 						<input type="hidden" id="newCategory" name="newCategory">
 					</div>
-				</div>	
+				</div><br><br>	
 				<h3>📸사진 수정하기<br></h3><br>
 				<!-- dAtList를 돌면서 수정전 파일이 존재할 경우 퍄일번호, 파일명을 input태그에 담아 넘김-->
 				<c:if test="${ dAtList ne null}">
@@ -195,12 +198,12 @@
 					<c:forEach var="at" begin="${fn:length(dAtList)+1}" end="3" varStatus="status">
 						<div class="file-area" stype="width:100%; height: 100%;">			
 							<div class="filebox">
-						    	<input class="upload-name" id="upload-name${fn:length(aAtList)+status.count}" value="첨부파일" placeholder="첨부파일" >
-						    	<label for="reUpfile${fn:length(aAtList)+status.count}">파일찾기</label> 						
-								<input type="file" name="reUpfiles" id="reUpfile${fn:length(aAtList)+status.count}" onchange="loadImg(this,${fn:length(aAtList)+status.count})">
+						    	<input class="upload-name" id="upload-name${fn:length(dAtList)+status.count}" value="첨부파일" placeholder="첨부파일" >
+						    	<label for="reUpfile${fn:length(dAtList)+status.count}">파일찾기</label> 						
+								<input type="file" name="reUpfiles" id="reUpfile${fn:length(dAtList)+status.count}" onchange="loadImg(this,${fn:length(dAtList)+status.count})">
 							</div>
 							<div class="img-area">
-								<img width="150" height="120" id="contentImg${fn:length(aAtList)+status.count}" src="https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg">
+								<img width="150" height="120" id="contentImg${fn:length(dAtList)+status.count}" src="https://t3.ftcdn.net/jpg/04/34/72/82/240_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg">
 							</div>
 						</div>		
 					</c:forEach>
@@ -234,29 +237,29 @@
 				 reader.onload = function(e){
 					 switch(num){
 						case 1: 
-							 $('#contentImg1').atdiv('src', e.target.result);
+							 $('#contentImg1').attr('src', e.target.result);
 							 break;
 						 case 2: 
-							 $('#contentImg2').atdiv('src', e.target.result);
+							 $('#contentImg2').attr('src', e.target.result);
 							 break;
 						 case 3: 
-							 $('#contentImg3').atdiv('src', e.target.result);
+							 $('#contentImg3').attr('src', e.target.result);
 							 break;						 
 				 	}					
 				 }				 
 			 } else {
 				 switch(num){
 					 case 1: 
-						 $('#titleImg').atdiv('src', 'https://t4.ftcdn.net/jpg/05/17/53/57/240_F_517535712_q7f9QC9X6TQxWi6xYZZbMmw5cnLMr279.jpg');
+						 $('#titleImg').attr('src', 'https://t4.ftcdn.net/jpg/05/17/53/57/240_F_517535712_q7f9QC9X6TQxWi6xYZZbMmw5cnLMr279.jpg');
 						 break;
 					 case 2: 
-						 $('#contentImg1').atdiv('src', 'https://t4.ftcdn.net/jpg/05/17/53/57/240_F_517535712_q7f9QC9X6TQxWi6xYZZbMmw5cnLMr279.jpg');
+						 $('#contentImg1').attr('src', 'https://t4.ftcdn.net/jpg/05/17/53/57/240_F_517535712_q7f9QC9X6TQxWi6xYZZbMmw5cnLMr279.jpg');
 						 break;
 					 case 3: 
-						 $('#contentImg2').atdiv('src', 'https://t4.ftcdn.net/jpg/05/17/53/57/240_F_517535712_q7f9QC9X6TQxWi6xYZZbMmw5cnLMr279.jpg');
+						 $('#contentImg2').attr('src', 'https://t4.ftcdn.net/jpg/05/17/53/57/240_F_517535712_q7f9QC9X6TQxWi6xYZZbMmw5cnLMr279.jpg');
 						 break;
 					 case 4: 
-						 $('#contentImg3').atdiv('src', 'https://t4.ftcdn.net/jpg/05/17/53/57/240_F_517535712_q7f9QC9X6TQxWi6xYZZbMmw5cnLMr279.jpg');
+						 $('#contentImg3').attr('src', 'https://t4.ftcdn.net/jpg/05/17/53/57/240_F_517535712_q7f9QC9X6TQxWi6xYZZbMmw5cnLMr279.jpg');
 						 break;
 				 } 
 			}	
@@ -291,10 +294,10 @@
 	
 		$('#diaryCategory').change(function(){
 			if($(this).val()=="enrollNew"){
-				$("#newCategory").atdiv("type", "text");
+				$("#newCategory").attr("type", "text");
 							
 			} else {
-				$("#newCategory").atdiv("type", "hidden");
+				$("#newCategory").attr("type", "hidden");
 					
 			}
 		})		

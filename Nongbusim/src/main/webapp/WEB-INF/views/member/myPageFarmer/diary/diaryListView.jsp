@@ -6,13 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<title>Insert title here</title>
+<title>영농일지 모아보기</title>
 <style>
 	.container{
 		padding-left:25%;
+		margin: 0px;
 	}
 	#listAreaTable img {
 		width: 200px;
@@ -23,26 +26,6 @@
 		object-fit: cover;
 	}
 
-	.item-area img {
-	  transition: all 0.2s linear;
-	}
-	.item-area:hover img {
-	  transform: scale(1.4);
-	}
-
-	
-	.item-area {
-
-	  margin: 0px auto;
-	  overflow: hidden;
-	}
-
-
-	.item-area a {
-		text-decoration: none;
-		color: rgb(100, 100, 100);   
-	}
-	
 	#listAreaTable a {
 		text-decoration: none;
 		color: rgb(100, 100, 100);   
@@ -61,11 +44,11 @@
 		color: rgb(49, 81, 179); 
 	}
 
-	.form-check-label input[type=radio] {
+	.form-check-label input[type=checkbox] {
         display: none;
     }
 
-    .form-check-label input[type="radio"] + span {
+    .form-check-label input[type="checkbox"] + span {
         display: inline-block;
         padding: 10px 10px;
         border: 1px solid #dfdfdf;
@@ -76,63 +59,47 @@
         border-radius: 10%;
     }
 
-    .form-check-label input[type="radio"]:checked + span {
+    .form-check-label input[type="checkbox"]:checked + span {
         background-color: #007bff;
         color: #ffffff;
     }
 
-
 	
 	
     th, td {
-	padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 30px;
-    padding-right: 40px;
+	padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
     }
-    
-    #tdBottom{
-    	padding-right: 20px 20px 0px 30px;
-    	margin-right: 10px;
-       	align: bottom;
-  	    valign: bottom;
-  	    font-size: 16px;
 
-    }
     
-    #tdUp{
-    	padding-right: 20px 20px 0px 30px;
-    	margin-right:10px;
-    	align: top;
-    	valign: top;
-    	font-size: 16px;
-    }
-    
-    
-    
-    
-    .withBorder	{
+    table	{
+    	font-size: 10px;
 		border-collapse: collapse;
 		width : 1000px;
 		border: none;
-		font-size: 20px;
-		transition: 1s;
-		border-spacing: 30px;		
+		font-size: 15px;
+		transition: 1s;	
 		border: 1px dotted gray;
-		padding : 10px 20px 20px 20px;
+		border-spacing: 10px;
 
 	}
+	   th, td {
+    	border-bottom: 1px dotted gray;
+        padding: 10px;
+    }
 	 
-	 .withBorder tr:hover{
+	 table tr:hover{
 		cursor : pointer;
 		background-color:#f3e9e9 !important;
 		font-weight: bolder;
-		font-size: 22px;
 	
 	}  
     
 
-	 .withBorder div {
+	table div {
 	 	
 	 	height: 100px;
 		display: table-cell; 
@@ -145,7 +112,7 @@
     
     
    .myButton{ 
- 		    background-color: #FFA500;
+ 		    background-color: #cddc39;
      		color: maroon;
      		text-align: center;
      		text-decoration: none;
@@ -166,33 +133,79 @@
     }
     
     
-    
-	  #listAreaTable img {
-	  transform: scale(1);
-	  -webkit-transform: scale(1);
-	  -moz-transform: scale(1);
-	  -ms-transform: scale(1);
-	  -o-transform: scale(1);
-	  transition: all 0.3s ease-in-out;   
+	
+	main button{
+	    padding:5px 5px;
+	    margin: 3px;
+	    min-width: 50px; 
+	    heigh:30px;
+		font-size: 14px;
+	    border: white;
+	    background-color: #c5e1a5;
+   		color: black;
+   		text-decoration: none;
+   		border-radius: 5px;   
+ 
+	}
+	
+	button:hover{
+		background-color: forestgreen;
+	}
+	.likeButton{
+	    display: flex;
+	    padding:5px 5px;
+	    margin: 5px;
+	    width: 50px; 
+	    heigh:30px;
+		font-size: 10px;
+	    border: white;
+	    background-color: #388e3c;
+   		color: white;
+   		text-align: center;
+   		justify-content: center;
+   		text-decoration: none;
+   		border-radius: 5px;   
+ 
+	}
+		.title {
+		margin: 0px;
+		display: flex;
+		align-items: center;
+		text-align: center;
 		
 	}
-	#listAreaTable img:hover {
-	  transform: scale(1.1);
-	  -webkit-transform: scale(1.1);
-	  -moz-transform: scale(1.1);
-	  -ms-transform: scale(1.1);
-	  -o-transform: scale(1.1);
-	  overflow: hidden;
+
+	 ul, li{
+       
+	    display: flex;
+	    padding:5px 5px;
+	    margin: 5px;
+	    width: 50px; 
+	    heigh:30px;
+		font-size: 10px;
+	    border: white;
+	    background-color: #388e3c;
+   		color: white;
+   		text-align: center;
+   		justify-content: center;
+   		text-decoration: none;
+   		border-radius: 5px;   
+ 
 	}
+
+
 </style>
 </head>
 <body>
 <jsp:include page="../myPageFarmerCommon.jsp" />
-<h1>영농일지 모아보기</h1>
-
-
+<div class="container">
+	<div class="title">
+		<h3>🌿영농일지 모아보기 </h3>
+		<a class="likeButton" href="calView.ac">달력보기</a><a class="likeButton" href="enrollForm.ac">작성하기</a><br>
+	</div><br>
+	
 <!--조회기간 설정 후, "검색"버튼 누를 시 ajax 실행 -->
-<div class="selectArea">
+<div class="selectArea" style="float:left; margin-bottom:30px;">
 	<div class="selectPeriod">
 		조회기간 &nbsp; &nbsp;
 		<button type="button" onclick="selectPeriod('oneMonth');">1개월</button>
@@ -237,9 +250,8 @@
      </div>
 	</div>  
 <script>
-
-	function selectPeriod(period){
-		
+function selectPeriod(period){
+		var startDate1;
 		var startDate ;
 		var now = new Date();	
 		console.log(now);
@@ -247,26 +259,29 @@
 		console.log("now"+dateFormat(now));
 		$('#endDate').val(dateFormat(now));
 		
-		
+
 		switch(period){
 		
 		case 'oneMonth':
-			startDate = new Date(now.setMonth(now.getMonth() - 1));			
+			// 현재월 - 1개월
+			startDate1 = new Date(now.setMonth(now.getMonth() - 1));
+			// 현재월 -1개월 +1
+			startDate = new Date(startDate1.setDate(startDate1.getDate()+1));
 			break;
 		case 'threeMonths':
-			startDate = new Date(now.setMonth(now.getMonth() - 3));
+			startDate1 = new Date(now.setMonth(now.getMonth() - 3));
+			startDate = new Date(startDate1.setDate(startDate1.getDate()+1));
 			break;		
 		case 'sixMonths':
-			startDate = new Date(now.setMonth(now.getMonth() - 6));
-			break;		
+			startDate1 = new Date(now.setMonth(now.getMonth() - 6));
+			startDate = new Date(startDate1.setDate(startDate1.getDate()+1));
 		case 'oneYear':
-			startDate = new Date(now.setFullYear(now.getFullYear() - 1));
+			startDate1 = new Date(now.setFullYear(now.getFullYear() - 1));
+			startDate = new Date(startDate1.setDate(startDate1.getDate()+1));
 			break;		
-	
-			
+		
 		
 		}
-	
 		
 		console.log("startDate"+dateFormat(startDate));
 		$('#startDate').val(dateFormat(startDate));
@@ -310,17 +325,29 @@
 				// 만약 돌아온 list가 없다면, 마지막에 list.add()로 pi를 넣어뒀으므로
 				// list[0] 엔 pi가, list[1] 부터는 비어있을 것
 				if(list[1] != null ){
-
+					var result =
+						'<tr style="background-color:#f1f8e9"><th><input type="checkbox" id="checkAll" name="checkAll"></th><th>썸네일></th><th>날짜</th><th>카테고리</th><th>내용</th></tr>';
+			
 					for(var i=0; i<(list.length)-1 ; i++) {                
 					result 
-						+='<div class="item-area">'
-						+ '<tr onclick="selectDiary('+list[i].diaryNo+');">'
-						+'<td><p>' + list[i].createDate + '</p></td>'
-						+ '<td><p>' + list[i].diaryCategory + '</p></td>'
-						+ '<td><p>' + list[i].diaryContent + '</p></td>'                    
-						+ '<td><img src="' + list[i].diaryThumbnail + '"></td></tr>'
-						+ '<input type="hidden" name="diaryNo" id="diaryNo" value="'+list[i].diaryNo+'">'
-						+'</div>'                    
+					+= '<tr>'
+						+'<td><input type="checkbox" class="check" name="diaryNo" value="'+list[i].diaryNo+'"></td>'
+						+'<td onclick="selectDiary('+list[i].diaryNo+');"><img src="' + list[i].diaryThumbnail + '"></td>'
+						+'<td onclick="selectDiary('+list[i].diaryNo+');">' + list[i].createDate + '</td>'
+						+ '<td onclick="selectDiary('+list[i].diaryNo+');">' + list[i].diaryCategory + '</td>'			
+						+ '<td onclick="selectDiary('+list[i].diaryNo+');">' + list[i].diaryContent + '</td></tr>'                         
+					
+			
+			/* 	
+				
+					+='<div class="item-area">'
+					+ '<tr onclick="selectDiary('+list[i].diaryNo+');">'
+					+'<td><p>' + list[i].createDate + '</p></td>'
+					+ '<td><p>' + list[i].diaryCategory + '</p></td>'
+					+ '<td><p>' + list[i].diaryContent + '</p></td>'                    
+					+ '<td><img src="' + list[i].diaryThumbnail + '"></td></tr>'
+					+ '<input type="hidden" name="diaryNo" id="diaryNo" value="'+list[i].diaryNo+'">'
+					+'</div>'         */            
 					}
 					
 					// 동적으로 페이징버튼 만들기
@@ -385,8 +412,36 @@
 		selectPeriod('oneYear');
 		selectDiaryList();
 		
+		// checkAll 클릭시 전체 체크박스 선택
+		$(document).on('click', 'input:checkbox[name="checkAll"]',function() {
+			var checkAll = $(this).is(":checked");
+			if(checkAll){
+				$(".check").prop("checked", true);
+				
+			} else {
+				$(".check").prop("checked", false);
+			}
+
+	    });
+		
+		// 전체 체크박스가 선택되었을 시 checkAll selected
+		$(document).on('click', 'input:checkbox[name="accountNo"]',function() {
+			var total = $('input:checkbox[name=accountNo]').length;
+			var checked = $('input:checkbox[name="accountNo"]:checked').length;
+			
+
+			
+			if(total != checked) {
+				$("#checkAll").prop("checked", false);
+			} else{
+				$("#checkAll").prop("checked", true); 
+			}
+		});
+
+		
+		
+		
 	});
-	
 
 	
 </script>

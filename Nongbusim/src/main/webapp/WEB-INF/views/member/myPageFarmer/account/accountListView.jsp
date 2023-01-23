@@ -194,10 +194,7 @@
    		border-radius: 5px;   
  
 	}
-	 rgin: 0px;
-        padding: 0px;
-        list-style: none;
-    }
+
 </style>
 </head>
 <body>
@@ -382,7 +379,7 @@
 						+ '<td onclick="selectAccount('+list[i].accountNo+');">' + list[i].accountCategory + '</td>'
 						+ '<td onclick="selectAccount('+list[i].accountNo+');">' + list[i].goods + '</td>'
 						+ '<td onclick="selectAccount('+list[i].accountNo+');">' + list[i].amount + '</td>'						
-						+ '<td onclick="selectAccount('+list[i].accountNo+');">' + list[i].accountContent + '</td>'                               
+						+ '<td onclick="selectAccount('+list[i].accountNo+');">' + list[i].accountContent + '</td></tr>'                               
 					}
 					
 					
