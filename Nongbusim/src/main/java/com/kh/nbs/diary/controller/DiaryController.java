@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -285,5 +286,25 @@ public class DiaryController {
 	
 	}
 
+	//선택한 체크박스  글들을 삭제하는 메소드
+	@ResponseBody
+	@RequestMapping(value = "deleteSelected.di", produces = "application/json; charset=UTF-8")
+	public String deleteSelected(@RequestParam(value="checkboxArr[]") List<String> checkboxArr ,  HttpSession session) {
+		System.out.println();
+		
+		String result = "";
+		if(diaryService.deleteCheckedDiaryNo(checkboxArr)>0) {
+			diaryService.deleteCheckedAttachment(checkboxArr);
+			result = "삭제성공";
+		} else {
+			result = "삭제실패";
+		};
+		return new Gson().toJson(result);
+		
+		// 해당월 총 수입: [Account(accountNo=0, type=I, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=4010000, accountContent=null, status=null, memNo=0, nickName=null), 
+		// 해당월 총 지출: Account(accountNo=0, type=O, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=895000, accountContent=null, status=null, memNo=0, nickName=null)]	
+		
+		
+	}
 	
 }

@@ -24,7 +24,7 @@ public class SearchController {
 	//--------------------------------------------- 검색기능 --------------------------
 	
 
-	@RequestMapping("menubarTest.ac")
+	@RequestMapping("menubarTest.se")
 	public ModelAndView menubarTest(ModelAndView mv) {
 		mv.setViewName("common/newMenubar");
 		return mv;		

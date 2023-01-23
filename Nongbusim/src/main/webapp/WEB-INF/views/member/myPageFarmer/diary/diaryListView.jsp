@@ -13,6 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <title>영농일지 모아보기</title>
 <style>
+
 	.container{
 		padding-left:25%;
 		margin: 0px;
@@ -134,7 +135,7 @@
     
     
 	
-	main button{
+	button{
 	    padding:5px 5px;
 	    margin: 3px;
 	    min-width: 50px; 
@@ -151,6 +152,16 @@
 	button:hover{
 		background-color: forestgreen;
 	}
+
+	
+	.title {
+		margin: 0px;
+		display: flex;
+		align-items: center;
+		text-align: center;
+		
+	}
+
 	.likeButton{
 	    display: flex;
 	    padding:5px 5px;
@@ -166,33 +177,6 @@
    		text-decoration: none;
    		border-radius: 5px;   
  
-	}
-		.title {
-		margin: 0px;
-		display: flex;
-		align-items: center;
-		text-align: center;
-		
-	}
-
-	 ul, li{
-       
-	    display: flex;
-	    padding:5px 5px;
-	    margin: 5px;
-	    width: 50px; 
-	    heigh:30px;
-		font-size: 10px;
-	    border: white;
-	    background-color: #388e3c;
-   		color: white;
-   		text-align: center;
-   		justify-content: center;
-   		text-decoration: none;
-   		border-radius: 5px;   
- 
-	}
-
 
 </style>
 </head>
@@ -201,7 +185,7 @@
 <div class="container">
 	<div class="title">
 		<h3>🌿영농일지 모아보기 </h3>
-		<a class="likeButton" href="calView.ac">달력보기</a><a class="likeButton" href="enrollForm.ac">작성하기</a><br>
+		<a class="likeButton" href="calView.di">달력보기</a><a class="likeButton" href="enrollForm.di">작성하기</a><br>
 	</div><br>
 	
 <!--조회기간 설정 후, "검색"버튼 누를 시 ajax 실행 -->
@@ -215,7 +199,7 @@
 
 		<input type="date" id="startDate" name="startDate"> ~ <input type="date" id="endDate" name="endDate">
 	</div>
-	<div class="selectCategory">
+	<div class="selectCategory"  style="float:left; margin-top:10px;">
 		품목 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select id="enrolledCategory">		
 			<c:choose>
@@ -232,23 +216,33 @@
 			</c:choose>
 			
 		</select>
+		&nbsp;&nbsp;	
 	</div>
-	<div style="align:right">
+	<div style="float:left">
 		<button type="button" onclick="selectDiaryList(1);">검색</button>
-		 <a href="enrollForm.di">일지 작성하기</a>
-		 <a href="calView.di">달력으로 보기</a>
 	</div>
-	<div id="listArea">
+</div>
+
+<br><br><br>	
+	<div id="listArea" style="clear:both; margin:20px 0px;">
+		<div>
+			<button onclick="deleteSelected();">선택삭제</button>
+			<button>선택수정</button>
+			<button>엑셀 다운로드</button>
+		</div>
+	<br>
+	<div>
 		<table id="listAreaTable">
 		</table>
 	</div>
 
-	
-	 <div id="pagingArea">
-        <ul id="pagination">
-        </ul>
-     </div>
-	</div>  
+	<br>
+	<div id="pagingArea">
+	       <ul class="pagination justify-content-center"></ul>
+	    </div>
+	    <br>
+	</div> 
+</div> 
 <script>
 function selectPeriod(period){
 		var startDate1;
@@ -326,28 +320,17 @@ function selectPeriod(period){
 				// list[0] 엔 pi가, list[1] 부터는 비어있을 것
 				if(list[1] != null ){
 					var result =
-						'<tr style="background-color:#f1f8e9"><th><input type="checkbox" id="checkAll" name="checkAll"></th><th>썸네일></th><th>날짜</th><th>카테고리</th><th>내용</th></tr>';
+						'<tr style="background-color:#f1f8e9"><th><input type="checkbox" id="checkAll" name="checkAll"></th><th>썸네일</th><th><div style="min-width:100px; height: 30px;">날짜</div></th><th><div style="min-width:100px; height: 30px;">카테고리</div></th><th>내용</th></tr>';
 			
 					for(var i=0; i<(list.length)-1 ; i++) {                
 					result 
-					+= '<tr>'
+						+= '<tr>'
 						+'<td><input type="checkbox" class="check" name="diaryNo" value="'+list[i].diaryNo+'"></td>'
 						+'<td onclick="selectDiary('+list[i].diaryNo+');"><img src="' + list[i].diaryThumbnail + '"></td>'
 						+'<td onclick="selectDiary('+list[i].diaryNo+');">' + list[i].createDate + '</td>'
 						+ '<td onclick="selectDiary('+list[i].diaryNo+');">' + list[i].diaryCategory + '</td>'			
 						+ '<td onclick="selectDiary('+list[i].diaryNo+');">' + list[i].diaryContent + '</td></tr>'                         
-					
-			
-			/* 	
-				
-					+='<div class="item-area">'
-					+ '<tr onclick="selectDiary('+list[i].diaryNo+');">'
-					+'<td><p>' + list[i].createDate + '</p></td>'
-					+ '<td><p>' + list[i].diaryCategory + '</p></td>'
-					+ '<td><p>' + list[i].diaryContent + '</p></td>'                    
-					+ '<td><img src="' + list[i].diaryThumbnail + '"></td></tr>'
-					+ '<input type="hidden" name="diaryNo" id="diaryNo" value="'+list[i].diaryNo+'">'
-					+'</div>'         */            
+	        
 					}
 					
 					// 동적으로 페이징버튼 만들기
@@ -360,9 +343,9 @@ function selectPeriod(period){
 						var pi = list[list.length-1];
 						console.log(pi);						
 						if(pi.currentPage == 1){
-							innerPagi += '<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>'
+							innerPagi += '<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>'
 						} else {
-							innerPagi +=  '<li class="page-item"><a class="page-link" onclick="selectDiaryList('+(pi.currentPage - 1)+');" >Previous</a></li>'
+							innerPagi +=  '<li class="page-item"><a class="page-link" onclick="selectDiaryList('+(pi.currentPage - 1)+');" >이전</a></li>'
 						
 
 						}
@@ -373,10 +356,10 @@ function selectPeriod(period){
 						}
 						
 						if(pi.currentPage == pi.maxPage){
-							innerPagi += '<li class="page-item disabled"><a class="page-link" href="#" >Next</a></li>'
+							innerPagi += '<li class="page-item disabled"><a class="page-link" href="#" >다음</a></li>'
 			                
 						} else {
-							innerPagi += '<li class ="page-item"><a class="page-link" onclick="selectDiaryList('+(pi.currentPage +1)+');">NEXT</a>'
+							innerPagi += '<li class ="page-item"><a class="page-link" onclick="selectDiaryList('+(pi.currentPage +1)+');">다음</a>'
 
 							
 						}
@@ -388,7 +371,7 @@ function selectPeriod(period){
  					result= '작성한 영농일지가 없습니다'
 				}                   
                	 $('#listAreaTable').html(result);
-               	 $('#pagination').html(innerPagi);
+               	 $('.pagination').html(innerPagi);
                	 
 			},
 			error: function(){
@@ -443,6 +426,34 @@ function selectPeriod(period){
 		
 	});
 
+	// 동적으로 생성된 체크박스 제어하기
+	
+	//"선택삭제"를 누를 시 동작하는 함수 및 ajax
+	function deleteSelected(){
+	  var checkboxArr = []; 
+	  $('input:checkbox[name="diaryNo"]:checked').each(function() {
+	  checkboxArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+	  console.log(checkboxArr);
+	});
+	
+	  $.ajax({
+	      type  : "POST",
+	      url    : "deleteSelected.di",
+	      data: {
+	      checkboxArr : checkboxArr        // folder seq 값을 가지고 있음.
+	      },
+	      success: function(result){
+	      	console.log(result);
+	      	alert(result);
+	      	selectDiaryList();
+	      	
+	      },
+	      error: function() {
+	      	alert('실패');
+	      }  
+	   });
+	}
+		
 	
 </script>
 

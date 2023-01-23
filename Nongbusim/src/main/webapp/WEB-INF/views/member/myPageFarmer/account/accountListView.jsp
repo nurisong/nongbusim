@@ -153,22 +153,7 @@
 	button:hover{
 		background-color: forestgreen;
 	}
-	.likeButton{
-	    display: flex;
-	    padding:5px 5px;
-	    margin: 5px;
-	    width: 50px; 
-	    heigh:30px;
-		font-size: 10px;
-	    border: white;
-	    background-color: #388e3c;
-   		color: white;
-   		text-align: center;
-   		justify-content: center;
-   		text-decoration: none;
-   		border-radius: 5px;   
- 
-	}
+
 		.title {
 		margin: 0px;
 		display: flex;
@@ -177,8 +162,7 @@
 		
 	}
 
-	 ul, li{
-        ma	.likeButton{
+	.likeButton{
 	    display: flex;
 	    padding:5px 5px;
 	    margin: 5px;
