@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.farm.model.vo.Farm;
+import com.kh.nbs.market.model.vo.Market;
 import com.kh.nbs.program.model.vo.Program;
 
 @Repository
@@ -38,10 +39,6 @@ public class FarmDao {
 	public ArrayList<Program> selectProgramList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("farmMapper.selectProgramList");
 	}
-	
-//	public int insertAttachment(Attachment a, SqlSessionTemplate sqlSession) {
-//		return sqlSession.insert("attachmentMapper.insertAttachmentFarm", a);
-//	}
 
 	public int insertFarm(Farm f, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("farmMapper.insertFarm", f);
@@ -61,6 +58,14 @@ public class FarmDao {
 	
 	public ArrayList<Program> selectProgram(int farmNo, SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("farmMapper.selectProgram", farmNo);
+	}
+	
+	public ArrayList<Market> selectMarket(int memNo, SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("farmMapper.selectMarket", memNo);
+	}
+	
+	public ArrayList<Attachment> selectMarketAt(ArrayList<Market> mkList, SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("farmMapper.selectMarketAt", mkList);
 	}
 
 	public List selectFileNo(int farmNo, SqlSessionTemplate sqlSession) {

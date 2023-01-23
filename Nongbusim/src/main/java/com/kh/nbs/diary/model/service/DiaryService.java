@@ -27,5 +27,7 @@ public interface DiaryService {
 	int deleteAttachment(int diaryNo);
 	ArrayList seletCalEvent(int memNo);
 	int selectListCount(Diary diary);
+	int deleteCheckedDiaryNo(List<String> checkboxArr);
+	int deleteCheckedAttachment(List<String> checkboxArr);
 
 }

@@ -193,7 +193,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where		
 			diary_no  = #{diaryNo}	
 	</update>
-	<update id="deleteAttschment" parameterType="_int">
+	<update id="deleteAttachment" parameterType="_int">
 	update
 			attachment
 	set
@@ -233,6 +233,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and diary_category = #{diaryCategory}		
 		</if>
 			
-	 </select>     		
+	 </select>     	
+	 
+	 <update id="deleteCheckedAccountNo">
+			update 
+ 		  		diary
+ 		  set
+ 		  		status = 'N'
+ 		  where
+ 		  		diary_no in
+ 		  		<foreach collection="list" item="item" open="(" close=")" separator=",">
+ 		  		 #{item}
+ 		  		</foreach> 
+	</update>
+	<update id="deleteCheckedAttachment" parameterType="_int">
+	update
+			attachment
+	set
+			status = 'N'
+	where
+			board_no in
+			<foreach collection="list" item="item" open="(" close=")" separator=",">
+ 		  		 #{item}
+ 		  	</foreach> 
+
+	</update>	
+	
+	 	
 	
 </mapper>

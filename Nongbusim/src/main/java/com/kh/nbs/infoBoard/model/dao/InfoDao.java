@@ -14,14 +14,14 @@ import com.kh.nbs.infoBoard.model.vo.Info;
 @Repository
 public class InfoDao {
 	
-	public int selectListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("infoMapper.selectListCount");
+	public int selectListCount(HashMap<String, String> map, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("infoMapper.selectListCount", map);
 	}
 	
-	public ArrayList<Info> selectList(PageInfo pi, SqlSessionTemplate sqlSession) {
+	public ArrayList<Info> selectList(PageInfo pi, HashMap<String, String> map, SqlSessionTemplate sqlSession) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("infoMapper.selectList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("infoMapper.selectList", map, rowBounds);
 	}
 	
 	public int increaseCount(int infoNo, SqlSessionTemplate sqlSession) {

@@ -93,7 +93,7 @@
   <jsp:include page="../myPageFarmerCommon.jsp" />
   <div class="container">
 	<div class="title">
-		<h3>입출금장부현황 </h3>
+		<h3>🌱입출금장부현황 </h3>
 		<a class=likeButton href="list.ac">모아보기</a><a class=likeButton href="enrollForm.ac">작성하기</a><br></div>
   	<div class="summaryArea"></div>	
  	<br><br><br>
@@ -123,8 +123,8 @@
       		 today: '오늘 날짜로'
       	 },    
            locale: 'ko',
-      	 initialView: "dayGridMonth",
-      	 slotMinTime: '09:00',
+      	   initialView: "dayGridMonth",
+      	   slotMinTime: '09:00',
            slotMaxTime: '19:00',
            selectable: true,
            firstDay: 1,

@@ -41,7 +41,7 @@
         margin: 35px;
     }
     .btn-area>span>a>img{
-        width: 190px;
+        width: 140px;
     }
     .top-area>div, .botton-area>div, .fammer-area>div{
         display: inline-block;
@@ -99,6 +99,7 @@
             <span><a href="list.pr"><img src="resources/images/버튼2.jpg"></a></span>
             <span><a href=""><img src="resources/images/버튼3.jpg"></a></span>
             <span><a href="list.mk?marketCategory=모두"><img src="resources/images/버튼4.jpg"></a></span>
+            <span><a href="list.re"><img src="resources/images/버튼5.PNG"></a></span>
         </div>
 
         <c:if test="${loginUser.memStatus eq 'F'}">

@@ -15,21 +15,15 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1d40107f1ef7cb9b23f17d054938c10e&libraries=services"></script>
 
 <style>
-    *>a{color: black;}
+    *>a{ color: black; }
     .outer{
         padding: 50px;
         width: 100%;
         font-family: 'Pretendard-Regular';
     }
-    .main-area{
-        width: 900px;
-    }
-    .farm-area{
-        height: 300px;
-    }
-    .name-info{
-        margin: 30px 0px 50px 0px;
-    }
+    .main-area{ width: 900px; }
+    .farm-area{ height: 300px; }
+    .name-info{ margin: 30px 0px 50px 0px; }
     .name-area{
         width: 40%;
         display: inline-block;
@@ -42,9 +36,7 @@
         float: right;
         padding-left: 30px;
     }
-    .farm-info-icon{
-        width: 18px;
-    }
+    .farm-info-icon{ width: 18px; }
     .info{
         text-align: left;
         background-color: rgb(235, 235, 235);
@@ -54,19 +46,14 @@
         padding: 20px;
         padding-left: 30px;
     }
-    .fotorama{
-        width: 800px;
-    }
+    .fotorama{ width: 800px; }
     .bottom-area{
         text-align: left;
         padding: 30px;
     }
-    .program-area, .sale-area, .map-area{
-        padding: 20px;
-    }
-    .crop-img{
-        width: 200px;
-    }
+    .program-area, .sale-area, .map-area{ padding: 20px; }
+    .program-area tbody a{ color: black; }
+    .crop-img{ width: 200px; }
     .intro-area{
         padding-left: 50px;
         text-align: left;
@@ -83,12 +70,8 @@
         background-color: green;
         display: inline-block;
     }
-    .program-table{
-        text-align: center;
-    }
-    .map-area>div{
-        display: inline-block;
-    }
+    .program-table{ text-align: center; }
+    .map-area>div{ display: inline-block; }
     #map-text-area{
         float: right;
         padding-top: 50px;
@@ -96,6 +79,46 @@
         height: 350px;
         width: 50%;
     }
+
+.container {
+  position: relative;
+  width: 24%;
+  display: inline-block;
+  padding: 0px;
+  margin: 3px;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 200px;
+}
+
+.textbox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: rgb(68, 68, 68);
+}
+
+.container:hover .textbox { opacity: 0.9; }
+
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 </style>
 </head>
 <body>
@@ -169,21 +192,50 @@
                     <br>
                     <table>
                         <tr>
+                            <c:forEach var="mk" items="${mkList}">
+                                <c:forEach var="at" items="${mkAtList}">
+                                    <c:if test="${mk.marketNo eq at.boardNo}">
+                                        <div class="container">
+                                            <img src="${at.changeName}" class="image">
+                                            <div class="textbox">
+                                                <div class="text">
+                                                    ${mk.marketTitle} <br>
+                                                    ${mk.marketPrice}원 <br>
+                                                    <a href="detail.mk?marketNo=${mk.marketNo}">
+                                                        > 더보기
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </c:forEach>
+                            </c:forEach>
+                            
+
+                            <!-- <c:forEach var="mk" items="${mkList}">
+                                <c:forEach var="at" items="${mkAtList}">
+                                    <td><a href="detail.mk?marketNo=${mk.marketNo}"><img class="crop-img" src="${at.changeName}"></a></td>
+                                </c:forEach>
+                            </c:forEach>
                             <td><img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"></td>
                             <td><img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"></td>
                             <td><img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"></td>
-                            <td><img class="crop-img" src="https://images.unsplash.com/photo-1622943316951-33fd198b660f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3RyYXdiZXJyeXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=500&q=60"></td>
+                             -->    
                         </tr>
                     </table>
                 </div><br>
 
                 <div class="map-area">
-                    <h4>찾아오는 길</h4>
+                    <h4>찾아오시는 길</h4>
                     <br>
                     <div id="map" style="width:50%;height:350px;"></div>
                     <div id="map-text-area">
-                        <div><span><img class="farm-info-icon" src="resources/images/marker-icon.png"></span> ${farm.address}</div><br>
-                        <a class="btn btn-secondary" id="link-kakaomap">길찾기</a>
+                        <div>
+                            <span><img class="farm-info-icon" src="resources/images/marker-icon.png"></span> ${farm.address}
+                        </div>
+                        <div>
+                            <span><img class="farm-info-icon" src="resources/images/car-icon.png"></span>  <a class="btn btn-secondary" id="link-kakaomap">길찾기</a>
+                        </div>
                     </div>
 
                 </div>

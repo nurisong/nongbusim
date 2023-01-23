@@ -2,6 +2,7 @@ package com.kh.nbs.account.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.google.gson.JsonElement;
 import com.kh.nbs.account.model.vo.Account;
@@ -37,5 +38,9 @@ public interface AccountService {
 	ArrayList monthlySummary(Account account);
 
 	int selectListCount(Account account);
+
+	int deleteCheckedAccountNo(List<String> checkboxArr);
+
+	int deleteCheckedAttachment(List<String> checkboxArr);
 	
 }

@@ -22,13 +22,13 @@ public class InfoServiceImpl implements InfoService {
 	private InfoDao infoDao;
 
 	@Override
-	public int selectListCount() {
-		return infoDao.selectListCount(sqlSession);
+	public int selectListCount(HashMap<String, String> map) {
+		return infoDao.selectListCount(map, sqlSession);
 	}
 
 	@Override
-	public ArrayList<Info> selectList(PageInfo pi) {
-		return infoDao.selectList(pi, sqlSession);
+	public ArrayList<Info> selectList(PageInfo pi, HashMap<String, String> map) {
+		return infoDao.selectList(pi, map, sqlSession);
 	}
 	
 	@Override

@@ -11,9 +11,9 @@ public interface InfoService {
 	
 	// 1. 게시글 리스트 조회 서비스 + 페이징 처리(select)
 	// 1-1) 게시글 총 개수 조회
-	int selectListCount();
+	int selectListCount(HashMap<String, String> map);
 	// 1-2) 게시글 리스트 조회
-	ArrayList<Info> selectList(PageInfo pi);
+	ArrayList<Info> selectList(PageInfo pi, HashMap<String, String> map);
 	
 	// 2. 게시글 작성 서비스(insert)
 	int insertInfo(Info i);

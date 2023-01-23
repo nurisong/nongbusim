@@ -1,6 +1,7 @@
 package com.kh.nbs.diary.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,17 @@ public class DiaryServiceImpl implements DiaryService {
 	@Override
 	public int selectListCount(Diary diary) {
 		return diaryDao.selectListCount(sqlSession, diary);
+	}
+
+	@Override
+	public int deleteCheckedDiaryNo(List<String> checkboxArr) {
+		return diaryDao.deleteCheckedDiaryNo(sqlSession,checkboxArr);
+	}
+
+	@Override
+	public int deleteCheckedAttachment(List<String> checkboxArr) {
+		return diaryDao.deleteCheckedAttachment(sqlSession,checkboxArr);
+		
 	}
 
 	/*

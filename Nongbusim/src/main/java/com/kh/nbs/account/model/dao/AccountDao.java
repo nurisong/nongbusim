@@ -2,6 +2,7 @@ package com.kh.nbs.account.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -78,6 +79,14 @@ public class AccountDao {
 
 	public int selectListCount(SqlSessionTemplate sqlSession, Account account) {
 		return sqlSession.selectOne("accountMapper.selectListCount", account);
+	}
+
+	public int deleteCheckedAccountNo(SqlSessionTemplate sqlSession, List<String> checkboxArr) {
+		return sqlSession.update("accountMapper.deleteCheckedAccountNo",checkboxArr);
+	}
+
+	public int deleteCheckedAttachment(SqlSessionTemplate sqlSession, List<String> checkboxArr) {
+		return sqlSession.update("accountMapper.deleteCheckedAttachment",checkboxArr);
 	}
 
 

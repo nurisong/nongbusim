@@ -6,15 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<title>Insert title here</title>
+<title>입출금장부 모아보기</title>
 
 <style>
 
 	.container{
 		padding-left:25%;
+		margin: 0px;
 	}
 	#listAreaTable img {
 		width: 200px;
@@ -25,26 +28,6 @@
 		object-fit: cover;
 	}
 
-	.item-area img {
-	  transition: all 0.2s linear;
-	}
-	.item-area:hover img {
-	  transform: scale(1.4);
-	}
-
-	
-	.item-area {
-
-	  margin: 0px auto;
-	  overflow: hidden;
-	}
-
-
-	.item-area a {
-		text-decoration: none;
-		color: rgb(100, 100, 100);   
-	}
-	
 	#listAreaTable a {
 		text-decoration: none;
 		color: rgb(100, 100, 100);   
@@ -83,58 +66,42 @@
         color: #ffffff;
     }
 
-
 	
 	
     th, td {
-	padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 30px;
-    padding-right: 40px;
+	padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
     }
-    
-    #tdBottom{
-    	padding-right: 20px 20px 0px 30px;
-    	margin-right: 10px;
-       	align: bottom;
-  	    valign: bottom;
-  	    font-size: 16px;
 
-    }
     
-    #tdUp{
-    	padding-right: 20px 20px 0px 30px;
-    	margin-right:10px;
-    	align: top;
-    	valign: top;
-    	font-size: 16px;
-    }
-    
-    
-    
-    
-    .withBorder	{
+    table	{
+    	font-size: 10px;
 		border-collapse: collapse;
 		width : 1000px;
 		border: none;
-		font-size: 20px;
-		transition: 1s;
-		border-spacing: 30px;		
+		font-size: 15px;
+		transition: 1s;	
 		border: 1px dotted gray;
-		padding : 10px 20px 20px 20px;
+		border-spacing: 10px;
 
 	}
+	   th, td {
+    	border-bottom: 1px dotted gray;
+        padding: 10px;
+    }
 	 
-	 .withBorder tr:hover{
+	 table tr:hover{
 		cursor : pointer;
 		background-color:#f3e9e9 !important;
 		font-weight: bolder;
-		font-size: 22px;
 	
 	}  
     
 
-	 .withBorder div {
+	table div {
 	 	
 	 	height: 100px;
 		display: table-cell; 
@@ -147,7 +114,7 @@
     
     
    .myButton{ 
- 		    background-color: #FFA500;
+ 		    background-color: #cddc39;
      		color: maroon;
      		text-align: center;
      		text-decoration: none;
@@ -168,36 +135,66 @@
     }
     
     
-    
-	  #listAreaTable img {
-	  transform: scale(1);
-	  -webkit-transform: scale(1);
-	  -moz-transform: scale(1);
-	  -ms-transform: scale(1);
-	  -o-transform: scale(1);
-	  transition: all 0.3s ease-in-out;   
+	
+	button{
+	    padding:5px 5px;
+	    margin: 3px;
+	    min-width: 50px; 
+	    heigh:30px;
+		font-size: 14px;
+	    border: white;
+	    background-color: #c5e1a5;
+   		color: black;
+   		text-decoration: none;
+   		border-radius: 5px;   
+ 
+	}
+	
+	button:hover{
+		background-color: forestgreen;
+	}
+
+		.title {
+		margin: 0px;
+		display: flex;
+		align-items: center;
+		text-align: center;
 		
 	}
-	#listAreaTable img:hover {
-	  transform: scale(1.1);
-	  -webkit-transform: scale(1.1);
-	  -moz-transform: scale(1.1);
-	  -ms-transform: scale(1.1);
-	  -o-transform: scale(1.1);
-	  overflow: hidden;
+
+	.likeButton{
+	    display: flex;
+	    padding:5px 5px;
+	    margin: 5px;
+	    width: 50px; 
+	    heigh:30px;
+		font-size: 10px;
+	    border: white;
+	    background-color: #388e3c;
+   		color: white;
+   		text-align: center;
+   		justify-content: center;
+   		text-decoration: none;
+   		border-radius: 5px;   
+ 
 	}
+
 </style>
 </head>
 <body>
 <jsp:include page="../myPageFarmerCommon.jsp" />
 <div class="container">
-<h3>농작물입출금 모아보기</h3>
 
-
+	<div class="title">
+		<h3>🌱농작물입출금 모아보기 </h3>
+		<a class="likeButton" href="calView.ac">달력보기</a><a class="likeButton" href="enrollForm.ac">작성하기</a><br>
+	</div><br>
 <!--조회기간 설정 후, "검색"버튼 누를 시 ajax 실행 -->
-<div class="selectArea" style="float:left">
+
+
+<div class="selectArea" style="float:left; margin-bottom:30px;">
 	<div class="selectPeriod">
-		조회기간 &nbsp; &nbsp;
+		조회기간 &nbsp;
 		<button type="button" onclick="selectPeriod('oneMonth');">1개월</button>
 		<button type="button" onclick="selectPeriod('threeMonths');">3개월</button>
 		<button type="button" onclick="selectPeriod('sixMonths');">6개월</button>
@@ -205,6 +202,7 @@
 		<input type="date" id="startDate" name="startDate"> ~ <input type="date" id="endDate" name="endDate">
 	</div>
 	<div class="selectTransaction">
+	 	구분 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
       <label><input type="radio" name="type" value="selectAll" checked> 전체 </label>
 	  <label><input type="radio" name="type" value="I"> 수입 </label>
       <label><input type="radio" name="type" value="O"> 지출 </label>
@@ -229,7 +227,7 @@
 			</c:choose>
 		</select>
 	</div>		
-	<div class="selectGoods">
+	<div class="selectGoods" style="float:left; margin-top:10px">
 		품목 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<select id="enrolledGoods">		
 			<c:choose>
@@ -247,27 +245,31 @@
 				</c:otherwise>
 			</c:choose>
 		</select>
+	&nbsp;&nbsp;	
 	</div>		
 	<div>
 		<button type="button" onclick="selectAccountList(1);">검색</button>
-		<a href="enrollForm.ac">입출금일지 작성하기</a>
-		 <a href="calView.ac">달력으로 보기</a>
 	</div>
+</div>
 
-	<br><br><Br>
-	<button>선택삭제</button>
-	<button>선택수정</button>
-	<button>엑셀 다운로드</button>
-
-	<div id="listArea">
+<br><br><br>
+	
+<div id="listArea" style="clear:both; margin:20px 0px;">
+	<div>
+		<button onclick="deleteSelected();">선택삭제</button>
+		<button>선택수정</button>
+		<button>엑셀 다운로드</button>
+	</div>
+	<br>
+	<div>
 		<table id="listAreaTable">
 		</table>
 	</div>	
-
+	<br>
 	<div id="pagingArea">
-        <ul id="pagination">
-        </ul>
-     </div>
+         <ul class="pagination justify-content-center"></ul>
+    </div>
+    <br> 
   </div>   
 
 </div>
@@ -346,25 +348,22 @@
 				cpage : cpage
 			},
 			success: function(list){
-				var result = '<div class="item-area">'
-					+'<tr><th><input type="checkbox" id="checkAll"></th><th>날짜</th><th>구분</th><th>분류</th><th>품목</th><th>금액</th><th>내용</th></tr>';
+				var result =
+					'<tr style="background-color:#f1f8e9"><th><input type="checkbox" id="checkAll" name="checkAll"></th><th>날짜</th><th>구분</th><th>분류</th><th>품목</th><th>금액</th><th>내용</th></tr>';
 				// 만약 돌아온 list가 없다면, 마지막에 list.add()로 pi를 넣어뒀으므로
 				// list[0] 엔 pi가, list[1] 부터는 비어있을 것
 				if(list[1] != null ){
 
 					for(var i=0; i<list.length-1 ; i++) {                
 					result 
-						+='<div class="item-area">'
-						+ '<tr onclick="selectAccount('+list[i].accountNo+');">'
+						+= '<tr>'
 						+'<td><input type="checkbox" class="check" name="accountNo" value="'+list[i].accountNo+'"></td>'
-						+'<td><p>' + list[i].createDate + '</p></td>'
-						+'<td><p>'+list[i].type+'</p></td>'
-						+ '<td><p>' + list[i].accountCategory + '</p></td>'
-						+ '<td><p>' + list[i].goods + '</p></td>'
-						+ '<td><p>' + list[i].amount + '</p></td>'						
-						+ '<td><p>' + list[i].accountContent + '</p></td>'                 
-						+ '<input type="hidden" name="accountNo" id="accountNo" value="'+list[i].accountNo+'">'
-						+'</div>'                    
+						+'<td onclick="selectAccount('+list[i].accountNo+');">' + list[i].createDate + '</td>'
+						+'<td onclick="selectAccount('+list[i].accountNo+');">'+list[i].type+'</td>'
+						+ '<td onclick="selectAccount('+list[i].accountNo+');">' + list[i].accountCategory + '</td>'
+						+ '<td onclick="selectAccount('+list[i].accountNo+');">' + list[i].goods + '</td>'
+						+ '<td onclick="selectAccount('+list[i].accountNo+');">' + list[i].amount + '</td>'						
+						+ '<td onclick="selectAccount('+list[i].accountNo+');">' + list[i].accountContent + '</td></tr>'                               
 					}
 					
 					
@@ -378,9 +377,9 @@
 						var pi = list[list.length-1];
 						console.log(pi);						
 						if(pi.currentPage == 1){
-							innerPagi += '<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>'
+							innerPagi += '<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>'
 						} else {
-							innerPagi +=  '<li class="page-item"><a class="page-link" onclick="selectAccountList('+(pi.currentPage - 1)+');" >Previous</a></li>'
+							innerPagi +=  '<li class="page-item"><a class="page-link" onclick="selectAccountList('+(pi.currentPage - 1)+');" >이전</a></li>'
 						
 
 						}
@@ -391,10 +390,10 @@
 						}
 						
 						if(pi.currentPage == pi.maxPage){
-							innerPagi += '<li class="page-item disabled"><a class="page-link" href="#" >Next</a></li>'
+							innerPagi += '<li class="page-item disabled"><a class="page-link" href="#" >다음</a></li>'
 			                
 						} else {
-							innerPagi += '<li class ="page-item"><a class="page-link" onclick="selectAccountList('+(pi.currentPage +1)+');">NEXT</a>'
+							innerPagi += '<li class ="page-item"><a class="page-link" onclick="selectAccountList('+(pi.currentPage +1)+');">다음</a>'
 						
 						}
 						
@@ -405,7 +404,7 @@
  					result= '작성한 영농일지가 없습니다'
 				}                   
                	 $('#listAreaTable').html(result);
-               	 $('#pagination').html(innerPagi);
+               	 $('.pagination').html(innerPagi);
 			},
 			error: function(){
 				console.log('실패');
@@ -429,38 +428,67 @@
 		selectPeriod('oneYear');
 		selectAccountList();
 		
+		// checkAll 클릭시 전체 체크박스 선택
+		$(document).on('click', 'input:checkbox[name="checkAll"]',function() {
+			var checkAll = $(this).is(":checked");
+			if(checkAll){
+				$(".check").prop("checked", true);
+				
+			} else {
+				$(".check").prop("checked", false);
+			}
+
+	    });
+		
+		// 전체 체크박스가 선택되었을 시 checkAll selected
+		$(document).on('click', 'input:checkbox[name="accountNo"]',function() {
+			var total = $('input:checkbox[name=accountNo]').length;
+			var checked = $('input:checkbox[name="accountNo"]:checked').length;
+			
+
+			
+			if(total != checked) {
+				$("#checkAll").prop("checked", false);
+			} else{
+				$("#checkAll").prop("checked", true); 
+			}
+		});
+
+		
+		
+		
 	});
 	
-
+	// 동적으로 생성된 체크박스 제어하기
 	
-	
-    $("#checkAll").change(function(){
-	    if($(this).attr("checked", true)){
-	       	$(".check").attr("checked", true);
-	   } else {
-	       	$(".check").attr("checked", false);
-	   }
-    });
-	
-    
-	// 체크박스 
-	$("#checkAll").change(function() {
-		if($("#checkAll").attr("checked", true)){
-			$("input[name=accountNo]").attr("checked", true);	
-		} else{
-			$("input[name=accountNo]").attr("checked", false);
-		}
+	//"선택삭제"를 누를 시 동작하는 함수 및 ajax
+	function deleteSelected(){
+	  var checkboxArr = []; 
+	  $('input:checkbox[name="accountNo"]:checked').each(function() {
+	  checkboxArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+	  console.log(checkboxArr);
 	});
-
-	$(".check").click(function() {
-		var total = $(".check").length;
-		var checked = $("input[name=accountNo]:checked").length;
-
-		if(total != checked) $("#checkAll").attr("checked", false);
-		else $("#check").attr("checked", true); 
-	});
-      
 	
+	  $.ajax({
+	      type  : "POST",
+	      url    : "deleteSelected.ac",
+	      data: {
+	      checkboxArr : checkboxArr        // folder seq 값을 가지고 있음.
+	      },
+	      success: function(result){
+	      	console.log(result);
+	      	alert(result);
+	      	selectAccountList();
+	      	
+	      },
+	      error: function() {
+	      	alert('실패');
+	      }  
+	   });
+	}
+		
+	
+
  
 </script>
 

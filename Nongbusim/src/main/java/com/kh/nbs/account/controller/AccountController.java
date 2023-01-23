@@ -6,9 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,14 +60,12 @@ public class AccountController {
 		account.setMemNo(memNo);
 		
 		PageInfo pi = Pagination.getPageInfo(accountService.selectListCount(account), currentPage , 10 , 10);
-		System.out.println(pi);
 	
 		
 		ArrayList result = null;
 		if(accountService.selectAccountList(account,pi) != null ) {
 			result =accountService.selectAccountList(account, pi);
 			result.add(pi);
-			System.out.println(result);
 			// list의 마지막에 pi를 담아 돌려보냄
 			
 		}
@@ -174,14 +174,14 @@ public class AccountController {
 	
 	// 영농일지 상세페이지에서 "수정" 버튼 누를시 수정 폼을 띄워주는 메소드
 	@RequestMapping("updateForm.ac")
-	public ModelAndView updateAccountForm(String ano, String memNo, ModelAndView mv) {		
+	public ModelAndView updateAccountForm(String ano, HttpSession session, ModelAndView mv) {		
 		//update할때 필요한 정보들은 accountDetailView에서 필요한 Service메소드  + categoryList Serviec메소드 
 		// 동일 메소드로 재활용하기		
 		int accountNo= Integer.parseInt(ano);
-		int memberNo= Integer.parseInt(memNo);
+		int memNo = ((Member) session.getAttribute("loginUser")).getMemNo();
 				
 		mv.addObject("account", accountService.selectAccount(accountNo)).addObject("aAtList", accountService.selectAttachmentList(accountNo));
-		mv.addObject("catAndGoods", accountService.selectCatAndGoods(memberNo));		
+		mv.addObject("catAndGoods", accountService.selectCatAndGoods(memNo));		
 		mv.setViewName("member/myPageFarmer/account/accountUpdateForm");
 		return mv;	
 	
@@ -189,7 +189,7 @@ public class AccountController {
 	
 	// 영농일지 수정하기에서 "확인" 버튼 누를 시, DB에 수정된 내용을 저장하기 위한 메소드
 	@RequestMapping("update.ac")
-	public ModelAndView updateaccount(Account account, String newCategory, String newGoods, MultipartFile[] reUpfiles, HttpServletRequest request, HttpSession session, Attachment at, ModelAndView mv) {
+	public ModelAndView updateAccount(Account account, String newCategory, String newGoods, MultipartFile[] reUpfiles, HttpServletRequest request, HttpSession session, Attachment at, ModelAndView mv) {
 		// 만약 신규등록한 카테고리가 있다면
 		/// account의 accountCategory필드 값을 신규등록값으로 변경
 
@@ -246,15 +246,28 @@ public class AccountController {
 	
 	
 	@RequestMapping("delete.ac")
-	public ModelAndView deleteaccount(int accountNo, ModelAndView mv, HttpSession session) {	
-		if( accountService.deleteAccount(accountNo)*accountService.deleteAttachment(accountNo)>0) {
-			session.setAttribute("alertMsg", "가계부가 삭제되었습니다");
-			mv.setViewName("redirect:list.ac");
+	public ModelAndView deleteAccount(@RequestParam(value="ano") int accountNo, @RequestParam(value="att") String attatchment , ModelAndView mv, HttpSession session) {	
+		
+		if( attatchment.equals("[]")){
+			if (accountService.deleteAccount(accountNo) >0) {
+				session.setAttribute("alertMsg", "가계부가 삭제되었습니다");
+				mv.setViewName("redirect:list.ac");
+			} else {
+				session.setAttribute("alertMsg", "가계부 삭제에 실패하였습니다.");
+				mv.setViewName("common/errorPage");			
+			}
+			
 		} else {
-			session.setAttribute("alertMsg", "가계부 삭제에 실패하였습니다.");
-			mv.setViewName("common/errorPage");			
+			if(accountService.deleteAccount(accountNo)*accountService.deleteAttachment(accountNo)>0) {
+				session.setAttribute("alertMsg", "가계부가 삭제되었습니다");
+				mv.setViewName("redirect:list.ac");
+			} else {
+				session.setAttribute("alertMsg", "가계부 삭제에 실패하였습니다.");
+				mv.setViewName("common/errorPage");			
+			}
+			
 		}
-		return mv;	
+			return mv;	
 	
 	} 
 	
@@ -284,7 +297,6 @@ public class AccountController {
 	@RequestMapping(value = "monthlySummary.ac", produces = "application/json; charset=UTF-8")
 	public String monthlySummary(Account account,  HttpSession session) {
 		
-		System.out.println(account);
 		
 		account.setMemNo(((Member) session.getAttribute("loginUser")).getMemNo());
 		
@@ -304,6 +316,27 @@ public class AccountController {
 		// 해당월 총 수입: [Account(accountNo=0, type=I, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=4010000, accountContent=null, status=null, memNo=0, nickName=null), 
 		// 해당월 총 지출: Account(accountNo=0, type=O, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=895000, accountContent=null, status=null, memNo=0, nickName=null)]	
 
+		
+	}
+	
+	//선택한 체크박스  글들을 삭제하는 메소드
+	@ResponseBody
+	@RequestMapping(value = "deleteSelected.ac", produces = "application/json; charset=UTF-8")
+	public String deleteSelected(@RequestParam(value="checkboxArr[]") List<String> checkboxArr ,  HttpSession session) {
+		System.out.println();
+		
+		String result = "";
+		if(accountService.deleteCheckedAccountNo(checkboxArr)>0) {
+			accountService.deleteCheckedAttachment(checkboxArr);
+			result = "삭제성공";
+		} else {
+			result = "삭제실패";
+		};
+		return new Gson().toJson(result);
+		
+		// 해당월 총 수입: [Account(accountNo=0, type=I, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=4010000, accountContent=null, status=null, memNo=0, nickName=null), 
+		// 해당월 총 지출: Account(accountNo=0, type=O, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=895000, accountContent=null, status=null, memNo=0, nickName=null)]	
+		
 		
 	}
 	
