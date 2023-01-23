@@ -284,7 +284,7 @@
     /* ---------------키워드 추천 ajax----------------------*/
    $("#searchbox").keyup(function(){
 	   
-	   var keyword = $('#keyword');
+	   var keyword = $('#searchbox');
 	   var recommendations = $('#recommendations');
 	   var texts = $('.text');
 	   
@@ -333,7 +333,13 @@
     		
     
    $("#search").click(function(){
-	   location.href= "search.me"
+
+	   var keyword = $('#searchbox').val();
+	   if (keyword !=""){
+		   location.href= "search.me?keyword="+keyword;		   
+	   } else {
+		   alert('검색키워드를 입력해주세요');
+	   }
    });
     
     
