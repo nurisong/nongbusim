@@ -15,5 +15,6 @@ public class Market {
 	private int marketCount;
 	private String marketStatus;
 	private int memNo;
+	private String changeName;
 
 }

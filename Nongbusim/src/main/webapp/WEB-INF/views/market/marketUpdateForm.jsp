@@ -81,11 +81,29 @@
                         <tr>
                             <td colspan="2">
                                 <c:forEach items="${ at }" var="at" >
-                                    <div style="display: inline;">
-                                        <img src="${at.changeName}" style="width: 150px; height: 150px; display: inline;" />${ at.originName}
-                                        <input type="file" name="reUpFiles">
-                                    </div>
+                                        <div style="display: inline;">
+                                            <img src="${at.changeName}" style="width: 150px; height: 150px; display: inline;" />${ at.originName}
+                                            <button type="button" class="del-img-btn1 btn btn-sm">삭제</button><br>
+                                        </div>
+                                        <c:choose>
+                                            <c:when test="${fn:length(at) > 1}">
+                                                <input type="file" name="reUpFiles">
+                                                <input type="file" name="reUpFiles">
+                                                <input type="file" name="reUpFiles">
+                                            </c:when>
+                                            <c:when test="${fn:length(at) == 2}">
+                                                <input type="file" name="reUpFiles">
+                                                <input type="file" name="reUpFiles">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="file" name="reUpFiles">
+                                            </c:otherwise>
+                                        </c:choose>
                                 </c:forEach>
+
+                                <script>
+                                    console.log('${fn:length(at)}');
+                                </script>
                             </td>
                         </tr>
                     </thead>
