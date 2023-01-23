@@ -88,7 +88,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and
 	    status= 'Y'
     
-		
+    
+    UNION
+    
+    
+
+    select  substr(farm_name,instr(farm_name,#{keyword}),
+	                decode(instr(farm_name,' '),0,
+                     (instr(farm_name||' ',' ',instr(farm_name,#{keyword}))- instr(farm_name,#{keyword})) ,
+                     (instr(farm_name,' ',instr(farm_name,#{keyword}))-instr(farm_name,#{keyword})+1)))
+
+	from  farm
+	where farm_name  like '%'||#{keyword}||'%'
+	and
+	    status= 'Y'
+	    
+	UNION  
+	 
+
+    select  substr(address,instr(address,#{keyword}),
+	                decode(instr(address,' '),0,
+                     (instr(address||' ',' ',instr(address,#{keyword}))- instr(address,#{keyword})) ,
+                     (instr(address,' ',instr(address,#{keyword}))-instr(address,#{keyword})+1)))
+
+	from  farm
+	where address  like '%'||#{keyword}||'%'
+	and
+	    status= 'Y'   
+	
+	
+	UNION  
+	
+    select  substr(crop,instr(crop,#{keyword}),
+	                decode(instr(crop,' '),0,
+                     (instr(crop||' ',' ',instr(crop,#{keyword}))- instr(crop,#{keyword})) ,
+                     (instr(crop,' ',instr(crop,#{keyword}))-instr(crop,#{keyword})+1)))
+
+	from  farm
+	where crop  like '%'||#{keyword}||'%'
+	and
+	    status= 'Y'	
 </select>
 <select id="searchInfoBoard" >
 	select 
@@ -146,6 +185,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	or program_detail like '%'||#{keyword}||'%'
 	or program_location like ''%'||#{keyword}||'%''
 	and status = 'Y'
+</select>
+
+<select id="searchFarm">
+	select 
+	        farm_name, address, crop, create_date, farm_intro
+	from 
+	        farm 
+	where farm_name  like  '%'||#{keyword}||'%'
+	or crop like '%'||#{keyword}||'%' 
+	or create_date like '%'||#{keyword}||'%'
+	or farm_intro like ''%'||#{keyword}||'%''
+	and status = 'Y'
+
 </select>
 
 </mapper>
