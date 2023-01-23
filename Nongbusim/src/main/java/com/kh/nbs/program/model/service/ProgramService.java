@@ -34,6 +34,9 @@ public interface ProgramService {
 	//마이페이지에서 후기 작성을 위한 그동안 신청한 목록 조회
 	ArrayList<Program> selectMyProgram(int memNo,PageInfo pi);
 	
+	//신청자 많은 프로그램 분석
+	ArrayList<Program> selectTopProgram();
+	
 	
 	
 }

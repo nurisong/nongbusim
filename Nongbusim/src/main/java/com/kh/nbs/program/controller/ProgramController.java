@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.common.template.Pagination;
 import com.kh.nbs.farm.model.vo.Farm;
@@ -232,6 +233,20 @@ public class ProgramController {
 			
 			return mv;
 		}
+		
+		
+		//신청자 많은 프로그램 TOP5
+		@ResponseBody
+		@RequestMapping(value = "topList.pr", produces="application/json; charset=UTF-8")
+		public String ajaxTopProgramList() {
+			
+			System.out.println(programService.selectTopProgram());
+			return new Gson().toJson(programService.selectTopProgram());
+			
+			
+		}
+		
+		
 		
 	
 }

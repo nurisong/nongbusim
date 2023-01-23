@@ -252,6 +252,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			
 		</select>
 		
+		<select id="selectTopProgram" resultMap="programResultSet">
+		
+		select
+			    *
+			from(select
+	                program_no,
+			        program_name,
+			        program_lecture,
+	                to_char(program_plan,'YYYY-MM-DD') as  "program_plan",
+	                now_headcount
+			        
+			    from
+			        program
+			    where
+			        status = 'Y'
+			    order
+			        by
+			            now_headcount desc)
+			where rownum between 1 and 5
+		
+		
+		</select>
+		
 		
 		
 		

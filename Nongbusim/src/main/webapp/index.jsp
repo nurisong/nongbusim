@@ -125,7 +125,28 @@
             </div>
 
             <div id="program-area">
-                <h3>프로그램</h3><br>
+                <h3>인기있는 체험</h3>
+                <a href="list.pr" style="float:right; color:lightgray;">더보기 >></a>
+                <br><br>
+                <table id="boardList" class="table table-hover" align="center">
+                    <thead>
+                        <tr>
+                            <th>프로그램명</th>
+                            <th>일정</th>
+                            <th>강사</th>
+                            <th>신청자수</th>
+                           
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                         
+                        <!-- 현재 신청자 수가  높은 프로그램 뿌리기 (ajax이용해서) -->
+                    </tbody>
+
+                </table>
+                <br><br>
+
 
             </div>
 
@@ -182,6 +203,68 @@
                     }); 
 
                 });
+
+
+
+                // 영준 - 신청자 많은 프로그램 불러오기
+                $(function(){
+                    topProgramList();
+                    
+                    /*
+                    $('#boardList>tbody>tr').click(function(){
+                        location.href = 'detail.bo?bno=' +$(this).children().eq(0).text();
+                    });
+                    */
+                    
+                    //동적으로 만들어진 요소에 이벤트 부여방법 *******************
+                    $(document).on('click','#boardList>tbody>tr',function(){
+                        location.href = 'detail.pro?bno=' +$(this).children().eq(0).text();
+                        
+                    })
+                    
+                    
+                    
+                });
+                
+                function topProgramList(){
+                    
+                    $.ajax({
+                        url: 'topList.pr',
+                        success : function(data){
+                            
+                            console.log(data);
+                          
+                            
+                            let value = '';
+                            for(let i in data){
+
+                               
+                                value += '<tr>'
+                                    +'<td hidden>' + data[i].programNo + '</td>'
+                                    +'<td>' + data[i].programName + '</td>'
+                                    +'<td>' + data[i].programPlan + '</td>'
+                                    +'<td>' + data[i].programLecture + '</td>'
+                                    +'<td>' + data[i].nowHeadCount + '</td>'
+                                    +'<td>';
+                                    
+                            
+                                    value += '</td></tr>';
+                                
+                            }
+                            
+                            $('#boardList>tbody').html(value);
+                            
+                            
+                        },
+                        error :function(){
+                            console.log('실패');
+                        }
+                    })
+                    
+                }
+	
+
+
             </script>
             </div>
         </div>
