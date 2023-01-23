@@ -12,18 +12,18 @@
 <title>Insert title here</title>
     <style>
 
-			#container{
+			.container{
 				padding-left:30%;
+				margin: 0px;
 			}
     
-            #boardList {text-align:center;}
+    		#boardList {text-align:center;}
             #boardList>tbody>tr:hover {cursor:pointer;}
     
             .heart{
             
             width: 30px;
-            height: 30px;
-         
+            height: 30px;         
             top:20px;
             right : 5px;
             }
@@ -33,13 +33,12 @@
 
 <!-- 메뉴바 -->
 <jsp:include page="myPageUserCommon.jsp" />
-
 <div class="container">
 	<h3>찜한 프로그램</h3>
-	<hr>
+		<hr>
 		<table id="boardList" class="table table-hover" align="center">
 	        <thead>
-	            <tr style="text-align:center">
+	            <tr>
 	                <th>지역</th>
 	                <th>프로그램명</th>
 	                <th>일정</th>
@@ -73,8 +72,8 @@
 		        </c:choose>
 	        </tbody>
 	    </table>
-    </div>
-    
+   </div>
+  
        <script>
             $(function(){
                 $('.heart').click(function(){
