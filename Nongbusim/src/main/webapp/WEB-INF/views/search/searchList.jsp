@@ -1,10 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.2/index.global.min.js"></script>
+<title>통합검색</title>
 </head>
 <style>
 
@@ -26,9 +35,85 @@
 }
 </style>
 <body>
+<jsp:include page="../common/menubar.jsp" />
+	<!-- 	mv.addObject("boardList", searchService.selectBoardList(keyword));
+		mv.addObject("farmList", searchService.selectFarmList(keyword));
+		 mv.addObject("infoBoardList", searchService.selectInfoBoardList(keyword));
+		 mv.addObject("marketList", searchService.selectMarketList(keyword));
+		 mv.addObject("programList", searchService.selectProgramList(keyword)); -->
 	
 	<div class="outer">
-		<h2>에 관련된 검색결과는 총건 입니다.</h2>
+	<c:if test="${not empty boardList }">
+		<div class="category">자랑게시판</div><br>
+		<c:forEach var="board" items="${boardList }" > 
+		<div class="board">
+			<c:if test="${board.boardType eq 'S' }">
+				<input type="hidden" name="boardNo" id="boardNo" value="${board.boardNo }">
+				<input type="hidden" name="type" id="boardType" value="${board.boardType }">
+				<div style="font-size:20px;">${board.boardTitle }</div>
+				<div class="content">${board.boardContent }</div>
+				<div>${board.createDate }</div>
+			</c:if>
+		</div>	
+		</c:forEach>
+	</c:if>
+	<!-- S K Q M -->
+
+
+		<c:if test="${not empty farmList }">
+			<div class="farm category">농장목록<br>
+			<c:forEach var="farm" items="${farmList }" > 		
+					<input type="hidden" name="farmNo" id="farmNo" value="${farm.farmNo }">
+					<div style="font-size:20px;">${farm.farmName }</div>
+					<div class="content">${farm.address }</div>
+					<div>${farm.crop }</div>
+					<div>${farm.farmIntro }</div>		
+			</c:forEach>
+			</div>
+		</c:if>
+
+		<c:if test="${not empty marketList }">
+			<div class="market category">농작물 거래목록
+				<c:forEach var="market" items="${marketList }" > 		
+						<input type="hidden" name="marketNo" id="marketNo" value="${market.marketNo }">
+						<div style="font-size:20px;">${market.marketCategory }</div>
+						<div style="font-size:20px;">${market.marketTitle }</div>
+						<div class="content">${market.marketPrice }</div>
+						<div>${market.marketIntro }</div>		
+				</c:forEach>
+			</div>
+		</c:if>
+		
+	
+		<c:if test="${not empty infoBoardList }">
+			<div class="infoBoard category">공지/정보 목록<br>
+				<c:forEach var="infoBoard" items="${infoBoardList }" > 		
+						<input type="hidden" name="infoNo" id="infoNo" value="${infoBoard.infoNo }">
+						<div style="font-size:20px;">${infoBoard.infoTitle }</div>
+						<div>${infoBoard.infoContent }</div>	
+				</c:forEach>
+			</div>
+		</c:if>
+		
+	
+		
+		<c:if test="${not empty programList }">
+			<div class="program category">프로그램 목록
+				<c:forEach var="program" items="${programList }" > 		
+						<input type="hidden" name="programNo" id="programNo" value="${program.programNo }">
+						<div style="font-size:20px;">${program.programName }</div>
+						<div class="content">${program.programLecture}</div>
+						<div>${program.programPlan }</div>	
+				</c:forEach>
+			</div>
+		</c:if>
+	
+	
+
+	
+	
+	
+	
 		<br><br>
 				
 		<div id="challCount">
@@ -127,27 +212,46 @@
 	</div>
 	<script>
 	$(function(){
+   		$(document).on('click', '.board', function(){
+   			
+   			location.href ='${pageContext.request.contextPath}' +'/detail.bo?bno='+$('#boardNo').val()+'&type='+$('#boardType').val();
+		});
+
+		$(document).on('click', '.farm', function(){
+   			
+   			location.href ='${pageContext.request.contextPath}' +'/detail.fm?fno='+$('#farmNo').val();
+   						
+		});
+
+		$(document).on('click', '.market', function(){
+   			
+   			location.href ='${pageContext.request.contextPath}' +'/detail.mk?marketNo='+$('#marketNo').val();
+   						
+		});
+
+		$(document).on('click', '.program', function(){
+   			
+   			location.href ='${pageContext.request.contextPath}' +'/detail.pro?bno='+$('#programNo').val();
+   						
+		});
+
+		$(document).on('click', '.infoBoard', function(){
+   			
+   			location.href ='${pageContext.request.contextPath}' +'/detail.if?ino='+$('#infoNo').val();
+   						
+		});
    		
-   		$(document).on('click', '.challengeList', function(){
-   			
-   			location.href = '/detail.ch?cno='+ $(this).children().eq(0).val()
-   						
-   		});
-   		
-		$(document).on('click', '.crowdList', function(){
-   			
-   			location.href = '/detail.cc?cno='+ $(this).children().eq(0).val()
-   						
-   		});
 		
-		$(document).on('click', '.reviewList', function(){
-   			
-   			location.href = '/detail.re?cno='+ $(this).children().eq(0).val() + '&rno=' + $(this).children().eq(1).val()
-   						
-   		});
+		// 문자열 길이 자르는 함수..ㅠ
+		var content = $('.content');
+		for(var i=0; i<content.length; i++){
+			var str = content[i];
+			
+	
+		}
 		
 		
-   	})
+   	});
 	
 	</script>
 </body>
