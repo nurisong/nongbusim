@@ -21,11 +21,8 @@
 <body>
 <!-- 메뉴바 -->
 <jsp:include page="myPageFarmerCommon.jsp"/>
-
-    <form action="updateFarmer.me" id="form-div" method="post">
 	<h3>회원정보 수정</h3>
-	  <hr>
-    
+    <form action="updateFarmer.me" id="form-div" method="post">
     <input type="hidden" name="memId" value="${ loginUser.memId }">
     
       <h4>기본정보</h4>
