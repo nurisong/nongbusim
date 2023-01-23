@@ -1,6 +1,7 @@
 package com.kh.nbs.program.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.nbs.common.model.vo.PageInfo;
 import com.kh.nbs.farm.model.vo.Farm;
@@ -8,11 +9,14 @@ import com.kh.nbs.program.model.vo.Program;
 
 public interface ProgramService {
 
+	//검색 키워드
+	int selectProgramCount(HashMap map);
+	
 	int selectListCount();
 	
 	ArrayList<Farm> selectMyFarmList(int memNo);
 
-	ArrayList<Program> selectList(PageInfo pi);
+	ArrayList<Program> selectList(PageInfo pi,HashMap map);
 
 	int programRegister(Program p);
 	

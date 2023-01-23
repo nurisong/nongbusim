@@ -77,6 +77,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</insert>
 	
+	
+	<!-- 검색 된 게시글 세기 -->
+	<select id="selectProgramCount" resultType="_int">
+		select
+				count(*)
+	      from
+	      		program
+	      where
+	      		status= 'Y'
+	      	and
+				program_name LIKE '%'||#{keyword}||'%'
+	</select>
+	
+	
+	
 	<select id="selectListCount" resultType="_int">
 		select
 				count(*)
@@ -101,9 +116,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				program
 			where
 				status = 'Y'
+				
+		
+			and
+				program_name LIKE '%'||#{keyword}||'%'
+			
 			order
 				by
 					program_no desc
+					
 					
 	</select>
 	

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -37,8 +38,11 @@ public class ProgramController {
 			
 		//프로그램 리스트 불러오기
 		@RequestMapping("list.pr")
-		public ModelAndView selectList(@RequestParam(value="cpage",defaultValue="1") int currentPage,HttpSession session , ModelAndView mv) {
+		public ModelAndView selectList(@RequestParam(value="cpage",defaultValue="1") int currentPage,@RequestParam(value="keyword", required=false, defaultValue="") String keyword,HttpSession session , ModelAndView mv) {
 			
+			
+			HashMap map= new HashMap();//
+			map.put("keyword", keyword);//
 			
 			
 			if(((Member)session.getAttribute("loginUser"))!=null) {
@@ -50,12 +54,10 @@ public class ProgramController {
 				mv.addObject("markNoList",programService.selectMarkNo(memNo));
 			}
 			
-		
-			
 			}
 			
-			PageInfo pi = Pagination.getPageInfo(programService.selectListCount(), currentPage , 10 , 5);
-			mv.addObject("pi",pi).addObject("programlist",programService.selectList(pi));
+			PageInfo pi = Pagination.getPageInfo(programService.selectProgramCount(map), currentPage , 10 , 5);
+			mv.addObject("pi",pi).addObject("programlist",programService.selectList(pi,map));
 			
 			mv.setViewName("program/ProgramBoardList");
 			

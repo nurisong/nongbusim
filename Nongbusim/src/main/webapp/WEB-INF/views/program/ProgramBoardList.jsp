@@ -57,16 +57,12 @@
        
         <div class="content" align="center">
 
-            <form action="">
+            <form id="searchForm" action="list.pr" method="get">
                <br>
-                <h2>프로그램</h2>
+                <h2>체험</h2>
                 <br>
-                <select  name="condition">
-                    <option value="ing">진행중</option>
-                    <option value="end">마감</option>
-                
-                </select>
-                <input type="text"  >
+               
+                <input type="text" name="keyword">
                 <button  type="submit" style="width: 50px;" class="searchBtn">검색</button>
 
            </form>

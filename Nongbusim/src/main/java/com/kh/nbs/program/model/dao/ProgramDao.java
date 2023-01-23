@@ -1,6 +1,7 @@
 package com.kh.nbs.program.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -13,22 +14,27 @@ import com.kh.nbs.program.model.vo.Program;
 @Repository	
 public class ProgramDao {
 	
+	public int selectProgramCount(HashMap map, SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("programMapper.selectProgramCount",map);
+	}
+	
 	
 	public int selectListCount(SqlSessionTemplate sqlSession) {
 		
-		return sqlSession.selectOne("programMapper.selectListCount");
+		return sqlSession.selectOne("programMapper.selectListCount"); 
 		
 	}
 	
-	public ArrayList<Program> selectList(SqlSessionTemplate sqlSession, PageInfo pi){
+	public ArrayList<Program> selectList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap map){
 		
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("programMapper.selectList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("programMapper.selectList", map, rowBounds);
 		
-		
+		//map만 지우면됨
 	}
 
 

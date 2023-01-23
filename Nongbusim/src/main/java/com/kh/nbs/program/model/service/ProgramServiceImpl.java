@@ -1,6 +1,7 @@
 package com.kh.nbs.program.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,12 @@ import com.kh.nbs.program.model.vo.Program;
 public class ProgramServiceImpl implements ProgramService {
 
 	
+	@Override
+	public int selectProgramCount(HashMap map) {
+		return programDao.selectProgramCount(map, sqlSession);
+	}
+	
+	
 	@Autowired
 	private ProgramDao programDao;
 	
@@ -29,8 +36,8 @@ public class ProgramServiceImpl implements ProgramService {
 
 	
 	@Override
-	public ArrayList<Program> selectList(PageInfo pi) {
-		return programDao.selectList(sqlSession,pi);
+	public ArrayList<Program> selectList(PageInfo pi,HashMap map) {
+		return programDao.selectList(sqlSession,pi,map);
 	}
 
 	@Override
@@ -98,5 +105,7 @@ public class ProgramServiceImpl implements ProgramService {
 	public ArrayList<Program> selectTopProgram() {
 		return programDao.selectTopProgram(sqlSession);
 	}
+
+
 	
 }
