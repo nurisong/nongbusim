@@ -105,11 +105,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  program_no,
 			  review_content,
 			  review_status,
-			  review_enrolldate,
+			  to_char(review_enrolldate,'YYYY-MM-DD') as  "review_enrolldate",
 			  mem_no,
 			  origin_name,
 			  change_name,
 			  rating
+			  
 		from   
  			   review
 		where

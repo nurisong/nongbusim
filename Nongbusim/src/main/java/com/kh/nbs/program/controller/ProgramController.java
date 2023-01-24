@@ -58,7 +58,7 @@ public class ProgramController {
 			
 			PageInfo pi = Pagination.getPageInfo(programService.selectProgramCount(map), currentPage , 10 , 5);
 			mv.addObject("pi",pi).addObject("programlist",programService.selectList(pi,map));
-			
+			mv.addObject("map", map);
 			mv.setViewName("program/ProgramBoardList");
 			
 			return mv;
@@ -242,7 +242,7 @@ public class ProgramController {
 		@RequestMapping(value = "topList.pr", produces="application/json; charset=UTF-8")
 		public String ajaxTopProgramList() {
 			
-			System.out.println(programService.selectTopProgram());
+			//System.out.println(programService.selectTopProgram());
 			return new Gson().toJson(programService.selectTopProgram());
 			
 			

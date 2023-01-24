@@ -123,7 +123,7 @@
             <tbody>
                 
                 <c:forEach items="${ reviewList }" var="r">
-                    <tr  onclick="modal('my_modal','${r.programName}','${r.reviewContent}','${r.changeName}','${r.reviewEnrollDate}')" >
+                    <tr class="area"  onclick="modal('my_modal','${r.programName}','${r.reviewContent}','${r.changeName}','${r.reviewEnrollDate}','${r.rating}')" >
                         <td style="width:10px;"><img class="thumbnail" src="${r.changeName}" alt=""></td>
                         <td style="width: 480px;">
                             프로그램명 : ${r.programName}<br>
@@ -131,6 +131,7 @@
                              ${r.reviewEnrollDate}
 
                         </td>
+                       
                         <td>
                             <c:choose>
                                 <c:when test="${r.rating eq 5}">
@@ -169,7 +170,7 @@
         <form action="reviewUpdate.re" method="post" enctype="multipart/form-data">
             <table style="width: 700px; height:200px;">
                 <tr>
-                    <td style="width:50px;">작성자: user01</td>
+                 
                     <td style="width: 200px;" id="reviewEnrollDate"></td>
                 
                 
@@ -252,7 +253,7 @@
  
 
     <script>
-        function modal(id,programName,reviewContent,image,reviewEnrollDate) {
+        function modal(id,programName,reviewContent,image,reviewEnrollDate,rating) {
 
 
             console.log(programName);
@@ -265,6 +266,25 @@
              $('#reviewContent').val(reviewContent);
              $('#image').attr("src",image);
              $('#reviewEnrollDate').html(reviewEnrollDate);
+
+             if(rating == 5){
+                            $("input:radio[id='5-stars']").prop("checked",true);
+
+                        }else if(rating == 4) {
+                            $("input:radio[id='4-stars']").prop("checked",true);
+
+                        }else if(rating == 3) {
+                            $("input:radio[id='3-stars']").prop("checked",true);
+
+                        }else if(rating == 2) {
+                            $("input:radio[id='2-stars']").prop("checked",true);
+
+                        }else {
+                            $("input:radio[id='1-star']").prop("checked",true);
+
+                        }
+
+
 
             // 모달 div 뒤에 희끄무레한 레이어
             var bg = document.createElement('div');
@@ -310,6 +330,8 @@
             return this;
         };
 
+
+      
     
     </script>
 

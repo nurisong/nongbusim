@@ -29,13 +29,13 @@
             #pagingArea {width:fit-content; margin:auto;}
             
             #searchForm {
-                width:80%;
+                width:90%;
                 margin:auto;
             }
-            #searchForm {
+            /* #searchForm {
                 float:left;
                 margin:5px;
-            }
+            } */
             
             .heart{
             
@@ -52,23 +52,33 @@
 </head>
 <body>
    <jsp:include page="../common/menubar.jsp" />
+
+        <div>
+                        
+         
+        </div>
       
 
        
         <div class="content" align="center">
 
-            <form id="searchForm" action="list.pr" method="get">
-               <br>
+
+            <form  id="searchForm" action="list.pr" method="get">
+                <br>
                 <h2>체험</h2>
                 <br>
-               
-                <input type="text" name="keyword">
+                
+                <input type="text" class="search" id="search" name="keyword">
                 <button  type="submit" style="width: 50px;" class="searchBtn">검색</button>
 
-           </form>
+            </form>
+
+            
           
             <br>
             <div class="innerOuter" style="padding:5% 10%;">
+
+        
 
                 
 			<c:if test="${ not empty loginUser.farmerCode}">
@@ -293,6 +303,12 @@
                 // });
        
                 // });   
+
+        $(function(){
+            console.log('${map.keyword}');
+            $('.search').val('${map.keyword}');
+          
+        })
           </script>
 </body>
 </html>

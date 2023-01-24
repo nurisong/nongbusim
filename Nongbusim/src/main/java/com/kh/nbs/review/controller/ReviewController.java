@@ -128,7 +128,6 @@ public class ReviewController {
 		return new Gson().toJson(reviewService.reviewSelect(r));
 	}
 	
-	
 	//리뷰 수정
 	@RequestMapping("reviewUpdate.re")
 	public String reviewUpdate(Review r,String nowImage, Model model,MultipartFile reUpfile,HttpSession session) {
@@ -162,7 +161,6 @@ public class ReviewController {
 				}
 		
 		
-		
 		if(reviewService.reviewUpdate(r) > 0) { //수정 성공시
 			
 			session.setAttribute("alertMsg","리뷰가 수정 되었습니다.");
@@ -175,7 +173,6 @@ public class ReviewController {
 		}
 		
 	}
- 
 
 	
 	//리뷰 삭제
@@ -203,14 +200,8 @@ public class ReviewController {
 					return "common/errorPage";
 					
 				}
-		
-		
-		
 				
 	}
-	
-	
-	
 	
 	
 }

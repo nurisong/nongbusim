@@ -141,9 +141,9 @@
             width: 5em;
             }
               
-              .star-rating2 input {
+              /* .star-rating2 input {
             display: none;
-            }     
+            }      */
             
             .star-rating2 label {
             -webkit-text-fill-color: transparent; 

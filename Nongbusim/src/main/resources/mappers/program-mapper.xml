@@ -108,7 +108,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				program_no,
 				program_location,
 				program_name,
-				program_plan,
+				to_char(program_plan,'YYYY-MM-DD') as  "program_plan",
 				headcount,
 				sign_up,
 				now_headcount
@@ -136,7 +136,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				program_no,
 				farm_no,
 				program_name,
-				program_plan,
+				to_char(program_plan,'YYYY-MM-DD') as  "program_plan",
 				program_hour,
 				program_lecture,
 				headcount,
