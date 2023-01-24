@@ -118,6 +118,12 @@ public class MarketDao {
   
 
 
+  //게시물 수정하기 수정 메소드
+ public int marketUpdate(Market market, SqlSessionTemplate sqlSession){
+	  
+	  return sqlSession.update("marketMapper.marketUpdate", market);
+ }
+  
   
   
   

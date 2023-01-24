@@ -260,14 +260,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		or board_content like '%'||#{keyword}||'%' 
 		or board_writer like '%'||#{keyword}||'%'
 		and status = 'Y'
-	
-	
-	
 	</select>
+
 	<select id="searchProgramList" resultMap="programResultSet">
 	
 		select 
-		        program_no, program_name, program_plan, program_hour, program_lecture, program_detail, program_location, status, sign_up
+		        program_no, change_name, program_name, program_plan, program_hour, program_lecture, program_detail, program_location, status, sign_up
 		from 
 		        program   
 		where program_name  like  '%'||#{keyword}||'%'
@@ -287,6 +285,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		or create_date like '%'||#{keyword}||'%'
 		or farm_intro like '%'||#{keyword}||'%'
 		and status = 'Y'
+	
+	</select>
+	
+		<select id="searchAttachmentList" resultMap="attachmentResultSet">
+		SELECT  board_no, change_name, board_type
+		FROM (
+		        SELECT 
+		            board_type,
+		            board_no,
+		            file_no,
+		            change_name,
+		            ROW_NUMBER() OVER (PARTITION BY board_no ORDER BY file_no) AS RN
+		        FROM 
+		            ATTACHMENT) a
+				WHERE 
+						a.RN = 1
 	
 	</select>
 
