@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.nbs.common.model.vo.Attachment;
+import com.kh.nbs.market.model.vo.Market;
 import com.kh.nbs.search.model.service.SearchService;
 import com.kh.nbs.search.model.vo.Search;
 
@@ -69,8 +70,10 @@ public class SearchController {
 			System.out.println(at);
 		}
 		
+	
 		
-
+		System.out.println(searchService.selectMarketList(keyword));
+		System.out.println();
 		mv.addObject("boardList", searchService.selectBoardList(keyword))
 		  .addObject("farmList", searchService.selectFarmList(keyword))
 		  .addObject("infoBoardList", searchService.selectInfoBoardList(keyword))

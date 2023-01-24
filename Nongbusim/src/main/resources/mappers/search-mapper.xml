@@ -289,18 +289,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 		<select id="searchAttachmentList" resultMap="attachmentResultSet">
-		SELECT  board_no, change_name, board_type
-		FROM (
-		        SELECT 
-		            board_type,
-		            board_no,
-		            file_no,
-		            change_name,
-		            ROW_NUMBER() OVER (PARTITION BY board_no ORDER BY file_no) AS RN
-		        FROM 
-		            ATTACHMENT) a
-				WHERE 
-						a.RN = 1
+	SELECT BOARD_NO, CHANGE_NAME, BOARD_TYPE FROM ATTACHMENT
 	
 	</select>
 

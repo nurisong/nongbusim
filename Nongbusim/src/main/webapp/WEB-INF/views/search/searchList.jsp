@@ -106,8 +106,12 @@
 		<div class="category">자랑게시판</div><br>
 		<details>
 			<summary>
-			<c:forEach var="board" items="${boardList }" begin="1" end="3" > 
+			<c:set var="chknum" value="1" />
+			<c:set var="pointer" value="1" />
+			<c:forEach var="board" items="${boardList }" varStatus="status" > 
+				
 				<div class="board flex">
+				<c:if test="${chknum lt 4}">
 					<c:if test="${board.boardType eq 'S' }">
 						<input type="hidden" name="boardNo" class="boardNo" value="${board.boardNo }">
 						<input type="hidden" name="type" id="boardType" value="${board.boardType }">
@@ -118,20 +122,28 @@
 									<div class="content">${board.boardContent }</div>
 								</div>
 								<div style="padding:20px;">${board.createDate }</div>
-							</div>	
+							</div>	 
 							<div>
-								<c:forEach items="${ atList }" var="at">
-			                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'S'}">
-			                                 <img src="${ at.changeName }" alt="">
-			                        </c:if>
-			                    </c:forEach>
+								<c:set var="chk" value="true" />
+			                        <c:forEach items="${ atList }" var="at">
+			                        	<c:if test="${chk}">
+					                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'S'}">
+					                                 <img src="${ at.changeName }" alt="">
+					                        <c:set var="chk" value="false" />
+					                        </c:if>					                        
+					                     </c:if>  
+			                   		 </c:forEach>
 			                </div>
-			            </div>        
-					</c:if>
-				</div>
+			            <c:set var="chknum" value="${chknum+1}" />  
+			            
+						<c:set var="pointer" value="${status.count+1}" />  
+					</c:if> 
+				</c:if>
+			     </div> 
+			        
 			</c:forEach>
-			</summary>
-			<c:forEach var="board" items="${boardList }" begin="3" > 
+		</summary>
+			<c:forEach var="board" items="${boardList }" begin="${pointer}" > 
 				<div class="board">
 					<c:if test="${board.boardType eq 'S' }">
 						<input type="hidden" name="boardNo" class="boardNo" value="${board.boardNo }">
@@ -145,10 +157,14 @@
 								<div style="padding:20px;">${board.createDate }</div>
 							</div>	
 							<div>
+								<c:set var="chk" value="true" />
 								<c:forEach items="${ atList }" var="at">
-			                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'S'}">
-			                                 <img src="${ at.changeName }" alt="">
-			                        </c:if>
+									<c:if test="${chk}">
+				                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'S'}">
+				                                 <img src="${ at.changeName }" alt="">
+				                        	<c:set var="chk" value="false" />
+					                        </c:if>	
+				                        </c:if>
 			                    </c:forEach>
 			                </div>
 			            </div>        
@@ -165,9 +181,13 @@
 		<div class="category">노하우게시판</div><br>
 		<details>
 			<summary>
-			<c:forEach var="board" items="${boardList }" begin="1" end="3" > 
+				<c:set var="chknum" value="1" />
+	<c:set var="pointer" value="1" />
+	<c:forEach var="board" items="${boardList }" varStatus="status" > 
 				<div class="board flex">
+					<c:if test="${chknum lt 4}">
 					<c:if test="${board.boardType eq 'K' }">
+					
 						<input type="hidden" name="boardNo" class="boardNo" value="${board.boardNo }">
 						<input type="hidden" name="type" id="boardType" value="${board.boardType }">
 						<div class="article-title">${board.boardTitle }</div>
@@ -179,18 +199,25 @@
 								<div style="padding:20px;">${board.createDate }</div>
 							</div>	
 							<div>
+								<c:set var="chk" value="true" />
 								<c:forEach items="${ atList }" var="at">
-			                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'K'}">
-			                                 <img src="${ at.changeName }" alt="">
-			                        </c:if>
+									<c:if test="${chk}">
+				                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'K'}">
+				                                 <img src="${ at.changeName }" alt="">
+				                        	<c:set var="chk" value="false" />
+					                        </c:if>	
+				                        </c:if>
 			                    </c:forEach>
 			                </div>
-			            </div>        
+			            </div>			            
+					 <c:set var="chknum" value="${chknum+1}" />  								            
+					<c:set var="pointer" value="${status.count+1}" />  									
+					</c:if> 			                    
 					</c:if>
 				</div>
 			</c:forEach>
 			</summary>
-			<c:forEach var="board" items="${boardList }" begin="3" > 
+			<c:forEach var="board" items="${boardList }" begin="${pointer}"> 
 				<div class="board">
 					<c:if test="${board.boardType eq 'K' }">
 						<input type="hidden" name="boardNo" class="boardNo" value="${board.boardNo }">
@@ -204,10 +231,14 @@
 								<div style="padding:20px;">${board.createDate }</div>
 							</div>	
 							<div>
+								<c:set var="chk" value="true" />
 								<c:forEach items="${ atList }" var="at">
-			                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'K'}">
-			                                 <img src="${ at.changeName }" alt="">
-			                        </c:if>
+									<c:if test="${chk}">
+				                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'K'}">
+				                                 <img src="${ at.changeName }" alt="">
+				                        	<c:set var="chk" value="false" />
+					                        </c:if>	
+				                        </c:if>
 			                    </c:forEach>
 			                </div>
 			            </div>        
@@ -222,8 +253,11 @@
 		<div class="category">질문게시판</div><br>
 		<details>
 			<summary>
-			<c:forEach var="board" items="${boardList }" begin="1" end="3" > 
+			<c:set var="chknum" value="1" />
+			<c:set var="pointer" value="1" />
+			<c:forEach var="board" items="${boardList }" varStatus="status" > 				
 				<div class="board flex">
+					<c:if test="${chknum lt 4}">
 					<c:if test="${board.boardType eq 'Q' }">
 						<input type="hidden" name="boardNo" class="boardNo" value="${board.boardNo }">
 						<input type="hidden" name="type" id="boardType" value="${board.boardType }">
@@ -236,18 +270,25 @@
 								<div style="padding:20px;">${board.createDate }</div>
 							</div>	
 							<div>
+								<c:set var="chk" value="true" />
 								<c:forEach items="${ atList }" var="at">
-			                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'Q'}">
-			                                 <img src="${ at.changeName }" alt="">
-			                        </c:if>
+									<c:if test="${chk}">
+				                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'Q'}">
+				                                 <img src="${ at.changeName }" alt="">
+				                        	<c:set var="chk" value="false" />
+					                        </c:if>	
+				                        </c:if>
 			                    </c:forEach>
 			                </div>
-			            </div>        
+			            </div>   
+			             <c:set var="chknum" value="${chknum+1}" />  			            
+					<c:set var="pointer" value="${status.count+1}" />  
+					</c:if>      
 					</c:if>
 				</div>
 			</c:forEach>
 			</summary>
-			<c:forEach var="board" items="${boardList }" begin="3" > 
+			<c:forEach var="board" items="${boardList }" begin="${pointer}" > 
 				<div class="board">
 					<c:if test="${board.boardType eq 'Q' }">
 						<input type="hidden" name="boardNo" class="boardNo" value="${board.boardNo }">
@@ -265,6 +306,16 @@
 			                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'Q'}">
 			                                 <img src="${ at.changeName }" alt="">
 			                        </c:if>
+			                    </c:forEach>
+			                </div><div>
+								<c:set var="chk" value="true" />
+								<c:forEach items="${ atList }" var="at">
+									<c:if test="${chk}">
+				                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'Q'}">
+				                                 <img src="${ at.changeName }" alt="">
+				                        	<c:set var="chk" value="false" />
+					                        </c:if>	
+				                        </c:if>
 			                    </c:forEach>
 			                </div>
 			            </div>        
@@ -278,8 +329,11 @@
 		<div class="category">멘티멘토게시판</div><br>
 		<details>
 			<summary>
-			<c:forEach var="board" items="${boardList }" begin="1" end="3" > 
+			<c:set var="chknum" value="1" />
+			<c:set var="pointer" value="1" />
+			<c:forEach var="board" items="${boardList }" varStatus="status" > 				
 				<div class="board flex">
+					<c:if test="${chknum lt 4}">
 					<c:if test="${board.boardType eq 'M' }">
 						<input type="hidden" name="boardNo" class="boardNo" value="${board.boardNo }">
 						<input type="hidden" name="type" id="boardType" value="${board.boardType }">
@@ -292,18 +346,25 @@
 								<div style="padding:20px;">${board.createDate }</div>
 							</div>	
 							<div>
+								<c:set var="chk" value="true" />
 								<c:forEach items="${ atList }" var="at">
-			                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'M'}">
-			                                 <img src="${ at.changeName }" alt="">
-			                        </c:if>
+									<c:if test="${chk}">
+				                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'M'}">
+				                                 <img src="${ at.changeName }" alt="">
+				                        	<c:set var="chk" value="false" />
+					                        </c:if>	
+				                        </c:if>
 			                    </c:forEach>
 			                </div>
-			            </div>        
+			            </div>
+			             <c:set var="chknum" value="${chknum+1}" />  			            
+						<c:set var="pointer" value="${status.count+1}" />  
+					</c:if>     
 					</c:if>
 				</div>
 			</c:forEach>
 			</summary>
-			<c:forEach var="board" items="${boardList }" begin="3" > 
+			<c:forEach var="board" items="${boardList }" begin="${pointer}" > 
 				<div class="board">
 					<c:if test="${board.boardType eq 'M' }">
 						<input type="hidden" name="boardNo" class="boardNo" value="${board.boardNo }">
@@ -317,10 +378,14 @@
 								<div style="padding:20px;">${board.createDate }</div>
 							</div>	
 							<div>
+								<c:set var="chk" value="true" />
 								<c:forEach items="${ atList }" var="at">
-			                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'M'}">
-			                                 <img src="${ at.changeName }" alt="">
-			                        </c:if>
+									<c:if test="${chk}">
+				                        <c:if test="${ board.boardNo == at.boardNo and at.boardType eq 'M'}">
+				                                 <img src="${ at.changeName }" alt="">
+				                        	<c:set var="chk" value="false" />
+					                        </c:if>	
+				                        </c:if>
 			                    </c:forEach>
 			                </div>
 			            </div>        
@@ -346,9 +411,13 @@
 			                        <div class="content">가격 &nbsp;&nbsp;&nbsp;${market.marketPrice}원</div>
 			                    </div>	
 			                    <div>
+			                    <c:set var="chk" value="true" />
 			                        <c:forEach items="${ atList }" var="at">
-			                            <c:if test="${ market.marketNo eq at.boardNo and at.boardType eq 'mk'}">
-			                                <img src="${ at.changeName }" alt="">
+			                        	<c:if test="${chk}">
+			                  				<c:if test="${ (market.marketNo eq at.boardNo) and (at.boardType eq 'mk')}">
+			                                	<img src="${ at.changeName }" alt="">
+			                                	<c:set var="chk" value="false" />
+			                               </c:if> 	
 			                            </c:if>
 			                         </c:forEach>								
 			                    </div>
@@ -366,12 +435,16 @@
 		                        <div class="content">가격 &nbsp;&nbsp;&nbsp;${market.marketPrice}원</div>
 		                    </div>	
 		                    <div>
-		                        <c:forEach items="${ atList }" var="at">
-		                            <c:if test="${ market.marketNo eq at.boardNo and at.boardType eq 'mk'}">
-		                                <img src="${ at.changeName }" alt="">
-		                            </c:if>
-		                         </c:forEach>								
-		                    </div>
+			                    <c:set var="chk" value="true" />
+			                        <c:forEach items="${ atList }" var="at">
+			                        	<c:if test="${chk}">
+			                  				<c:if test="${ (market.marketNo eq at.boardNo) and (at.boardType eq 'mk')}">
+			                                	<img src="${ at.changeName }" alt="">
+			                                	<c:set var="chk" value="false" />
+			                               </c:if> 	
+			                            </c:if>
+			                         </c:forEach>								
+			                    </div>
 		                </div>		
 		            </div>		
 		    </c:forEach>	
@@ -438,10 +511,14 @@
 										<div class="content">작물 &nbsp;&nbsp;&nbsp;${farm.crop }</div>
 									</div>	
 									<div>
+										 <c:set var="chk" value="true" />
 										<c:forEach items="${ atList }" var="at">
-					                        <c:if test="${ farm.farmNo eq at.boardNo and at.boardType eq 'F'}">
-					                            <img src="${ at.changeName }" alt="">
-					                        </c:if>
+											<c:if test="${chk}">
+						                        <c:if test="${ farm.farmNo eq at.boardNo and at.boardType eq 'F'}">
+						                            <img src="${ at.changeName }" alt="">
+						                            <c:set var="chk" value="false" />
+			                              		 </c:if> 	
+						                        </c:if>
 						                 </c:forEach>								
 									</div>
 								</div>		
@@ -457,11 +534,15 @@
 										<div class="content">주소 &nbsp;&nbsp;&nbsp; ${farm.address }</div>
 										<div class="content">작물 &nbsp;&nbsp;&nbsp;${farm.crop }</div>
 									</div>	
-									<div>
+										<div>
+										 <c:set var="chk" value="true" />
 										<c:forEach items="${ atList }" var="at">
-					                        <c:if test="${ farm.farmNo eq at.boardNo and at.boardType eq 'F'}">
-					                            <img src="${ at.changeName }" alt="">
-					                        </c:if>
+											<c:if test="${chk}">
+						                        <c:if test="${ farm.farmNo eq at.boardNo and at.boardType eq 'F'}">
+						                            <img src="${ at.changeName }" alt="">
+						                            <c:set var="chk" value="false" />
+			                              		 </c:if> 	
+						                        </c:if>
 						                 </c:forEach>								
 									</div>
 								</div>		
