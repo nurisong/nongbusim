@@ -52,20 +52,27 @@
 </head>
 <body>
    <jsp:include page="../common/menubar.jsp" />
+
+        <div align="center">
+                        
+            <form id="searchForm" action="list.pr" method="get">
+                <br>
+                <h2>체험</h2>
+                <br>
+                
+                <input type="text" name="keyword">
+                <button  type="submit" style="width: 50px;" class="searchBtn">검색</button>
+
+            </form>
+
+        </div>
       
 
        
         <div class="content" align="center">
 
-            <form id="searchForm" action="list.pr" method="get">
-               <br>
-                <h2>체험</h2>
-                <br>
-               
-                <input type="text" name="keyword">
-                <button  type="submit" style="width: 50px;" class="searchBtn">검색</button>
+         
 
-           </form>
           
             <br>
             <div class="innerOuter" style="padding:5% 10%;">
