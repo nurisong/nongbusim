@@ -25,278 +25,280 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="board_type" property="boardType"></result>						
 	</resultMap>
 
-<select id="selectCatAndGoods" parameterType="_int" resultType="account">	
-select
-        (case when RANK1 = 1 then account_category else ' ' end ) accountCategory, 
-        (case when RANK2 = 1 then goods else ' ' end ) goods
-from
-        (    
-         select account_category, goods, 
-         row_number() over(partition by account_category order by account_category desc) rank1,
-         row_number() over(partition by  goods order by goods desc) rank2
-from 
-        account_book where mem_no= #{memNo})
-order 
-by
-        account_category desc, goods desc
-
-  
-</select>
-
-<select id="selectAccountList" parameterType="account" resultMap="accountResultSet">
-
-<![CDATA[
+	<select id="selectCatAndGoods" parameterType="_int" resultType="account">	
 	select
-			account_no, decode(type, 'I', '수입', 'O', '지출', '기타') "TYPE", TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", account_category, goods, to_char(amount,'999,999,999') amount, account_content, account_book.status, account_book.mem_no
+	        (case when RANK1 = 1 then account_category else ' ' end ) accountCategory, 
+	        (case when RANK2 = 1 then goods else ' ' end ) goods
 	from
-			account_book
-	join 	member
+	        (    
+	         select account_category, goods, 
+	         row_number() over(partition by account_category order by account_category desc) rank1,
+	         row_number() over(partition by  goods order by goods desc) rank2
+	from 
+	        account_book where mem_no= #{memNo})
+	order 
+	by
+	        account_category desc, goods desc
 	
- 	on	(member.mem_no=account_book.mem_no)	
- 	
- 	where
-			create_date >= #{startDate}
-    
-    and     create_date-1 <= #{endDate}
-	
-	and
-			account_book.mem_no = #{memNo}
-	and
-			account_book.status = 'Y'
-	]]>	
-	<!-- date로 값을 넘긴 후 대소비교를 하려고 하니 실제 입력한 마지막 날짜+1로 조회를 해야 마지막날 값이 select 됨... 그래서 createDate-1로 조회 -->
-		<if test="type !='selectAll'">
-			and type = #{type}		 
-		</if>
-		<if test="accountCategory !='noCategory' and accountCategory !='selectAll'">
-			and account_category = #{accountCategory}		
-		</if>
-		<if test="goods !='noGoods' and goods !='selectAll'">
-			and goods = #{goods}		
-		</if>
-	
-</select>
-	
-<select id="selectAccount" parameterType="_int" resultMap="accountResultSet">
-	select
-			account_no, TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", account_category, decode(type, 'I', '수입', 'O', '지출', '기타') "TYPE", goods, to_char(amount,'999,999,999') amount, account_content, account_book.status, account_book.mem_no, member.nickname
-	from
-			account_book
-	join 	member
-	
- 	on	(member.mem_no=account_book.mem_no) 
-	where
-			account_no = #{accountNo}
-	and
-			account_book.status= 'Y'
-</select>
-	
-	
-	<select id="selectAttachmentList" parameterType="_int" resultMap="attachmentResultSet">
-	select	*
-	from
-			attachment
-	where
-			board_no = #{accountNo}
-	and
-			board_type = 'A'					
-			
+	  
 	</select>
 	
+	<select id="selectAccountList" parameterType="account" resultMap="accountResultSet">
 	
+	<![CDATA[
+		select
+				account_no, decode(type, 'I', '수입', 'O', '지출', '기타') "TYPE", TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", account_category, goods, to_char(amount,'999,999,999') amount, account_content, account_book.status, account_book.mem_no
+		from
+				account_book
+		join 	member
+		
+	 	on	(member.mem_no=account_book.mem_no)	
+	 	
+	 	where
+				create_date >= #{startDate}
+	    
+	    and     create_date-1 <= #{endDate}
+		
+		and
+				account_book.mem_no = #{memNo}
+		and
+				account_book.status = 'Y'
+		]]>	
+		<!-- date로 값을 넘긴 후 대소비교를 하려고 하니 실제 입력한 마지막 날짜+1로 조회를 해야 마지막날 값이 select 됨... 그래서 createDate-1로 조회 -->
+			<if test="type !='selectAll'">
+				and type = #{type}		 
+			</if>
+			<if test="accountCategory !='noCategory' and accountCategory !='selectAll'">
+				and account_category = #{accountCategory}		
+			</if>
+			<if test="goods !='noGoods' and goods !='selectAll'">
+				and goods = #{goods}		
+			</if>
+		
+	</select>
+		
+	<select id="selectAccount" parameterType="_int" resultMap="accountResultSet">
+		select
+				account_no, TO_CHAR(create_date, 'YYYY-MM-DD') "CREATE_DATE", account_category, decode(type, 'I', '수입', 'O', '지출', '기타') "TYPE", goods, to_char(amount,'999,999,999') amount, account_content, account_book.status, account_book.mem_no, member.nickname
+		from
+				account_book
+		join 	member
+		
+	 	on	(member.mem_no=account_book.mem_no) 
+		where
+				account_no = #{accountNo}
+		and
+				account_book.status= 'Y'
+	</select>
+		
+		
+	<select id="selectAttachmentList" parameterType="_int" resultMap="attachmentResultSet">
+		select	*
+		from
+				attachment
+		where
+				board_no = #{accountNo}
+		and
+				board_type = 'A'					
+				
+	</select>
+		
+		
 	<insert id="insertAttachment" parameterType="attachment">
-	insert
-	into
-			attachment
-			(
-			file_no, 
-			origin_name, 
-			change_name, 
-			upload_date, 
-			board_no, 
-			board_type, 
-			status			
-			)
-	values 
-			( seq_ano.nextval, 
-			  #{originName},
-			  #{changeName},
-			  sysdate,
-			  
-		<choose>
-			<when test="boardNo !=0">
-				#{boardNo}, 
-			</when>
-			<otherwise>
-			  seq_accno.currval,
-			</otherwise>
-		</choose>	
-			  #{boardType},
-			  'Y'
-			)
-	
+		insert
+		into
+				attachment
+				(
+				file_no, 
+				origin_name, 
+				change_name, 
+				upload_date, 
+				board_no, 
+				board_type, 
+				status			
+				)
+		values 
+				( seq_ano.nextval, 
+				  #{originName},
+				  #{changeName},
+				  sysdate,
+				  
+			<choose>
+				<when test="boardNo !=0">
+					#{boardNo}, 
+				</when>
+				<otherwise>
+				  seq_accno.currval,
+				</otherwise>
+			</choose>	
+				  #{boardType},
+				  'Y'
+				)
+		
 	</insert>	
+	
 	<insert id="insertAccount" parameterType="account">
-	insert
-	into
-			account_book
-	values 
-			( seq_accno.nextval,
-     		  #{type}, 			
-			  #{createDate},
-			  #{accountCategory},
-  			  #{goods},
-  			  #{amount},
-			  #{accountContent},
-			  'Y',
-			  #{memNo}
-			  )
-		
+		insert
+		into
+				account_book
+		values 
+				( seq_accno.nextval,
+	     		  #{type}, 			
+				  #{createDate},
+				  #{accountCategory},
+	  			  #{goods},
+	  			  #{amount},
+				  #{accountContent},
+				  'Y',
+				  #{memNo}
+				  )
+			
 	</insert>
-		
+			
 	<update id="updateAccount" parameterType="account">
-	update
-			account_book
-	set
-			create_date = #{createDate}, 
-			account_category = #{accountCategory},
-			goods = #{goods},
-  			amount = #{amount},
-			account_content = #{accountContent}
-	where
-			account_no  = #{accountNo}	
+		update
+				account_book
+		set
+				create_date = #{createDate}, 
+				account_category = #{accountCategory},
+				goods = #{goods},
+	  			amount = #{amount},
+				account_content = #{accountContent}
+		where
+				account_no  = #{accountNo}	
 	</update>
+	
 	<update id="updateAttachment" parameterType="attachment">
-	update
-			attachment
-	set
-			origin_name = #{originName},
-			change_name = #{changeName}
-	where
-			file_no = #{fileNo}
+		update
+				attachment
+		set
+				origin_name = #{originName},
+				change_name = #{changeName}
+		where
+				file_no = #{fileNo}
 	</update>
 	<update id="deleteAccount" parameterType="_int">
-	update
-			account_book
-	set	
-			status= 'N'
-	where		
-			account_no  = #{accountNo}	
+		update
+				account_book
+		set	
+				status= 'N'
+		where		
+				account_no  = #{accountNo}	
 	</update>
 	<update id="deleteAttachment" parameterType="_int">
-	update
-			attachment
-	set
-			status = 'N'
-	where
-			board_no = #{accountNo}
-
+		update
+				attachment
+		set
+				status = 'N'
+		where
+				board_no = #{accountNo}
+	
 	</update>	
-
+	
 	<!-- 달력 위 수입, 지출 표기를 위한 mapper. 수입(I)인 경우 금액 앞 +, 지출(O)인 경우 금액 앞 -, 금액표기는 3자리단위 콤마부여 -->
 	<!-- 수입(I)인 경우 파란색, 지출(O)인 경우 빨간색 표기를 위한 가상의 dummy컬럼 'color'추가  -->
 	<select id="selectCalEvent" parameterType="_int" resultType="accountCalendar">
-    select 
-			account_no as "id", 
-			 (case when type = 'I' then '+'|| to_char(amount,'999,999,999') else '-'||to_char(amount,'999,999,999')  end) as "title", 
-			create_date as "start", 
-			create_date as "end",
-			'true' as "allDay",
-             (case when type = 'I' then '#F06311' else '#87D5FF' end ) color 
-	from 
-	account_book	
-	where
-			mem_no = #{memNo}
-	and 	status= 'Y'
-	</select>
-	
-	
+	    select 
+				account_no as "id", 
+				(case when type = 'I' then '+'|| to_char(amount,'999,999,999') else '-'||to_char(amount,'999,999,999')  end) as "title", 
+				create_date as "start", 
+				create_date as "end",
+				'true' as "allDay",
+	            (case when type = 'I' then '#F06311' else '#87D5FF' end ) color 
+		from 
+		account_book	
+		where
+				mem_no = #{memNo}
+		and 	status= 'Y'
+		</select>
+		
+		
 	<!-- 마지막 날은 last_day 이용  -->
 	<!-- createDate에는 검색하고자하는 월의 첫째날이 담겨있음 (yyyy-mm-01) --> 
 	<!--해당월 총 수입, 지출을, 총계를 arrayList의 0, 1,2번쨰 인덱스에 담아 반환  -->
 	<!--수입, 지출 행을 담은 테이블 union 총계(수입-지출)를 담은 테이블 -->
 	<select id="monthlySummary" parameterType="account" resultMap="accountResultSet">
-	select
-	       NVL(DECODE(type,'I', '수입','O','지출'), 0) as type, 
-	       to_char(sum(amount) ,'999,999,999') as amount, 
-	       #{createDate} as create_date
-	from
-	        account_book
-	where
-	       create_date between #{createDate} and last_day(#{createDate})
-	and
-	        mem_no=#{memNo}
-	and     status='Y'
-	group
-	by
-	       type
-	       
-	union    
-	
-	select 
-	        '총계' as type, 
-	         to_char(NVL(min(decode(rownum,1,amount)),0)- NVL(min(decode(rownum,2,amount)),0),'999,999,999')  as amount, 
-	        #{createDate} as create_date 
-	 from 
-	(select    
-	            sum(amount) AS amount
-	    from
-	            account_book
-	    where
-	            create_date between #{createDate} and last_day(#{createDate})
-	    and
-	             mem_no=#{memNo}
-	    and     status='Y'
-	    group
-	    by
-	            type
-	    order by
-	        type asc)
+		select
+		       NVL(DECODE(type,'I', '수입','O','지출'), 0) as type, 
+		       to_char(sum(amount) ,'999,999,999') as amount, 
+		       #{createDate} as create_date
+		from
+		        account_book
+		where
+		       create_date between #{createDate} and last_day(#{createDate})
+		and
+		        mem_no=#{memNo}
+		and     status='Y'
+		group
+		by
+		       type
+		       
+		union    
 		
+		select 
+		        '총계' as type, 
+		         to_char(NVL(min(decode(rownum,1,amount)),0)- NVL(min(decode(rownum,2,amount)),0),'999,999,999')  as amount, 
+		        #{createDate} as create_date 
+		 from 
+		(select    
+		            sum(amount) AS amount
+		    from
+		            account_book
+		    where
+		            create_date between #{createDate} and last_day(#{createDate})
+		    and
+		             mem_no=#{memNo}
+		    and     status='Y'
+		    group
+		    by
+		            type
+		    order by
+		        type asc)
+			
 	</select>
-
-		
+	
+			
 	<select id="selectListCount" parameterType="account" resultType="_int">
-	select
-				count(*)
-	      from
-	      		 account_book
-	      where
-	      		status= 'Y'
-	      and
-	      		mem_no = #{memNo}
-	      		
-	   	<if test="accountCategory !='noCategory' and accountCategory !='selectAll'">
-			and account_category = #{accountCategory}		
-		</if>
-		<if test="goods !='noGoods' and goods !='selectAll'">
-			and goods = #{goods}		
-		</if>
-	   		
+		select
+					count(*)
+		      from
+		      		 account_book
+		      where
+		      		status= 'Y'
+		      and
+		      		mem_no = #{memNo}
+		      		
+		   	<if test="accountCategory !='noCategory' and accountCategory !='selectAll'">
+				and account_category = #{accountCategory}		
+			</if>
+			<if test="goods !='noGoods' and goods !='selectAll'">
+				and goods = #{goods}		
+			</if>
+		   		
 	 </select>   
-
+	
 	<update id="deleteCheckedAccountNo">
-			update 
- 		  		account_book
- 		  set
- 		  		status = 'N'
- 		  where
- 		  		account_no in
- 		  		<foreach collection="list" item="item" open="(" close=")" separator=",">
- 		  		 #{item}
- 		  		</foreach> 
+				update 
+	 		  		account_book
+	 		  set
+	 		  		status = 'N'
+	 		  where
+	 		  		account_no in
+	 		  		<foreach collection="list" item="item" open="(" close=")" separator=",">
+	 		  		 #{item}
+	 		  		</foreach> 
 	</update>
 	<update id="deleteCheckedAttachment" parameterType="_int">
-	update
-			attachment
-	set
-			status = 'N'
-	where
-			board_no in
-			<foreach collection="list" item="item" open="(" close=")" separator=",">
- 		  		 #{item}
- 		  	</foreach> 
-
+		update
+				attachment
+		set
+				status = 'N'
+		where
+				board_no in
+				<foreach collection="list" item="item" open="(" close=")" separator=",">
+	 		  		 #{item}
+	 		  	</foreach> 
+	
 	</update>	
 	
 

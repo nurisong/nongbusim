@@ -271,53 +271,6 @@ public class AccountController {
 	
 	} 
 	
-	@RequestMapping("calView.ac")
-	public ModelAndView loadDiaryCal(ModelAndView mv) {
-		mv.setViewName("member/myPageFarmer/account/accountCalView");
-		return mv;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "calList.ac", produces = "application/json; charset=UTF-8")
-	public String selectCalEventList (HttpSession session) {
-		int memNo = ((Member) session.getAttribute("loginUser")).getMemNo();	  
-	    System.out.println(accountService.seletCalEvent(memNo));
-	    return new Gson().toJson(accountService.seletCalEvent(memNo));
-
-	
-	}
-
-	
-	//calView에서 해당월 수입지출 요약정보를 띄워주기위한 ajax를 받는메소드 
-	//ajax로 yyyy-mm-01 데이터(yearMonth)를 넘길 때, 
-	// 나중에 mapper에 parameterType으로  (yearMonth, memNo) 두개를 넘겨야 하므로
-	// Account vo에  두 값을 담을 것임
-	// controller에서 data를 받을 때 Account로 받도록 RequestParam 설정
-	@ResponseBody
-	@RequestMapping(value = "monthlySummary.ac", produces = "application/json; charset=UTF-8")
-	public String monthlySummary(Account account,  HttpSession session) {
-		
-		
-		account.setMemNo(((Member) session.getAttribute("loginUser")).getMemNo());
-		
-		ArrayList<Account> result = accountService.monthlySummary(account);
-		
-		if(result.size()<3) {
-			if(result.get(0).getType().equals("수입")) {
-				result.get(1).setAmount("+"+result.get(1).getAmount());
-			} else if(result.get(0).getType().equals("지출"))  {
-				result.get(1).setAmount("-"+result.get(1).getAmount());
-			}
-		}
-		
-		
-		return new Gson().toJson(result);
-		
-		// 해당월 총 수입: [Account(accountNo=0, type=I, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=4010000, accountContent=null, status=null, memNo=0, nickName=null), 
-		// 해당월 총 지출: Account(accountNo=0, type=O, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=895000, accountContent=null, status=null, memNo=0, nickName=null)]	
-
-		
-	}
 	
 	//선택한 체크박스  글들을 삭제하는 메소드
 	@ResponseBody
@@ -340,7 +293,52 @@ public class AccountController {
 		
 	}
 	
+	
+	//----------------------입출금장부 달력보기 초기 진입화면 --------------------------------------------------
+	@RequestMapping("calView.ac")
+	public ModelAndView loadDiaryCal(ModelAndView mv) {
+		mv.setViewName("member/myPageFarmer/account/accountCalView");
+		return mv;
+	}
+	
+	//-----------------------calList에서 달력에 event를 띄워주기위한 ajax를 받는메소드, loadEvent()호출------------
+	@ResponseBody
+	@RequestMapping(value = "calList.ac", produces = "application/json; charset=UTF-8")
+	public String selectCalEventList (HttpSession session) {
+		int memNo = ((Member) session.getAttribute("loginUser")).getMemNo();	  
+	    return new Gson().toJson(accountService.seletCalEvent(memNo));
+	
+	}
 
+	
+	//-------------------------calView에서 해당월 수입지출 요약정보를 띄워주기위한 ajax를 받는메소드---------------------
+	//ajax로 yyyy-mm-01 데이터(yearMonth)를 넘길 때, 
+	// 나중에 mapper에 parameterType으로  (yearMonth, memNo) 두개를 넘겨야 하므로
+	// Account vo에  두 값을 담을 것임
+	// controller에서 data를 받을 때 Account로 받도록 RequestParam 설정
+	@ResponseBody
+	@RequestMapping(value = "monthlySummary.ac", produces = "application/json; charset=UTF-8")
+	public String monthlySummary(Account account,  HttpSession session) {
+		
+		
+		account.setMemNo(((Member) session.getAttribute("loginUser")).getMemNo());
+		
+		ArrayList<Account> result = accountService.monthlySummary(account);
+		
+		if(result.size()<3) { 
+			if(result.get(0).getType().equals("수입")) {
+				result.get(1).setAmount("+"+result.get(1).getAmount());
+			} else if(result.get(0).getType().equals("지출"))  {
+				result.get(1).setAmount("-"+result.get(1).getAmount());
+			}
+		}
+				
+		return new Gson().toJson(result);
+		
+		// 해당월 총 수입: [Account(accountNo=0, type=I, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=4010000, accountContent=null, status=null, memNo=0, nickName=null), 
+		// 해당월 총 지출: Account(accountNo=0, type=O, accountCategory=null, goods=null, startDate=null, endDate=null, createDate=2023-01-01, amount=895000, accountContent=null, status=null, memNo=0, nickName=null)]	
+		
+	}
 	
 	
 }

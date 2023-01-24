@@ -22,7 +22,7 @@
 		width:1200px;
 		margin:auto;
 		background-color: #f5f5f5;
-		padding: 20px;
+		padding: 40px;
 	}
 	div p{
 		overflow: hidden;
@@ -32,17 +32,21 @@
 	height: 20px;
 	}
  
-
-	summary{
+	details {
 		background-color: white;
 		border-radius: 2%;
 		border: 1px solid #e0e0e0;
 		padding: 10px;
 	}
 	
+	
+	
+	
 	.article-title {
 		font-size:20px;
-	 	padding-left:50px}
+	 	padding-left:50px;
+	 	font-weight: bolder;
+	 }
 	 
 	 
 	.category{
@@ -54,17 +58,23 @@
 	}
 
 	.article-title+div{
-		display:flex;  padding:30px;
+		display:flex;  padding:20px;
 	}
-	.box{
-		margin:10px;}
 	
 	.content{
-		width:700px;
+		width:600px;
 		padding:10px;
-		border:1px solid #ddd;
+		border:1px solid darkgray;
 		font: 400 1rem/1.5rem 'NotoSansKR';
-		margin-right:100px;
+		margin: 30px 100px 30px 10px;
+		border-radius: 2%;
+	}
+	
+	.mk-content{
+		width:600px;
+		padding:10px 0px 0px 30px;
+		font: 400 1rem/1.5rem 'NotoSansKR';
+		border-radius: 2%;
 	}
 	
 	
@@ -149,7 +159,7 @@
 						<input type="hidden" name="boardNo" class="boardNo" value="${board.boardNo }">
 						<input type="hidden" name="type" id="boardType" value="${board.boardType }">
 						<div class="article-title">${board.boardTitle }</div>
-						<div style="display:flex;  padding:30px;">
+						<div style="display:flex;  padding:20px;">
 							<div>
 								<div class="box">				
 									<div class="content">${board.boardContent }</div>
@@ -407,8 +417,9 @@
 			                <div class="article-title">${market.marketTitle }</div>
 			                <div>
 			                    <div class="box">		
-			                        <div class="content">카테고리 &nbsp;&nbsp;&nbsp; ${market.marketCategory}</div>
-			                        <div class="content">가격 &nbsp;&nbsp;&nbsp;${market.marketPrice}원</div>
+			                        <div class="mk-content">카테고리&nbsp;&nbsp; ${market.marketCategory}</div>
+			                        <div class="mk-content">가격&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;${market.marketPrice}원</div>
+			                        <div class="mk-content">작성일&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;${market.marketEnrollDate}</div>
 			                    </div>	
 			                    <div>
 			                    <c:set var="chk" value="true" />
@@ -464,9 +475,9 @@
 							<div class="article-title">${program.programName }</div>
 							<div>
 								<div class="box">	
-									<div>${program.programLecture}</div>
+									<div>&nbsp;&nbsp;&nbsp;강사명&nbsp; :&nbsp; ${program.programLecture}</div>
 									<div class="content">${program.programDetail}</div>
-									<div>${program.programPlan }</div>	
+									<div>&nbsp;&nbsp;&nbsp;진행일시 :&nbsp;${program.programPlan }</div>	
 									
 								</div>	
 								<div>
@@ -633,7 +644,7 @@
             var content = $(this).children('.content');
             var content_txt = content.text();
             var content_txt_short = content_txt.substring(0,100)+"...";
-            var btn_more = $('<a href="javascript:void(0)" class="more">상세보기</a>');
+            var btn_more = $('<a href="javascript:void(0)" class="more">&nbsp;&nbsp;&nbsp;상세보기</a>');
 
             
             $(this).append(btn_more);

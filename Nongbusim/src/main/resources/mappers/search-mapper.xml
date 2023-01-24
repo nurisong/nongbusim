@@ -220,9 +220,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- infoBoard쿼리 -->
 	
+	<!-- infoBoard쿼리 -->
+	
 	<select id="searchInfoBoardList" resultMap="infoResultSet">
 		select 
-		        info_no, category, info_title, info_content, create_date, count
+		        info_no, category, info_title, info_content, to_char(create_date, 'YYYY-MM-DD') create_date, count
 		from 
 		        info_board
 		
@@ -235,7 +237,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="searchMarketList"  resultMap="marketResultSet">
 		select 
-		        market_no, nickname, mem_no, mk_category, mk_title, mk_price, mk_intro, mk_content, mk_enrolldate
+		        market_no, nickname, mem_no, mk_category, mk_title, mk_price, mk_intro, mk_content, to_char(mk_enrolldate, 'YYYY-MM-DD') mk_enrolldate
 		from 
 		        market
 		join
@@ -253,7 +255,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		board_type은 동적으로 가져가자 -->
 	<select id="searchBoardList" resultMap="boardResultSet">
 	
-		select board_no, board_type, board_title, board_content, create_date, board_writer        
+		select board_no, board_type, board_title, board_content, to_char(create_date, 'YYYY-MM-DD') create_date, board_writer        
 		from 
 		        board
 		where  (board_title like  '%'||#{keyword}||'%'
@@ -265,7 +267,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchProgramList" resultMap="programResultSet">
 	
 		select 
-		        program_no, change_name, program_name, program_plan, program_hour, program_lecture, program_detail, program_location, status, sign_up
+		        program_no, change_name, program_name, to_char(program_plan, 'YYYY-MM-DD') program_plan, program_hour, program_lecture, program_detail, program_location, status, sign_up
 		from 
 		        program   
 		where (program_name  like  '%'||#{keyword}||'%'
@@ -277,7 +279,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="searchFarmList" resultMap="farmResultSet">
 		select 
-		        farm_no, farm_name, address, crop, create_date, farm_intro
+		        farm_no, farm_name, address, crop, to_char(create_date, 'YYYY-MM-DD') create_date, farm_intro
 		from 
 		        farm 
 		where (farm_name  like  '%'||#{keyword}||'%'
@@ -288,7 +290,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</select>
 	
-		<select id="searchAttachmentList" resultMap="attachmentResultSet">
+	<select id="searchAttachmentList" resultMap="attachmentResultSet">
 	SELECT BOARD_NO, CHANGE_NAME, BOARD_TYPE FROM ATTACHMENT
 	
 	</select>
