@@ -2,7 +2,7 @@ package com.kh.nbs.search.model.service;
 
 import java.util.ArrayList;
 
-import com.kh.nbs.board.model.vo.Board;
+import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.search.model.vo.Search;
 
 public interface SearchService {
@@ -18,6 +18,9 @@ public interface SearchService {
 	ArrayList<Search>selectMarketList(String keyword);
 
 	ArrayList<Search>selectProgramList(String keyword);
+
+	ArrayList<Attachment> searchAttachmentList();
+
 
 	
 }

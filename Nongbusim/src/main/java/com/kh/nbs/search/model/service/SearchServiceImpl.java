@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.search.model.dao.SearchDao;
 import com.kh.nbs.search.model.vo.Search;
 
@@ -47,6 +48,11 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public ArrayList<Search> selectProgramList(String keyword) {
 		return searchDao.selectProgramList(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Attachment> searchAttachmentList() {
+		return searchDao.searchAttachmentList(sqlSession);
 	}
 	
 

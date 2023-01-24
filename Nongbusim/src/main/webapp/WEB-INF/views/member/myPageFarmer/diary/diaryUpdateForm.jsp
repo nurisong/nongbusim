@@ -20,7 +20,7 @@
 	}
 	
 	main {
-		margin : aut;tk
+		margin : auto;
 		display: block;
 		box-sizing: border-box;
 		width: 800px;

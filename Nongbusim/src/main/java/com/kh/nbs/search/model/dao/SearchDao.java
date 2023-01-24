@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.nbs.common.model.vo.Attachment;
 import com.kh.nbs.search.model.vo.Search;
 
 
 @Repository
 public class SearchDao {
-	
 	
 
 
@@ -37,6 +37,10 @@ public class SearchDao {
 
 	public ArrayList<Search> selectProgramList(SqlSessionTemplate sqlSession, String keyword) {
 		return (ArrayList)sqlSession.selectList("searchMapper.searchProgramList", keyword);
+	}
+
+	public ArrayList<Attachment> searchAttachmentList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("searchMapper.searchAttachmentList");
 	}
 
 }
