@@ -60,11 +60,13 @@
 		margin:10px;}
 	
 	.content{
-		width:600px;
+		width:700px;
 		padding:10px;
 		border:1px solid #ddd;
 		font: 400 1rem/1.5rem 'NotoSansKR';
+		margin-right:100px;
 	}
+	
 	
 	main img {
 
@@ -334,38 +336,46 @@
 		<div class="market category">농작물 거래목록</div>
 		<details>
 			<summary>
-				<c:forEach var="market" items="${marketList }" begin="1" end="3">
-					<div class="market"> 		
-							<input type="hidden" name="marketNo" class="marketNo" value="${market.marketNo }">
-							<div class="article-title">${market.marketTitle }</div>
-							<div class="article-content-area" >
-								<div>
-									<div>				
-										<div class="article-category">${market.marketCategory }</div>
-										<div class="content">${market.marketPrice }원</div>							
-									</div>
-									<div style="padding:20px;">${market.marketEnrollDate }</div>
-								</div>	
-								<div>
-									<c:forEach items="${ atList }" var="at">
-				                        <c:if test="${ market.marketNo eq at.boardNo and at.boardType eq 'mk'}">
-				                                 <img src="${ at.changeName }" alt="">
-				                        </c:if>
-				                    </c:forEach>
-				                </div>
-			            	</div>    
-					</div>
-				</c:forEach>
+			    <c:forEach var="market" items="${ marketList}" begin="1" end="3"> 		
+			        <div class="market">
+			                <input type="hidden" name="marketNo" class="marketNo" value="${market.marketNo }">
+			                <div class="article-title">${market.marketTitle }</div>
+			                <div>
+			                    <div class="box">		
+			                        <div class="content">카테고리 &nbsp;&nbsp;&nbsp; ${market.marketCategory}</div>
+			                        <div class="content">가격 &nbsp;&nbsp;&nbsp;${market.marketPrice}원</div>
+			                    </div>	
+			                    <div>
+			                        <c:forEach items="${ atList }" var="at">
+			                            <c:if test="${ market.marketNo eq at.boardNo and at.boardType eq 'mk'}">
+			                                <img src="${ at.changeName }" alt="">
+			                            </c:if>
+			                         </c:forEach>								
+			                    </div>
+			                </div>		
+			            </div>	
+			    </c:forEach>
 			</summary>
-			<c:forEach var="market" items="${marketList }" begin="3">
-					<div class="market"> 		
-							<input type="hidden" name="marketNo" class="marketNo" value="${market.marketNo }">
-							<div class="article-title">${market.marketCategory }</div>
-							<div class="article-title">${market.marketTitle }</div>
-							<div class="content">${market.marketPrice }</div>
-							<div>${market.marketIntro }</div>		
-					</div>
-			</c:forEach>
+		    <c:forEach var="market" items="${marketList }" begin="3"> 		
+		            <div class="market">
+		                <input type="hidden" name="marketNo" class="marketNo" value="${market.marketNo }">
+		                <div class="article-title">${market.marketTitle }</div>
+		                <div>
+		                    <div class="box">		
+		                        <div class="content">카테고리 &nbsp;&nbsp;&nbsp; ${market.marketCategory}</div>
+		                        <div class="content">가격 &nbsp;&nbsp;&nbsp;${market.marketPrice}원</div>
+		                    </div>	
+		                    <div>
+		                        <c:forEach items="${ atList }" var="at">
+		                            <c:if test="${ market.marketNo eq at.boardNo and at.boardType eq 'mk'}">
+		                                <img src="${ at.changeName }" alt="">
+		                            </c:if>
+		                         </c:forEach>								
+		                    </div>
+		                </div>		
+		            </div>		
+		    </c:forEach>	
+				
 		
 		</details>	
 	</c:if>
@@ -422,20 +432,10 @@
 						<div class="farm">
 								<input type="hidden" name="farmNo" class="farmNo" value="${farm.farmNo }">
 								<div class="article-title">${farm.farmName }</div>
-								
-								
-								<div class="content">${farm.address }</div>
-								<div>${farm.crop }</div>	
-						</div>
-					</c:forEach>
-				</summary>
-					<c:forEach var="farm" items="${farmList }" begin="3"> 		
-							<div class="farm">
-									<input type="hidden" name="farmNo" class="farmNo" value="${farm.farmNo }">
-									<div class="article-title">${farm.farmName }</div>
+								<div>
 									<div class="box">		
-										<div>${farm.crop }</div>
-										<div>${farm.address }</div>
+										<div class="content">주소 &nbsp;&nbsp;&nbsp; ${farm.address }</div>
+										<div class="content">작물 &nbsp;&nbsp;&nbsp;${farm.crop }</div>
 									</div>	
 									<div>
 										<c:forEach items="${ atList }" var="at">
@@ -443,15 +443,29 @@
 					                            <img src="${ at.changeName }" alt="">
 					                        </c:if>
 						                 </c:forEach>								
+									</div>
+								</div>		
+							</div>	
+					</c:forEach>
+				</summary>
+					<c:forEach var="farm" items="${farmList }" begin="3"> 		
+							<div class="farm">
+								<input type="hidden" name="farmNo" class="farmNo" value="${farm.farmNo }">
+								<div class="article-title">${farm.farmName }</div>
+								<div>
+									<div class="box">		
+										<div class="content">주소 &nbsp;&nbsp;&nbsp; ${farm.address }</div>
+										<div class="content">작물 &nbsp;&nbsp;&nbsp;${farm.crop }</div>
 									</div>	
-							</div>
-									
-									
-									
-									<div class="content">${farm.address }</div>
-									<div>${farm.crop }</div>
-									<div>${farm.farmIntro }</div>		
-							</div>
+									<div>
+										<c:forEach items="${ atList }" var="at">
+					                        <c:if test="${ farm.farmNo eq at.boardNo and at.boardType eq 'F'}">
+					                            <img src="${ at.changeName }" alt="">
+					                        </c:if>
+						                 </c:forEach>								
+									</div>
+								</div>		
+							</div>		
 					</c:forEach>	
 			</details>	
 	</c:if>
@@ -465,7 +479,7 @@
 							<div class="article-title">${infoBoard.infoTitle }</div>
 							
 							<div class="box">
-								<div class="content"> ${infoBoard.infoContent }</div>	
+								<div class="content" style="width:900px; margin-right:50px;"> ${infoBoard.infoContent }</div>	
 							</div>
 						</div>	
 					</c:forEach>
