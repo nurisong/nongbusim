@@ -90,6 +90,21 @@
  		
 	}
 	
+	.myAButton {
+		padding: 3px 10px;
+	 	margin: 5px;
+	    width: 80px;
+	    heigh: 30px;
+		font-size: 15px;
+		color: white;
+	    border: white;
+	    background-color: #388e3c;
+   		text-decoration: none;
+   		text-align: center;
+   		border-radius: 5px;   
+ 		
+	}
+	
 	.file-area, .filebox {
 		display:flex;
 		justify-content: space-around;
@@ -216,7 +231,7 @@
 				</div>
 				<div class="button-area">
 					<button class="myButton" id="update">수정하기</button>	
-					<a class="myButton" href="javascript:history.back();">돌아가기</a>	
+					<a class="myAButton" href="javascript:history.back();">돌아가기</a>	
 				</div>
 				<input type="hidden" name="nickName" value="${loginUser.nickName }" >
 				<input type="hidden" name="memNo" value="${loginUser.memNo}" >

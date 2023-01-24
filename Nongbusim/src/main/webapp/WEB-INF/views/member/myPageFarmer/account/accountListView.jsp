@@ -257,7 +257,7 @@
 <div id="listArea" style="clear:both; margin:20px 0px;">
 	<div>
 		<button onclick="deleteSelected();">선택삭제</button>
-		<button>선택수정</button>
+		<button onclick="updateSelected();">선택수정</button>
 		<button>엑셀 다운로드</button>
 	</div>
 	<br>
@@ -487,7 +487,19 @@
 	   });
 	}
 		
-	
+	//'선택수정'을 누를시 동작하는 함수 
+	function updateSelected(){
+		var checkboxArr = $('input:checkbox[name="accountNo"]:checked').length;
+		console.log("checkboxArr"+checkboxArr);
+		if(checkboxArr > 2 ){
+			alert('수정은 한 번에 한 게시글만 가능합니다.');
+			
+		} else {
+			location.href = 'updateForm.ac?ano='+$('input:checkbox[name="accountNo"]:checked').val();
+			
+		} 	
+		
+	};
 
  
 </script>
