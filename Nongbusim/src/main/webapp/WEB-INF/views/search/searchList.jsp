@@ -425,7 +425,7 @@
 			            </div>	
 			    </c:forEach>
 			</summary>
-		    <c:forEach var="market" items="${marketList }" begin="3"> 		
+		    <c:forEach var="market" items="${marketList }" begin="4"> 		
 		            <div class="market">
 		                <input type="hidden" name="marketNo" class="marketNo" value="${market.marketNo }">
 		                <div class="article-title">${market.marketTitle }</div>
@@ -476,7 +476,7 @@
 						</div>
 					</c:forEach>
 				</summary>
-					<c:forEach var="program" items="${programList }" begin="3" >
+					<c:forEach var="program" items="${programList }" begin="4" >
 						<div class="program"> 		
 							<input type="hidden" name="programNo" class="programNo" value="${program.programNo }">
 							<div class="article-title">${program.programName }</div>
@@ -525,7 +525,7 @@
 							</div>	
 					</c:forEach>
 				</summary>
-					<c:forEach var="farm" items="${farmList }" begin="3"> 		
+					<c:forEach var="farm" items="${farmList }" begin="4"> 		
 							<div class="farm">
 								<input type="hidden" name="farmNo" class="farmNo" value="${farm.farmNo }">
 								<div class="article-title">${farm.farmName }</div>
@@ -565,7 +565,7 @@
 						</div>	
 					</c:forEach>
 				</summary>	
-				<c:forEach var="infoBoard" items="${infoBoardList }" begin="3"> 
+				<c:forEach var="infoBoard" items="${infoBoardList }" begin="4"> 
 						<div class="infoBoard">
 							<input type="hidden" name="infoNo" class="infoNo" value="${infoBoard.infoNo }">
 							<div class="article-title">${infoBoard.infoTitle }</div>

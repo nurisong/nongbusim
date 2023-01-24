@@ -65,16 +65,7 @@ public class SearchController {
 		System.out.println(keyword);
 		// 1. 일반게시판
 		// boardType S K, Q, M
-		
-		for(Attachment at :searchService.searchAttachmentList()) {
-			System.out.println(at);
-		}
-		
-	
-		
-		System.out.println(searchService.selectMarketList(keyword));
-		System.out.println();
-		mv.addObject("boardList", searchService.selectBoardList(keyword))
+				mv.addObject("boardList", searchService.selectBoardList(keyword))
 		  .addObject("farmList", searchService.selectFarmList(keyword))
 		  .addObject("infoBoardList", searchService.selectInfoBoardList(keyword))
 		  .addObject("marketList", searchService.selectMarketList(keyword))

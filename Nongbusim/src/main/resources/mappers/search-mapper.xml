@@ -226,11 +226,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from 
 		        info_board
 		
-		where info_title like  '%'||#{keyword}||'%'
+		where status='Y'
+		and	(info_title like  '%'||#{keyword}||'%'
 		or info_content like  '%'||#{keyword}||'%'
-		or category like  '%'||#{keyword}||'%'
-		and status = 'Y'
-	
+		or category like  '%'||#{keyword}||'%')
+		
 	</select>
 	
 	<select id="searchMarketList"  resultMap="marketResultSet">
@@ -241,10 +241,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		join
 		        member
 		using (mem_no)    
-		where mk_category like  '%'||#{keyword}||'%'
+		where (mk_category like  '%'||#{keyword}||'%'
 		or mk_category like  '%'||#{keyword}||'%'
 		or mk_title like  '%'||#{keyword}||'%'
-		or mk_content like  '%'||#{keyword}||'%'
+		or mk_content like  '%'||#{keyword}||'%')
 		and mk_status = 'Y'
 		
 	
@@ -256,9 +256,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select board_no, board_type, board_title, board_content, create_date, board_writer        
 		from 
 		        board
-		where  board_title like  '%'||#{keyword}||'%'
+		where  (board_title like  '%'||#{keyword}||'%'
 		or board_content like '%'||#{keyword}||'%' 
-		or board_writer like '%'||#{keyword}||'%'
+		or board_writer like '%'||#{keyword}||'%')
 		and status = 'Y'
 	</select>
 
@@ -268,10 +268,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        program_no, change_name, program_name, program_plan, program_hour, program_lecture, program_detail, program_location, status, sign_up
 		from 
 		        program   
-		where program_name  like  '%'||#{keyword}||'%'
+		where (program_name  like  '%'||#{keyword}||'%'
 		or program_lecture like '%'||#{keyword}||'%' 
 		or program_detail like '%'||#{keyword}||'%'
-		or program_location like '%'||#{keyword}||'%'
+		or program_location like '%'||#{keyword}||'%')
 		and status = 'Y'
 	</select>
 	
@@ -280,10 +280,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        farm_no, farm_name, address, crop, create_date, farm_intro
 		from 
 		        farm 
-		where farm_name  like  '%'||#{keyword}||'%'
+		where (farm_name  like  '%'||#{keyword}||'%'
 		or crop like '%'||#{keyword}||'%' 
 		or create_date like '%'||#{keyword}||'%'
-		or farm_intro like '%'||#{keyword}||'%'
+		or farm_intro like '%'||#{keyword}||'%')
 		and status = 'Y'
 	
 	</select>
