@@ -131,7 +131,7 @@
                              ${r.reviewEnrollDate}
 
                         </td>
-                        <td>${r.reviewNo}</td>
+                       
                         <td>
                             <c:choose>
                                 <c:when test="${r.rating eq 5}">
