@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -232,13 +233,54 @@ public class MarketController {
 	
 	//게시물 수정 
 	@RequestMapping("update.mk")
-	public String updateMarket(Market market) {
+	public ModelAndView updateMarket(Market market, Attachment at, HttpServletRequest request, MultipartFile[] reUpFiles, HttpSession session, ModelAndView mv, RedirectAttributes rttr) {
 		
-		//게시글을 수정 혹은 수정안할 수 도 있음
+		market.setMemNo(((Member)session.getAttribute("loginUser")).getMemNo()); //멤버넘버 가져오기
+	
+		//System.out.println(request.getParameter("originalFileNo"+1));
+		//System.out.println(request.getParameter("originalFileNo"+2));
 		
-		//첨부파일을 수정하는건지, 추가하는건지
+		//게시물 수정 
+		if(marketService.marketUpdate(market) > 0) {// 게시글을 수정하고 옴
+			
+			/*for(int i = 0; i < 4; i++) { //새롭게 첨부한 파일의 갯수만큼 돌면서
+				
+				//System.out.println(reUpFiles[i].getOriginalFilename());
+				
+				if(!reUpFiles[i].getOriginalFilename().equals("")) {
+
+					at.setBoardNo(market.getMarketNo());
+					at.setOriginName(reUpFiles[i].getOriginalFilename());
+					at.setChangeName("resources/uploadFiles/" + saveFile(reUpFiles[i], session));
+					
+					if(request.getParameter("originalFileNo"+(i+1)) == null){ // 기존 첨부파일이 존재하지 않는다면 insert해라
+						
+						at.setBoardNo(market.getMarketNo());
+						marketService.insertAttachment(at);
+						
+						/*
+						at.setFileNo(Integer.parseInt(request.getParameter("originalFileNo"+(i+1))));
+						new File("/"+request.getParameter("orginalChangeName"+(i+1))).delete();
+						marketService.updateAttachment(at);
+						
+					}else {//기존 첨부파일이 존재하지 않는다면 
+						
+						/*at.setBoardNo(market.getMarketNo());
+						marketService.insertAttachment(at);
+					}
+					
+					//System.out.println(at);
+					
+					}
+				}	
+			}*/
+				
+		} //게시물 수정 종료 코드
 		
-		return "";
+		rttr.addFlashAttribute("alertMsg", "게시물이 수정되었습니다");
+		mv.setViewName("redirect:/list.mk");
+		
+		return mv;
 		
 		
 	}

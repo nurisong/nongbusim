@@ -458,4 +458,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	<update id="marketUpdate">
+	
+		 update
+		 		market
+		 	set
+		 		mk_category = #{marketCategory},
+				mk_title = #{marketTitle},
+				mk_price = #{marketPrice},
+				mk_intro = #{marketIntro},
+				mk_content = #{marketContent},
+				mk_enrolldate = sysdate,
+				mk_count = #{marketCount}
+			where
+				market_no = #{marketNo}		
+			and
+				mem_no = #{memNo}
+		
+	</update>
+	
+	
 </mapper>
