@@ -51,6 +51,8 @@
             <br>
 
             <form id="updateForm" method="post" action="update.mk" enctype="multipart/form-data">
+                <input type="hidden" name="marketNo" value="${ market.marketNo }">
+                <input type="hidden" name="marketCount" value="${market.marketCount}">
                 <table algin="center">
                     <thead>
                         <tr>
@@ -83,26 +85,31 @@
                             <td colspan="2" id="fileContent">
                                 <c:forEach items="${ at }" var="at" varStatus="status" >
                                         <div id="bFile${status.index+1}" style="display: inline;">
-                                            <input type="hidden" name="fileNo" value="${at.fileNo}">
-                                            <input type="hidden" name="changeName" value="${at.changeName}">
-                                            <input type="hidden" name="changeName" value="${at.originName}">
-                                            <img src="${at.changeName}" style="width: 150px; height: 150px; display: inline;" />${ at.originName}
-                                            <input type="file" name="upFiles" id="" onchange="loadImg(this,${status.count})"><br>
+                                            <input type="hidden" name="originalFileNo${status.count}" value="${at.fileNo}">
+                                            <input type="hidden" name="originalChangeName${status.count}" value="${at.changeName}">
+                                            <input type="hidden" name="originalOriginName${status.count}" value="${at.originName}">
+                                            <div id="fileNameArea${status.count}" style="display: inline;">
+                                                ${ at.originName }
+                                            </div>
+                                            <input type="file" name="reUpFiles" id="reUpfile${status.count}" onchange="loadImg(this,${status.count})"><br>
                                         </div>
                                 </c:forEach>
                                 <!--리스트의 길이 보다 한개 많은 수부터 4개까지 새로운 파일을 첨부할 수 있는 태그 생성-->
                                 <c:forEach var="nAt" begin="${fn:length(at)+1}" end="4" varStatus="status">
-                                    <div id="nFile${status.index}" style="display: inline;">   
-                                        <input type="file" name="reUpfiles" id="reUpfile${fn:length(at)+status.count}" onchange="loadImg(this,${fn:length(at)+status.count})"><br>
+                                    <div id="nFile${fn:length(at)+status.count}" style="display: inline;">
+                                        <input type="file" name="reUpFiles" id="reUpfile${fn:length(at)+status.count}" onchange="loadImg(this,${fn:length(at)+status.count})"><br>
                                     </div> 
                                 </c:forEach>
+                                <script>
+                                    
+                                </script>
                             </td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td colspan="2">
-                                <textarea name="updateMarketContent" cols="100" rows="10" style="resize:none;"> ${ market.marketContent } </textarea>
+                                <textarea name="marketContent" cols="100" rows="10" style="resize:none;"> ${ market.marketContent } </textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -111,12 +118,42 @@
 
                 <script>
 
-                    function loadImg(inputFile, num){
+                    function loadImg(inputFile, num){ // 1,2,3,4로 들어옴
 
-                        console.log(num);
+                        if(inputFile.files.length == 1){ //파일을 첨부하면
+			
+                            var reader = new FileReader();
+                        
+                            reader.readAsDataURL(inputFile.files[0]);
+                            
+                            reader.onload = function(e){
+
+                                switch(num){ //첫번째 파일첨부칸에 파일을 첨부하면 대표 이미지 바꾸기
+                                    
+                                    case 1: 
+                                        $('#titleImg').attr('src', e.target.result);
+                                        break;
+                                		 
+                                }					
+                            }				 
+                        }
 
                     }
 
+
+                    //새로운 첨부파일을 넣으면 기존에 달려있던 이미지 파일명 지워주기
+                    $("#reUpfile1").on('change',function(){
+			            $("#fileNameArea1").css('display', 'none');
+		            });
+                    $("#reUpfile2").on('change',function(){
+			            $("#fileNameArea2").css('display', 'none');
+		            });
+                    $("#reUpfile3").on('change',function(){
+			            $("#fileNameArea3").css('display', 'none');
+		            });
+                    $("#reUpfile4").on('change',function(){
+			            $("#fileNameArea4").css('display', 'none');
+		            });
 
 
                 </script>

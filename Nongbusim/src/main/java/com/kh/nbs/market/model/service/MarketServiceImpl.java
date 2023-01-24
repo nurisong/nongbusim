@@ -111,8 +111,7 @@ public class MarketServiceImpl implements MarketService{
 
 	@Override
 	public int marketUpdate(Market market) {
-		// TODO Auto-generated method stub
-		return 0;
+		return marketdao.marketUpdate(market, sqlSession);
 	}
 
 	
