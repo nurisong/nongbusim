@@ -15,6 +15,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="CREATE_DATE" property="createDate"/>
 		<result column="STATUS" property="status"/>
 		<result column="CROP" property="crop"/>
+		<result column="CHANGE_NAME" property="mainImg"/>
+		<result column="PROGRAM_NAME" property="programName"/>
+		<result column="PROGRAM_NO" property="programNo"/>
 	</resultMap>
 	
 	<resultMap id="attachmentResultSet" type="attachment">
@@ -121,81 +124,83 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectFarmList" resultMap="farmResultSet">
-		SELECT
-				*
+		SELECT 
+				 F.*
+				,A.CHANGE_NAME
+				,P.PROGRAM_NAME
+				,P.PROGRAM_NO
 		  FROM
 				(
 				SELECT
-						 FARM_NO
-				    	,FARMER
-				    	,FARM_NAME
-				    	,LOCAL_CODE
-				    	,ADDRESS
-				    	,PHONE
-				    	,CREATE_DATE
-				    	,STATUS
-				    	,CROP
-			 	  FROM
-			 	  		FARM
+						*
+				  FROM
+						(
+						SELECT
+								 FARM_NO
+						    	,FARMER
+						    	,FARM_NAME
+						    	,LOCAL_CODE
+						    	,ADDRESS
+						    	,PHONE
+						    	,CREATE_DATE
+						    	,STATUS
+						    	,CROP
+					 	  FROM
+					 	  		FARM
+					 	 WHERE
+					 	 		STATUS = 'Y'
+					 	 <if test="localCode != 'all'">
+					 	   AND
+					 	   		LOCAL_CODE = #{localCode}
+					 	 </if>
+					 	)
+			 	<if test="condition == 'all'">
 			 	 WHERE
-			 	 		STATUS = 'Y'
-			 	 <if test="localCode != 'all'">
-			 	   AND
-			 	   		LOCAL_CODE = #{localCode}
+			 	 		FARM_NAME LIKE '%'||#{keyword}||'%'
+			 	 	OR
+			 	 		CROP LIKE '%'||#{keyword}||'%'
+			 	 </if> 
+			 	 <if test="condition == 'farmName'">
+			 	 WHERE
+			 	   		FARM_NAME LIKE '%'||#{keyword}||'%'
 			 	 </if>
-			 	)
-	 	<if test="condition == 'all'">
-	 	 WHERE
-	 	 		FARM_NAME LIKE '%'||#{keyword}||'%'
-	 	 	OR
-	 	 		CROP LIKE '%'||#{keyword}||'%'
-	 	 </if> 
-	 	 <if test="condition == 'farmName'">
-	 	 WHERE
-	 	   		FARM_NAME LIKE '%'||#{keyword}||'%'
-	 	 </if>
-	 	 <if test="condition == 'crop'">
-	 	 WHERE
-	 	   		CROP LIKE '%'||#{keyword}||'%'
-	 	 </if>	
-	 	 ORDER
-	 	 	BY
-	 	 <if test="order == 'recent'">
-	 	 		FARM_NO DESC
-	 	 </if>
-	 	 <if test="order == 'name'">
-	 	 		FARM_NAME
-	 	 </if>
+			 	 <if test="condition == 'crop'">
+			 	 WHERE
+			 	   		CROP LIKE '%'||#{keyword}||'%'
+			 	 </if>	
+			 	 ORDER
+			 	 	BY
+			 	 <if test="order == 'recent'">
+			 	 		FARM_NO DESC
+			 	 </if>
+			 	 <if test="order == 'name'">
+			 	 		FARM_NAME
+			 	 </if>
+			 	 ) F
+		  JOIN
+		  		 (
+		  		 SELECT 
+		  		 		 CHANGE_NAME
+		  		 		,BOARD_NO 
+		  		   FROM 
+		  		   		 ATTACHMENT 
+		  		  WHERE 
+		  		  		 BOARD_TYPE = 'F'
+                    AND
+                    	 FILE_LEVEL = 1
+                 ) A ON F.FARM_NO = A.BOARD_NO
+          JOIN 
+		  		 (
+          		 SELECT 
+          				 FARM_NO
+          				,PROGRAM_NO
+          				,PROGRAM_NAME 
+          		   FROM 
+          		  		 PROGRAM
+          		) P ON F.FARM_NO = P.FARM_NO 
 	</select>
 	
-	<select id="selectAttachmentList" resultMap="attachmentResultSet">
-		SELECT 
-				board_no,
-				file_no,
-				origin_name,
-				change_name,
-				upload_date,
-				board_type
-		            
-		  FROM
-				ATTACHMENT
-		            
-		 WHERE
-				FILE_LEVEL = 1
-				
-		   AND
-				BOARD_TYPE = 'F'
-	</select>
 	
-	<select id="selectProgramList" resultMap="programResultSet">
-        SELECT 
-            	 PROGRAM_NAME
-            	,PROGRAM_PLAN
-            	,PROGRAM_NO
-            	,FARM_NO
-          FROM
-          		 PROGRAM
-	</select>
 		
 	<select id="selectFarm" resultMap="farmResultSet">
 		SELECT 

@@ -31,18 +31,17 @@ public class FarmController {
 	@Autowired
 	private FarmService farmService;
 	
-	
-	
 	/**
-	 * selectFarmList: 농장 전체 조회하는 메소드
+	 * selectFarmList: 전체 농장 list를 select하는 메소드
+	 * selectFarmCount: 전체 농장의 count값을 select하는 메소드
+	 * selectAttachmentList: 전체 농장 목록의 대표 이미지 list를 select하는 메소드
+	 * selectProgramList: 전체 농장 목록의 프로그램 list를 select하는 메소드
 	 * 
-	 * 
-	 * @param currentPage
-	 * @param localCode
-	 * @param keyword
-	 * @param condition
-	 * @param order
-	 * @return
+	 * @param currentPage: 요청하는 페이지
+	 * @param localCode: 지역 코드
+	 * @param keyword: 검색 키워드
+	 * @param condition: 검색 조건
+	 * @param order: 정렬 방식
 	 */
 	@RequestMapping("list.fm")
 	public ModelAndView selectFarmList(@RequestParam(value="cpage", defaultValue="1") int currentPage,
@@ -60,15 +59,24 @@ public class FarmController {
 		
 		PageInfo pi = Pagination.getPageInfo(farmService.selectFarmCount(map), currentPage, 10, 5);
 
-		mv.addObject("pi", pi);
-		mv.addObject("atList", farmService.selectAttachmentList()); // 첨부파일
-		mv.addObject("programList", farmService.selectProgramList()); // 프로그램
-		mv.addObject("map", map);
-		mv.addObject("farmList", farmService.selectFarmList(pi, map)).setViewName("farm/farmListView");
+		mv.addObject("pi", pi)
+		  .addObject("map", map)
+		  .addObject("farmList", farmService.selectFarmList(pi, map))
+		  .setViewName("farm/farmListView");
 		
 		return mv;
 	}
 	
+	/**
+	 * selectFarm: farmNo를 통해 농장 상세 정보를 select하는 메소드
+	 * selectMarket: farmNo를 통해 해당 농장이 등록한 판매 list를 select하는 메소드
+	 * selectMarketAt: 조회된 판매 목록(mkList)을 통해 해당 판매글의 첨부파일을 select하는 메소드
+	 * selectAttachment: farmNo를 통해 농장 첨부파일을 select하는 메소드
+	 * selectProgram: farmNo를 통해 해당 농장이 등록한 프로그램 정보를 select하는 메소드
+	 * 
+	 * 
+	 * @param fno: 농장 번호
+	 */
 	@RequestMapping("detail.fm")
 	public String selectFarm(int fno, Model model) {
 		
@@ -76,9 +84,6 @@ public class FarmController {
 		Farm farm = farmService.selectFarm(fno);
 		int memNo = farm.getFarmer();
 		ArrayList<Market> mkList = farmService.selectMarket(memNo);
-		
-		//System.out.println(mkList);
-		//System.out.println(farmService.selectMarketAt(mkList));
 		
 		model.addAttribute("farm", farm);
 		model.addAttribute("programList", farmService.selectProgram(fno));
@@ -89,11 +94,18 @@ public class FarmController {
 		return "farm/farmDetailView";
 	}
 	
+	
+	/**
+	 * farmEnrollForm: 농장 등록 페이지로 이동하는 메소드
+	 */
 	@RequestMapping("enrollForm.fm")
 	public String farmEnrollForm() {
 		return "farm/farmEnrollForm";
 	}
 	
+	/**
+	 * selectMyFarmList: 로그인한 사용자가 등록한 전체 농장 list를 select하는 메소드
+	 */
 	@RequestMapping("myList.fm")
 	public String selectMyFarmList(HttpSession session, Model model) {
 		
@@ -103,8 +115,15 @@ public class FarmController {
 		return "farm/myPageFarmListView";
 	}
 	
+	/**
+	 * insertFarm: 새로운 농장을 insert하는 메소드
+	 * 
+	 * @param farm: 회원이 수정한 농장 정보 (farmer, farmName, localCode, address, phone, farmIntro, crop)
+	 * @param upfileMain: 메인 이미지
+	 * @param upfiles: 상세 이미지
+	 */
 	@RequestMapping("insert.fm")
-	public ModelAndView insertFarm(Farm f, 
+	public ModelAndView insertFarm(Farm farm, 
 								   @RequestParam(value="upfileMain") MultipartFile upfileMain,
 								   @RequestParam(value="upfiles") MultipartFile[] upfiles, 
 								   ModelAndView mv, HttpSession session, RedirectAttributes rttr) {
@@ -113,7 +132,7 @@ public class FarmController {
 		// f.setFarmer(((Member)session.getAttribute("loginUser")).getMemNo());
 		
 		// 농장 등록에 성공하면,
-		if(farmService.insertFarm(f) > 0) {
+		if(farmService.insertFarm(farm) > 0) {
 
 			//int farmNo = f.getFarmNo();
 			
@@ -174,6 +193,11 @@ public class FarmController {
 		}
 	}
 	
+	/**
+	 * updateFormFarm: 해당 farmNo의 농장 정보를 select하여, 수정 페이지로 이동하는 메소드
+	 * 
+	 * @param fno: 농장 번호
+	 */
 	@RequestMapping("updateForm.fm")
 	public String updateFormFarm(int fno, Model model) {
 		
@@ -183,6 +207,15 @@ public class FarmController {
 		return "farm/farmUpdateForm";
 	}
 	
+	/**
+	 * updateFarm: 농장 정보를 update하는 메소드
+	 * 
+	 * @param farm: 회원이 입력한 농장 정보 (farmNo, farmer, farmName, localCode, address, phone, farmIntro, crop)
+	 * @param delFiles: 삭제할 파일의 changeName
+	 * @param delFilesPath: 삭제할 파일의 경로
+	 * @param upfileMain: 메인 이미지
+	 * @param upfiles: 상세 이미지
+	 */
 	@RequestMapping("update.fm")
 	public String updateFarm(Farm farm, 
 							 int[] delFiles, String[] delFilesPath,
@@ -311,12 +344,9 @@ public class FarmController {
 	
 	/**
 	 * 
-	 * deleteFarm: 사용자자에게 게시글 번호를 입력받아서 DB에 있는 게시글을 지워주는 메소드
+	 * deleteFarm: farmNo를 통해 농장을 delete(status를 'N'으로 update)하는 메소드
 	 * 
-	 * @param fno: 화면에서 넘어오는 농장 번호
-	 * @param model
-	 * @param rttr
-	 * @return
+	 * @param fno: 농장 번호
 	 */
 	@RequestMapping("delete.fm")
 	public String deleteFarm(int fno, Model model, RedirectAttributes rttr) {

@@ -17,5 +17,6 @@ public class Farm {
 	private String crop;
 	private String mainImg;
 	private String programName;
+	private String programNo;
 }
 
